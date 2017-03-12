@@ -1,0 +1,18 @@
+Level View ports will be around 24 by ~14.
+Therefore, Tile size = WIDTH / TILES = 1920 / 24 = 80 pixels;
+
+/ / / / / Class Hierarchy / / / / /
+> Engine (Initialization, game loop, performance)
+  > Platformer2D (PSVM, render scene, update scene, change scene)
+> Scene (sprites, static shader list)
+  > Level (scrolling background, map)
+  > Menu (background, sprites, layout)
+> Sprite (Size, position, mesh, collision, texture, shader)
+  > Button (Text, Focus, Directions to others)
+  > Tiles
+    > StaticTile (ground)
+    > DynamicTile (animations)
+  > Character (movement animations)
+    > Hero (look dir animation)
+    > Enemies
+  > Scene Animations

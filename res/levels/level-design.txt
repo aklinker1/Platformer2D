@@ -1,0 +1,57 @@
+After the line of equal signs, replace the brackets and their description with the appropriate value.
+
+/ / / / /  Properties  / / / / /
+[width] - Optional
+    > The width of the level in tiles.
+    > Default = 75
+[height] - Optional
+    > The height of the level in tiles.
+    > Default = 28
+[world] - Optional
+    > The world this level is a part of, specifying the background and color scheme.
+    > Default = 1
+    > It is MUST be one of the following numbers:
+        01 (Green)
+        02 (Blue)
+        03 (Red)
+        04 (Orange)
+        05 (Grey)
+        06 (Pink)
+        07 (Yellow)
+        08 (Black)
+    > Include leading zeros
+[## ## ... ##] - This is the tile data set.
+    > Each ## corresponds to a resource under res/textures/tiles/[world]-##.png
+    > 00 represents an empty tile.
+    > If there is an error in
+    > Each row can have [0, infty] tiles, but only the tiles in the range [0, width] will be
+      loaded
+    > Rows can be blank if no tiles are in that row, but put at least a 00 to make counting them
+      easier.
+    > There can as many rows as you want, but only rows [1, height] will be loaded.
+    > The first row is row 1 (at the top), the second is row 2, ..., the last one read is row
+      [height] (at the bottom).
+
+/ / / / /  Other Info  / / / / /
+- All numbers used are hexadecimal.
+- All numbers are also 2 characters long to keep the bottom area evenly spaced.
+
+
+
+/ / / / /  Template  / / / / /
+----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+[width] [height] [world]
+[## ## ... ##]
+
+
+
+/ / / / /  Example  / / / / /
+=====================================================================================================
+20 07 03
+00
+00
+
+00
+01 01 01 01 01 01 03 00 00 00 04 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 01 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 01 00 00 00 01 01 01 01 01 01 01 01 01 01
