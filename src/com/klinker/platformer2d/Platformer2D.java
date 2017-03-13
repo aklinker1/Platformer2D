@@ -10,7 +10,8 @@ import com.klinker.platformer2d.scenes.Level;
 
 public class Platformer2D extends Engine {
 
-    public static final Vector2f TILE_COUNT = new Vector2f(30f, 30f * 9f / 16f);
+    public static final int TILE_WIDTH = 28;
+    public static final Vector2f TILE_COUNT = new Vector2f(TILE_WIDTH, (float) TILE_WIDTH * 9f / 16f);
     public static Size<Integer> SIZE = new Size<>(1280, 720);
 
     public static void main(String[] args) {
@@ -21,7 +22,7 @@ public class Platformer2D extends Engine {
     }
 
     public Platformer2D() {
-        setScene(new Level("02X.lvl"));
+        setScene(new Level("01X.lvl"));
     }
 
     @Override
