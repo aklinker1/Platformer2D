@@ -11,16 +11,12 @@ After the line of equal signs, replace the brackets and their description with t
     > The world this level is a part of, specifying the background and color scheme.
     > Default = 1
     > It is MUST be one of the following numbers:
-        01 (Green)
+        01 (Yellow)
         02 (Blue)
         03 (Red)
-        04 (Orange)
-        05 (Grey)
-        06 (Pink)
-        07 (Yellow)
-        08 (Black)
+        04 (Green)
     > Include leading zeros
-[## ## ... ##] - This is the tile data set.
+[## ## .. ##] - This is the tile data set.
     > Each ## corresponds to a resource under res/textures/tiles/[world]-##.png
     > 00 represents an empty tile.
     > If there is an error in
