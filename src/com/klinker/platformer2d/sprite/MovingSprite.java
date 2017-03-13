@@ -8,6 +8,7 @@ import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.maths.Vector3f;
+import com.klinker.platformer2d.scenes.Level;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,7 +25,7 @@ public abstract class MovingSprite extends Sprite {
 
     @Override
     public Shader getShader() {
-        return SHADER;
+        return Level.PLAYER;
     }
 
     @Override
@@ -33,7 +34,6 @@ public abstract class MovingSprite extends Sprite {
     }
 
     public void update(Tile bl, Tile br, Tile tl, Tile tr, LinkedList<MovingSprite> frenemies) {
-        System.out.println(position.toString());
         // 1. Modify velocities
         accelX();
         accelY();

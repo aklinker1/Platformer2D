@@ -2,11 +2,15 @@ package com.klinker.platformer2d.sprite;
 
 
 import com.klinker.engine2d.graphics.CollisionBox;
+import com.klinker.engine2d.graphics.Shader;
+import com.klinker.engine2d.graphics.Sprite;
 import com.klinker.engine2d.graphics.Texture;
 import com.klinker.engine2d.inputs.Input;
+import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.physics.Physics;
+import com.klinker.platformer2d.scenes.Level;
 
 import java.util.LinkedList;
 
@@ -46,6 +50,21 @@ public class Player extends MovingSprite {
     public Texture getTexture() {
         return new Texture(String.format("res/textures/char/hero%02X/body.png", hero));
     }
+
+    /*@Override
+    public Shader getShader() {
+        return Level.PLAYER;
+    }
+
+    @Override
+    protected void setShaderProperties(Shader shader) {
+        shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(position));
+    }
+
+    @Override
+    public void update() {
+
+    }*/
 
     /**
      * Gets expected changes to x velocity

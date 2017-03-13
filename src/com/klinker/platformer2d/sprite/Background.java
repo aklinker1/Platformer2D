@@ -42,7 +42,7 @@ public class Background extends Sprite {
 
     @Override
     public Texture getTexture() {
-        return new Texture("res/textures/bg/" + String.format("%02X", world) + ".png");
+        return new Texture("res/textures/bg/" + String.format("%02X", world) + "-00.png");
     }
 
     @Override
