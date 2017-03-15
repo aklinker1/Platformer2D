@@ -7,8 +7,8 @@ Based off an artstyle by open source game art designer [Kenney](http://www.kenne
 __To-Do__
 ===
 - [ ] Finish Engine2D
-  - [ ] Collisions
-  - [ ] Sprites
+  - [x] Collisions
+  - [x] Sprites
   - [ ] Enemies
   - [ ] Animations
   - [ ] Text
