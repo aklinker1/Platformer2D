@@ -38,6 +38,11 @@ public abstract class Engine implements Runnable {
     private PerformanceAnalyzer analyzer;
 
     /**
+     * The frame rate in fps.
+     */
+    private int frameRate = 61;
+
+    /**
      * Whether or not the parallel thread is running.
      */
     private boolean running = false;
@@ -82,7 +87,7 @@ public abstract class Engine implements Runnable {
         init();
         analyzer.start(window);
         while (running) {
-            sync(60);
+            sync(frameRate);
             analyzer.addFrame();
             update();
             render();
@@ -191,6 +196,15 @@ public abstract class Engine implements Runnable {
      */
     public void setSize(Size<Integer> newSize) {
         this.SIZE = newSize;
+    }
+
+    /**
+     * Sets the engine's frame rate.
+     *
+     * @param frameRate The new frame rate in fps.
+     */
+    public void setFrameRate(int frameRate) {
+        this.frameRate = frameRate;
     }
 
     /**

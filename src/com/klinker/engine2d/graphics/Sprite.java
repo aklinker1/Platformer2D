@@ -24,6 +24,11 @@ public abstract class Sprite {
     protected abstract void setShaderProperties(Shader shader);
     public abstract void update();
 
+    /**
+     * Creates a Sprite at a given position. Initializes
+     *
+     * @param position The initial position of the sprite.
+     */
     public Sprite(Vector2f position) {
         this.size = getSize();
         this.position = new Vector3f(position.x, position.y, getDepth());

@@ -8,7 +8,7 @@ import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
-import com.klinker.platformer2d.sprite.Background;
+import com.klinker.platformer2d.sprite.backgrounds.LevelBackgroundBase;
 import com.klinker.platformer2d.utils.Map;
 import com.klinker.platformer2d.utils.MapCreator;
 
@@ -63,7 +63,7 @@ public class Level extends Scene {
     public void init() {
         super.init();
         map = MapCreator.read(this.level);
-        background = new Background(new Vector2f(0f, -(Background.size.height - Platformer2D.TILE_COUNT.y) / 2f), map.getWorld());
+        background = new LevelBackgroundBase(new Vector2f(0f, -(LevelBackgroundBase.size.height - Platformer2D.TILE_COUNT.y) / 2f), map.getWorld());
     }
 
     @Override

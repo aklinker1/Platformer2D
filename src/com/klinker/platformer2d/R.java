@@ -11,7 +11,6 @@ public class R {
         public static final String W03_LXX = "res/levels/w03-lxx.lvl";
         public static final String W04_LXX = "res/levels/w04-lxx.lvl";
     }
-
     public static class shaders {
         public static class frag {
             public static final String BACKGROUND = "res/shaders/frag/background.frag";
@@ -20,9 +19,7 @@ public class R {
             public static final String MOVE = "res/shaders/frag/move.frag";
             public static final String PIPE = "res/shaders/frag/pipe.frag";
         }
-
         public static final String SHADERS = "res/shaders/shaders.iml";
-
         public static class vert {
             public static final String BACKGROUND = "res/shaders/vert/background.vert";
             public static final String BASIC = "res/shaders/vert/basic.vert";
@@ -30,7 +27,6 @@ public class R {
             public static final String PIPE = "res/shaders/vert/pipe.vert";
         }
     }
-
     public static class textures {
         public static class bg {
             public static final String B01_00 = "res/textures/bg/01-00.png";
@@ -42,18 +38,14 @@ public class R {
             public static final String B07 = "res/textures/bg/07.png";
             public static final String B09 = "res/textures/bg/09.png";
         }
-
         public static final String BG = "res/textures/bg.jpeg";
         public static final String BIRD = "res/textures/bird.png";
-
         public static class character {
             public static class hero01 {
                 public static final String BODY = "res/textures/character/hero01/body.png";
             }
         }
-
         public static final String PIPE = "res/textures/pipe.png";
-
         public static class tiles {
             public static final String T01_01 = "res/textures/tiles/01-01.png";
             public static final String T01_02 = "res/textures/tiles/01-02.png";
@@ -108,7 +100,6 @@ public class R {
             public static final String T04_0C = "res/textures/tiles/04-0C.png";
             public static final String T04_0D = "res/textures/tiles/04-0D.png";
         }
-
         public static class worlds {
             public static final String BLUE = "res/textures/worlds/blue.png";
             public static final String BROWN = "res/textures/worlds/brown.png";

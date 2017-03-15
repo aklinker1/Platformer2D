@@ -3,9 +3,9 @@ package com.klinker.platformer2d.utils;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
-import com.klinker.platformer2d.sprite.MovingSprite;
-import com.klinker.platformer2d.sprite.Player;
-import com.klinker.platformer2d.sprite.Tile;
+import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
+import com.klinker.platformer2d.sprite.players.Player;
+import com.klinker.platformer2d.sprite.tiles.Tile;
 
 import java.util.LinkedList;
 
