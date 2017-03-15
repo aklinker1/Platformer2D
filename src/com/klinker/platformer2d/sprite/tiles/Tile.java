@@ -7,6 +7,7 @@ import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
+import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.scenes.Level;
 
 public class Tile extends Sprite {
@@ -28,7 +29,7 @@ public class Tile extends Sprite {
 
     @Override
     public float getDepth() {
-        return 0f;
+        return Depth.TILE;
     }
 
     @Override

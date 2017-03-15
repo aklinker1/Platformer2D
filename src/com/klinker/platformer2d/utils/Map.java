@@ -3,6 +3,7 @@ package com.klinker.platformer2d.utils;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
+import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
 import com.klinker.platformer2d.sprite.players.Player;
 import com.klinker.platformer2d.sprite.tiles.Tile;
@@ -17,7 +18,7 @@ public class Map {
     private LinkedList<MovingSprite> frenemies;
     private Player player;
 
-    public Map(int world, int[][] tiles, Size<Integer> size) {
+    public Map(int world, int[][] tiles, Size<Integer> size, Level level) {
         this.size = size;
         this.world = world;
         this.tiles = new SparseArray2D<>();
@@ -35,7 +36,7 @@ public class Map {
             }
         }
 
-        this.player = new Player(playerStart, 1);
+        this.player = new Player(playerStart, 0x01, level);
     }
 
     public int getWorld() {

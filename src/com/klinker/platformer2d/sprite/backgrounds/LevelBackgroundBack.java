@@ -11,12 +11,12 @@ import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.scenes.Level;
 
-public class LevelBackgroundBase extends Sprite {
+public class LevelBackgroundBack extends Sprite {
 
     private int world;
-    public static Size<Float> size = new Size<>(Platformer2D.TILE_COUNT.x);
+    public static Size<Float> size = new Size<>(Platformer2D.TILE_COUNT.x, 3f / 4f * Platformer2D.TILE_COUNT.x);
 
-    public LevelBackgroundBase(Vector2f position, int world) {
+    public LevelBackgroundBack(Vector2f position, int world) {
         super(position);
         this.world = world;
         initTextureAndShader();
@@ -29,7 +29,7 @@ public class LevelBackgroundBase extends Sprite {
 
     @Override
     public float getDepth() {
-        return Depth.BACKGROUND_BOTTOM;
+        return Depth.BACKGROUND_BACK;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class LevelBackgroundBase extends Sprite {
 
     @Override
     public Texture getTexture() {
-        return new Texture("res/textures/bg/" + String.format("%02X", world) + "-01.png");
+        return new Texture("res/textures/bg/" + String.format("%02X", world) + "-00.png");
     }
 
     @Override
@@ -57,4 +57,5 @@ public class LevelBackgroundBase extends Sprite {
     public void update() {
 
     }
+
 }

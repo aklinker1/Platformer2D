@@ -4,19 +4,12 @@ import com.klinker.engine2d.graphics.Shader;
 import com.klinker.engine2d.graphics.Sprite;
 import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Vector2f;
-import com.klinker.platformer2d.R;
-import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.sprite.tiles.Tile;
 import com.klinker.platformer2d.utils.SparseArray2D;
 
 import java.util.LinkedList;
 
 public abstract class MovingSprite extends Sprite {
-
-    /**
-     * The shader used by this {@link Sprite}
-     */
-    private static Shader SHADER = new Shader(R.shaders.vert.MOVE, R.shaders.frag.MOVE);
 
     /**
      * This sprites y velocity. Positive is upward, negative is downward.
@@ -35,14 +28,6 @@ public abstract class MovingSprite extends Sprite {
      */
     public MovingSprite(Vector2f position) {
         super(position);
-    }
-
-    /**
-     * @see Sprite#getShader()
-     */
-    @Override
-    public Shader getShader() {
-        return Level.PLAYER;
     }
 
     /**

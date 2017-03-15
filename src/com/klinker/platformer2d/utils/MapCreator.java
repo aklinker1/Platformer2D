@@ -4,6 +4,7 @@ package com.klinker.platformer2d.utils;
 
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.utils.FileUtils;
+import com.klinker.platformer2d.scenes.Level;
 
 import java.io.File;
 
@@ -13,7 +14,7 @@ public class MapCreator {
 
     private MapCreator() {}
 
-    public static Map read(File file) {
+    public static Map read(Level level, File file) {
         assert file.exists();
         String[] lines = FileUtils.loadAsLineArray(file.getPath());
         String[] sizing = lines[0].split("\\s+"); // white space
@@ -35,7 +36,7 @@ public class MapCreator {
                 tiles[height - y][x] = Integer.parseInt(row[x], 16);
             }
         }
-        return new Map(world, tiles, new Size<>(width, height));
+        return new Map(world, tiles, new Size<>(width, height), level);
     }
 
 }

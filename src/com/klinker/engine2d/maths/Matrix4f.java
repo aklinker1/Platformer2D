@@ -58,6 +58,9 @@ public class Matrix4f {
      */
     public static Matrix4f orthographic(float left, float right, float top, float bottom, float near, float far) {
         Matrix4f result = identity();
+        // for some reason the range that OpenGL could draw was (near/2, far/2], so double both to get what I want!
+        near *= 2;
+        far *= 2;
 
         result.elements[0 + 0 * 4] = 2.0f / (right - left);
         result.elements[1 + 1 * 4] = 2.0f / (top - bottom);

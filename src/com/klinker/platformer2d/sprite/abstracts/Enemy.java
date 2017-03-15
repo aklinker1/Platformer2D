@@ -5,12 +5,12 @@ import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.constants.Depth;
 
-public abstract class StationaryEnemy extends MovingSprite {
+public abstract class Enemy extends MovingSprite {
 
     /**
      * @see Sprite#Sprite(Vector2f)
      */
-    public StationaryEnemy(Vector2f position) {
+    public Enemy(Vector2f position) {
         super(position);
     }
 

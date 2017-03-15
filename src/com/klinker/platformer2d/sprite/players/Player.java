@@ -1,6 +1,7 @@
 package com.klinker.platformer2d.sprite.players;
 
 
+import com.klinker.engine2d.graphics.Shader;
 import com.klinker.engine2d.graphics.Sprite;
 import com.klinker.engine2d.graphics.Texture;
 import com.klinker.engine2d.inputs.Input;
@@ -9,6 +10,7 @@ import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
+import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
 
 
@@ -20,10 +22,12 @@ public class Player extends MovingSprite {
 
     private int hero;
     public boolean isGrounded;
+    private Level level;
 
-    public Player(Vector2f position, int hero) {
+    public Player(Vector2f position, int hero, Level level) {
         super(position);
         this.hero = hero;
+        this.level = level;
         initTextureAndShader();
     }
 
@@ -45,6 +49,11 @@ public class Player extends MovingSprite {
     @Override
     public Texture getTexture() {
         return new Texture(String.format("res/textures/character/hero%02X/body.png", hero));
+    }
+
+    @Override
+    public Shader getShader() {
+        return Level.PLAYER;
     }
 
     /**
