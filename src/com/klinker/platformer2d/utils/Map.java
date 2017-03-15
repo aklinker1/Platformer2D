@@ -3,7 +3,6 @@ package com.klinker.platformer2d.utils;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
-import com.klinker.platformer2d.physics.Physics;
 import com.klinker.platformer2d.sprite.MovingSprite;
 import com.klinker.platformer2d.sprite.Player;
 import com.klinker.platformer2d.sprite.Tile;
@@ -61,20 +60,8 @@ public class Map {
                 row.get(row.keyAt(xi)).update();
             }
         }
-
-        float x = player.getX();
-        int leftX = (int) Math.floor(x);
-        int rightX = (int) Math.ceil(x);
-        float y = player.getY();
-        int bottomY = (int) Math.floor(y);
-        int topY = (int) Math.ceil(y);
-        player.update(
-                tiles.get(leftX, bottomY),
-                tiles.get(rightX, bottomY),
-                tiles.get(leftX, topY),
-                tiles.get(rightX, topY),
-                frenemies
-        );
+        player.update(tiles, frenemies);
+        if (player.getY() < -1) player.setY(Platformer2D.TILE_COUNT.y);
     }
 
 }

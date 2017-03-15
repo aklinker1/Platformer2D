@@ -1,16 +1,12 @@
 package com.klinker.platformer2d.sprite;
 
-import com.klinker.engine2d.graphics.CollisionBox;
 import com.klinker.engine2d.graphics.Shader;
 import com.klinker.engine2d.graphics.Sprite;
-import com.klinker.engine2d.graphics.Texture;
 import com.klinker.engine2d.maths.Matrix4f;
-import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
-import com.klinker.engine2d.maths.Vector3f;
 import com.klinker.platformer2d.scenes.Level;
+import com.klinker.platformer2d.utils.SparseArray2D;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public abstract class MovingSprite extends Sprite {
@@ -33,13 +29,13 @@ public abstract class MovingSprite extends Sprite {
         shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(position));
     }
 
-    public void update(Tile bl, Tile br, Tile tl, Tile tr, LinkedList<MovingSprite> frenemies) {
+    public void update(SparseArray2D<Tile> tiles, LinkedList<MovingSprite> frenemies) {
         // 1. Modify velocities
         accelX();
         accelY();
 
         // 2. Check for collisions and modify velocities
-        checkCollisions(bl, br, tl, tr, frenemies);
+        checkCollisions(tiles, frenemies);
 
         // 3. Actually move the player.
         position.x += xVel;
@@ -52,6 +48,7 @@ public abstract class MovingSprite extends Sprite {
 
     protected abstract void accelX();
     protected abstract void accelY();
-    protected abstract void checkCollisions(Tile bl, Tile br, Tile tl, Tile tr, LinkedList<MovingSprite> frenemies);
+
+    protected abstract void checkCollisions(SparseArray2D<Tile> tiles, LinkedList<MovingSprite> frenemies);
 
 }

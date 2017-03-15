@@ -1,6 +1,7 @@
 package com.klinker.engine2d.utils;
 
 
+import org.lwjgl.glfw.GLFW;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -29,6 +30,11 @@ public class PerformanceAnalyzer implements Runnable {
     private Thread thread = null;
 
     /**
+     * The window to update the title
+     */
+    private long window;
+
+    /**
      * Whether or not the game is finished.
      */
     private boolean stop = false;
@@ -48,7 +54,8 @@ public class PerformanceAnalyzer implements Runnable {
     /**
      * Initializes and starts the thread.
      */
-    public void start() {
+    public void start(long window) {
+        this.window = window;
         fpsHistory = new LinkedList<>();
         thread = new Thread(this, "performance");
         thread.start();
@@ -71,6 +78,7 @@ public class PerformanceAnalyzer implements Runnable {
                 Thread.sleep(INTERVAL);
             } catch (Exception e) {}
             fpsHistory.addLast(getFrames() / (INTERVAL / 1000.0));
+            GLFW.glfwSetWindowTitle(window, new StringBuilder("Platformer2D ").append(fpsHistory.getLast()).append("/60"));
             clearFrames();
         }
     }

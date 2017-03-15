@@ -4,6 +4,7 @@ package com.klinker.engine2d.graphics;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.maths.Vector3f;
+import com.klinker.engine2d.utils.CollisionBox;
 
 
 public abstract class Sprite {
