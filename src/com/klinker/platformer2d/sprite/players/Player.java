@@ -7,8 +7,8 @@ import com.klinker.engine2d.inputs.Input;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
-import com.klinker.platformer2d.physics.Depth;
-import com.klinker.platformer2d.physics.Physics;
+import com.klinker.platformer2d.constants.Depth;
+import com.klinker.platformer2d.constants.Physics;
 import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
 
 

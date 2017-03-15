@@ -8,7 +8,7 @@ import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
 import com.klinker.platformer2d.Platformer2D;
-import com.klinker.platformer2d.physics.Depth;
+import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.scenes.Level;
 
 public class LevelBackgroundBase extends Sprite {
