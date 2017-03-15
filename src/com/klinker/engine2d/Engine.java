@@ -2,19 +2,18 @@ package com.klinker.engine2d;
 
 
 import com.klinker.engine2d.graphics.Scene;
-import com.klinker.engine2d.graphics.Shader;
 import com.klinker.engine2d.graphics.Texture;
 import com.klinker.engine2d.inputs.Input;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.utils.PerformanceAnalyzer;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL12;
 
-import static org.lwjgl.system.MemoryUtil.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
 
 /**
@@ -157,22 +156,48 @@ public abstract class Engine implements Runnable {
     }
 
 
+    /**
+     * Gets the title for the window.
+     *
+     * @return The title for the window.
+     */
     public abstract String getWindowTitle();
 
-
+    /**
+     * Sets the current scene of the game.
+     * // TODO: 3/15/2017 Add an animation somehow
+     *
+     * @param scene The scene to change to.
+     */
     public void setScene(Scene scene) {
         this.scene = scene;
     }
 
+    /**
+     * Sets the style of the textures to be either {@link Style#RETRO} for pixel graphics,
+     * or {@link Style#SMOOTH} for anti-aliasing.
+     *
+     * @param style The style of the game, either {@link Style#RETRO} or {@link Style#SMOOTH}
+     */
     public void setStyle(Style style) {
         Engine.STYLE = style;
         Texture.RENDER_STYLE = style == Style.RETRO ? GL_NEAREST : GL_LINEAR;
     }
 
+    /**
+     * Sets the size of the window.
+     *
+     * @param newSize The new size in pixels.
+     */
     public void setSize(Size<Integer> newSize) {
         this.SIZE = newSize;
     }
 
+    /**
+     * Times used to hold a constant framerate.
+     *
+     * @author kappa (On the LWJGL Forums)
+     */
     private long variableYieldTime, lastTime;
 
     /**

@@ -61,7 +61,6 @@ public class Map {
             }
         }
         player.update(tiles, frenemies);
-        if (player.getY() < -1) player.setY(Platformer2D.TILE_COUNT.y);
     }
 
 }

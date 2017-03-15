@@ -22,7 +22,7 @@ public class Platformer2D extends Engine {
     }
 
     public Platformer2D() {
-        setScene(new Level("01X.lvl"));
+        setScene(new Level(R.levels.W01_LXX));
     }
 
     @Override

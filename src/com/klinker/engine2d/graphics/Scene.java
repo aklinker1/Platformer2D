@@ -1,11 +1,11 @@
 package com.klinker.engine2d.graphics;
 
 import com.klinker.engine2d.maths.Matrix4f;
-import org.lwjgl.opengl.GL12;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.lwjgl.opengl.GL11.*;
-
-import java.util.HashSet;
 
 public abstract class Scene {
 
@@ -13,15 +13,13 @@ public abstract class Scene {
 
     public abstract void update();
     public abstract void render();
-    public abstract void loadAllShaders();
+
+    public abstract Shader[] loadAllShaders();
     public abstract Matrix4f getProjMatrix();
 
-    public void addShaderToScene(Shader shader) {
-        shaders.add(shader);
-    }
-
     public void init() {
-        loadAllShaders(); // fills the set of shaders to then initialize
+        Shader[] shaders = loadAllShaders(); // fills the set of shaders to then initialize
+        this.shaders.addAll(Arrays.asList(shaders));
         initializeShaders();
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
