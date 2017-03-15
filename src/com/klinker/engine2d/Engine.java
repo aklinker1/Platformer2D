@@ -1,7 +1,6 @@
 package com.klinker.engine2d;
 
 
-
 import com.klinker.engine2d.graphics.Scene;
 import com.klinker.engine2d.graphics.Shader;
 import com.klinker.engine2d.graphics.Texture;
@@ -18,12 +17,10 @@ import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 
-
 /**
  * The class that handles the game loop.
  */
 public abstract class Engine implements Runnable {
-
 
 
     /**
@@ -61,10 +58,10 @@ public abstract class Engine implements Runnable {
      * or {@link Engine.Style#SMOOTH} with anti-aliasing.
      */
     public static Style STYLE;
+
     public enum Style {
         RETRO, SMOOTH
     }
-
 
 
     /**
@@ -73,7 +70,7 @@ public abstract class Engine implements Runnable {
     public void start() {
         this.thread = new Thread(this, "game");
         thread.start();
-        //this.analyzer = new PerformanceAnalyzer();
+        this.analyzer = new PerformanceAnalyzer();
     }
 
     /**
@@ -84,20 +81,16 @@ public abstract class Engine implements Runnable {
     public void run() {
         running = true;
         init();
-        //analyzer.start();
-        long last = System.currentTimeMillis();
+        analyzer.start(window);
         while (running) {
-            if (System.currentTimeMillis() - last >= 100 / 6) {
-                last = System.currentTimeMillis();
-                update();
-                //analyzer.addFrame();
-            }
+            sync(60);
+            analyzer.addFrame();
+            update();
             render();
-
             if (glfwWindowShouldClose(window)) running = false;
         }
-        //analyzer.stop();
-        //analyzer.logFrames();
+        analyzer.stop();
+        analyzer.logFrames();
         glfwDestroyWindow(window);
         glfwTerminate();
     }
@@ -178,6 +171,53 @@ public abstract class Engine implements Runnable {
 
     public void setSize(Size<Integer> newSize) {
         this.SIZE = newSize;
+    }
+
+    private long variableYieldTime, lastTime;
+
+    /**
+     * An accurate sync method that adapts automatically
+     * to the system it runs on to provide reliable results.
+     *
+     * @param fps The desired frame rate, in frames per second
+     * @author kappa (On the LWJGL Forums)
+     */
+    private void sync(int fps) {
+        if (fps <= 0) return;
+
+        long sleepTime = 1000000000 / fps; // nanoseconds to sleep this frame
+        // yieldTime + remainder micro & nano seconds if smaller than sleepTime
+        long yieldTime = Math.min(sleepTime, variableYieldTime + sleepTime % (1000 * 1000));
+        long overSleep = 0; // time the sync goes over by
+
+        try {
+            while (true) {
+                long t = System.nanoTime() - lastTime;
+
+                if (t < sleepTime - yieldTime) {
+                    Thread.sleep(1);
+                } else if (t < sleepTime) {
+                    // burn the last few CPU cycles to ensure accuracy
+                    Thread.yield();
+                } else {
+                    overSleep = t - sleepTime;
+                    break; // exit while loop
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            lastTime = System.nanoTime() - Math.min(overSleep, sleepTime);
+
+            // auto tune the time sync should yield
+            if (overSleep > variableYieldTime) {
+                // increase by 200 microseconds (1/5 a ms)
+                variableYieldTime = Math.min(variableYieldTime + 200 * 1000, sleepTime);
+            } else if (overSleep < variableYieldTime - 200 * 1000) {
+                // decrease by 2 microseconds
+                variableYieldTime = Math.max(variableYieldTime - 2 * 1000, 0);
+            }
+        }
     }
 
 }
