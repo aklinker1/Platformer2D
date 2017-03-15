@@ -1,4 +1,4 @@
-package com.klinker.map_builder;
+package com.klinker.platformer2d.utils.map;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
