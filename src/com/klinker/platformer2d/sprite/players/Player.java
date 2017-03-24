@@ -8,6 +8,7 @@ import com.klinker.engine2d.inputs.Input;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
+import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
 import com.klinker.platformer2d.scenes.Level;
@@ -23,6 +24,8 @@ public class Player extends MovingSprite {
     private int hero;
     public boolean isGrounded;
     private Level level;
+    private float launchVelX = 0;
+    private boolean releasedJump = false;
 
     public Player(Vector2f position, int hero, Level level) {
         super(position);
@@ -43,7 +46,12 @@ public class Player extends MovingSprite {
 
     @Override
     public CollisionBox getCollision() {
-        return new CollisionBox(CollisionBox.Shape.RECTANGLE, size, new Vector2f(0f, 0f), position);
+        return new CollisionBox(
+                CollisionBox.Shape.RECTANGLE,
+                new Size<>(0.90f, 1f),
+                new Vector2f(0.05f, 0),
+                position
+        );
     }
 
     @Override
@@ -108,49 +116,59 @@ public class Player extends MovingSprite {
         }
     }
 
-    private long jumpStart = 0;
+    private int jumpFrames = 0;
     @Override
     protected void accelY() {
         boolean jump = Input.isKeyDown(Input.JUMP);
-        boolean running = Math.abs(xVel) > Physics.Player.MAX_VEL_X;
-        if (jump && jumpStart == 0 && isGrounded) { // pressing jump for the first time
-            jumpStart = System.currentTimeMillis();
+        boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
+
+        if (jump && jumpFrames == 0 && isGrounded) { // pressing jump for the first time
+            launchVelX = xVel;
+            releasedJump = false;
+            jumpFrames = 1;
+            running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
             yVel = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
-        } else if (jump && (System.currentTimeMillis() - jumpStart < Physics.Player.JUMP_HOLD_MAX)) { // We are holding the jump button
+        } else if (jump && jumpFrames < Physics.Player.JUMP_HOLD_MAX && !releasedJump) { // We are holding the jump button
+            jumpFrames++;
             yVel = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
         } else {
             yVel -= Physics.Player.GRAVITY;
+            releasedJump = true;
         }
     }
 
     public void setGrounded(boolean grounded) {
         isGrounded = grounded;
         if (grounded) {
-            jumpStart = System.currentTimeMillis();
+            jumpFrames = 0;
         } else {
-            jumpStart = 0;
+            jumpFrames = Physics.Player.JUMP_HOLD_MAX;
         }
     }
 
     @Override
     protected void onCollideLeft(Sprite sprite) {
         xVel = 0;
-        CollisionBox collision = sprite.getCollision();
-        position.x = collision.position.x + collision.origin.x + collision.size.width;
+        CollisionBox otherCollision = sprite.getCollision();
+        position.x = otherCollision.position.x + otherCollision.size.width - this.collision.origin.x;
     }
 
     @Override
     protected void onCollideTop(Sprite sprite) {
         yVel = 0;
-        CollisionBox collision = sprite.getCollision();
-        position.y = collision.position.y + collision.origin.y;
+        xVel *= Physics.Player.BUMP_HEAD_X_MULT;
+        jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
+        CollisionBox otherCollision = sprite.getCollision();
+        position.y = otherCollision.position.y
+                - (this.size.height - this.collision.size.height - this.collision.origin.y)
+                - this.collision.size.height;
     }
 
     @Override
     protected void onCollideRight(Sprite sprite) {
         xVel = 0;
-        CollisionBox collision = sprite.getCollision();
-        position.x = collision.position.x + collision.origin.x - size.width;
+        CollisionBox otherCollision = sprite.getCollision();
+        position.x = otherCollision.position.x - this.size.width + this.collision.origin.x;
     }
 
     @Override
@@ -158,7 +176,7 @@ public class Player extends MovingSprite {
         setGrounded(true);
         yVel = 0;
         CollisionBox otherCollision = sprite.getCollision();
-        position.y = otherCollision.position.y + otherCollision.origin.y + otherCollision.size.height;
+        position.y = otherCollision.position.y + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y;
     }
 
     @Override
@@ -169,5 +187,6 @@ public class Player extends MovingSprite {
     @Override
     public void update() {
         if (yVel < Physics.Player.MAX_FALL_SPEED) yVel = Physics.Player.MAX_FALL_SPEED;
+        if (position.y <= -1) position.y = Platformer2D.TILE_COUNT.y;
     }
 }

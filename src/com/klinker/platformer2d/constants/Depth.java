@@ -16,7 +16,7 @@ public class Depth {
     public static final float ENEMY_FRONT = 0.2f;
 
     public static final float PLAYER_GHOST = -0.1f;
-    public static final float PLAYER = 0.0f;
+    public static final float PLAYER = 0.01f;
 
     public static final float TILE_BACK = -0.2f;
     public static final float TILE = 0.0f;

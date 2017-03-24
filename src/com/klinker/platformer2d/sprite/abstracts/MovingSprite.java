@@ -52,7 +52,10 @@ public abstract class MovingSprite extends Sprite {
         // 2. Check for collisions and modify velocities
         checkCollisions(tiles, frenemies);
 
-        // 3. Actually move the player.
+        // 3. Call the regular update
+        update();
+
+        // 4. Actually move the player.
         position.x += xVel;
         position.y += yVel;
     }
@@ -106,62 +109,95 @@ public abstract class MovingSprite extends Sprite {
      * @param frenemies The frenemies on the map.
      */
     private void checkCollisions(SparseArray2D<Tile> tiles, LinkedList<MovingSprite> frenemies) {
-        // region Vertical Collision
-        {
-            int xf = (int) Math.floor(position.x);  // the left of the one I'm on.
-            int xc = (int) Math.ceil(position.x); // the right of the one I'm on.
-            int yf = (int) (position.y - 1); // the y beneath me.
-            int yc = (int) (position.y + 1); // the y beneath me.
+        // to prevent inaccurate floating point arithmatic, convert everything to int for * 1000 and rounding
+        // get the range in tiles to check
+        int xStart = (int) (1000 * this.collision.position.x) + (int) (1000 * this.collision.origin.x);
+        int yStart = (int) (1000 * this.collision.position.y) + (int) (1000 * this.collision.origin.y);
+        int xEnd = xStart + (int) (1000 * this.collision.size.width);
+        int yEnd = yStart + (int) (1000 * this.collision.size.height);
+        int xEndI = xEnd / 1000;
+        int yEndI = yEnd / 1000;
 
-            if (yVel <= 0) { // moving downward/walking, check for collisions beneath me.
-                Tile bl = tiles.get(xf, yf); // bottom left tile
-                Tile br = tiles.get(xc, yf); // bottom right tile
-                if (bl != null && bl.getCollision().intersects(collision, xVel, yVel)) {
-                    onCollideBottom(bl);
-                } else if (br != null && br.getCollision().intersects(collision, xVel, yVel)) {
-                    onCollideBottom(br);
-                } else {
-                    onCollideNone();
+        int curXMin = xStart / 1000;
+        int curYMin = yStart / 1000;
+        int curXMax = xEnd / 1000;
+        int curYMax = yEnd / 1000;
+        int futXMin = (int) (xStart / 1000 + xVel);
+        int futYMin = (int) (yStart / 1000 + yVel);
+        int futXMax = (int) (xEnd / 1000 + xVel);
+        int futYMax = (int) (yEnd / 1000 + yVel);
+
+        // handles how if the collision ends at a whole number, we want to exclude that from the loop
+        if (xEnd - xEndI * 1000 == 0) curXMax--;
+        if (yEnd - yEndI * 1000 == 0) curYMax--;
+
+        boolean collision = false;
+        if (xVel < 0) { // Moving left, check to the left of me.
+            for (int y = curYMin; y <= curYMax; y++) {
+                Tile tile = tiles.get(futXMin, y); // at the future x pos
+                if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
+                    onCollideLeft(tile);
+                    collision = true;
+                    break;
                 }
-            } else { // moving upward, check tiles above me.
-                Tile tl = tiles.get(xf, yc); // bottom left tile
-                Tile tr = tiles.get(xc, yc); // bottom right tile
-                if (tl != null && tl.getCollision().intersects(collision, xVel, yVel)) {
-                    onCollideTop(tl);
-                } else if (tr != null && tr.getCollision().intersects(collision, xVel, yVel)) {
-                    onCollideTop(tr);
+            }
+        } else if (xVel > 0) { // moving right, check the right of me.
+            for (int y = curYMin; y <= curYMax; y++) {
+                Tile tile = tiles.get(futXMax, y); // at the future x pos
+                if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
+                    onCollideRight(tile);
+                    collision = true;
+                    break;
                 }
             }
         }
-        // endregion
-        // region Horizontal Collisions
-        {
-            int xf = (int) Math.floor(position.x - 1);  // the left of the one I'm on.
-            int xc = (int) Math.ceil(position.x + 1); // the right of the one I'm on.
-            int yf = (int) Math.floor(position.y); // the y beneath me.
-            int yc = (int) Math.ceil(position.y); // the y beneath me.
 
-            if (xVel < 0) { // Moving left, check to the left of me.
-                Tile lt = tiles.get(xf, yc); // left top tile
-                Tile lb = tiles.get(xf, yf); // left bottom tile
-                if (lt != null && lt.getCollision().intersects(collision, xVel, yVel)) {
-                    onCollideLeft(lt);
-                } else if (lb != null && lb.getCollision().intersects(collision, xVel, yVel)) {
-                    onCollideLeft(lb);
+        // re-initialize the positions if there was a collision
+        if (collision) {
+            xStart = (int) (1000 * this.collision.position.x) + (int) (1000 * this.collision.origin.x);
+            yStart = (int) (1000 * this.collision.position.y) + (int) (1000 * this.collision.origin.y);
+            xEnd = xStart + (int) (1000 * this.collision.size.width);
+            yEnd = yStart + (int) (1000 * this.collision.size.height);
+            xEndI = xEnd / 1000;
+            yEndI = yEnd / 1000;
+
+            curXMin = xStart / 1000;
+            curYMin = yStart / 1000;
+            curXMax = xEnd / 1000;
+            curYMax = yEnd / 1000;
+            futXMin = (int) (xStart / 1000 + xVel);
+            futYMin = (int) (yStart / 1000 + yVel);
+            futXMax = (int) (xEnd / 1000 + xVel);
+            futYMax = (int) (yEnd / 1000 + yVel);
+
+            if (xEnd - xEndI * 1000 == 0) curXMax--;
+            if (yEnd - yEndI * 1000 == 0) curYMax--;
+        }
+
+        if (yVel < 0) { // moving downward/walking, check for collisions beneath me.
+            for (int x = curXMin; x <= curXMax; x++) {
+                Tile tile = tiles.get(x, futYMin); // at the future y pos
+                if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
+                    System.out.println("  Bottom @block(" + x + ", " + ((int) (yStart + yVel)) + "), pos:" + position.get2D().toString() + ", size:" + this.collision.size.toString());
+                    System.out.println("    Before: xVel = " + xVel + ", yVel = " + yVel);
+                    onCollideBottom(tile);
+                    System.out.println("    After: xVel = " + xVel + ", yVel = " + yVel);
+                    System.out.println("    curXMin = " + curXMin + ", curXMax = " + curXMax);
+                    break;
                 }
-            } else if (xVel > 0) { // moving right check the right of me.
-                Tile rt = tiles.get(xc, yc); // bottom left tile
-                Tile rb = tiles.get(xc, yf); // bottom right tile
-                if (rt != null && rt.getCollision().intersects(collision, xVel, yVel)) {
-                    onCollideRight(rt);
-                } else if (rb != null && rb.getCollision().intersects(collision, xVel, yVel)) {
-                    onCollideRight(rb);
+            }
+        } else if (yVel > 0) { // moving upward, check tiles above me.
+            for (int x = curXMin; x < curXMax; x++) {
+                Tile tile = tiles.get(x, futYMax); // at the future y pos
+                if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
+                    System.out.println("  Top @block(" + x + ", " + ((int) (yEnd + yVel)) + "), pos:" + position.get2D().toString() + ", size:" + this.collision.size.toString());
+                    System.out.println("    Before: xVel = " + xVel + ", yVel = " + yVel);
+                    onCollideTop(tile);
+                    System.out.println("    After: xVel = " + xVel + ", yVel = " + yVel);
+                    break;
                 }
-            } else { // you aren't moving and something hit you.
-                // TODO: 3/15/2017 Figure out how to handle this and when it occurs
             }
         }
-        // endregion
     }
 
 }

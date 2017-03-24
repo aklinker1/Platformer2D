@@ -68,12 +68,7 @@ public abstract class Sprite {
         shader.disable();
     }
 
-    public float getX() {
-        return position.x;
+    public Vector3f getPosition() {
+        return position;
     }
-
-    public float getY() {
-        return position.y;
-    }
-
 }
