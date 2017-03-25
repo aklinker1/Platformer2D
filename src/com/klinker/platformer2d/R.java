@@ -2,6 +2,7 @@ package com.klinker.platformer2d;
 
 public class R {
     public static class fonts {
+        public static final String EXPORTEDFONT = "res/fonts/ExportedFont.bmp";
         public static final String ROBOTO_BOLD = "res/fonts/Roboto-Bold.ttf";
         public static final String ROBOTO_LIGHT = "res/fonts/Roboto-Light.ttf";
         public static final String ROBOTO = "res/fonts/Roboto.ttf";
@@ -49,6 +50,7 @@ public class R {
             public static final String B04_00 = "res/textures/bg/04-00.png";
             public static final String B04_01 = "res/textures/bg/04-01.png";
             public static final String B04_02 = "res/textures/bg/04-02.png";
+            public static final String MAIN_MENU = "res/textures/bg/main-menu.png";
         }
         public static final String BG = "res/textures/bg.jpeg";
         public static final String BIRD = "res/textures/bird.png";
