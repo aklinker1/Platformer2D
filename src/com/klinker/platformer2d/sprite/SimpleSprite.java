@@ -43,7 +43,7 @@ public class SimpleSprite extends Sprite {
 
     @Override
     public Shader getShader() {
-        return null;
+        return SHADER;
     }
 
     @Override
@@ -55,4 +55,5 @@ public class SimpleSprite extends Sprite {
     public void update() {
 
     }
+
 }
