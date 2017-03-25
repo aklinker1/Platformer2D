@@ -18,7 +18,6 @@ public class Preferences {
 
 
     public boolean hasData() {
-        Log.d("hasData? " + data);
         return data != null;
     }
 
