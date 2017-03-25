@@ -1,8 +1,10 @@
 package com.klinker.engine2d.gui;
 
 import com.klinker.engine2d.graphics.Sprite;
+import com.klinker.engine2d.graphics.Texture;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector3f;
+import com.klinker.platformer2d.sprite.SimpleSprite;
 
 public class View {
 
@@ -14,6 +16,10 @@ public class View {
     public View(Vector3f position, Size<Float> size) {
         this.position = position;
         this.size = size;
+    }
+
+    public void setBackgroundTexture(String textureRes) {
+        background = new SimpleSprite(position.get2D(), size, textureRes);
     }
 
     public void render() {
