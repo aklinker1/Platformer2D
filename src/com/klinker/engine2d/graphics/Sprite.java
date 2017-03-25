@@ -71,6 +71,11 @@ public abstract class Sprite {
         return size;
     }
 
+    public void setPosition(float x, float y) {
+        position.x = x;
+        position.y = y;
+    }
+
     public Vector3f getPosition() {
         return position;
     }
