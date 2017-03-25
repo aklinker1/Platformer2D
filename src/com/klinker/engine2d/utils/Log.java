@@ -12,4 +12,11 @@ public class Log {
         if (enabled) System.err.println(message);
     }
 
+    public static void e(String message, Exception e) {
+        if (enabled) {
+            System.err.println(message);
+            e.printStackTrace(System.err);
+        }
+    }
+
 }
