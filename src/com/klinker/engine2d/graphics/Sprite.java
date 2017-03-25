@@ -72,5 +72,4 @@ public abstract class Sprite {
         return position;
     }
 
-    protected void init() {}
 }
