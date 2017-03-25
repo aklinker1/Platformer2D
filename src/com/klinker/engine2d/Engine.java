@@ -40,7 +40,7 @@ public abstract class Engine implements Runnable {
     /**
      * The frame rate in fps.
      */
-    protected int frameRate;
+    protected static int frameRate;
 
     /**
      * Whether or not the parallel thread is running.
@@ -60,7 +60,7 @@ public abstract class Engine implements Runnable {
     /**
      * Style of the engine {@link Engine.Style}
      */
-    private static Style style;
+    private Style style;
 
     /**
      * - {@link Engine.Style#RETRO}. with no anti-aliasing (nearest neighbor scaling)
@@ -74,7 +74,7 @@ public abstract class Engine implements Runnable {
     /**
      * Starts the game thread.
      */
-    public void start() {
+    protected void start() {
         this.thread = new Thread(this, "game");
         thread.start();
         this.analyzer = new PerformanceAnalyzer();
@@ -166,17 +166,10 @@ public abstract class Engine implements Runnable {
      * Closes the window and terminates OpenGL. When overriding, remember to call the super method
      */
     private void finish() {
+        onFinish();
         glfwDestroyWindow(window);
         glfwTerminate();
     }
-
-
-    /**
-     * Gets the title for the window.
-     *
-     * @return The title for the window.
-     */
-    public abstract String getWindowTitle();
 
     /**
      * Sets the current scene of the game.
@@ -184,7 +177,7 @@ public abstract class Engine implements Runnable {
      *
      * @param scene The scene to change to.
      */
-    public void setScene(Scene scene) {
+    protected void setScene(Scene scene) {
         this.scene = scene;
     }
 
@@ -194,27 +187,9 @@ public abstract class Engine implements Runnable {
      *
      * @param style The style of the game, either {@link Style#RETRO} or {@link Style#SMOOTH}
      */
-    public void setStyle(Style style) {
-        Engine.style = style;
+    protected void setStyle(Style style) {
+        this.style = style;
         Texture.RENDER_STYLE = style == Style.RETRO ? GL_NEAREST : GL_LINEAR;
-    }
-
-    /**
-     * Sets the size of the window.
-     *
-     * @param newSize The new size in pixels.
-     */
-    public void setSize(Size<Integer> newSize) {
-        this.windowSize = newSize;
-    }
-
-    /**
-     * Sets the engine's frame rate.
-     *
-     * @param frameRate The new frame rate in fps.
-     */
-    public void setFrameRate(int frameRate) {
-        this.frameRate = frameRate;
     }
 
     /**
@@ -268,5 +243,20 @@ public abstract class Engine implements Runnable {
             }
         }
     }
+
+
+    /**
+     * Gets the title for the window.
+     *
+     * @return The title for the window.
+     */
+    public abstract String getWindowTitle();
+
+    /**
+     * A function that is called so subclasses can be notified when you close.
+     * It is called before OpenGL and the window exit.
+     */
+    protected abstract void onFinish();
+
 
 }
