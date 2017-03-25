@@ -32,11 +32,15 @@ public class R {
             public static final String B01_00 = "res/textures/bg/01-00.png";
             public static final String B01_01 = "res/textures/bg/01-01.png";
             public static final String B01_02 = "res/textures/bg/01-02.png";
-            public static final String B01 = "res/textures/bg/01.png";
-            public static final String B02 = "res/textures/bg/02.png";
-            public static final String B03 = "res/textures/bg/03.png";
-            public static final String B07 = "res/textures/bg/07.png";
-            public static final String B09 = "res/textures/bg/09.png";
+            public static final String B02_00 = "res/textures/bg/02-00.png";
+            public static final String B02_01 = "res/textures/bg/02-01.png";
+            public static final String B02_02 = "res/textures/bg/02-02.png";
+            public static final String B03_00 = "res/textures/bg/03-00.png";
+            public static final String B03_01 = "res/textures/bg/03-01.png";
+            public static final String B03_02 = "res/textures/bg/03-02.png";
+            public static final String B04_00 = "res/textures/bg/04-00.png";
+            public static final String B04_01 = "res/textures/bg/04-01.png";
+            public static final String B04_02 = "res/textures/bg/04-02.png";
         }
         public static final String BG = "res/textures/bg.jpeg";
         public static final String BIRD = "res/textures/bird.png";
@@ -101,10 +105,10 @@ public class R {
             public static final String T04_0D = "res/textures/tiles/04-0D.png";
         }
         public static class worlds {
-            public static final String BLUE = "res/textures/worlds/blue.png";
-            public static final String BROWN = "res/textures/worlds/brown.png";
-            public static final String PURPLE = "res/textures/worlds/purple.png";
-            public static final String RED = "res/textures/worlds/red.png";
+            public static final String W01_BROWN = "res/textures/worlds/01-Brown.png";
+            public static final String W02_BLUE = "res/textures/worlds/02-Blue.png";
+            public static final String W03_RED = "res/textures/worlds/03-Red.png";
+            public static final String W04_PURPLE = "res/textures/worlds/04-Purple.png";
         }
     }
 }

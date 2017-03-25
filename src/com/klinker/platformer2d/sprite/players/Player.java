@@ -156,7 +156,6 @@ public class Player extends MovingSprite {
     @Override
     protected void onCollideTop(Sprite sprite) {
         yVel = 0;
-        xVel *= Physics.Player.BUMP_HEAD_X_MULT;
         jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
         CollisionBox otherCollision = sprite.getCollision();
         position.y = otherCollision.position.y

@@ -4,6 +4,7 @@ import com.klinker.engine2d.graphics.Shader;
 import com.klinker.engine2d.graphics.Sprite;
 import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Vector2f;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.sprite.tiles.Tile;
 import com.klinker.platformer2d.utils.SparseArray2D;
 
@@ -109,95 +110,77 @@ public abstract class MovingSprite extends Sprite {
      * @param frenemies The frenemies on the map.
      */
     private void checkCollisions(SparseArray2D<Tile> tiles, LinkedList<MovingSprite> frenemies) {
-        // to prevent inaccurate floating point arithmatic, convert everything to int for * 1000 and rounding
-        // get the range in tiles to check
-        int xStart = (int) (1000 * this.collision.position.x) + (int) (1000 * this.collision.origin.x);
-        int yStart = (int) (1000 * this.collision.position.y) + (int) (1000 * this.collision.origin.y);
-        int xEnd = xStart + (int) (1000 * this.collision.size.width);
-        int yEnd = yStart + (int) (1000 * this.collision.size.height);
-        int xEndI = xEnd / 1000;
-        int yEndI = yEnd / 1000;
+        final int TOP = 0, LEFT = 1, RIGHT = 2, BOTTOM = 3;
+        boolean collided = false;
 
-        int curXMin = xStart / 1000;
-        int curYMin = yStart / 1000;
-        int curXMax = xEnd / 1000;
-        int curYMax = yEnd / 1000;
-        int futXMin = (int) (xStart / 1000 + xVel);
-        int futYMin = (int) (yStart / 1000 + yVel);
-        int futXMax = (int) (xEnd / 1000 + xVel);
-        int futYMax = (int) (yEnd / 1000 + yVel);
+        for (int dir = 0; dir <= BOTTOM; dir++) {
+            // get the range in tiles to check
+            // to prevent inaccurate floating point arithmetic, convert everything to int for * 1000 and rounding
+            int xStart = (int) (1000 * this.collision.position.x) + (int) (1000 * this.collision.origin.x);
+            int yStart = (int) (1000 * this.collision.position.y) + (int) (1000 * this.collision.origin.y);
+            int xEnd = xStart + (int) (1000 * this.collision.size.width);
+            int yEnd = yStart + (int) (1000 * this.collision.size.height);
+            int xEndI = xEnd / 1000;
+            int yEndI = yEnd / 1000;
 
-        // handles how if the collision ends at a whole number, we want to exclude that from the loop
-        if (xEnd - xEndI * 1000 == 0) curXMax--;
-        if (yEnd - yEndI * 1000 == 0) curYMax--;
+            int curXMin = xStart / 1000;
+            int curYMin = yStart / 1000;
+            int curXMax = xEnd / 1000;
+            int curYMax = yEnd / 1000;
+            int futXMin = (xStart + (int) (xVel * 1000)) / 1000;
+            int futYMin = (yStart + (int) (yVel * 1000)) / 1000;
+            int futXMax = (xEnd + (int) (xVel * 1000)) / 1000;
+            int futYMax = (yEnd + (int) (yVel * 1000)) / 1000;
 
-        boolean collision = false;
-        if (xVel < 0) { // Moving left, check to the left of me.
-            for (int y = curYMin; y <= curYMax; y++) {
-                Tile tile = tiles.get(futXMin, y); // at the future x pos
-                if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
-                    onCollideLeft(tile);
-                    collision = true;
-                    break;
-                }
-            }
-        } else if (xVel > 0) { // moving right, check the right of me.
-            for (int y = curYMin; y <= curYMax; y++) {
-                Tile tile = tiles.get(futXMax, y); // at the future x pos
-                if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
-                    onCollideRight(tile);
-                    collision = true;
-                    break;
-                }
-            }
-        }
-
-        // re-initialize the positions if there was a collision
-        if (collision) {
-            xStart = (int) (1000 * this.collision.position.x) + (int) (1000 * this.collision.origin.x);
-            yStart = (int) (1000 * this.collision.position.y) + (int) (1000 * this.collision.origin.y);
-            xEnd = xStart + (int) (1000 * this.collision.size.width);
-            yEnd = yStart + (int) (1000 * this.collision.size.height);
-            xEndI = xEnd / 1000;
-            yEndI = yEnd / 1000;
-
-            curXMin = xStart / 1000;
-            curYMin = yStart / 1000;
-            curXMax = xEnd / 1000;
-            curYMax = yEnd / 1000;
-            futXMin = (int) (xStart / 1000 + xVel);
-            futYMin = (int) (yStart / 1000 + yVel);
-            futXMax = (int) (xEnd / 1000 + xVel);
-            futYMax = (int) (yEnd / 1000 + yVel);
-
+            // handles how if the collision ends at a whole number, we want to exclude that from the loop
             if (xEnd - xEndI * 1000 == 0) curXMax--;
             if (yEnd - yEndI * 1000 == 0) curYMax--;
+
+            if (dir == TOP && yVel > 0) { // moving upward, check tiles above me.
+                for (int x = curXMin; x <= curXMax; x++) {
+                    Tile tile = tiles.get(x, futYMax); // at the future y pos
+                    if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
+                        Log.d(new StringBuilder("Collision Top: (").append(x).append(", ").append(futYMax).append(")").toString());
+                        onCollideTop(tile);
+                        collided = true;
+                        //break;
+                    }
+                }
+            } else if (dir == LEFT && xVel < 0) { // Moving left, check to the left of me.
+                for (int y = curYMin; y <= curYMax; y++) {
+                    Tile tile = tiles.get(futXMin, y); // at the future x pos
+                    if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
+                        Log.d(new StringBuilder("Collision Left: (").append(futXMin).append(", ").append(y).append(")").toString());
+                        onCollideLeft(tile);
+                        collided = true;
+                        //break;
+                    }
+                }
+            } else if (dir == RIGHT && xVel > 0) { // moving right, check the right of me.
+                for (int y = curYMin; y <= curYMax; y++) {
+                    Tile tile = tiles.get(futXMax, y); // at the future x pos
+                    if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
+                        Log.d(new StringBuilder("Collision Right: (").append(futXMax).append(", ").append(y).append(")").toString());
+                        onCollideRight(tile);
+                        collided = true;
+                        //break;
+                    }
+                }
+            } else if (dir == BOTTOM && yVel < 0) { // moving downward/walking, check for collisions beneath me.
+                for (int x = xVel < 0 ? futXMin : curXMin; x <= (xVel < 0 ? curXMax : futXMax); x++) {
+                    Tile tile = tiles.get(x, futYMin); // at the future y pos
+                    if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
+                        Log.d(new StringBuilder("Collision Bottom: (").append(x).append(", ").append(futYMin).append(")").toString());
+                        onCollideBottom(tile);
+                        collided = true;
+                        //break;
+                    }
+                }
+            }
         }
 
-        if (yVel < 0) { // moving downward/walking, check for collisions beneath me.
-            for (int x = curXMin; x <= curXMax; x++) {
-                Tile tile = tiles.get(x, futYMin); // at the future y pos
-                if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
-                    System.out.println("  Bottom @block(" + x + ", " + ((int) (yStart + yVel)) + "), pos:" + position.get2D().toString() + ", size:" + this.collision.size.toString());
-                    System.out.println("    Before: xVel = " + xVel + ", yVel = " + yVel);
-                    onCollideBottom(tile);
-                    System.out.println("    After: xVel = " + xVel + ", yVel = " + yVel);
-                    System.out.println("    curXMin = " + curXMin + ", curXMax = " + curXMax);
-                    break;
-                }
-            }
-        } else if (yVel > 0) { // moving upward, check tiles above me.
-            for (int x = curXMin; x < curXMax; x++) {
-                Tile tile = tiles.get(x, futYMax); // at the future y pos
-                if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
-                    System.out.println("  Top @block(" + x + ", " + ((int) (yEnd + yVel)) + "), pos:" + position.get2D().toString() + ", size:" + this.collision.size.toString());
-                    System.out.println("    Before: xVel = " + xVel + ", yVel = " + yVel);
-                    onCollideTop(tile);
-                    System.out.println("    After: xVel = " + xVel + ", yVel = " + yVel);
-                    break;
-                }
-            }
-        }
+        // No collision detected
+        if (!collided) onCollideNone();
     }
 
 }
