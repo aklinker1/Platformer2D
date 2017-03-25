@@ -185,7 +185,14 @@ public class Player extends MovingSprite {
 
     @Override
     public void update() {
+        // Limit y Velocity: Max fall speed.
         if (yVel < Physics.Player.MAX_FALL_SPEED) yVel = Physics.Player.MAX_FALL_SPEED;
-        if (position.y <= -1) position.y = Platformer2D.tileCounts.y;
+        // TODO: Notifies when the player dies off the bottom.
+        // Moves the player to the top of the screen when falling off the bottom.
+        if (position.y <= -2) position.y = Platformer2D.tileCounts.y;
+
+        // Limit x positions: prevent from going off the sides of the map.
+        if (position.x < 0.25f) position.x = 0.25f;
+        else if (position.x > Platformer2D.tileCounts.x - 1.25f) position.x = Platformer2D.tileCounts.x - 1.25f;
     }
 }
