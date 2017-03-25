@@ -10,7 +10,7 @@ import com.klinker.engine2d.utils.CollisionBox;
 public abstract class Sprite {
 
     protected Size<Float> size;
-    protected Vector3f position;
+    public Vector3f position;
     private VertexArray mesh;
     protected CollisionBox collision;
     private Texture texture;
