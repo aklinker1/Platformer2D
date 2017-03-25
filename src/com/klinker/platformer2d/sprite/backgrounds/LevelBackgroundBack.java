@@ -14,7 +14,7 @@ import com.klinker.platformer2d.scenes.Level;
 public class LevelBackgroundBack extends Sprite {
 
     private int world;
-    public static Size<Float> size = new Size<>(Platformer2D.TILE_COUNT.x, 3f / 4f * Platformer2D.TILE_COUNT.x);
+    public static Size<Float> size = new Size<>(Platformer2D.tileCounts.x, 3f / 4f * Platformer2D.tileCounts.x);
 
     public LevelBackgroundBack(Vector2f position, int world) {
         super(position);

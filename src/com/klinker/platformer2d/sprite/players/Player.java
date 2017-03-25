@@ -186,6 +186,6 @@ public class Player extends MovingSprite {
     @Override
     public void update() {
         if (yVel < Physics.Player.MAX_FALL_SPEED) yVel = Physics.Player.MAX_FALL_SPEED;
-        if (position.y <= -1) position.y = Platformer2D.TILE_COUNT.y;
+        if (position.y <= -1) position.y = Platformer2D.tileCounts.y;
     }
 }

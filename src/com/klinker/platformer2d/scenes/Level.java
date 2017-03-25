@@ -22,8 +22,8 @@ public class Level extends Scene {
      * A projection matrix that sets up a classical cartisian coordinate system that is in units of tiles.
      */
     public static Matrix4f PROJ_MATRIX = Matrix4f.orthographic(
-            0f, Platformer2D.TILE_COUNT.x,
-            Platformer2D.TILE_COUNT.y, 0f,
+            0f, Platformer2D.tileCounts.x,
+            Platformer2D.tileCounts.y, 0f,
             -1f, 1f
     );
 
@@ -63,7 +63,7 @@ public class Level extends Scene {
     public void init() {
         super.init();
         map = MapCreator.read(this, this.level);
-        background = new LevelBackgroundBack(new Vector2f(0f, -(LevelBackgroundBack.size.height - Platformer2D.TILE_COUNT.y) / 2f), map.getWorld());
+        background = new LevelBackgroundBack(new Vector2f(0f, -(LevelBackgroundBack.size.height - Platformer2D.tileCounts.y) / 2f), map.getWorld());
     }
 
     @Override
