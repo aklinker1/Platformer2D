@@ -27,7 +27,7 @@ public class Map {
         Vector2f playerStart = new Vector2f();
         for (int y = 0; y < this.size.height; y++) {
             for (int x = 0; x < this.size.width; x++) {
-                float difY = y + Platformer2D.TILE_COUNT.y - size.height;
+                float difY = y + Platformer2D.tileCounts.y - size.height;
                 if (tiles[y][x] == 0xFF) {
                     playerStart = new Vector2f(x, y);
                 } else if (tiles[y][x] != 0) {
