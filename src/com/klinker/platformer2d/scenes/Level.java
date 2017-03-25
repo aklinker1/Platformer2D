@@ -10,7 +10,7 @@ import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.sprite.backgrounds.LevelBackgroundBack;
 import com.klinker.platformer2d.utils.Map;
-import com.klinker.platformer2d.utils.MapCreator;
+import com.klinker.platformer2d.utils.MapReader;
 
 import java.io.File;
 
@@ -62,8 +62,10 @@ public class Level extends Scene {
     @Override
     public void init() {
         super.init();
-        map = MapCreator.read(this, this.level);
-        background = new LevelBackgroundBack(new Vector2f(0f, -(LevelBackgroundBack.size.height - Platformer2D.tileCounts.y) / 2f), map.getWorld());
+        map = MapReader.read(this, this.level);
+        background = new LevelBackgroundBack(new Vector2f(
+                0f, -(LevelBackgroundBack.size.height - Platformer2D.tileCounts.y) / 2f
+        ), map.getWorld());
     }
 
     @Override
