@@ -8,23 +8,19 @@ import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
 import com.klinker.platformer2d.Platformer2D;
+import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
-import com.klinker.platformer2d.scenes.Level;
 
 public class LevelBackgroundBack extends Sprite {
 
+    public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC);
+
     private int world;
-    public static Size<Float> size = new Size<>(Platformer2D.tileCounts.x, 3f / 4f * Platformer2D.tileCounts.x);
 
     public LevelBackgroundBack(Vector2f position, int world) {
-        super(position);
+        super(position, new Size<>(Platformer2D.tileCounts.x, 3f / 4f * Platformer2D.tileCounts.x));
         this.world = world;
         initTextureAndShader();
-    }
-
-    @Override
-    public Size<Float> getSize() {
-        return size;
     }
 
     @Override
@@ -44,7 +40,7 @@ public class LevelBackgroundBack extends Sprite {
 
     @Override
     public Shader getShader() {
-        return Level.BASIC;
+        return SHADER;
     }
 
     @Override

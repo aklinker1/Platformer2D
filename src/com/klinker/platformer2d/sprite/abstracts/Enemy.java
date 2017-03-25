@@ -8,15 +8,10 @@ import com.klinker.platformer2d.constants.Depth;
 public abstract class Enemy extends MovingSprite {
 
     /**
-     * @see Sprite#Sprite(Vector2f)
+     * @see Sprite#Sprite(Vector2f, Size)
      */
-    public Enemy(Vector2f position) {
-        super(position);
-    }
-
-    @Override
-    public Size<Float> getSize() {
-        return null;
+    public Enemy(Vector2f position, Size<Float> size) {
+        super(position, size);
     }
 
     @Override

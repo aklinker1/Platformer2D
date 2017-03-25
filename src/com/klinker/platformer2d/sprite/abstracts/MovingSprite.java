@@ -3,6 +3,7 @@ package com.klinker.platformer2d.sprite.abstracts;
 import com.klinker.engine2d.graphics.Shader;
 import com.klinker.engine2d.graphics.Sprite;
 import com.klinker.engine2d.maths.Matrix4f;
+import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.sprite.tiles.Tile;
@@ -25,10 +26,10 @@ public abstract class MovingSprite extends Sprite {
     public float yVel = 0f;
 
     /**
-     * @see Sprite#Sprite(Vector2f)
+     * @see Sprite#Sprite(Vector2f, Size)
      */
-    public MovingSprite(Vector2f position) {
-        super(position);
+    public MovingSprite(Vector2f position, Size<Float> size) {
+        super(position, size);
     }
 
     /**

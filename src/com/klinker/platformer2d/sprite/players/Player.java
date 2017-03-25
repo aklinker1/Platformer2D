@@ -9,6 +9,7 @@ import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
 import com.klinker.platformer2d.Platformer2D;
+import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
 import com.klinker.platformer2d.scenes.Level;
@@ -18,8 +19,8 @@ import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
 public class Player extends MovingSprite {
 
     public static final int HERO_BLUE_TRIANGLE = 0;
+    public static final Shader SHADER = new Shader(R.shaders.vert.MOVE, R.shaders.frag.MOVE);
 
-    private static Size<Float> SIZE = new Size<>(1f, 1f);
 
     private int hero;
     public boolean isGrounded;
@@ -28,15 +29,10 @@ public class Player extends MovingSprite {
     private boolean releasedJump = false;
 
     public Player(Vector2f position, int hero, Level level) {
-        super(position);
+        super(position, new Size<>(1f, 1f));
         this.hero = hero;
         this.level = level;
         initTextureAndShader();
-    }
-
-    @Override
-    public Size<Float> getSize() {
-        return SIZE;
     }
 
     @Override
@@ -61,7 +57,7 @@ public class Player extends MovingSprite {
 
     @Override
     public Shader getShader() {
-        return Level.PLAYER;
+        return SHADER;
     }
 
     /**
