@@ -16,7 +16,6 @@ public abstract class Sprite {
     private Texture texture;
     private Shader shader;
 
-    public abstract Size<Float> getSize();
     public abstract float getDepth();
     public abstract CollisionBox getCollision();
     public abstract Texture getTexture();
@@ -29,8 +28,9 @@ public abstract class Sprite {
      *
      * @param position The initial position of the sprite.
      */
-    public Sprite(Vector2f position) {
-        this.size = getSize();
+    public Sprite(Vector2f position, Size<Float> size) {
+        init();
+        this.size = size;
         this.position = new Vector3f(position.x, position.y, getDepth());
         this.collision = getCollision();
 
@@ -71,4 +71,6 @@ public abstract class Sprite {
     public Vector3f getPosition() {
         return position;
     }
+
+    protected void init() {}
 }
