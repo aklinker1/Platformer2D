@@ -29,7 +29,6 @@ public abstract class Sprite {
      * @param position The initial position of the sprite.
      */
     public Sprite(Vector2f position, Size<Float> size) {
-        init();
         this.size = size;
         this.position = new Vector3f(position.x, position.y, getDepth());
         this.collision = getCollision();
