@@ -67,6 +67,10 @@ public abstract class Sprite {
         shader.disable();
     }
 
+    public Size<Float> getSize() {
+        return size;
+    }
+
     public Vector3f getPosition() {
         return position;
     }
