@@ -12,12 +12,34 @@ import java.util.LinkedList;
 
 public class Map {
 
+    /**
+     * The world that the tiles are rendered from.
+     */
     private int world;
-    private Size<Integer> size;
-    private SparseArray2D<Tile> tiles;
-    private LinkedList<MovingSprite> frenemies;
-    private Player player;
 
+    /**
+     * The size of the map.
+     */
+    private Size<Integer> size;
+
+    /**
+     * The array of tiles.
+     */
+    private SparseArray2D<Tile> tiles;
+
+    /**
+     * The list of moving sprites on the map.
+     */
+    private LinkedList<MovingSprite> frenemies;
+
+
+    /**
+     * Constructor that is called from MapReader.
+     * @param world The world to render the tiles from.
+     * @param tiles The array of tiles that make up the map.
+     * @param size The size of the map.
+     * @param level The level that this Map is a part of.
+     */
     public Map(int world, int[][] tiles, Size<Integer> size, Level level) {
         this.size = size;
         this.world = world;
@@ -36,24 +58,35 @@ public class Map {
             }
         }
 
-        this.player = new Player(playerStart, 0x01, level);
+        this.frenemies.addFirst(new Player(playerStart, 0x01, level));
     }
 
+
+    /**
+     * @return Returns the world that the level takes place in.
+     */
     public int getWorld() {
         return world;
     }
 
+    /**
+     * Renders all the tiles and other sprites.
+     */
     public void render() {
         for (int yi = 0; yi < this.tiles.getHeight(); yi++) {
             SparseArray<Tile> row = this.tiles.getRow(yi);
             for (int xi = 0; xi < row.size(); xi++) {
                 row.get(row.keyAt(xi)).render();
-
             }
         }
-        player.render();
+        for (MovingSprite sprite : frenemies) {
+            sprite.render();
+        }
     }
 
+    /**
+     * Updates all the tiles and other sprites.
+     */
     public void update() {
         for (int yi = 0; yi < this.tiles.getHeight(); yi++) {
             SparseArray<Tile> row = this.tiles.getRow(yi);
@@ -61,7 +94,9 @@ public class Map {
                 row.get(row.keyAt(xi)).update();
             }
         }
-        player.update(tiles, frenemies);
+        for (MovingSprite sprite : frenemies) {
+            sprite.update(tiles, frenemies);
+        }
     }
 
 }
