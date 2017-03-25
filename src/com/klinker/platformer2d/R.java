@@ -1,6 +1,11 @@
 package com.klinker.platformer2d;
 
 public class R {
+    public static class fonts {
+        public static final String ROBOTO_BOLD = "res/fonts/Roboto-Bold.ttf";
+        public static final String ROBOTO_LIGHT = "res/fonts/Roboto-Light.ttf";
+        public static final String ROBOTO = "res/fonts/Roboto.ttf";
+    }
     public static class levels {
         public static final String LEVEL_DESIGN = "res/levels/level-design.txt";
         public static final String LEVELS_TO_BITMAP = "res/levels/levels-to-bitmap.txt";
@@ -26,6 +31,9 @@ public class R {
             public static final String MOVE = "res/shaders/vert/move.vert";
             public static final String PIPE = "res/shaders/vert/pipe.vert";
         }
+    }
+    public static class strings {
+        public static final String ENGLISH = "res/strings/english.txt";
     }
     public static class textures {
         public static class bg {

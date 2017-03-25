@@ -7,8 +7,9 @@ import com.klinker.engine2d.graphics.Sprite;
 import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
-import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.sprite.backgrounds.LevelBackgroundBack;
+import com.klinker.platformer2d.sprite.players.Player;
+import com.klinker.platformer2d.sprite.tiles.Tile;
 import com.klinker.platformer2d.utils.Map;
 import com.klinker.platformer2d.utils.MapReader;
 
@@ -43,11 +44,6 @@ public class Level extends Scene {
      */
     private Sprite background;
 
-    /**
-     * The shaders used by all the objects in the
-     */
-    public static Shader BASIC, BASIC_ALPHA, PLAYER;
-
 
     /**
      * Creates a new level based on  the path to it's data file.
@@ -63,17 +59,13 @@ public class Level extends Scene {
     public void init() {
         super.init();
         map = MapReader.read(this, this.level);
-        background = new LevelBackgroundBack(new Vector2f(
-                0f, -(LevelBackgroundBack.size.height - Platformer2D.tileCounts.y) / 2f
-        ), map.getWorld());
+        background = new LevelBackgroundBack(new Vector2f(0f, 0f), map.getWorld());
+        background.setPosition(0f, -(background.getSize().height - Platformer2D.tileCounts.y) / 2f);
     }
 
     @Override
     public Shader[] loadAllShaders() {
-        BASIC = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC);
-        BASIC_ALPHA = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC_ALPHA);
-        PLAYER = new Shader(R.shaders.vert.MOVE, R.shaders.frag.MOVE);
-        return new Shader[]{BASIC, BASIC_ALPHA, PLAYER };
+        return new Shader[]{ LevelBackgroundBack.SHADER, Tile.SHADER, Player.SHADER };
     }
 
     @Override

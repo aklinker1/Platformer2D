@@ -5,12 +5,12 @@ import com.klinker.engine2d.utils.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * The class that handles loading textures from a png or jpg.
@@ -51,7 +51,7 @@ public class Texture {
      * @param path The path to the image file.
      * @return The OpenGL texture id.
      */
-    private int load(String path) {
+    protected int load(String path) {
         int[] pixels = null;
         BufferedImage image;
         try {

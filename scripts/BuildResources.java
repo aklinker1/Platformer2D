@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Builds a R.java file full of stuff in your resource dir. Modify
@@ -34,8 +31,7 @@ public class BuildResources {
         // set up the res loop
         resRoot = new File("../" + resDir);
         for (File file : resRoot.listFiles()) {
-           if (file.getName().equals("fonts")) fileBody += createFonts(file);
-           else if (file.isDirectory()) fileBody += createSubClass(file, 1);
+           if (file.isDirectory()) fileBody += createGeneral(file, 1);
         }
         fileBody += "}";
 
@@ -46,7 +42,7 @@ public class BuildResources {
         fWriter.close();
     }
 
-    private String createSubClass(File dir, int depth) {
+    private String createGeneral(File dir, int depth) {
         String tabs = "";
         for (int i = 0; i < depth; i++) tabs += "    ";
         String body = tabs;
@@ -61,28 +57,28 @@ public class BuildResources {
         } else {
             body += "public static class " + dir.getName() + " {\n";
             for (File child : dir.listFiles()) {
-                body += createSubClass(child, depth + 1);
+                body += createGeneral(child, depth + 1);
             }
             body += tabs + "}\n";
         }
         return body;
     }
 
-    private String createFonts(File fontDir) {
-        String body = "    public static class fonts {\n" +
-                "        public static String getFont(String fontName, String style) {\n" +
-                "            return \"" + fontDir.getPath().replace('\\', '/').replace("../", "") + "/" + "\" + fontName + '/' + style;\n" +
-                "        }\n";
+    private String createStrings(File stringDir) {
+        String body = "    public static class strings {\n" +
+                "        public static String getString(String res)";
+        for (File file : stringDir.listFiles()) {
+            try (FileReader fReader = new FileReader(file);
+                    BufferedReader reader = new BufferedReader(fReader)) {
+                String line = "";
+                while ((line = reader.readLine()) != null) {
 
-        for (File font : fontDir.listFiles()) {
-            if (font.isDirectory()) {
-                String varName = font.getName().toUpperCase().replace('-', '_');
-                body += "        public static final String " + varName +
-                        " = \"" + font.getPath().replace('\\', '/').replace("../", "") + "\";\n";
+                }
+            } catch (IOException e) {
+
             }
         }
-
-        return body + "    }\n";
+        return "";
     }
 
 }
