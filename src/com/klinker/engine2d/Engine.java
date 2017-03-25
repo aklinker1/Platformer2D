@@ -25,7 +25,7 @@ public abstract class Engine implements Runnable {
     /**
      * The initial dimensions of the game window.
      */
-    public static Size<Integer> SIZE = new Size<>(1280, 720);
+    protected static Size<Integer> windowSize = new Size<>(1280, 720);
 
     /**
      * The parallel thread to run this game in.
@@ -40,7 +40,7 @@ public abstract class Engine implements Runnable {
     /**
      * The frame rate in fps.
      */
-    private int frameRate = 61;
+    protected int frameRate;
 
     /**
      * Whether or not the parallel thread is running.
@@ -58,11 +58,14 @@ public abstract class Engine implements Runnable {
     private Scene scene;
 
     /**
-     * Style of the engine, {@link Engine.Style#RETRO} with no anti-aliasing (nearest neighbor scaling),
-     * or {@link Engine.Style#SMOOTH} with anti-aliasing.
+     * Style of the engine {@link Engine.Style}
      */
-    public static Style STYLE;
+    private static Style style;
 
+    /**
+     * - {@link Engine.Style#RETRO}. with no anti-aliasing (nearest neighbor scaling)
+     * - {@link Engine.Style#SMOOTH} with anti-aliasing.
+     */
     public enum Style {
         RETRO, SMOOTH
     }
@@ -95,8 +98,7 @@ public abstract class Engine implements Runnable {
         }
         analyzer.stop();
         analyzer.logFrames();
-        glfwDestroyWindow(window);
-        glfwTerminate();
+        finish();
     }
 
     /**
@@ -110,7 +112,7 @@ public abstract class Engine implements Runnable {
 
         // initializing the window
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-        window = glfwCreateWindow(SIZE.width, SIZE.height, getWindowTitle(), NULL, NULL);
+        window = glfwCreateWindow(windowSize.width, windowSize.height, getWindowTitle(), NULL, NULL);
         if (window == NULL) {
             // TODO: 2/26/2017 error createing window
             return;
@@ -119,7 +121,7 @@ public abstract class Engine implements Runnable {
 
         // set window position to centered
         GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
-        glfwSetWindowPos(window, (vidMode.width() - SIZE.width) / 2, (vidMode.height() - SIZE.height) / 2);
+        glfwSetWindowPos(window, (vidMode.width() - windowSize.width) / 2, (vidMode.height() - windowSize.height) / 2);
         glfwMakeContextCurrent(window);     // set OS focus to this window
         glfwShowWindow(window);
         GL.createCapabilities();
@@ -160,6 +162,14 @@ public abstract class Engine implements Runnable {
         glfwSwapBuffers(window);
     }
 
+    /**
+     * Closes the window and terminates OpenGL. When overriding, remember to call the super method
+     */
+    private void finish() {
+        glfwDestroyWindow(window);
+        glfwTerminate();
+    }
+
 
     /**
      * Gets the title for the window.
@@ -185,7 +195,7 @@ public abstract class Engine implements Runnable {
      * @param style The style of the game, either {@link Style#RETRO} or {@link Style#SMOOTH}
      */
     public void setStyle(Style style) {
-        Engine.STYLE = style;
+        Engine.style = style;
         Texture.RENDER_STYLE = style == Style.RETRO ? GL_NEAREST : GL_LINEAR;
     }
 
@@ -195,7 +205,7 @@ public abstract class Engine implements Runnable {
      * @param newSize The new size in pixels.
      */
     public void setSize(Size<Integer> newSize) {
-        this.SIZE = newSize;
+        this.windowSize = newSize;
     }
 
     /**
