@@ -1,4 +1,7 @@
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Builds a R.java file full of stuff in your resource dir. Modify
@@ -31,7 +34,8 @@ public class BuildResources {
         // set up the res loop
         resRoot = new File("../" + resDir);
         for (File file : resRoot.listFiles()) {
-           if (file.isDirectory()) fileBody += createSubClass(file, 1);
+           if (file.getName().equals("fonts")) fileBody += createFonts(file);
+           else if (file.isDirectory()) fileBody += createSubClass(file, 1);
         }
         fileBody += "}";
 
@@ -42,26 +46,43 @@ public class BuildResources {
         fWriter.close();
     }
 
-    private String createSubClass(File file, int depth) {
+    private String createSubClass(File dir, int depth) {
         String tabs = "";
         for (int i = 0; i < depth; i++) tabs += "    ";
         String body = tabs;
-        if (file.isFile()) {
-            if (file.getName().endsWith(".psd")) return "";
+        if (dir.isFile()) {
+            if (dir.getName().endsWith(".psd")) return "";
             else {
-                String varName = file.getName().substring(0, file.getName().lastIndexOf('.')).toUpperCase().replace('-', '_');
-                if (Character.isDigit(varName.charAt(0))) varName = Character.toUpperCase(file.getParentFile().getName().charAt(0)) + varName;
+                String varName = dir.getName().substring(0, dir.getName().lastIndexOf('.')).toUpperCase().replace('-', '_');
+                if (Character.isDigit(varName.charAt(0))) varName = Character.toUpperCase(dir.getParentFile().getName().charAt(0)) + varName;
                 body += "public static final String " + varName +
-                        " = \"" + file.getPath().replace('\\', '/').replace("../", "") + "\";\n";
+                        " = \"" + dir.getPath().replace('\\', '/').replace("../", "") + "\";\n";
             }
         } else {
-            body += "public static class " + file.getName() + " {\n";
-            for (File child : file.listFiles()) {
+            body += "public static class " + dir.getName() + " {\n";
+            for (File child : dir.listFiles()) {
                 body += createSubClass(child, depth + 1);
             }
             body += tabs + "}\n";
         }
         return body;
+    }
+
+    private String createFonts(File fontDir) {
+        String body = "    public static class fonts {\n" +
+                "        public static String getFont(String fontName, String style) {\n" +
+                "            return \"" + fontDir.getPath().replace('\\', '/').replace("../", "") + "/" + "\" + fontName + '/' + style;\n" +
+                "        }\n";
+
+        for (File font : fontDir.listFiles()) {
+            if (font.isDirectory()) {
+                String varName = font.getName().toUpperCase().replace('-', '_');
+                body += "        public static final String " + varName +
+                        " = \"" + font.getPath().replace('\\', '/').replace("../", "") + "\";\n";
+            }
+        }
+
+        return body + "    }\n";
     }
 
 }
