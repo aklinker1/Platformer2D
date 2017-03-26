@@ -50,6 +50,9 @@ public abstract class Menu extends Scene {
         return PROJ_MATRIX;
     }
 
-
+    public abstract void onLeftPress();
+    public abstract void onUpPress();
+    public abstract void onRightPress();
+    public abstract void onDownPress();
 
 }
