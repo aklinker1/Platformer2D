@@ -8,13 +8,31 @@ public class Settings extends Preferences {
     public static final String KEY_ASPECT_RATIO = "aspect_ratio";
     public static final String KEY_FRAME_RATE = "frame_rate";
     public static final String KEY_WINDOW_WIDTH = "window_width";
+    public static final String KEY_WINDOW_FULL_SCREEN = "window_full_screen";
     //public static final String KEY_ = "";
+
+    public static final int DEFAULT_TILE_WIDTH = 28; // tiles
+    public static final float DEFAULT_ASPECT_RATIO = 9 / 16f; // height / width
+    public static final int DEFAULT_FRAME_RATE = 60; // fps
+    public static final int DEFAULT_WINDOW_WIDTH = 1280; // pixels
+    public static final boolean DEFAULT_WINDOW_FULL_SCREEN = true; // is full screen?
+
 
     public Settings() {
     }
 
     public Settings(String path) {
         super(path);
+    }
+
+    public void initialize() {
+        if (!hasData()) {
+            put(KEY_FRAME_RATE, DEFAULT_FRAME_RATE);
+            put(KEY_ASPECT_RATIO, DEFAULT_ASPECT_RATIO);
+            put(KEY_TILE_WIDTH, DEFAULT_TILE_WIDTH);
+            put(KEY_WINDOW_WIDTH, DEFAULT_WINDOW_WIDTH);
+            put(KEY_WINDOW_FULL_SCREEN, DEFAULT_WINDOW_FULL_SCREEN);
+        }
     }
 
 }
