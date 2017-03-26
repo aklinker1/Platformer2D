@@ -69,6 +69,7 @@ public class BuildResources {
         return body;
     }
 
+    // TODO: 3/26/2017 Multiple language support
     private String createStrings(File stringDir) {
         String body = "    public static class strings {\n";
         for (File file : stringDir.listFiles()) {
