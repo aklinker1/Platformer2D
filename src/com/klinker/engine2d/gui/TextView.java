@@ -63,10 +63,12 @@ public class TextView extends View {
         for (int j = 0; j < (!wrapWidth ? 2 : 1); j++) {
             characters = new LinkedList<>();
             // handle the innerAlign of the text on the second time through
-            if (!wrapWidth && j == 2) {
+            if (!wrapWidth && j == 1) {
+                Log.d("\nLoading 2x: width = " + width + ", wrapping width? " + wrapWidth);
                 if (innerAlign == Alignment.CENTER) width = (size.width - width) / 2f;
                 else if (innerAlign == Alignment.RIGHT) width = size.width - width;
                 else width = 0f;
+                Log.d("newWidth = " + width);
             }
             else width = 0f;
             for (int i = 0; i < text.length(); i++) {
