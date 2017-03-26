@@ -26,8 +26,8 @@ public class Platformer2D extends Engine {
 
     public Platformer2D() {
         settings = initializeSettings();
-        //setScene(new MainMenu());
-        setScene(new Level(R.levels.W02_LXX));
+        if (true) setScene(new MainMenu());
+        else setScene(new Level(R.levels.W02_LXX));
     }
 
     @Override
