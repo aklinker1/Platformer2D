@@ -3,15 +3,20 @@ package com.klinker.platformer2d.scenes;
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.math.Matrix4f;
+import com.klinker.engine2d.math.Size;
 import com.klinker.platformer2d.Platformer2D;
 
 import java.util.LinkedList;
 
 public abstract class Menu extends Scene {
 
+    public static Size<Float> PROJ_SIZE = new Size<Float>(
+            100f * Platformer2D.tileCounts.ratioXoY(),
+            100f
+    );
     public static Matrix4f PROJ_MATRIX = Matrix4f.orthographic(
-            -50f * Platformer2D.tileCounts.ratioXoY(), 50f * Platformer2D.tileCounts.ratioXoY(),
-            50f, -50f,
+            -PROJ_SIZE.width / 2f, PROJ_SIZE.width / 2f,
+            PROJ_SIZE.height, -PROJ_SIZE.height,
             -1f, 1f
     );
 
