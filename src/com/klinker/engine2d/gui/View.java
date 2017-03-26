@@ -7,10 +7,10 @@ import com.klinker.platformer2d.sprite.SimpleSprite;
 
 public class View {
 
-    private Vector3f position;
-    private Size<Float> size;
+    protected Vector3f position;
+    protected Size<Float> size;
 
-    private Sprite background;
+    protected Sprite background;
 
     public View(Vector3f position, Size<Float> size) {
         this.position = position;
