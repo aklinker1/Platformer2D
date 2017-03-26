@@ -32,9 +32,13 @@ public abstract class Sprite {
      * @param position The initial position of the sprite.
      */
     public Sprite(Vector2f position, Size<Float> size) {
+        this.collision = getCollision();
+        initializeMesh(position, size);
+    }
+
+    protected void initializeMesh(Vector2f position, Size<Float> size) {
         this.size = size;
         this.position = new Vector3f(position.x, position.y, getDepth());
-        this.collision = getCollision();
 
         this.mesh = new VertexArray(
                 new float[] {
