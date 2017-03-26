@@ -7,6 +7,7 @@ import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.sprite.SimpleSprite;
@@ -21,7 +22,7 @@ public class MainMenu extends Menu {
     public void init() {
         super.init();
         background = new View(
-                new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK),
+                new Vector2f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f),
                 new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
         );
         background.setBackgroundTexture(R.textures.bg.MAIN_MENU);
@@ -46,12 +47,36 @@ public class MainMenu extends Menu {
 
     @Override
     protected void initializeViews(LinkedList<View> views) {
-        views.add(new TextView(
-                "Hello World!",
-                10f,
-                new Vector3f(0f, 0f, Depth.TILE_FRONT),
+        TextView version = new TextView(
+                "Version 0.0.1 Alpha",
+                3f,
+                new Vector2f(PROJ_SIZE.width / 2f - 2f,-PROJ_SIZE.height / 2f + 2f),
                 R.fonts.ROBOTO
-        ));
+        );
+        Log.d("position = " + version.getPosition());
+        version.setTextColor(0x6b000000);
+        version.setTextAlignment(TextView.Alignment.RIGHT);
+        views.add(version);
+    }
+
+    @Override
+    public void onLeftPress() {
+        Log.d("Left");
+    }
+
+    @Override
+    public void onUpPress() {
+        Log.d("Up");
+    }
+
+    @Override
+    public void onRightPress() {
+        Log.d("Right");
+    }
+
+    @Override
+    public void onDownPress() {
+        Log.d("Down");
     }
 
 }
