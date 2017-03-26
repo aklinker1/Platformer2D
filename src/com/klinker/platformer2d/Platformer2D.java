@@ -40,12 +40,13 @@ public class Platformer2D extends Engine {
         return "Platformer 2D";
     }
 
-    private Settings initializeSettings() {
+    public static Settings initializeSettings() {
         Settings settings = new Settings(SETTINGS_PATH);
 
         // initialize the defaults if it's the first open
         settings.initialize();
 
+        // set the settings.
         frameRate = settings.getInt(Settings.KEY_FRAME_RATE);
         float aspectRatio = settings.getFloat(Settings.KEY_ASPECT_RATIO);
         int windowWidth = settings.getInt(Settings.KEY_WINDOW_WIDTH);
