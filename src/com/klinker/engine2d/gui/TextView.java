@@ -17,7 +17,7 @@ import java.util.LinkedList;
 public class TextView extends View {
 
 
-    public static final Alignment DEFAULT_ALIGNMENT = Alignment.RIGHT;
+    public static final Alignment DEFAULT_ALIGNMENT = Alignment.LEFT;
     public static final int DEFAULT_TEXT_COLOR = 0xFFFFFFFF;
     public static final int DEFAULT_TEXT_SIZE = 1;
     public static final float DEFAULT_IMAGE_MARGIN = 0f;
