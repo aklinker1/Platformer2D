@@ -13,4 +13,10 @@ void main()
 {
     color = texture(tex, fs_in.tc);
     if (color.w <= 0) discard;
+    else {
+        // sets the color to the font color
+        color.x = font_color.x;
+        color.y = font_color.y;
+        color.z = font_color.z;
+    }
 }
