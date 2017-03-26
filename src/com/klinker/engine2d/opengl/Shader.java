@@ -1,9 +1,10 @@
 package com.klinker.engine2d.opengl;
 
-import com.klinker.engine2d.maths.Matrix4f;
-import com.klinker.engine2d.maths.Vector3f;
+import com.klinker.engine2d.math.Matrix4f;
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.utils.ShaderUtils;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,6 +104,20 @@ public class Shader {
     public void setUniformMatrix4f(String name, Matrix4f matrix) {
         if (!enabled) enable();
         glUniformMatrix4fv(getUniform(name), false, matrix.toFloatBuffer());
+    }
+
+    /**
+     * Sets a projection matrix for the shader.
+     * @param name The name of the location in OpenGL, matches the uniform vec4 object name
+     *             in the .vert file.
+     * @param color the color to set.
+     */
+    public void setUniformColorRGBA(String name, Color color) {
+        if (!enabled) enable();
+        glUniform4f(getUniform(name),
+                color.getRed() / 255f, color.getGreen() / 255f,
+                color.getBlue() / 255f, color.getAlpha() / 255f
+        );
     }
 
     /**
