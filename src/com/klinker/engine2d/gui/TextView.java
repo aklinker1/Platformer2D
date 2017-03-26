@@ -2,6 +2,7 @@ package com.klinker.engine2d.gui;
 
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.draw.WrapWidthSprite;
+import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
@@ -10,12 +11,13 @@ import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 
+import java.awt.*;
 import java.util.LinkedList;
 
 public class TextView extends View {
 
 
-    public static final Alignment DEFAULT_ALIGNMENT = Alignment.LEFT;
+    public static final Alignment DEFAULT_ALIGNMENT = Alignment.RIGHT;
     public static final int DEFAULT_TEXT_COLOR = 0xFFFFFFFF;
     public static final int DEFAULT_TEXT_SIZE = 1;
     public static final float DEFAULT_IMAGE_MARGIN = 0f;
@@ -29,6 +31,7 @@ public class TextView extends View {
     private Sprite image;
     private float imageMargin;
     private LinkedList<Glyph> characters;
+    private Alignment alignment;
 
 
     // TODO: 3/25/2017 Add alignment?
@@ -37,10 +40,11 @@ public class TextView extends View {
     }
 
 
-    public TextView(String text, float hieght, Vector3f position, String fontDir) {
+    public TextView(String text, float hieght, Vector2f position, String fontDir) {
         super(position, new Size<Float>(null, hieght));
         this.fontDir = fontDir;
 
+        this.alignment = DEFAULT_ALIGNMENT;
         this.textColor = DEFAULT_TEXT_COLOR;
         this.textSize = DEFAULT_TEXT_SIZE;
         this.image = null;
@@ -49,7 +53,7 @@ public class TextView extends View {
     }
 
     public void setText(String text) {
-        loadCharacters(text);
+        size.width = loadCharacters(text);
     }
 
     private float loadCharacters(String text) {
@@ -103,8 +107,15 @@ public class TextView extends View {
 
         @Override
         protected void setShaderProperties(Shader shader) {
-            super.setShaderProperties(shader);
-            //shader.setUniformColorRGBA("font_color", new Color(textColor));
+            // not calling super to take into account the horizontal alignment
+            //super.setShaderProperties(shader);
+            float xAlign;// = TextView.this.alignment == Alignment.LEFT ? 0 : TextView.this.alignment == Alignment.CENTER ? TextView.this.size.width / 2;
+            if (TextView.this.alignment == Alignment.LEFT) xAlign = 0f;
+            else if (TextView.this.alignment == Alignment.RIGHT) xAlign = -TextView.this.size.width;
+            else xAlign = -TextView.this.size.width / 2f;
+
+            shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(this.position.translate(xAlign, 0, 0)));
+            shader.setUniformColorRGBA("font_color", new Color(textColor, true));
         }
 
         @Override
