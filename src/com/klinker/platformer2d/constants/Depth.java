@@ -22,4 +22,8 @@ public class Depth {
     public static final float TILE = 0.0f;
     public static final float TILE_FRONT = 0.2f;
 
+    public static final float HUD_LOW = 0.9f;
+    public static final float HUD = 0.93f;
+    public static final float HUD_HIGH = 0.96f;
+
 }
