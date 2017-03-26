@@ -26,10 +26,9 @@ public class TextView extends View {
 
 
     private String fontDir;
+    private String text;
     private int textColor;
     private int textSize;
-    private Sprite image;
-    private float imageMargin;
     private LinkedList<Glyph> characters;
     private Alignment alignment;
 
@@ -42,21 +41,22 @@ public class TextView extends View {
 
     public TextView(String text, float hieght, Vector2f position, String fontDir) {
         super(position, new Size<Float>(null, hieght));
+        this.text = text;
         this.fontDir = fontDir;
 
         this.alignment = DEFAULT_ALIGNMENT;
         this.textColor = DEFAULT_TEXT_COLOR;
         this.textSize = DEFAULT_TEXT_SIZE;
-        this.image = null;
 
-        size.width = loadCharacters(text);
+        size.width = loadCharacters();
     }
 
     public void setText(String text) {
-        size.width = loadCharacters(text);
+        this.text = text;
+        size.width = loadCharacters();
     }
 
-    private float loadCharacters(String text) {
+    private float loadCharacters() {
         Log.d("Loading text for '" + text + "'");
         characters = new LinkedList<>();
         float width = 0f;
@@ -81,26 +81,16 @@ public class TextView extends View {
         this.textSize = textSize;
     }
 
-    public void setImage(Sprite image) {
-        this.image = image;
-    }
-
-    public void setImageMargin(float imageMargin) {
-        this.imageMargin = imageMargin;
-    }
-
     public void setTextAlignment(Alignment alignment) {
         this.alignment = alignment;
     }
 
     public void render() {
         for (WrapWidthSprite character : characters) character.render();
-        if (image != null) image.update();
     }
 
     public void update() {
         for (WrapWidthSprite character : characters) character.render();
-        if (image != null) image.update();
     }
 
     protected class Glyph extends WrapWidthSprite {
