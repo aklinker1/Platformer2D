@@ -21,6 +21,7 @@ public class R {
             public static final String BACKGROUND = "res/shaders/frag/background.frag";
             public static final String BASIC_ALPHA = "res/shaders/frag/basic-alpha.frag";
             public static final String BASIC = "res/shaders/frag/basic.frag";
+            public static final String FONT = "res/shaders/frag/font.frag";
             public static final String MOVE = "res/shaders/frag/move.frag";
             public static final String PIPE = "res/shaders/frag/pipe.frag";
         }
@@ -28,6 +29,7 @@ public class R {
         public static class vert {
             public static final String BACKGROUND = "res/shaders/vert/background.vert";
             public static final String BASIC = "res/shaders/vert/basic.vert";
+            public static final String FONT = "res/shaders/vert/font.vert";
             public static final String MOVE = "res/shaders/vert/move.vert";
             public static final String PIPE = "res/shaders/vert/pipe.vert";
         }
