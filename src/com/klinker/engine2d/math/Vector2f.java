@@ -47,6 +47,11 @@ public class Vector2f {
     }
 
 
+    public float ratioXoY() {
+        return x / y;
+    }
+
+
     @Override
     public String toString() {
         return "Vector2F(" + x + ", " + y + ")";
