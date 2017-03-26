@@ -2,6 +2,7 @@ package com.klinker.platformer2d.scenes;
 
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.gui.View;
+import com.klinker.engine2d.inputs.Input;
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
 import com.klinker.platformer2d.Platformer2D;
@@ -35,7 +36,14 @@ public abstract class Menu extends Scene {
 
     @Override
     public void update() {
-
+        boolean left = Input.isKeyDown(Input.LEFT);
+        boolean up = Input.isKeyDown(Input.UP);
+        boolean right = Input.isKeyDown(Input.RIGHT);
+        boolean down = Input.isKeyDown(Input.DOWN);
+        if (left && !right) onLeftPress();
+        if (right && !left) onRightPress();
+        if (up && !down) onUpPress();
+        if (down && !up) onDownPress();
     }
 
     @Override
