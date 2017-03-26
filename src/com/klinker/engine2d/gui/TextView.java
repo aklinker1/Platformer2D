@@ -17,7 +17,7 @@ import java.util.LinkedList;
 public class TextView extends View {
 
 
-    public static final Alignment DEFAULT_ALIGNMENT = Alignment.LEFT;
+    public static final Alignment DEFAULT_INNER_ALIGN = Alignment.LEFT;
     public static final int DEFAULT_TEXT_COLOR = 0xFFFFFFFF;
     public static final int DEFAULT_TEXT_SIZE = 1;
     public static final float DEFAULT_IMAGE_MARGIN = 0f;
@@ -30,47 +30,57 @@ public class TextView extends View {
     private int textColor;
     private int textSize;
     private LinkedList<Glyph> characters;
-    private Alignment alignment;
+    private Alignment innerAlign;
+    private boolean wrapWidth = true;
 
 
-    // TODO: 3/25/2017 Add alignment?
-    public enum Alignment {
-        CENTER, LEFT, RIGHT
-    }
-
-
-    public TextView(String text, float hieght, Vector2f position, String fontDir) {
-        super(position, new Size<Float>(null, hieght));
+    public TextView(String text, Size<Float> size, Vector2f position, String fontDir) {
+        super(position, size);
         this.text = text;
         this.fontDir = fontDir;
+        this.wrapWidth = size.width == null;
 
-        this.alignment = DEFAULT_ALIGNMENT;
         this.textColor = DEFAULT_TEXT_COLOR;
         this.textSize = DEFAULT_TEXT_SIZE;
 
-        size.width = loadCharacters();
+        loadCharacters();
+        // cal twice to properly set horizontal align
+        loadCharacters();
+    }
+
+    public TextView(String text, float hieght, Vector2f position, String fontDir) {
+        this(text, new Size<Float>(null, hieght), position, fontDir);
     }
 
     public void setText(String text) {
         this.text = text;
-        size.width = loadCharacters();
+        loadCharacters();
     }
 
-    private float loadCharacters() {
-        Log.d("Loading text for '" + text + "'");
-        characters = new LinkedList<>();
+    private void loadCharacters() {
+        // repeat twice if we are not wrapping width so it can properly set the innerAlign
         float width = 0f;
-        for (int i = 0; i < text.length(); i++) {
-            int c = text.charAt(i);
-            Glyph _char = new Glyph(
-                    new Vector2f(position.x + width, position.y),
-                    size.height,
-                    String.format("%s/%03d.png", fontDir, c)
-            );
-            characters.addLast(_char);
-            width += _char.getSize().width;
+        for (int j = 0; j < (!wrapWidth ? 2 : 1); j++) {
+            characters = new LinkedList<>();
+            // handle the innerAlign of the text on the second time through
+            if (!wrapWidth && j == 2) {
+                if (innerAlign == Alignment.CENTER) width = (size.width - width) / 2f;
+                else if (innerAlign == Alignment.RIGHT) width = size.width - width;
+                else width = 0f;
+            }
+            else width = 0f;
+            for (int i = 0; i < text.length(); i++) {
+                int c = text.charAt(i);
+                Glyph _char = new Glyph(
+                        new Vector2f(position.x + width, position.y),
+                        size.height,
+                        String.format("%s/%03d.png", fontDir, c)
+                );
+                characters.addLast(_char);
+                width += _char.getSize().width;
+            }
+            if (wrapWidth) size.width = width;
         }
-        return width;
     }
 
     public void setTextColor(int textColor) {
@@ -81,8 +91,9 @@ public class TextView extends View {
         this.textSize = textSize;
     }
 
-    public void setTextAlignment(Alignment alignment) {
-        this.alignment = alignment;
+    public void setInnerAlign(Alignment algin) {
+        this.innerAlign = algin;
+        loadCharacters();
     }
 
     public void render() {
@@ -103,10 +114,8 @@ public class TextView extends View {
         protected void setShaderProperties(Shader shader) {
             // not calling super to take into account the horizontal alignment
             //super.setShaderProperties(shader);
-            float xAlign;// = TextView.this.alignment == Alignment.LEFT ? 0 : TextView.this.alignment == Alignment.CENTER ? TextView.this.size.width / 2;
-            if (TextView.this.alignment == Alignment.LEFT) xAlign = 0f;
-            else if (TextView.this.alignment == Alignment.RIGHT) xAlign = -TextView.this.size.width;
-            else xAlign = -TextView.this.size.width / 2f;
+            float xAlign = getAlignmentOffset();// = TextView.this.alignment == Alignment.LEFT ? 0 : TextView.this.alignment == Alignment.CENTER ? TextView.this.size.width / 2;
+
 
             shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(this.position.translate(xAlign, 0, 0)));
             shader.setUniformColorRGBA("font_color", new Color(textColor, true));

@@ -12,12 +12,19 @@ import static com.klinker.engine2d.gui.View.State.*;
 
 public class View {
 
+    public static final Alignment DEFAULT_ALIGNMENT = Alignment.LEFT;
+
     protected Vector2f position;
     protected Size<Float> size;
+    private Alignment alignment;
     protected State state;
 
     protected StateObject<Sprite> background;
 
+
+    public enum Alignment {
+        CENTER, LEFT, RIGHT
+    }
 
     public enum State {
         DEFAULT, SELECTED, CLICKED, DISABLED
@@ -28,6 +35,7 @@ public class View {
         this.position = position;
         this.size = size;
         this.state = DEFAULT;
+        this.alignment = DEFAULT_ALIGNMENT;
     }
 
     public void setBackgroundTexture(String textureRes) {
@@ -57,6 +65,16 @@ public class View {
 
     public Vector2f getPosition() {
         return position;
+    }
+
+    public void setAlignment(Alignment alignment) {
+        this.alignment = alignment;
+    }
+
+    protected float getAlignmentOffset() {
+        if (alignment == Alignment.LEFT) return 0f;
+        else if (alignment == Alignment.RIGHT) return -size.width;
+        else return -size.width / 2f;
     }
 
     public static class StateObject<T> {
