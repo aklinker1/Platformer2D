@@ -33,8 +33,8 @@ public class BuildResources {
         for (File file : resRoot.listFiles()) {
             if (file.isDirectory() && file.getName().equalsIgnoreCase("fonts"))
                 fileBody += createFonts(file);
-            //else if (file.isDirectory() && file.getName().equalsIgnoreCase("strings"))
-            //    fileBody += createStrings(file);
+            else if (file.isDirectory() && file.getName().equalsIgnoreCase("strings"))
+                fileBody += createStrings(file);
             else if (file.isDirectory())
                 fileBody += createGeneral(file, 1);
         }
@@ -69,22 +69,22 @@ public class BuildResources {
         return body;
     }
 
-    // TODO: 3/25/2017 Finish
     private String createStrings(File stringDir) {
-        String body = "    public static class strings {\n" +
-                "        public static String getString(String res)";
+        String body = "    public static class strings {\n";
         for (File file : stringDir.listFiles()) {
             try (FileReader fReader = new FileReader(file);
                     BufferedReader reader = new BufferedReader(fReader)) {
                 String line = "";
                 while ((line = reader.readLine()) != null) {
-
+                    String varName = line.split(":")[0].toUpperCase().replace('-', '_');
+                    String varValue = line.split(":")[1];
+                    body += "        public static final String " + varName + " = " + varValue + ";\n";
                 }
             } catch (IOException e) {
 
             }
         }
-        return "";
+        return body + "    }\n";
     }
 
     private String createFonts(File fontDir) {
