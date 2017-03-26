@@ -53,7 +53,7 @@ public class MainMenu extends Menu {
         );
         Log.d("position = " + version.getPosition());
         version.setTextColor(0x6b000000);
-        version.setAlignment(TextView.Alignment.RIGHT);
+        version.setHorAlignment(TextView.Alignment.RIGHT);
         views.add(version);
 
     }
