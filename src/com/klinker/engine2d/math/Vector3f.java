@@ -54,6 +54,10 @@ public class Vector3f {
         return new Vector2f(x, y);
     }
 
+    public Vector3f translate(float x, float y, float z) {
+        return new Vector3f(this.x + x, this.y + y, this.z + z);
+    }
+
     @Override
     public String toString() {
         return "(" + x + ", " + y + ", " + z + ")";
