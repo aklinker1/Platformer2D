@@ -47,11 +47,6 @@ public class View {
         if (background != null) background.get(state).update();
     }
 
-    public void setPosition(float x, float y) {
-        this.position.x = x;
-        this.position.y = y;
-    }
-
     public void setState(State state) {
         this.state = state;
     }
