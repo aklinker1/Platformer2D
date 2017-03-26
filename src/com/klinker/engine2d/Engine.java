@@ -4,7 +4,7 @@ package com.klinker.engine2d;
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.inputs.Input;
-import com.klinker.engine2d.maths.Size;
+import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.utils.PerformanceAnalyzer;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
