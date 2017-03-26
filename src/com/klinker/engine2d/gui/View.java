@@ -3,27 +3,34 @@ package com.klinker.engine2d.gui;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.math.Vector3f;
+import com.klinker.engine2d.utils.Log;
+import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.sprite.SimpleSprite;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import static com.klinker.engine2d.gui.View.State.*;
 
 public class View {
 
-    public static final Alignment DEFAULT_ALIGNMENT = Alignment.LEFT;
+    public static final Alignment DEFAULT_H_ALIGNMENT = Alignment.LEFT;
+    public static final Alignment DEFAULT_V_ALIGNMENT = Alignment.LEFT;
+    public static final State DEFAULT_STATE = State.DEFAULT;
 
     protected Vector2f position;
+    protected float depth;
     protected Size<Float> size;
-    private Alignment alignment;
+    private Alignment hAlignment;
+    private Alignment vAlignment;
     protected State state;
 
     protected StateObject<Sprite> background;
 
 
     public enum Alignment {
-        CENTER, LEFT, RIGHT
+        CENTER, LEFT, RIGHT, TOP, BOTTOM
     }
 
     public enum State {
@@ -31,16 +38,18 @@ public class View {
     }
 
 
-    public View(Vector2f position, Size<Float> size) {
+    public View(Vector2f position, float depth, Size<Float> size) {
         this.position = position;
         this.size = size;
         this.state = DEFAULT;
-        this.alignment = DEFAULT_ALIGNMENT;
+        this.hAlignment = DEFAULT_H_ALIGNMENT;
+        this.vAlignment = DEFAULT_V_ALIGNMENT;
+        this.depth = depth;
     }
 
     public void setBackgroundTexture(String textureRes) {
         if (background == null) background = new StateObject<>();
-        background.put(DEFAULT, new SimpleSprite(position, size, textureRes));
+        background.put(DEFAULT, new SimpleSprite(new Vector2f(position.x + getHorAlignmentOffset(), position.y + getVerAlignmentOffset()), depth - 0.001f, size, textureRes));
     }
 
     public void setBackground(StateObject<Sprite> spriteStateObject) {
@@ -67,17 +76,34 @@ public class View {
         return position;
     }
 
-    public void setAlignment(Alignment alignment) {
-        this.alignment = alignment;
+    public void setHorAlignment(Alignment alignment) {
+        this.hAlignment = alignment;
     }
 
-    protected float getAlignmentOffset() {
-        if (alignment == Alignment.LEFT) return 0f;
-        else if (alignment == Alignment.RIGHT) return -size.width;
-        else return -size.width / 2f;
+    public void setVertAlignment(Alignment alignment) {
+        this.vAlignment = alignment;
     }
 
-    public static class StateObject<T> {
+    protected float getHorAlignmentOffset() {
+        if (hAlignment == Alignment.CENTER) return -size.width / 2f;
+        else if (hAlignment == Alignment.RIGHT) return -size.width;
+        else return 0f;
+    }
+
+    protected float getVerAlignmentOffset() {
+        if (vAlignment == Alignment.CENTER) return -size.height / 2f;
+        else if (vAlignment == Alignment.TOP) return -size.height;
+        else return 0f;
+    }
+
+    public void setDepth(float depth) {
+        this.depth = depth;
+        for (Sprite sprite : background) {
+
+        }
+    }
+
+    public static class StateObject<T> implements Iterable<T> {
         private HashMap<State, T> data;
         public StateObject() {
             data = new HashMap<State, T>(10);
@@ -87,6 +113,33 @@ public class View {
         }
         public T get(State state) {
             return data.get(state);
+        }
+        @Override
+        public String toString() {
+            return data.toString();
+        }
+        @Override
+        public Iterator<T> iterator() {
+            return new StateIterator();
+        }
+        private class StateIterator implements Iterator<T> {
+
+            private LinkedList<T> queue;
+
+            public StateIterator() {
+                queue = new LinkedList<T>();
+                queue.addAll(data.values());
+            }
+
+            @Override
+            public boolean hasNext() {
+                return !queue.isEmpty();
+            }
+
+            @Override
+            public T next() {
+                return queue.remove();
+            }
         }
     }
 

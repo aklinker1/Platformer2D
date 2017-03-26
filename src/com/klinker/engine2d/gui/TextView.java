@@ -1,11 +1,9 @@
 package com.klinker.engine2d.gui;
 
-import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.draw.WrapWidthSprite;
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.R;
@@ -17,10 +15,10 @@ import java.util.LinkedList;
 public class TextView extends View {
 
 
-    public static final Alignment DEFAULT_INNER_ALIGN = Alignment.LEFT;
+    public static final Alignment DEFAULT_INNER_H_ALIGN = Alignment.LEFT;
+    public static final Alignment DEFAULT_INNER_V_ALIGN = Alignment.CENTER;
     public static final int DEFAULT_TEXT_COLOR = 0xFFFFFFFF;
     public static final int DEFAULT_TEXT_SIZE = 1;
-    public static final float DEFAULT_IMAGE_MARGIN = 0f;
 
     public static Shader FONT_SHADER = new Shader(R.shaders.vert.FONT, R.shaders.frag.FONT);
 
@@ -28,23 +26,24 @@ public class TextView extends View {
     private String fontDir;
     private String text;
     private int textColor;
-    private int textSize;
+    private float textSize;
     private LinkedList<Glyph> characters;
-    private Alignment innerAlign;
+    private Alignment innerHAlign;
+    private Alignment innerVAlign;
     private boolean wrapWidth = true;
 
 
     public TextView(String text, Size<Float> size, Vector2f position, String fontDir) {
-        super(position, size);
+        super(position, Depth.HUD, size);
         this.text = text;
         this.fontDir = fontDir;
         this.wrapWidth = size.width == null;
 
+        this.innerHAlign = DEFAULT_INNER_H_ALIGN;
+        this.innerVAlign = DEFAULT_INNER_V_ALIGN;
         this.textColor = DEFAULT_TEXT_COLOR;
         this.textSize = DEFAULT_TEXT_SIZE;
 
-        loadCharacters();
-        // cal twice to properly set horizontal align
         loadCharacters();
     }
 
@@ -58,24 +57,27 @@ public class TextView extends View {
     }
 
     private void loadCharacters() {
-        // repeat twice if we are not wrapping width so it can properly set the innerAlign
+        // repeat twice if we are not wrapping width so it can properly set the innerHAlign
         float width = 0f;
+        float height;
+        if (innerVAlign == Alignment.CENTER) height = (size.height - textSize) / 2f;
+        else if (innerVAlign == Alignment.TOP) height = size.height - textSize;
+        else height = 0f;
+
         for (int j = 0; j < (!wrapWidth ? 2 : 1); j++) {
             characters = new LinkedList<>();
-            // handle the innerAlign of the text on the second time through
+            // handle the innerHAlign of the text on the second time through
             if (!wrapWidth && j == 1) {
-                Log.d("\nLoading 2x: width = " + width + ", wrapping width? " + wrapWidth);
-                if (innerAlign == Alignment.CENTER) width = (size.width - width) / 2f;
-                else if (innerAlign == Alignment.RIGHT) width = size.width - width;
+                if (innerHAlign == Alignment.CENTER) width = (size.width - width) / 2f;
+                else if (innerHAlign == Alignment.RIGHT) width = size.width - width;
                 else width = 0f;
-                Log.d("newWidth = " + width);
             }
             else width = 0f;
             for (int i = 0; i < text.length(); i++) {
                 int c = text.charAt(i);
                 Glyph _char = new Glyph(
-                        new Vector2f(position.x + width, position.y),
-                        size.height,
+                        new Vector2f(position.x + width, position.y  + height),
+                        textSize,
                         String.format("%s/%03d.png", fontDir, c)
                 );
                 characters.addLast(_char);
@@ -89,36 +91,44 @@ public class TextView extends View {
         this.textColor = textColor;
     }
 
-    public void setTextSize(int textSize) {
+    public void setTextSize(float textSize) {
         this.textSize = textSize;
-    }
-
-    public void setInnerAlign(Alignment algin) {
-        this.innerAlign = algin;
         loadCharacters();
     }
 
+    public void setInnerHorAlign(Alignment algin) {
+        this.innerHAlign = algin;
+        loadCharacters();
+    }
+
+    public void setInnerVertAlign(Alignment algin) {
+        this.innerVAlign = algin;
+        loadCharacters();
+    }
+
+    @Override
     public void render() {
+        super.render();
         for (WrapWidthSprite character : characters) character.render();
     }
 
+    @Override
     public void update() {
-        for (WrapWidthSprite character : characters) character.render();
+        super.update();
+        for (WrapWidthSprite character : characters) character.update();
     }
 
     protected class Glyph extends WrapWidthSprite {
 
         public Glyph(Vector2f position, float height, String textRes) {
-            super(position, height, textRes);
+            super(position, TextView.this.depth, height, textRes);
         }
 
         @Override
         protected void setShaderProperties(Shader shader) {
-            // not calling super to take into account the horizontal alignment
-            //super.setShaderProperties(shader);
-            float xAlign = getAlignmentOffset();// = TextView.this.alignment == Alignment.LEFT ? 0 : TextView.this.alignment == Alignment.CENTER ? TextView.this.size.width / 2;
-
-            shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(this.position.translate(xAlign, 0, 0)));
+            // not calling super to take into account the alignments
+            // super.setShaderProperties(shader);
+            shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(this.position.translate(getHorAlignmentOffset(), getVerAlignmentOffset(), 0)));
             shader.setUniformColorRGBA("font_color", new Color(textColor, true));
         }
 
@@ -129,7 +139,7 @@ public class TextView extends View {
 
         @Override
         public float getDepth() {
-            return Depth.HUD_LOW;
+            return TextView.this.depth;
         }
     }
 

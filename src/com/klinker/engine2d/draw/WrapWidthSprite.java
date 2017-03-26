@@ -14,8 +14,8 @@ public class WrapWidthSprite extends SimpleSprite {
      * @param textRes  The resource file for the image to be loaded.
      * @see Sprite#Sprite(Vector2f, Size)
      */
-    public WrapWidthSprite(Vector2f position, float height, String textRes) {
-        super(position, new Size<Float>(height), textRes);
+    public WrapWidthSprite(Vector2f position, float depth, float height, String textRes) {
+        super(position, depth, new Size<Float>(height), textRes);
         float ratioWoH = this.texture.getWidthPx() / (float) texture.getHeightPx();
         size.width = height * ratioWoH;
         initializeMesh(this.position.get2D(), size);

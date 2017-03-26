@@ -18,6 +18,7 @@ public abstract class Sprite {
     protected CollisionBox collision;
     protected Texture texture;
     protected Shader shader;
+    protected float depth;
 
     public abstract float getDepth();
     public abstract CollisionBox getCollision();
@@ -32,12 +33,18 @@ public abstract class Sprite {
      * @param position The initial position of the sprite.
      */
     public Sprite(Vector2f position, Size<Float> size) {
+        this.depth = getDepth();
         initializeMesh(position, size);
+    }
+
+    protected void reinitializeMesh() {
+        initializeMesh(position.get2D(), size);
     }
 
     protected void initializeMesh(Vector2f position, Size<Float> size) {
         this.size = size;
-        this.position = new Vector3f(position.x, position.y, getDepth());
+        this.position = new Vector3f(position.x, position.y, depth);
+        this.collision = getCollision();
 
         this.mesh = new VertexArray(
                 new float[] {
@@ -80,6 +87,11 @@ public abstract class Sprite {
     public void setPosition(float x, float y) {
         position.x = x;
         position.y = y;
+    }
+
+    public void setDepth(float depth) {
+        this.depth = depth;
+        reinitializeMesh();
     }
 
     public Vector3f getPosition() {

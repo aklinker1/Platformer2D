@@ -7,6 +7,7 @@ import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 
@@ -14,20 +15,24 @@ public class SimpleSprite extends Sprite {
 
     public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC_ALPHA);
     private Texture _texture;
+    private float _depth;
 
     /**
      * @see Sprite#Sprite(Vector2f, Size)
      * @param textRes The resource file for the image to be loaded.
      */
-    public SimpleSprite(Vector2f position, Size<Float> size, String textRes) {
+    public SimpleSprite(Vector2f position, float depth, Size<Float> size, String textRes) {
         super(position, size);
         _texture = new Texture(textRes);
+        this.depth = depth;
+        _depth = depth;
         initTextureAndShader();
+        reinitializeMesh();
     }
 
     @Override
     public float getDepth() {
-        return Depth.BACKGROUND_BACK;
+        return _depth;
     }
 
     @Override
@@ -49,6 +54,7 @@ public class SimpleSprite extends Sprite {
     protected void setShaderProperties(Shader shader) {
         shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(position));
     }
+
 
     @Override
     public void update() {
