@@ -54,6 +54,7 @@ public class Platformer2D extends Engine {
         windowSize = new Size<>(windowWidth, (int) (windowWidth * aspectRatio));
         int tileWidth = settings.getInt(Settings.KEY_TILE_WIDTH);
         tileCounts = new Vector2f(tileWidth, aspectRatio * tileWidth);
+        //Platformer2D.setFullScreen(true);
 
         return settings;
     }
