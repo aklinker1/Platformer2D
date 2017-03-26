@@ -1,9 +1,16 @@
 package com.klinker.engine2d.gui;
 
 import com.klinker.engine2d.draw.Sprite;
-import com.klinker.engine2d.maths.Vector3f;
+import com.klinker.engine2d.draw.WrapWidthSprite;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.math.Vector3f;
+import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.utils.Log;
+import com.klinker.platformer2d.R;
+import com.klinker.platformer2d.constants.Depth;
 
-import java.io.File;
+import java.util.LinkedList;
 
 public class TextView extends View {
 
@@ -13,36 +20,53 @@ public class TextView extends View {
     public static final int DEFAULT_TEXT_SIZE = 1;
     public static final float DEFAULT_IMAGE_MARGIN = 0f;
 
+    public static Shader FONT_SHADER = new Shader(R.shaders.vert.FONT, R.shaders.frag.FONT);
 
-    private File fontDir;
-    private String text;
+
+    private String fontDir;
     private int textColor;
     private int textSize;
-    private Alignment alignment;
     private Sprite image;
     private float imageMargin;
-    private Vector3f position;
+    private LinkedList<Glyph> characters;
 
 
+    // TODO: 3/25/2017 Add alignment?
     private enum Alignment {
         CENTER, LEFT, RIGHT
     }
 
 
-    public TextView(String textRes, Vector3f position, String fontDir) {
-        super(position, null);
-        this.text = textRes;
-        this.position = position;
-        this.fontDir = new File(fontDir);
+    public TextView(String text, float hieght, Vector3f position, String fontDir) {
+        super(position, new Size<Float>(null, hieght));
+        this.fontDir = fontDir;
 
         this.textColor = DEFAULT_TEXT_COLOR;
         this.textSize = DEFAULT_TEXT_SIZE;
-        this.alignment = DEFAULT_ALIGNMENT;
         this.image = null;
+
+        size.width = loadCharacters(text);
     }
 
     public void setText(String text) {
-        this.text = text;
+        loadCharacters(text);
+    }
+
+    private float loadCharacters(String text) {
+        Log.d("Loading text for '" + text + "'");
+        characters = new LinkedList<>();
+        float width = 0f;
+        for (int i = 0; i < text.length(); i++) {
+            int c = text.charAt(i);
+            Glyph _char = new Glyph(
+                    new Vector2f(position.x + width, position.y),
+                    size.height,
+                    String.format("%s/%03d.png", fontDir, c)
+            );
+            characters.addLast(_char);
+            width += _char.getSize().width;
+        }
+        return width;
     }
 
     public void setTextColor(int textColor) {
@@ -51,10 +75,6 @@ public class TextView extends View {
 
     public void setTextSize(int textSize) {
         this.textSize = textSize;
-    }
-
-    public void setAlignment(Alignment alignment) {
-        this.alignment = alignment;
     }
 
     public void setImage(Sprite image) {
@@ -66,11 +86,36 @@ public class TextView extends View {
     }
 
     public void render() {
-
+        for (WrapWidthSprite character : characters) character.render();
+        if (image != null) image.update();
     }
 
     public void update() {
+        for (WrapWidthSprite character : characters) character.render();
         if (image != null) image.update();
+    }
+
+    protected class Glyph extends WrapWidthSprite {
+
+        public Glyph(Vector2f position, float height, String textRes) {
+            super(position, height, textRes);
+        }
+
+        @Override
+        protected void setShaderProperties(Shader shader) {
+            super.setShaderProperties(shader);
+            //shader.setUniformColorRGBA("font_color", new Color(textColor));
+        }
+
+        @Override
+        public Shader getShader() {
+            return FONT_SHADER;
+        }
+
+        @Override
+        public float getDepth() {
+            return Depth.HUD_LOW;
+        }
     }
 
 }

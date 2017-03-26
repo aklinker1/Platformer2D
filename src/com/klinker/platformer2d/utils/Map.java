@@ -1,7 +1,7 @@
 package com.klinker.platformer2d.utils;
 
-import com.klinker.engine2d.maths.Size;
-import com.klinker.engine2d.maths.Vector2f;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.sprite.abstracts.MovingSprite;

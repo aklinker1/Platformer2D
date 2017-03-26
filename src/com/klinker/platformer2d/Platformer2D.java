@@ -2,8 +2,8 @@ package com.klinker.platformer2d;
 
 
 import com.klinker.engine2d.Engine;
-import com.klinker.engine2d.maths.Size;
-import com.klinker.engine2d.maths.Vector2f;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector2f;
 import com.klinker.platformer2d.constants.Defaults;
 import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.scenes.MainMenu;

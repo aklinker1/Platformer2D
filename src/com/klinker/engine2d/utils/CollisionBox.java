@@ -2,9 +2,9 @@ package com.klinker.engine2d.utils;
 
 
 
-import com.klinker.engine2d.maths.Size;
-import com.klinker.engine2d.maths.Vector2f;
-import com.klinker.engine2d.maths.Vector3f;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.math.Vector3f;
 
 
 public class CollisionBox {

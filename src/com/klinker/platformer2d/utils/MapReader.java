@@ -2,7 +2,7 @@ package com.klinker.platformer2d.utils;
 
 
 
-import com.klinker.engine2d.maths.Size;
+import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.utils.FileUtils;
 import com.klinker.platformer2d.scenes.Level;
 

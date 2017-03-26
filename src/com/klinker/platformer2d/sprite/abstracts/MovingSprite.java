@@ -2,9 +2,9 @@ package com.klinker.platformer2d.sprite.abstracts;
 
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
-import com.klinker.engine2d.maths.Matrix4f;
-import com.klinker.engine2d.maths.Size;
-import com.klinker.engine2d.maths.Vector2f;
+import com.klinker.engine2d.math.Matrix4f;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.sprite.tiles.Tile;
 import com.klinker.platformer2d.utils.SparseArray2D;

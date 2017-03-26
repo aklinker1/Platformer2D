@@ -1,8 +1,8 @@
 package com.klinker.engine2d.gui;
 
 import com.klinker.engine2d.draw.Sprite;
-import com.klinker.engine2d.maths.Size;
-import com.klinker.engine2d.maths.Vector3f;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.platformer2d.sprite.SimpleSprite;
 
 public class View {

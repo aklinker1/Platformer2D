@@ -1,6 +1,6 @@
 package com.klinker.platformer2d.sprite.tiles;
 
-import com.klinker.engine2d.maths.Vector2f;
+import com.klinker.engine2d.math.Vector2f;
 import com.klinker.platformer2d.constants.Depth;
 
 public class BackTile extends Tile {
