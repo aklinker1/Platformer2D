@@ -3,16 +3,16 @@ package com.klinker.platformer2d.sprite;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.opengl.Texture;
-import com.klinker.engine2d.maths.Matrix4f;
-import com.klinker.engine2d.maths.Size;
-import com.klinker.engine2d.maths.Vector2f;
+import com.klinker.engine2d.math.Matrix4f;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 
 public class SimpleSprite extends Sprite {
 
-    public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC);
+    public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC_ALPHA);
     private Texture _texture;
 
     /**
