@@ -1,8 +1,8 @@
 package com.klinker.platformer2d.sprite;
 
-import com.klinker.engine2d.graphics.Shader;
-import com.klinker.engine2d.graphics.Sprite;
-import com.klinker.engine2d.graphics.Texture;
+import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.draw.Sprite;
+import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
@@ -13,8 +13,7 @@ import com.klinker.platformer2d.constants.Depth;
 public class SimpleSprite extends Sprite {
 
     public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC);
-    private Size<Float> size;
-    private Texture texture;
+    private Texture _texture;
 
     /**
      * @see Sprite#Sprite(Vector2f, Size)
@@ -22,7 +21,7 @@ public class SimpleSprite extends Sprite {
      */
     public SimpleSprite(Vector2f position, Size<Float> size, String textRes) {
         super(position, size);
-        texture = new Texture(textRes);
+        _texture = new Texture(textRes);
         initTextureAndShader();
     }
 
@@ -38,7 +37,7 @@ public class SimpleSprite extends Sprite {
 
     @Override
     public Texture getTexture() {
-        return texture;
+        return _texture;
     }
 
     @Override
