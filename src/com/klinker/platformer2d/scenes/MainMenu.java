@@ -56,13 +56,6 @@ public class MainMenu extends Menu {
         version.setAlignment(TextView.Alignment.RIGHT);
         views.add(version);
 
-        TextView test = new TextView(
-                "Test of innerAlign",
-                new Size<Float>(5f, 30f),
-                new Vector2f(0, 0),
-                R.fonts.ROBOTO
-        );
-
     }
 
     @Override
