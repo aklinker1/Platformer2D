@@ -1,6 +1,6 @@
 package com.klinker.engine2d.draw;
 
-import com.klinker.engine2d.maths.Matrix4f;
+import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.opengl.Shader;
 
 import java.util.Arrays;

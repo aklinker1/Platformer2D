@@ -1,9 +1,9 @@
 package com.klinker.engine2d.draw;
 
 
-import com.klinker.engine2d.maths.Size;
-import com.klinker.engine2d.maths.Vector2f;
-import com.klinker.engine2d.maths.Vector3f;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.opengl.VertexArray;
@@ -38,7 +38,6 @@ public abstract class Sprite {
     protected void initializeMesh(Vector2f position, Size<Float> size) {
         this.size = size;
         this.position = new Vector3f(position.x, position.y, getDepth());
-        this.collision = getCollision();
 
         this.mesh = new VertexArray(
                 new float[] {
