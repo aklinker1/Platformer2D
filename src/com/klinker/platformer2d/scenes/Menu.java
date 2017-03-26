@@ -16,7 +16,7 @@ public abstract class Menu extends Scene {
     );
     public static Matrix4f PROJ_MATRIX = Matrix4f.orthographic(
             -PROJ_SIZE.width / 2f, PROJ_SIZE.width / 2f,
-            PROJ_SIZE.height, -PROJ_SIZE.height,
+            PROJ_SIZE.height / 2f, -PROJ_SIZE.height / 2f,
             -1f, 1f
     );
 
