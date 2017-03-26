@@ -6,10 +6,8 @@ import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.R;
-import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.sprite.SimpleSprite;
 
 import java.util.LinkedList;
@@ -55,8 +53,16 @@ public class MainMenu extends Menu {
         );
         Log.d("position = " + version.getPosition());
         version.setTextColor(0x6b000000);
-        version.setTextAlignment(TextView.Alignment.RIGHT);
+        version.setAlignment(TextView.Alignment.RIGHT);
         views.add(version);
+
+        TextView test = new TextView(
+                "Test of innerAlign",
+                new Size<Float>(5f, 30f),
+                new Vector2f(0, 0),
+                R.fonts.ROBOTO
+        );
+
     }
 
     @Override

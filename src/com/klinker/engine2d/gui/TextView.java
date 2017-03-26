@@ -116,7 +116,6 @@ public class TextView extends View {
             //super.setShaderProperties(shader);
             float xAlign = getAlignmentOffset();// = TextView.this.alignment == Alignment.LEFT ? 0 : TextView.this.alignment == Alignment.CENTER ? TextView.this.size.width / 2;
 
-
             shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(this.position.translate(xAlign, 0, 0)));
             shader.setUniformColorRGBA("font_color", new Color(textColor, true));
         }
