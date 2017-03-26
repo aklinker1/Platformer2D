@@ -1,10 +1,12 @@
 package com.klinker.platformer2d.scenes;
 
+import com.klinker.engine2d.draw.WrapWidthSprite;
+import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
-import com.klinker.engine2d.maths.Size;
-import com.klinker.engine2d.maths.Vector3f;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.sprite.SimpleSprite;
@@ -19,8 +21,8 @@ public class MainMenu extends Menu {
     public void init() {
         super.init();
         background = new View(
-                new Vector3f(-50f, -50f, Depth.BACKGROUND_BACK),
-                new Size<Float>(100f, 100f)
+                new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK),
+                new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
         );
         background.setBackgroundTexture(R.textures.bg.MAIN_MENU);
     }
@@ -39,13 +41,14 @@ public class MainMenu extends Menu {
 
     @Override
     public Shader[] loadAllShaders() {
-        return new Shader[]{ SimpleSprite.SHADER };
+        return new Shader[]{ SimpleSprite.SHADER, WrapWidthSprite.SHADER, TextView.FONT_SHADER };
     }
 
     @Override
     protected void initializeViews(LinkedList<View> views) {
         views.add(new TextView(
                 "Hello World!",
+                10f,
                 new Vector3f(0f, 0f, Depth.TILE_FRONT),
                 R.fonts.ROBOTO
         ));
