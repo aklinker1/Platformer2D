@@ -35,7 +35,7 @@ public class TextView extends View {
 
 
     // TODO: 3/25/2017 Add alignment?
-    private enum Alignment {
+    public enum Alignment {
         CENTER, LEFT, RIGHT
     }
 
@@ -87,6 +87,10 @@ public class TextView extends View {
 
     public void setImageMargin(float imageMargin) {
         this.imageMargin = imageMargin;
+    }
+
+    public void setTextAlignment(Alignment alignment) {
+        this.alignment = alignment;
     }
 
     public void render() {
