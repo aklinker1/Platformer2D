@@ -18,5 +18,6 @@ void main()
         color.x = font_color.x;
         color.y = font_color.y;
         color.z = font_color.z;
+        color.w = font_color.w * color.w;
     }
 }
