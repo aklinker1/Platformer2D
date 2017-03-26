@@ -29,4 +29,9 @@ public class View {
         if (background != null) background.update();
     }
 
+    public void setPosition(float x, float y) {
+        this.position.x = x;
+        this.position.y = y;
+    }
+
 }
