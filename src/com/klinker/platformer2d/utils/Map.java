@@ -28,7 +28,7 @@ public class Map {
     private SparseArray2D<Tile> tiles;
 
     /**
-     * The list of moving sprites on the map.
+     * The list of moving draw on the map.
      */
     private LinkedList<MovingSprite> frenemies;
 
@@ -70,7 +70,7 @@ public class Map {
     }
 
     /**
-     * Renders all the tiles and other sprites.
+     * Renders all the tiles and other draw.
      */
     public void render() {
         for (int yi = 0; yi < this.tiles.getHeight(); yi++) {
@@ -85,7 +85,7 @@ public class Map {
     }
 
     /**
-     * Updates all the tiles and other sprites.
+     * Updates all the tiles and other draw.
      */
     public void update() {
         for (int yi = 0; yi < this.tiles.getHeight(); yi++) {

@@ -1,6 +1,6 @@
 package com.klinker.platformer2d.scenes;
 
-import com.klinker.engine2d.graphics.Scene;
+import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.maths.Matrix4f;
 
@@ -20,12 +20,12 @@ public abstract class Menu extends Scene {
     @Override
     public void init() {
         labels = new LinkedList<>();
-        initializeNavigation(labels);
+        initializeViews(labels);
         super.init();
 
     }
 
-    protected abstract void initializeNavigation(LinkedList<View> labels);
+    protected abstract void initializeViews(LinkedList<View> labels);
 
     @Override
     public void update() {

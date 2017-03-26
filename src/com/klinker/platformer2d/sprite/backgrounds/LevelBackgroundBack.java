@@ -1,8 +1,8 @@
 package com.klinker.platformer2d.sprite.backgrounds;
 
-import com.klinker.engine2d.graphics.Shader;
-import com.klinker.engine2d.graphics.Sprite;
-import com.klinker.engine2d.graphics.Texture;
+import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.draw.Sprite;
+import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;

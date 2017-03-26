@@ -2,10 +2,9 @@ package com.klinker.platformer2d;
 
 public class R {
     public static class fonts {
-        public static final String EXPORTEDFONT = "res/fonts/ExportedFont.bmp";
-        public static final String ROBOTO_BOLD = "res/fonts/Roboto-Bold.ttf";
-        public static final String ROBOTO_LIGHT = "res/fonts/Roboto-Light.ttf";
-        public static final String ROBOTO = "res/fonts/Roboto.ttf";
+        public static final String ROBOTO = "res/fonts/roboto";
+        public static final String ROBOTO_BOLD = "res/fonts/roboto-bold";
+        public static final String ROBOTO_LIGHT = "res/fonts/roboto-light";
     }
     public static class levels {
         public static final String LEVEL_DESIGN = "res/levels/level-design.txt";

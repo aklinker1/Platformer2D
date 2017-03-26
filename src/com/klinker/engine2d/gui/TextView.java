@@ -1,6 +1,6 @@
 package com.klinker.engine2d.gui;
 
-import com.klinker.engine2d.graphics.Sprite;
+import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.maths.Vector3f;
 
 import java.io.File;

@@ -1,7 +1,7 @@
 package com.klinker.platformer2d.sprite.abstracts;
 
-import com.klinker.engine2d.graphics.Shader;
-import com.klinker.engine2d.graphics.Sprite;
+import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
@@ -14,13 +14,13 @@ import java.util.LinkedList;
 public abstract class MovingSprite extends Sprite {
 
     /**
-     * This sprites y velocity. Positive is upward, negative is downward.
+     * This draw y velocity. Positive is upward, negative is downward.
      * The {@link Sprite#position} is incremented by this value every frame.
      */
     public float xVel = 0f;
 
     /**
-     * This sprites y velocity. Positive is upward, negative is downward.
+     * This draw y velocity. Positive is upward, negative is downward.
      * The {@link Sprite#position} is incremented by this value every frame.
      */
     public float yVel = 0f;
@@ -105,7 +105,7 @@ public abstract class MovingSprite extends Sprite {
     }
 
     /**
-     * Checks the collisions on the maps and notifies the sprites that collide.
+     * Checks the collisions on the maps and notifies the draw that collide.
      *
      * @param tiles     The tiles on the map.
      * @param frenemies The frenemies on the map.

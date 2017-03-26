@@ -1,6 +1,6 @@
 package com.klinker.platformer2d.sprite.abstracts;
 
-import com.klinker.engine2d.graphics.Sprite;
+import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.constants.Depth;

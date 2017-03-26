@@ -5,6 +5,7 @@ import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.constants.Defaults;
+import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.scenes.MainMenu;
 import com.klinker.platformer2d.utils.Settings;
 
@@ -25,8 +26,8 @@ public class Platformer2D extends Engine {
 
     public Platformer2D() {
         settings = initializeSettings();
-        setScene(new MainMenu());
-        //setScene(new Level(R.levels.W02_LXX));
+        //setScene(new MainMenu());
+        setScene(new Level(R.levels.W02_LXX));
     }
 
     @Override

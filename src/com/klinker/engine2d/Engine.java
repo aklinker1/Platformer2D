@@ -1,8 +1,8 @@
 package com.klinker.engine2d;
 
 
-import com.klinker.engine2d.graphics.Scene;
-import com.klinker.engine2d.graphics.Texture;
+import com.klinker.engine2d.draw.Scene;
+import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.inputs.Input;
 import com.klinker.engine2d.maths.Size;
 import com.klinker.engine2d.utils.PerformanceAnalyzer;
@@ -182,7 +182,7 @@ public abstract class Engine implements Runnable {
     }
 
     /**
-     * Sets the style of the textures to be either {@link Style#RETRO} for pixel graphics,
+     * Sets the style of the textures to be either {@link Style#RETRO} for pixel opengl,
      * or {@link Style#SMOOTH} for anti-aliasing.
      *
      * @param style The style of the game, either {@link Style#RETRO} or {@link Style#SMOOTH}

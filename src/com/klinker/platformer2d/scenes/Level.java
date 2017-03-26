@@ -1,9 +1,9 @@
 package com.klinker.platformer2d.scenes;
 
 
-import com.klinker.engine2d.graphics.Scene;
-import com.klinker.engine2d.graphics.Shader;
-import com.klinker.engine2d.graphics.Sprite;
+import com.klinker.engine2d.draw.Scene;
+import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.maths.Matrix4f;
 import com.klinker.engine2d.maths.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
