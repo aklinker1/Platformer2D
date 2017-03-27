@@ -19,6 +19,7 @@ public class Settings extends Preferences {
 
 
     public Settings() {
+        // TODO: 3/27/2017 Set up custom inputs
     }
 
     public Settings(String path) {
