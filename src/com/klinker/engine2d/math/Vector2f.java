@@ -47,6 +47,10 @@ public class Vector2f {
     }
 
 
+    public Vector2f translate(float x, float y) {
+        return new Vector2f(this.x + x, this.y + y);
+    }
+
     public float ratioXoY() {
         return x / y;
     }
