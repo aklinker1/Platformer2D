@@ -56,7 +56,7 @@ public class TextView extends View {
         loadCharacters();
     }
 
-    private void loadCharacters() {
+    protected void loadCharacters() {
         // repeat twice if we are not wrapping width so it can properly set the innerHAlign
         float width = 0f;
         float height;
