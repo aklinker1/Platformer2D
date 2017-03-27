@@ -22,7 +22,8 @@ public class Button extends TextView {
         loadCharacters();
 
         background = new StateObject<Sprite>();
-        background.put(State.DEFAULT, new SimpleSprite(getAlignedPosition(), depth - 0.001f, size, R.textures.tiles.T04_01));
+        background.put(State.DEFAULT, new SimpleSprite(getAlignedPosition(), depth - 0.001f, size, R.textures.tiles.T01_01));
+        background.put(State.SELECTED, new SimpleSprite(getAlignedPosition(), depth - 0.001f, size, R.textures.tiles.T01_02));
     }
 
     @Override

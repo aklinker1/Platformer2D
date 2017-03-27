@@ -49,7 +49,7 @@ public class View {
 
     public void setBackgroundTexture(String textureRes) {
         if (background == null) background = new StateObject<>();
-        background.put(DEFAULT, new SimpleSprite(new Vector2f(position.x + getHorAlignmentOffset(), position.y + getVerAlignmentOffset()), depth - 0.001f, size, textureRes));
+        background.put(DEFAULT, new SimpleSprite(getAlignedPosition(), depth - 0.001f, size, textureRes));
     }
 
     public void setBackground(StateObject<Sprite> spriteStateObject) {
@@ -96,11 +96,15 @@ public class View {
         else return 0f;
     }
 
+    protected Vector2f getAlignedPosition() {
+        return new Vector2f(position.x + getHorAlignmentOffset(), position.y + getVerAlignmentOffset());
+    }
+
     public void setDepth(float depth) {
         this.depth = depth;
-        for (Sprite sprite : background) {
+        /*for (Sprite sprite : background) {
 
-        }
+        }*/
     }
 
     public static class StateObject<T> implements Iterable<T> {
