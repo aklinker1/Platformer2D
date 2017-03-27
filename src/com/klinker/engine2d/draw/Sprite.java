@@ -10,7 +10,7 @@ import com.klinker.engine2d.opengl.VertexArray;
 import com.klinker.engine2d.utils.CollisionBox;
 
 
-public abstract class Sprite {
+public abstract class Sprite implements Drawable {
 
     protected Size<Float> size;
     public Vector3f position;

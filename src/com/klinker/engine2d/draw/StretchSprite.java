@@ -5,7 +5,7 @@ import com.klinker.engine2d.math.Vector3f;
 
 import java.io.File;
 
-public class StretchSprite {
+public class StretchSprite implements Drawable {
 
     private Vector3f position;
     private Size<Float> size;
@@ -37,7 +37,7 @@ public class StretchSprite {
                     size = new Size<Float>(cornerSize.width, middleHeight);
                 } else if (y == 0 || y == 2) {
                     size = new Size<Float>(middleWidth, cornerSize.height);
-                } else if (x == 1 && y == 1) {
+                } else {
                     size = new Size<Float>(middleWidth, middleHeight);
                 }
 
@@ -47,9 +47,19 @@ public class StretchSprite {
                 if (y == 1) position.y = cornerSize.height;
                 else if (y == 2) position.y = cornerSize.height + middleHeight;
 
-                sprites[x][y] = new SimpleSprite()
+                sprites[x][y] = new SimpleSprite(position.get2D(), position.z, size, texture);
             }
         }
+    }
+
+    @Override
+    public void render() {
+
+    }
+
+    @Override
+    public void update() {
+
     }
 
 }

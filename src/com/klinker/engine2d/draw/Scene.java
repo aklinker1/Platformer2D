@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public abstract class Scene {
+public abstract class Scene implements Drawable {
 
     protected HashSet<Shader> shaders = new HashSet<>();
 
