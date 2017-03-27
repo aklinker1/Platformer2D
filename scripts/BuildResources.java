@@ -51,7 +51,13 @@ public class BuildResources {
         String tabs = "";
         for (int i = 0; i < depth; i++) tabs += "    ";
         String body = tabs;
-        if (dir.isFile()) {
+        if (dir.isDirectory() && !dir.getName().contains(".")) {
+            body += "public static class " + dir.getName() + " {\n";
+            for (File child : dir.listFiles()) {
+                body += createGeneral(child, depth + 1);
+            }
+            body += tabs + "}\n";
+        } else {
             if (dir.getName().endsWith(".psd")) return "";
             else {
                 String varName = dir.getName().substring(0, dir.getName().lastIndexOf('.')).toUpperCase().replace('-', '_');
@@ -59,12 +65,6 @@ public class BuildResources {
                 body += "public static final String " + varName +
                         " = \"" + dir.getPath().replace('\\', '/').replace("../", "") + "\";\n";
             }
-        } else {
-            body += "public static class " + dir.getName() + " {\n";
-            for (File child : dir.listFiles()) {
-                body += createGeneral(child, depth + 1);
-            }
-            body += tabs + "}\n";
         }
         return body;
     }
