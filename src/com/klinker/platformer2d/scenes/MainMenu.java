@@ -9,7 +9,7 @@ import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.math.Size;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
-import com.klinker.platformer2d.sprite.SimpleSprite;
+import com.klinker.engine2d.draw.SimpleSprite;
 import com.klinker.platformer2d.utils.MenuNavigation;
 
 import java.util.LinkedList;

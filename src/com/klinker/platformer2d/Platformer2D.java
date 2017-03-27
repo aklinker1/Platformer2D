@@ -50,7 +50,7 @@ public class Platformer2D extends Engine {
         frameRate = settings.getInt(Settings.KEY_FRAME_RATE);
         float aspectRatio = settings.getFloat(Settings.KEY_ASPECT_RATIO);
         int windowWidth = settings.getInt(Settings.KEY_WINDOW_WIDTH);
-        windowWidth = 1700;
+        windowWidth = 1280;
         windowSize = new Size<>(windowWidth, (int) (windowWidth * aspectRatio));
         int tileWidth = settings.getInt(Settings.KEY_TILE_WIDTH);
         tileCounts = new Vector2f(tileWidth, aspectRatio * tileWidth);

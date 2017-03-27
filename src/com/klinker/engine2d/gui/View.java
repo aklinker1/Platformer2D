@@ -3,9 +3,7 @@ package com.klinker.engine2d.gui;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.utils.Log;
-import com.klinker.platformer2d.constants.Depth;
-import com.klinker.platformer2d.sprite.SimpleSprite;
+import com.klinker.engine2d.draw.SimpleSprite;
 
 import java.util.HashMap;
 import java.util.Iterator;

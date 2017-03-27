@@ -35,7 +35,8 @@ public class R {
         }
     }
     public static class strings {
-        public static final String ENGLISH = "res/strings/english.txt";
+        public static final String STORY_MODE = "Story Mode";
+        public static final String MULTIPLAYER = "Multiplayer";
     }
     public static class textures {
         public static class bg {
@@ -53,14 +54,14 @@ public class R {
             public static final String B04_02 = "res/textures/bg/04-02.png";
             public static final String MAIN_MENU = "res/textures/bg/main-menu.png";
         }
-        public static final String BG = "res/textures/bg.jpeg";
-        public static final String BIRD = "res/textures/bird.png";
+        public static class buttons {
+            public static final String REGULAR = "res/textures/buttons/regular.9";
+        }
         public static class character {
             public static class hero01 {
                 public static final String BODY = "res/textures/character/hero01/body.png";
             }
         }
-        public static final String PIPE = "res/textures/pipe.png";
         public static class tiles {
             public static final String T01_01 = "res/textures/tiles/01-01.png";
             public static final String T01_02 = "res/textures/tiles/01-02.png";

@@ -4,7 +4,7 @@ import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.platformer2d.R;
-import com.klinker.platformer2d.sprite.SimpleSprite;
+import com.klinker.engine2d.draw.SimpleSprite;
 
 public class Button extends TextView {
 

@@ -1,4 +1,4 @@
-package com.klinker.platformer2d.sprite;
+package com.klinker.engine2d.draw;
 
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
