@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -23,7 +24,13 @@ public class Texture {
      * If the engine is set to {@link com.klinker.engine2d.Engine.Style#SMOOTH}, the style should be GL11.GL_LINEAR.
      * Defaults to GL_NEAREST
      */
-    public static int RENDER_STYLE = GL_NEAREST;
+    public static int RENDER_STYLE = GL_LINEAR;
+
+    /**
+     * A cache of OpenGL ID's to so I don't have to keep reloading the textures.
+     * todo: Implement a way to clear the cache at the begining of each scene
+     */
+    private static HashMap<String, Integer> cache = new HashMap<>();
 
     /**
      * The dimensions of the image.
