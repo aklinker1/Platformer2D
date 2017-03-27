@@ -1,10 +1,18 @@
 package com.klinker.platformer2d.utils;
 
+import com.klinker.engine2d.gui.Button;
+
 import java.util.HashMap;
 
 public class MenuNavigation<T> {
 
     private HashMap<T, Node> nodes;
+    private T selected;
+    private OnItemSelectedListener<T> selectedListener;
+
+    public interface OnItemSelectedListener<T> {
+        void onItemSelected(T oldItem, T newItem);
+    }
 
     public MenuNavigation() {
         this.nodes = new HashMap<T, Node>();
@@ -22,28 +30,37 @@ public class MenuNavigation<T> {
         if (!nodes.containsKey(down)) nodes.put(down, null);
     }
 
-    public T getLeft(T item) {
-        Node node = nodes.get(item);
+    public T getLeft() {
+        Node node = nodes.get(selected);
         if (node != null) return node.left;
         else return null;
     }
 
-    public T getUp(T item) {
-        Node node = nodes.get(item);
+    public T getUp() {
+        Node node = nodes.get(selected);
         if (node != null) return node.up;
         else return null;
     }
 
-    public T getRight(T item) {
-        Node node = nodes.get(item);
+    public T getRight() {
+        Node node = nodes.get(selected);
         if (node != null) return node.right;
         else return null;
     }
 
-    public T getDown(T item) {
-        Node node = nodes.get(item);
+    public T getDown() {
+        Node node = nodes.get(selected);
         if (node != null) return node.down;
         else return null;
+    }
+
+    public void select(T newSelected) {
+        if (selectedListener != null) selectedListener.onItemSelected(selected, newSelected);
+        this.selected = newSelected;
+    }
+
+    public void setOnItemSelectedListener(OnItemSelectedListener<T> listener) {
+        this.selectedListener = listener;
     }
 
     private class Node {
