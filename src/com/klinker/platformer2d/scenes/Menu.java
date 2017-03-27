@@ -11,6 +11,8 @@ import java.util.LinkedList;
 
 public abstract class Menu extends Scene {
 
+    private static final int CHECK_INPUT_EVERY = 4;
+
     public static Size<Float> PROJ_SIZE = new Size<Float>(
             100f * Platformer2D.tileCounts.ratioXoY(),
             100f
@@ -20,6 +22,7 @@ public abstract class Menu extends Scene {
             PROJ_SIZE.height / 2f, -PROJ_SIZE.height / 2f,
             -1f, 1f
     );
+    private int frameCount = 0;
 
     private LinkedList<View> views;
     //private LinkedList<Buttons> buttons;
@@ -36,14 +39,19 @@ public abstract class Menu extends Scene {
 
     @Override
     public void update() {
-        boolean left = Input.isKeyDown(Input.LEFT);
-        boolean up = Input.isKeyDown(Input.UP);
-        boolean right = Input.isKeyDown(Input.RIGHT);
-        boolean down = Input.isKeyDown(Input.DOWN);
-        if (left && !right) onLeftPress();
-        if (right && !left) onRightPress();
-        if (up && !down) onUpPress();
-        if (down && !up) onDownPress();
+        if (frameCount >= CHECK_INPUT_EVERY) {
+            frameCount = 0;
+            boolean left = Input.isPressed(Input.LEFT);
+            boolean up = Input.isClicked(Input.UP);
+            boolean right = Input.isClicked(Input.RIGHT);
+            boolean down = Input.isClicked(Input.DOWN);
+            if (left && !right) onLeftPress();
+            if (right && !left) onRightPress();
+            if (up && !down) onUpPress();
+            if (down && !up) onDownPress();
+        } else {
+            frameCount++;
+        }
     }
 
     @Override

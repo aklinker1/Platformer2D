@@ -69,8 +69,8 @@ public class MainMenu extends Menu {
         muliplayer.setTextSize(4.5f);
         views.add(muliplayer);
 
-        navigation.insertNode(storyMode, null, null, null, muliplayer);
-        navigation.insertNode(muliplayer, null, storyMode, null, null);
+        navigation.insertNode(storyMode, null, muliplayer, null, muliplayer);
+        navigation.insertNode(muliplayer, null, storyMode, null, storyMode);
         navigation.select(storyMode);
 
         // TODO: 3/26/2017 Add grid?

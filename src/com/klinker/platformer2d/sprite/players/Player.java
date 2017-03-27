@@ -65,9 +65,9 @@ public class Player extends MovingSprite {
      */
     @Override
     protected void accelX() {
-        boolean left = Input.isKeyDown(Input.LEFT);
-        boolean right = Input.isKeyDown(Input.RIGHT);
-        boolean run = Input.isKeyDown(Input.RUN);
+        boolean left = Input.isPressed(Input.LEFT);
+        boolean right = Input.isPressed(Input.RIGHT);
+        boolean run = Input.isPressed(Input.RUN);
 
         float accel;
         if (right && !left) { // trying to go right
@@ -115,7 +115,7 @@ public class Player extends MovingSprite {
     private int jumpFrames = 0;
     @Override
     protected void accelY() {
-        boolean jump = Input.isKeyDown(Input.JUMP);
+        boolean jump = Input.isPressed(Input.JUMP);
         boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
 
         if (jump && jumpFrames == 0 && isGrounded) { // pressing jump for the first time

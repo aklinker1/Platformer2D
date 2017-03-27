@@ -20,11 +20,11 @@ package com.klinker.platformer2d.utils;
  * SparseArrays map integers to Objects.  Unlike a normal array of Objects,
  * there can be gaps in the indices.  It is intended to be more memory efficient
  * than using a HashMap to map Integers to Objects, both because it avoids
- * auto-boxing keys and its data structure doesn't rely on an extra entry object
+ * auto-boxing bindings and its data structure doesn't rely on an extra entry object
  * for each mapping.
  *
  * <p>Note that this container keeps its mappings in an array data structure,
- * using a binary search to find keys.  The implementation is not intended to be appropriate for
+ * using a binary search to find bindings.  The implementation is not intended to be appropriate for
  * data structures
  * that may contain large numbers of items.  It is generally slower than a traditional
  * HashMap, since lookups require a binary search and adds and removes require inserting
@@ -32,16 +32,16 @@ package com.klinker.platformer2d.utils;
  * the performance difference is not significant, less than 50%.</p>
  *
  * <p>To help with performance, the container includes an optimization when removing
- * keys: instead of compacting its array immediately, it leaves the removed entry marked
+ * bindings: instead of compacting its array immediately, it leaves the removed entry marked
  * as deleted.  The entry can then be re-used for the same key, or compacted later in
  * a single garbage collection step of all removed entries.  This garbage collection will
  * need to be performed at any time the array needs to be grown or the the map size or
  * entry values are retrieved.</p>
  *
  * <p>It is possible to iterate over the items in this container using
- * {@link #keyAt(int)} and {@link #valueAt(int)}. Iterating over the keys using
+ * {@link #keyAt(int)} and {@link #valueAt(int)}. Iterating over the bindings using
  * <code>keyAt(int)</code> with ascending values of the index will return the
- * keys in ascending order, or the values corresponding to the keys in ascending
+ * bindings in ascending order, or the values corresponding to the bindings in ascending
  * order in the case of <code>valueAt(int)</code>.</p>
  */
 public class SparseArray<E> implements Cloneable {
@@ -261,7 +261,7 @@ public class SparseArray<E> implements Cloneable {
      * the key from the <code>index</code>th key-value mapping that this
      * SparseArray stores.
      *
-     * <p>The keys corresponding to indices in ascending order are guaranteed to
+     * <p>The bindings corresponding to indices in ascending order are guaranteed to
      * be in ascending order, e.g., <code>keyAt(0)</code> will return the
      * smallest key and <code>keyAt(size()-1)</code> will return the largest
      * key.</p>
@@ -280,7 +280,7 @@ public class SparseArray<E> implements Cloneable {
      * SparseArray stores.
      *
      * <p>The values corresponding to indices in ascending order are guaranteed
-     * to be associated with keys in ascending order, e.g.,
+     * to be associated with bindings in ascending order, e.g.,
      * <code>valueAt(0)</code> will return the value associated with the
      * smallest key and <code>valueAt(size()-1)</code> will return the value
      * associated with the largest key.</p>
@@ -322,10 +322,10 @@ public class SparseArray<E> implements Cloneable {
 
     /**
      * Returns an index for which {@link #valueAt} would return the
-     * specified key, or a negative number if no keys map to the
+     * specified key, or a negative number if no bindings map to the
      * specified value.
      * <p>Beware that this is a linear search, unlike lookups by key,
-     * and that multiple keys can map to the same value and this will
+     * and that multiple bindings can map to the same value and this will
      * find only one of them.
      * <p>Note also that unlike most collections' {@code indexOf} methods,
      * this method compares values using {@code ==} rather than {@code equals}.
@@ -359,7 +359,7 @@ public class SparseArray<E> implements Cloneable {
 
     /**
      * Puts a key/value pair into the array, optimizing for the case where
-     * the key is greater than all existing keys in the array.
+     * the key is greater than all existing bindings in the array.
      */
     public void append(int key, E value) {
         if (mSize != 0 && key <= mKeys[mSize - 1]) {

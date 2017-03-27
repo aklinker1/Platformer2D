@@ -1,6 +1,7 @@
 package com.klinker.engine2d.gui;
 
 import com.klinker.engine2d.draw.Sprite;
+import com.klinker.engine2d.inputs.Input;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.draw.SimpleSprite;
@@ -23,8 +24,14 @@ public class View {
     private Alignment hAlignment;
     private Alignment vAlignment;
     protected State state;
+    private OnClickListener onClickListener;
 
     protected StateObject<Sprite> background;
+
+
+    public interface OnClickListener {
+        void onClick(View view);
+    }
 
 
     public enum Alignment {
@@ -60,6 +67,9 @@ public class View {
 
     public void update() {
         if (background != null) background.get(state).update();
+        if (onClickListener != null && Input.isClicked(Input.JUMP)) {
+            onClickListener.onClick(this);
+        }
     }
 
     public void setState(State state) {
