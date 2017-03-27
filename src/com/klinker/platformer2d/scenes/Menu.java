@@ -1,5 +1,6 @@
 package com.klinker.platformer2d.scenes;
 
+import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.inputs.Input;
@@ -26,6 +27,11 @@ public abstract class Menu extends Scene {
 
     private LinkedList<View> views;
     //private LinkedList<Buttons> buttons;
+
+
+    public Menu(Engine engine) {
+        super(engine);
+    }
 
     @Override
     public void init() {

@@ -92,6 +92,10 @@ public class View {
         this.vAlignment = alignment;
     }
 
+    public void setOnClickListener(OnClickListener listener) {
+        this.onClickListener = listener;
+    }
+
     protected float getHorAlignmentOffset() {
         if (hAlignment == Alignment.CENTER) return -size.width / 2f;
         else if (hAlignment == Alignment.RIGHT) return -size.width;
