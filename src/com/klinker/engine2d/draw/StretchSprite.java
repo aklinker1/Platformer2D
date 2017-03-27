@@ -2,10 +2,11 @@ package com.klinker.engine2d.draw;
 
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
+import com.klinker.engine2d.utils.Log;
 
 import java.io.File;
 
-public class StretchSprite implements Drawable {
+public class StretchSprite extends SpriteCluster {
 
     private Vector3f position;
     private Size<Float> size;
@@ -29,37 +30,31 @@ public class StretchSprite implements Drawable {
         float middleHeight = size.height - 2 * cornerSize.height;
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                String texture = String.format("%s/%d%d.png", textRes, x, y);
-                Size<Float> size;
-                if (x == y && x != 1) {
-                    size = cornerSize;
-                } else if (x == 0 || x == 2) {
-                    size = new Size<Float>(cornerSize.width, middleHeight);
-                } else if (y == 0 || y == 2) {
-                    size = new Size<Float>(middleWidth, cornerSize.height);
-                } else {
-                    size = new Size<Float>(middleWidth, middleHeight);
+                try {
+                    String texture = String.format("%s/%d%d.png", textRes, x, y);
+                    Size<Float> size;
+                    if (x == y && x != 1) {
+                        size = cornerSize;
+                    } else if (x == 0 || x == 2) {
+                        size = new Size<Float>(cornerSize.width, middleHeight);
+                    } else if (y == 0 || y == 2) {
+                        size = new Size<Float>(middleWidth, cornerSize.height);
+                    } else {
+                        size = new Size<Float>(middleWidth, middleHeight);
+                    }
+
+                    Vector3f position = new Vector3f(0, 0, this.position.z);
+                    if (x == 1) position.x = cornerSize.width;
+                    else if (x == 2) position.x = cornerSize.width + middleWidth;
+                    if (y == 1) position.y = cornerSize.height;
+                    else if (y == 2) position.y = cornerSize.height + middleHeight;
+
+                    addSprite(new SimpleSprite(position.get2D(), position.z, size, texture));
+                } catch (Exception e) {
+                    Log.e("Error loading parts from " + textRes + " directory.", e);
                 }
-
-                Vector3f position = new Vector3f(0, 0, this.position.z);
-                if (x == 1) position.x = cornerSize.width;
-                else if (x == 2) position.x = cornerSize.width + middleWidth;
-                if (y == 1) position.y = cornerSize.height;
-                else if (y == 2) position.y = cornerSize.height + middleHeight;
-
-                sprites[x][y] = new SimpleSprite(position.get2D(), position.z, size, texture);
             }
         }
-    }
-
-    @Override
-    public void render() {
-
-    }
-
-    @Override
-    public void update() {
-
     }
 
 }
