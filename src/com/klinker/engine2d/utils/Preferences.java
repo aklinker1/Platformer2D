@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Preferences {
 
-    private HashMap<String, Object> data;
+    private HashMap<String, Object> data = null;
 
 
     /**
@@ -22,6 +22,7 @@ public class Preferences {
      */
     public Preferences(String path) {
         data = readFromFile(path);
+        Log.d("After reading file, data = " + data);
     }
 
 
@@ -29,7 +30,7 @@ public class Preferences {
      * @return Whether or not the preference has been initialized.
      */
     public boolean hasData() {
-        return data.size() == 0;
+        return data != null;
     }
 
 
@@ -110,14 +111,16 @@ public class Preferences {
      */
     private HashMap<String, Object> readFromFile(String path) {
         File inputFile = new File(path);
-        HashMap<String, Object> data = new HashMap<>();
         if (inputFile.exists()) try (FileInputStream fIn = new FileInputStream(inputFile);
                 ObjectInputStream inputStream = new ObjectInputStream(fIn)) {
-            data = (HashMap<String, Object>) inputStream.readObject();
+            @SuppressWarnings("unchecked")
+            HashMap<String, Object> data = (HashMap<String, Object>) inputStream.readObject();
+            return data;
         } catch (Exception e) {
-            Log.e("Error reading setting from file", e);
+            return null;
+        } else {
+            return null;
         }
-        return data;
     }
 
 

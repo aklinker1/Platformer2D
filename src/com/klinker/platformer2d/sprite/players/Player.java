@@ -8,6 +8,7 @@ import com.klinker.engine2d.inputs.KeyboardInput;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
@@ -44,8 +45,8 @@ public class Player extends MovingSprite {
     public CollisionBox getCollision() {
         return new CollisionBox(
                 CollisionBox.Shape.RECTANGLE,
-                new Size<>(0.90f, 1f),
-                new Vector2f(0.05f, 0),
+                new Size<>(0.90f, 0.95f),
+                new Vector2f(0.05f, 0f),
                 position
         );
     }
@@ -119,27 +120,26 @@ public class Player extends MovingSprite {
         boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
 
         if (jump && jumpFrames == 0 && isGrounded) { // pressing jump for the first time
+            Log.d("If1: " + jumpFrames);
             launchVelX = xVel;
             releasedJump = false;
             jumpFrames = 1;
             running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
             yVel = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
         } else if (jump && jumpFrames < Physics.Player.JUMP_HOLD_MAX && !releasedJump) { // We are holding the jump button
+            Log.d("If2: " + jumpFrames);
             jumpFrames++;
             yVel = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
         } else {
+            Log.d("If3: " + jumpFrames);
             yVel -= Physics.Player.GRAVITY;
             releasedJump = true;
         }
     }
 
-    public void setGrounded(boolean grounded) {
-        isGrounded = grounded;
-        if (grounded) {
-            jumpFrames = 0;
-        } else {
-            jumpFrames = Physics.Player.JUMP_HOLD_MAX;
-        }
+    public void setGrounded() {
+        isGrounded = true;
+        jumpFrames = 0;
     }
 
     @Override
@@ -154,9 +154,7 @@ public class Player extends MovingSprite {
         yVel = 0;
         jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
         CollisionBox otherCollision = sprite.getCollision();
-        position.y = otherCollision.position.y
-                - (this.size.height - this.collision.size.height - this.collision.origin.y)
-                - this.collision.size.height;
+        position.y = otherCollision.position.y - this.collision.size.height - this.collision.origin.y;
     }
 
     @Override
@@ -168,7 +166,7 @@ public class Player extends MovingSprite {
 
     @Override
     protected void onCollideBottom(Sprite sprite) {
-        setGrounded(true);
+        setGrounded();
         yVel = 0;
         CollisionBox otherCollision = sprite.getCollision();
         position.y = otherCollision.position.y + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y;
@@ -176,7 +174,6 @@ public class Player extends MovingSprite {
 
     @Override
     protected void onCollideNone() {
-        setGrounded(false);
     }
 
     @Override

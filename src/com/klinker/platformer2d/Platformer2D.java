@@ -4,6 +4,7 @@ package com.klinker.platformer2d;
 import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.scenes.MainMenu;
 import com.klinker.platformer2d.utils.Settings;
@@ -40,17 +41,17 @@ public class Platformer2D extends Engine {
         return "Platformer 2D";
     }
 
-    public static Settings initializeSettings() {
+    private Settings initializeSettings() {
         Settings settings = new Settings(SETTINGS_PATH);
 
         // initialize the defaults if it's the first open
-        settings.initialize();
+        Settings.initialize(settings);
 
         // set the settings.
         frameRate = settings.getInt(Settings.KEY_FRAME_RATE);
         float aspectRatio = settings.getFloat(Settings.KEY_ASPECT_RATIO);
         int windowWidth = settings.getInt(Settings.KEY_WINDOW_WIDTH);
-        windowWidth = 1280;
+        //windowWidth = 1920;
         windowSize = new Size<>(windowWidth, (int) (windowWidth * aspectRatio));
         int tileWidth = settings.getInt(Settings.KEY_TILE_WIDTH);
         tileCounts = new Vector2f(tileWidth, aspectRatio * tileWidth);

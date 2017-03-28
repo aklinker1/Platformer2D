@@ -1,6 +1,9 @@
 package com.klinker.platformer2d.utils;
 
+import com.klinker.engine2d.utils.Log;
 import com.klinker.engine2d.utils.Preferences;
+
+import java.util.HashMap;
 
 public class Settings extends Preferences {
 
@@ -26,14 +29,16 @@ public class Settings extends Preferences {
         super(path);
     }
 
-    public void initialize() {
-        if (!hasData()) {
-            put(KEY_FRAME_RATE, DEFAULT_FRAME_RATE);
-            put(KEY_ASPECT_RATIO, DEFAULT_ASPECT_RATIO);
-            put(KEY_TILE_WIDTH, DEFAULT_TILE_WIDTH);
-            put(KEY_WINDOW_WIDTH, DEFAULT_WINDOW_WIDTH);
-            put(KEY_WINDOW_FULL_SCREEN, DEFAULT_WINDOW_FULL_SCREEN);
+    public static Settings initialize(Settings settings) {
+        if (!settings.hasData()) {
+            settings = new Settings();
+            settings.put(Settings.KEY_FRAME_RATE, Settings.DEFAULT_FRAME_RATE);
+            settings.put(Settings.KEY_ASPECT_RATIO, Settings.DEFAULT_ASPECT_RATIO);
+            settings.put(Settings.KEY_TILE_WIDTH, Settings.DEFAULT_TILE_WIDTH);
+            settings.put(Settings.KEY_WINDOW_WIDTH, Settings.DEFAULT_WINDOW_WIDTH);
+            settings.put(Settings.KEY_WINDOW_FULL_SCREEN, Settings.DEFAULT_WINDOW_FULL_SCREEN);
         }
+        return settings;
     }
 
 }

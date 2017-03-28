@@ -63,6 +63,7 @@ public class R {
                 public static final String BODY = "res/textures/character/hero01/body.png";
             }
         }
+        public static final String COLLISION = "res/textures/collision.png";
         public static class tiles {
             public static final String T01_01 = "res/textures/tiles/01-01.png";
             public static final String T01_02 = "res/textures/tiles/01-02.png";
