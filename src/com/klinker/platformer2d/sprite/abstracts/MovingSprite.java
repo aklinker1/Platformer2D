@@ -1,5 +1,6 @@
 package com.klinker.platformer2d.sprite.abstracts;
 
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Matrix4f;
@@ -14,16 +15,10 @@ import java.util.LinkedList;
 public abstract class MovingSprite extends Sprite {
 
     /**
-     * This draw y velocity. Positive is upward, negative is downward.
+     * This draw velocity. Positive is upward/right, negative is downward/left.
      * The {@link Sprite#position} is incremented by this value every frame.
      */
-    public float xVel = 0f;
-
-    /**
-     * This draw y velocity. Positive is upward, negative is downward.
-     * The {@link Sprite#position} is incremented by this value every frame.
-     */
-    public float yVel = 0f;
+    public Vector3f vel = new Vector3f();
 
     /**
      * @see Sprite#Sprite(Vector2f, Size)
@@ -58,8 +53,8 @@ public abstract class MovingSprite extends Sprite {
         update();
 
         // 4. Actually move the player.
-        position.x += xVel;
-        position.y += yVel;
+        position.x += vel.x;
+        position.y += vel.y;
     }
 
     /**
@@ -111,7 +106,7 @@ public abstract class MovingSprite extends Sprite {
      * @param frenemies The frenemies on the map.
      */
     private void checkCollisions(SparseArray2D<Tile> tiles, LinkedList<MovingSprite> frenemies) {
-        final int TOP = 0, LEFT = 1, RIGHT = 2, BOTTOM = 3;
+        int TOP = 0, LEFT = 1, RIGHT = 2, BOTTOM = 3;
         boolean collided = false;
 
         for (int dir = 0; dir <= BOTTOM; dir++) {
@@ -128,53 +123,49 @@ public abstract class MovingSprite extends Sprite {
             int curYMin = yStart / 1000;
             int curXMax = xEnd / 1000;
             int curYMax = yEnd / 1000;
-            int futXMin = (xStart + (int) (xVel * 1000)) / 1000;
-            int futYMin = (yStart + (int) (yVel * 1000)) / 1000;
-            int futXMax = (xEnd + (int) (xVel * 1000)) / 1000;
-            int futYMax = (yEnd + (int) (yVel * 1000)) / 1000;
+            int futXMin = (xStart + (int) (vel.x * 1000)) / 1000;
+            int futYMin = (yStart + (int) (vel.y * 1000)) / 1000;
+            int futXMax = (xEnd + (int) (vel.x * 1000)) / 1000;
+            int futYMax = (yEnd + (int) (vel.y * 1000)) / 1000;
 
             // handles how if the collision ends at a whole number, we want to exclude that from the loop
             if (xEnd - xEndI * 1000 == 0) curXMax--;
             if (yEnd - yEndI * 1000 == 0) curYMax--;
 
-            if (dir == TOP && yVel > 0) { // moving upward, check tiles above me.
+            if (dir == TOP && vel.y > 0) { // moving upward, check tiles above me.
                 for (int x = curXMin; x <= curXMax; x++) {
                     Tile tile = tiles.get(x, futYMax); // at the future y pos
-                    if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
-                        Log.d(new StringBuilder("Collision Top: (").append(x).append(", ").append(futYMax).append(")").toString());
+                    if (tile != null && tile.getCollision().intersects(this.collision, vel.x, vel.y)) {
                         onCollideTop(tile);
                         collided = true;
-                        //break;
+                        break;
                     }
                 }
-            } else if (dir == LEFT && xVel < 0) { // Moving left, check to the left of me.
+            } else if (dir == LEFT && vel.x < 0) { // Moving left, check to the left of me.
                 for (int y = curYMin; y <= curYMax; y++) {
                     Tile tile = tiles.get(futXMin, y); // at the future x pos
-                    if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
-                        Log.d(new StringBuilder("Collision Left: (").append(futXMin).append(", ").append(y).append(")").toString());
+                    if (tile != null && tile.getCollision().intersects(this.collision, vel.x, vel.y)) {
                         onCollideLeft(tile);
                         collided = true;
-                        //break;
+                        break;
                     }
                 }
-            } else if (dir == RIGHT && xVel > 0) { // moving right, check the right of me.
+            } else if (dir == RIGHT && vel.x > 0) { // moving right, check the right of me.
                 for (int y = curYMin; y <= curYMax; y++) {
                     Tile tile = tiles.get(futXMax, y); // at the future x pos
-                    if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
-                        Log.d(new StringBuilder("Collision Right: (").append(futXMax).append(", ").append(y).append(")").toString());
+                    if (tile != null && tile.getCollision().intersects(this.collision, vel.x, vel.y)) {
                         onCollideRight(tile);
                         collided = true;
-                        //break;
+                        break;
                     }
                 }
-            } else if (dir == BOTTOM && yVel < 0) { // moving downward/walking, check for collisions beneath me.
-                for (int x = xVel < 0 ? futXMin : curXMin; x <= (xVel < 0 ? curXMax : futXMax); x++) {
+            } else if (dir == BOTTOM && vel.y < 0) { // moving downward/walking, check for collisions beneath me.
+                for (int x = curXMin; x <= curXMax; x++) {
                     Tile tile = tiles.get(x, futYMin); // at the future y pos
-                    if (tile != null && tile.getCollision().intersects(this.collision, xVel, yVel)) {
-                        Log.d(new StringBuilder("Collision Bottom: (").append(x).append(", ").append(futYMin).append(")").toString());
+                    if (tile != null && tile.getCollision().intersects(this.collision, vel.x, vel.y)) {
                         onCollideBottom(tile);
                         collided = true;
-                        //break;
+                        break;
                     }
                 }
             }

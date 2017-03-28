@@ -72,7 +72,7 @@ public class Player extends MovingSprite {
 
         float accel;
         if (right && !left) { // trying to go right
-            if (xVel >= 0) { // accelerate
+            if (vel.x >= 0) { // accelerate
                 if (isGrounded) {
                     if (run) accel = Physics.Player.ACCELERATE_GROUND_RUN;
                     else accel = Physics.Player.ACCELERATE_GROUND;
@@ -84,7 +84,7 @@ public class Player extends MovingSprite {
                 accel = Physics.Player.ACCELERATE_TURN;
             }
         } else if (left && !right) { // trying to go left
-            if (xVel <= 0) { // accelerate
+            if (vel.x <= 0) { // accelerate
                 if (isGrounded) {
                     if (run) accel = -Physics.Player.ACCELERATE_GROUND_RUN;
                     else accel = -Physics.Player.ACCELERATE_GROUND;
@@ -96,20 +96,20 @@ public class Player extends MovingSprite {
                 accel = -Physics.Player.ACCELERATE_TURN;
             }
         } else { // not doing anything
-            if (xVel > Physics.Player.DECELERATE / 2f) accel = -Physics.Player.DECELERATE;
-            else if (xVel < -Physics.Player.DECELERATE / 2f) accel = Physics.Player.DECELERATE;
-            else accel = -xVel;
+            if (vel.x > Physics.Player.DECELERATE / 2f) accel = -Physics.Player.DECELERATE;
+            else if (vel.x < -Physics.Player.DECELERATE / 2f) accel = Physics.Player.DECELERATE;
+            else accel = -vel.x;
         }
 
         // change velocity
-        xVel += accel;
+        vel.x += accel;
 
         if (run) {
-            if (xVel > Physics.Player.MAX_VEL_X_RUN) xVel = Physics.Player.MAX_VEL_X_RUN;
-            else if (xVel < -Physics.Player.MAX_VEL_X_RUN) xVel = -Physics.Player.MAX_VEL_X_RUN;
+            if (vel.x > Physics.Player.MAX_VEL_X_RUN) vel.x = Physics.Player.MAX_VEL_X_RUN;
+            else if (vel.x < -Physics.Player.MAX_VEL_X_RUN) vel.x = -Physics.Player.MAX_VEL_X_RUN;
         } else {
-            if (xVel > Physics.Player.MAX_VEL_X) xVel = Physics.Player.MAX_VEL_X;
-            else if (xVel < -Physics.Player.MAX_VEL_X) xVel = -Physics.Player.MAX_VEL_X;
+            if (vel.x > Physics.Player.MAX_VEL_X) vel.x = Physics.Player.MAX_VEL_X;
+            else if (vel.x < -Physics.Player.MAX_VEL_X) vel.x = -Physics.Player.MAX_VEL_X;
         }
     }
 
@@ -120,19 +120,16 @@ public class Player extends MovingSprite {
         boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
 
         if (jump && jumpFrames == 0 && isGrounded) { // pressing jump for the first time
-            Log.d("If1: " + jumpFrames);
-            launchVelX = xVel;
+            launchVelX = vel.x;
             releasedJump = false;
             jumpFrames = 1;
             running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
-            yVel = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
+            vel.y = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
         } else if (jump && jumpFrames < Physics.Player.JUMP_HOLD_MAX && !releasedJump) { // We are holding the jump button
-            Log.d("If2: " + jumpFrames);
             jumpFrames++;
-            yVel = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
+            vel.y = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
         } else {
-            Log.d("If3: " + jumpFrames);
-            yVel -= Physics.Player.GRAVITY;
+            vel.y -= Physics.Player.GRAVITY;
             releasedJump = true;
         }
     }
@@ -144,14 +141,14 @@ public class Player extends MovingSprite {
 
     @Override
     protected void onCollideLeft(Sprite sprite) {
-        xVel = 0;
+        vel.x = 0;
         CollisionBox otherCollision = sprite.getCollision();
         position.x = otherCollision.position.x + otherCollision.size.width - this.collision.origin.x;
     }
 
     @Override
     protected void onCollideTop(Sprite sprite) {
-        yVel = 0;
+        vel.y = 0;
         jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
         CollisionBox otherCollision = sprite.getCollision();
         position.y = otherCollision.position.y - this.collision.size.height - this.collision.origin.y;
@@ -159,7 +156,7 @@ public class Player extends MovingSprite {
 
     @Override
     protected void onCollideRight(Sprite sprite) {
-        xVel = 0;
+        vel.x = 0;
         CollisionBox otherCollision = sprite.getCollision();
         position.x = otherCollision.position.x - this.size.width + this.collision.origin.x;
     }
@@ -167,7 +164,7 @@ public class Player extends MovingSprite {
     @Override
     protected void onCollideBottom(Sprite sprite) {
         setGrounded();
-        yVel = 0;
+        vel.y = 0;
         CollisionBox otherCollision = sprite.getCollision();
         position.y = otherCollision.position.y + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y;
     }
@@ -179,7 +176,7 @@ public class Player extends MovingSprite {
     @Override
     public void update() {
         // Limit y Velocity: Max fall speed.
-        if (yVel < Physics.Player.MAX_FALL_SPEED) yVel = Physics.Player.MAX_FALL_SPEED;
+        if (vel.y < Physics.Player.MAX_FALL_SPEED) vel.y = Physics.Player.MAX_FALL_SPEED;
         // TODO: Notifies when the player dies off the bottom.
         // Moves the player to the top of the screen when falling off the bottom.
         if (position.y <= -2) position.y = Platformer2D.tileCounts.y;
