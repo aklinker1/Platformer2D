@@ -41,8 +41,13 @@ public abstract class Scene implements Drawable {
         }
     }
 
-    public void transitionScenes(Scene scene/*, Transistion transistion*/) {
+    public void transitionScenes(Scene scene/*, Transition transition*/) {
+        scene.init();
+        this.engine.setScene(scene);
+    }
 
+    public Engine getEngine() {
+        return this.engine;
     }
 
 }

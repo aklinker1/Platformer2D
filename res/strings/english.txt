@@ -1,2 +1,3 @@
 story-mode:"Story Mode"
 multiplayer:"Multiplayer"
+settings:"Settings"

@@ -64,8 +64,7 @@ public class MainMenu extends Menu {
         storyMode.setTextSize(4.5f);
         storyMode.setState(View.State.SELECTED);
         storyMode.setOnClickListener((View view) -> {
-            //transitionScenes(???);
-            Log.d("Clicked story mode!");
+            transitionScenes(new Level(getEngine(), R.levels.W01_LXX));
         });
         views.add(storyMode);
 

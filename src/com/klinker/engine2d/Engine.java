@@ -177,7 +177,7 @@ public abstract class Engine implements Runnable {
      *
      * @param scene The scene to change to.
      */
-    protected void setScene(Scene scene) {
+    public void setScene(Scene scene) {
         this.scene = scene;
     }
 

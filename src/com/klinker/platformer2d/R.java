@@ -37,6 +37,7 @@ public class R {
     public static class strings {
         public static final String STORY_MODE = "Story Mode";
         public static final String MULTIPLAYER = "Multiplayer";
+        public static final String SETTINGS = "Settings";
     }
     public static class textures {
         public static class bg {
