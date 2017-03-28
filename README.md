@@ -4,7 +4,7 @@ Based off an artstyle by open source game art designer [Kenney](http://www.kenne
 
 ![Concept by Kenney](http://opengameart.org/sites/default/files/Sample_28.png)
 
-__To-Do__
+### To-Do
 ===
 - [ ] Engine2D
   - [x] Sprites
