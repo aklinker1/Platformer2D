@@ -29,7 +29,7 @@ public class Preferences {
      * @return Whether or not the preference has been initialized.
      */
     public boolean hasData() {
-        return data != null;
+        return data.size() == 0;
     }
 
 
@@ -110,16 +110,14 @@ public class Preferences {
      */
     private HashMap<String, Object> readFromFile(String path) {
         File inputFile = new File(path);
+        HashMap<String, Object> data = new HashMap<>();
         if (inputFile.exists()) try (FileInputStream fIn = new FileInputStream(inputFile);
                 ObjectInputStream inputStream = new ObjectInputStream(fIn)) {
-            @SuppressWarnings("unchecked")
-            HashMap<String, Object> data = (HashMap<String, Object>) inputStream.readObject();
-            return data;
+            data = (HashMap<String, Object>) inputStream.readObject();
         } catch (Exception e) {
-            return null;
-        } else {
-            return null;
+            Log.e("Error reading setting from file", e);
         }
+        return data;
     }
 
 
