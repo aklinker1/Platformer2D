@@ -47,10 +47,10 @@ public abstract class Menu extends Scene {
     public void update() {
         if (frameCount >= CHECK_INPUT_EVERY) {
             frameCount = 0;
-            boolean left = KeyboardInput.isPressed(KeyboardInput.LEFT);
-            boolean up = KeyboardInput.isPressed(KeyboardInput.UP);
-            boolean right = KeyboardInput.isPressed(KeyboardInput.RIGHT);
-            boolean down = KeyboardInput.isPressed(KeyboardInput.DOWN);
+            boolean left = KeyboardInput.isClicked(KeyboardInput.LEFT);
+            boolean up = KeyboardInput.isClicked(KeyboardInput.UP);
+            boolean right = KeyboardInput.isClicked(KeyboardInput.RIGHT);
+            boolean down = KeyboardInput.isClicked(KeyboardInput.DOWN);
             if (left && !right) onLeftPress();
             if (right && !left) onRightPress();
             if (up && !down) onUpPress();
