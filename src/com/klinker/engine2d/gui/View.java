@@ -67,7 +67,7 @@ public class View {
 
     public void update() {
         if (background != null) background.get(state).update();
-        if (onClickListener != null && KeyboardInput.isClicked(KeyboardInput.JUMP)) {
+        if (state == State.SELECTED && KeyboardInput.isClicked(KeyboardInput.JUMP) && onClickListener != null) {
             onClickListener.onClick(this);
         }
     }
