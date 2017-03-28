@@ -4,7 +4,7 @@ package com.klinker.platformer2d.sprite.players;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.opengl.Texture;
-import com.klinker.engine2d.inputs.Input;
+import com.klinker.engine2d.inputs.KeyboardInput;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
@@ -65,9 +65,9 @@ public class Player extends MovingSprite {
      */
     @Override
     protected void accelX() {
-        boolean left = Input.isPressed(Input.LEFT);
-        boolean right = Input.isPressed(Input.RIGHT);
-        boolean run = Input.isPressed(Input.RUN);
+        boolean left = KeyboardInput.isPressed(KeyboardInput.LEFT);
+        boolean right = KeyboardInput.isPressed(KeyboardInput.RIGHT);
+        boolean run = KeyboardInput.isPressed(KeyboardInput.RUN);
 
         float accel;
         if (right && !left) { // trying to go right
@@ -115,7 +115,7 @@ public class Player extends MovingSprite {
     private int jumpFrames = 0;
     @Override
     protected void accelY() {
-        boolean jump = Input.isPressed(Input.JUMP);
+        boolean jump = KeyboardInput.isPressed(KeyboardInput.JUMP);
         boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
 
         if (jump && jumpFrames == 0 && isGrounded) { // pressing jump for the first time

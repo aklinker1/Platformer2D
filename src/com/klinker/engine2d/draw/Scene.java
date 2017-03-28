@@ -13,7 +13,7 @@ import static org.lwjgl.opengl.GL11.*;
 public abstract class Scene implements Drawable {
 
     protected HashSet<Shader> shaders = new HashSet<>();
-    protected Engine engine;
+    private Engine engine;
 
     public abstract void update();
     public abstract void render();
@@ -39,6 +39,10 @@ public abstract class Scene implements Drawable {
             // The 1 is used to match GL_TEXTURE1 in Engine
             shader.setUniform1i("tex", 1);
         }
+    }
+
+    public void transitionScenes(Scene scene/*, Transistion transistion*/) {
+
     }
 
 }

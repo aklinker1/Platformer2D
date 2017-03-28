@@ -3,7 +3,7 @@ package com.klinker.platformer2d.scenes;
 import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.gui.View;
-import com.klinker.engine2d.inputs.Input;
+import com.klinker.engine2d.inputs.KeyboardInput;
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
 import com.klinker.platformer2d.Platformer2D;
@@ -47,10 +47,10 @@ public abstract class Menu extends Scene {
     public void update() {
         if (frameCount >= CHECK_INPUT_EVERY) {
             frameCount = 0;
-            boolean left = Input.isPressed(Input.LEFT);
-            boolean up = Input.isClicked(Input.UP);
-            boolean right = Input.isClicked(Input.RIGHT);
-            boolean down = Input.isClicked(Input.DOWN);
+            boolean left = KeyboardInput.isPressed(KeyboardInput.LEFT);
+            boolean up = KeyboardInput.isPressed(KeyboardInput.UP);
+            boolean right = KeyboardInput.isPressed(KeyboardInput.RIGHT);
+            boolean down = KeyboardInput.isPressed(KeyboardInput.DOWN);
             if (left && !right) onLeftPress();
             if (right && !left) onRightPress();
             if (up && !down) onUpPress();
@@ -58,13 +58,12 @@ public abstract class Menu extends Scene {
         } else {
             frameCount++;
         }
+        for (View view : views) view.update();
     }
 
     @Override
     public void render() {
-        for (View view : views) {
-            view.render();
-        }
+        for (View view : views) view.render();
     }
 
     @Override

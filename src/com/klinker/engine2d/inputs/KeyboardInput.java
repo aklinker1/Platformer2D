@@ -12,7 +12,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 /**
  * This class handles input from the keyboeard.
  */
-public class Input extends GLFWKeyCallback {
+public class KeyboardInput extends GLFWKeyCallback {
 
     /**
      * An array of booleans that contains the key bindings that are pressed.
@@ -45,7 +45,6 @@ public class Input extends GLFWKeyCallback {
      */
     @Override
     public void invoke(long window, int key, int scanCode, int action, int mods) {
-        Log.d("action: " + action);
         if (action == ACTION_RELEASE) {
             clicked[key] = bindings[key] <= MAX_CLICK_LENGTH;
             bindings[key] = ACTION_RELEASE; // clear the binding, as in it is not being pressed.
@@ -65,7 +64,7 @@ public class Input extends GLFWKeyCallback {
      */
     public static boolean isClicked(int keyCode) {
         boolean click = clicked[keyCode];
-        clicked[keyCode] = false;
+        if (click) clicked[keyCode] = false;
         return click;
     }
 }

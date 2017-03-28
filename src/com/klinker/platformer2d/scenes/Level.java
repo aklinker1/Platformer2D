@@ -1,6 +1,7 @@
 package com.klinker.platformer2d.scenes;
 
 
+import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
@@ -50,8 +51,8 @@ public class Level extends Scene {
      *
      * @param levelPath The path to the data file.
      */
-    public Level(String levelPath) {
-        super();
+    public Level(Engine engine, String levelPath) {
+        super(engine);
         this.level = new File(levelPath);
     }
 

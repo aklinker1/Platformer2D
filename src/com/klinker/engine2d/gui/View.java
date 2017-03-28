@@ -1,7 +1,7 @@
 package com.klinker.engine2d.gui;
 
 import com.klinker.engine2d.draw.Sprite;
-import com.klinker.engine2d.inputs.Input;
+import com.klinker.engine2d.inputs.KeyboardInput;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.draw.SimpleSprite;
@@ -67,7 +67,7 @@ public class View {
 
     public void update() {
         if (background != null) background.get(state).update();
-        if (onClickListener != null && Input.isClicked(Input.JUMP)) {
+        if (onClickListener != null && KeyboardInput.isClicked(KeyboardInput.JUMP)) {
             onClickListener.onClick(this);
         }
     }

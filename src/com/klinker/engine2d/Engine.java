@@ -3,7 +3,7 @@ package com.klinker.engine2d;
 
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.opengl.Texture;
-import com.klinker.engine2d.inputs.Input;
+import com.klinker.engine2d.inputs.KeyboardInput;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.utils.PerformanceAnalyzer;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -117,7 +117,7 @@ public abstract class Engine implements Runnable {
             // TODO: 2/26/2017 error createing window
             return;
         }
-        glfwSetKeyCallback(window, new Input());    // set callbacks for keyboard input
+        glfwSetKeyCallback(window, new KeyboardInput());    // set callbacks for keyboard input
 
         // set window position to centered
         GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
