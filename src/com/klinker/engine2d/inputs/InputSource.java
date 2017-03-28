@@ -4,4 +4,6 @@ public interface InputSource {
 
     Object getSourceId();
 
+    void update();
+
 }
