@@ -75,10 +75,27 @@ public class MainMenu extends Menu {
                 R.fonts.ROBOTO
         );
         muliplayer.setTextSize(4.5f);
+        muliplayer.setOnClickListener((View view) -> {
+            //transitionScenes(???);
+            Log.d("Clicked multiplayer!");
+        });
         views.add(muliplayer);
 
-        navigation.insertNode(storyMode, null, muliplayer, null, muliplayer);
-        navigation.insertNode(muliplayer, null, storyMode, null, storyMode);
+        Button settings = new Button(R.strings.SETTINGS,
+                new Size<Float>(35f, 8f),
+                muliplayer.getPosition().translate(0f, -12f),
+                R.fonts.ROBOTO
+        );
+        settings.setTextSize(4.5f);
+        settings.setOnClickListener((View view) -> {
+            //transitionScenes(???);
+            Log.d("Clicked Settings!");
+        });
+        views.add(settings);
+
+        navigation.insertNode(storyMode, null, settings, null, muliplayer);
+        navigation.insertNode(muliplayer, null, storyMode, null, settings);
+        navigation.insertNode(settings, null, muliplayer, null, storyMode);
         navigation.select(storyMode);
 
         // TODO: 3/26/2017 Add grid?
