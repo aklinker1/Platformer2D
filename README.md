@@ -6,13 +6,26 @@ Based off an artstyle by open source game art designer [Kenney](http://www.kenne
 
 __To-Do__
 ===
-- [ ] Finish Engine2D
-  - [x] Collisions
+- [ ] Engine2D
   - [x] Sprites
+  - [x] Collisions
+    - [ ] Debug regions (show)
   - [ ] Enemies
   - [ ] Animations
-  - [ ] Text
-- [ ] Create Menus
-- [ ] Overworld
+  - [x] Text (Kinda)
+- [x] Create Menus
+  - [ ] Style/Design
+  - [x] Main Menu
+  - [ ] Settings
+    - [ ] General Settings
+    - [ ] Inputs
+    - [ ] Debug Mode
+    - [ ] Story Mode Menu
+      - [ ] Saves
+      - [ ] Save Options
+  - [ ] Multiplayer Menu
 - [ ] Story Mode
+  - [ ] Overworld
+  - [ ] Levels
 - [ ] __Multiplayer/Racing!__
+  - [ ] ???
