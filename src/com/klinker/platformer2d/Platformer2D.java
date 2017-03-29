@@ -12,7 +12,7 @@ import com.klinker.platformer2d.utils.Settings;
 
 public class Platformer2D extends Engine {
 
-    private static final String SETTINGS_PATH = "settings.pref";
+    public static final String SETTINGS_PATH = "settings.pref";
 
     public static Vector2f tileCounts;
 
@@ -43,9 +43,7 @@ public class Platformer2D extends Engine {
 
     private Settings initializeSettings() {
         Settings settings = new Settings(SETTINGS_PATH);
-
-        // initialize the defaults if it's the first open
-        Settings.initialize(settings);
+        Log.d(settings.toString());
 
         // set the settings.
         frameRate = settings.getInt(Settings.KEY_FRAME_RATE);

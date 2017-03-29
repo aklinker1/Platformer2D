@@ -4,6 +4,7 @@ package com.klinker.engine2d.utils;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -78,7 +79,8 @@ public class PerformanceAnalyzer implements Runnable {
                 Thread.sleep(INTERVAL);
             } catch (Exception e) {}
             fpsHistory.addLast(getFrames() / (INTERVAL / 1000.0));
-            GLFW.glfwSetWindowTitle(window, new StringBuilder("Platformer2D ").append(fpsHistory.getLast()).append("/60"));
+            if (window != 0L) // check to see if the window exists
+                GLFW.glfwSetWindowTitle(window, new StringBuilder("Platformer2D ").append(fpsHistory.getLast()).append("/60"));
             clearFrames();
         }
     }
@@ -124,7 +126,9 @@ public class PerformanceAnalyzer implements Runnable {
             sum += d;
         }
 
-        try (FileWriter fWriter = new FileWriter("log/frames.log");
+        File out = new File("log/frames.log");
+        if (!out.getParentFile().exists()) out.getParentFile().mkdirs();
+        try (FileWriter fWriter = new FileWriter(out);
              BufferedWriter writer = new BufferedWriter(fWriter)) {
             writer.write(builder.toString());
             writer.write("\nAverage\t" + (sum / (i - 1)));

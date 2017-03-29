@@ -2,6 +2,7 @@ package com.klinker.platformer2d.utils;
 
 import com.klinker.engine2d.utils.Log;
 import com.klinker.engine2d.utils.Preferences;
+import com.klinker.platformer2d.Platformer2D;
 
 import java.util.HashMap;
 
@@ -29,16 +30,14 @@ public class Settings extends Preferences {
         super(path);
     }
 
-    public static Settings initialize(Settings settings) {
-        if (!settings.hasData()) {
-            settings = new Settings();
-            settings.put(Settings.KEY_FRAME_RATE, Settings.DEFAULT_FRAME_RATE);
-            settings.put(Settings.KEY_ASPECT_RATIO, Settings.DEFAULT_ASPECT_RATIO);
-            settings.put(Settings.KEY_TILE_WIDTH, Settings.DEFAULT_TILE_WIDTH);
-            settings.put(Settings.KEY_WINDOW_WIDTH, Settings.DEFAULT_WINDOW_WIDTH);
-            settings.put(Settings.KEY_WINDOW_FULL_SCREEN, Settings.DEFAULT_WINDOW_FULL_SCREEN);
-        }
-        return settings;
+    @Override
+    protected HashMap<String, Object> getInitialMap() {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put(Settings.KEY_FRAME_RATE, Settings.DEFAULT_FRAME_RATE);
+        data.put(Settings.KEY_ASPECT_RATIO, Settings.DEFAULT_ASPECT_RATIO);
+        data.put(Settings.KEY_TILE_WIDTH, Settings.DEFAULT_TILE_WIDTH);
+        data.put(Settings.KEY_WINDOW_WIDTH, Settings.DEFAULT_WINDOW_WIDTH);
+        data.put(Settings.KEY_WINDOW_FULL_SCREEN, Settings.DEFAULT_WINDOW_FULL_SCREEN);
+        return data;
     }
-
 }

@@ -1,9 +1,12 @@
 package com.klinker.engine2d.utils;
 
+import com.klinker.platformer2d.Platformer2D;
+import com.klinker.platformer2d.utils.Settings;
+
 import java.io.*;
 import java.util.HashMap;
 
-public class Preferences {
+public abstract class Preferences {
 
     private HashMap<String, Object> data = null;
 
@@ -11,7 +14,7 @@ public class Preferences {
     /**
      * Creates a mapping of the settings options.
      */
-    public Preferences() {
+    protected Preferences() {
         data = new HashMap<>();
     }
 
@@ -22,7 +25,6 @@ public class Preferences {
      */
     public Preferences(String path) {
         data = readFromFile(path);
-        Log.d("After reading file, data = " + data);
     }
 
 
@@ -111,15 +113,13 @@ public class Preferences {
      */
     private HashMap<String, Object> readFromFile(String path) {
         File inputFile = new File(path);
-        if (inputFile.exists()) try (FileInputStream fIn = new FileInputStream(inputFile);
+        try (FileInputStream fIn = new FileInputStream(inputFile);
                 ObjectInputStream inputStream = new ObjectInputStream(fIn)) {
             @SuppressWarnings("unchecked")
             HashMap<String, Object> data = (HashMap<String, Object>) inputStream.readObject();
             return data;
         } catch (Exception e) {
-            return null;
-        } else {
-            return null;
+            return getInitialMap();
         }
     }
 
@@ -129,12 +129,14 @@ public class Preferences {
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("Prefs {\n");
+        StringBuilder builder = new StringBuilder(this.getClass().getSimpleName()).append(" {\n");
         if (data != null) for (String key : data.keySet()) {
             builder.append("    \"").append(key).append("\":").append(data.get(key)).append('\n');
         }
         builder.append("}");
         return builder.toString();
     }
+
+    protected abstract HashMap<String, Object> getInitialMap();
 
 }

@@ -21,6 +21,7 @@ public class R {
             public static final String BACKGROUND = "res/shaders/frag/background.frag";
             public static final String BASIC_ALPHA = "res/shaders/frag/basic-alpha.frag";
             public static final String BASIC = "res/shaders/frag/basic.frag";
+            public static final String COLOR_MULTIPLY = "res/shaders/frag/color-multiply.frag";
             public static final String COLOR_OVERLAY = "res/shaders/frag/color-overlay.frag";
             public static final String MOVE = "res/shaders/frag/move.frag";
             public static final String PIPE = "res/shaders/frag/pipe.frag";
