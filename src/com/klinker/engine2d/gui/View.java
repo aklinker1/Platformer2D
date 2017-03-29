@@ -62,7 +62,6 @@ public class View {
     }
 
     public void render() {
-        Log.d("Rendering " + this.getClass().getSimpleName());
         if (background != null) background.get(state).render();
     }
 
