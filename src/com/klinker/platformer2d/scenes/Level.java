@@ -61,7 +61,7 @@ public class Level extends Scene {
         super.init();
         map = MapReader.read(this, this.level);
         background = new LevelBackgroundBack(new Vector2f(0f, 0f), map.getWorld());
-        background.setPosition(0f, -(background.getSize().height - Platformer2D.tileCounts.y) / 2f);
+        background.setPosition(0f, -(background.getSize().height - Platformer2D.tileCounts.y) / 2f, 0);
     }
 
     @Override

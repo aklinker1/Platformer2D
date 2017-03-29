@@ -5,6 +5,8 @@ import com.klinker.engine2d.inputs.KeyboardInput;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.draw.SimpleSprite;
+import com.klinker.engine2d.math.Vector3f;
+import com.klinker.engine2d.utils.Log;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,8 +20,7 @@ public class View {
     public static final Alignment DEFAULT_V_ALIGNMENT = Alignment.LEFT;
     public static final State DEFAULT_STATE = State.DEFAULT;
 
-    protected Vector2f position;
-    protected float depth;
+    protected Vector3f position;
     protected Size<Float> size;
     private Alignment hAlignment;
     private Alignment vAlignment;
@@ -43,18 +44,17 @@ public class View {
     }
 
 
-    public View(Vector2f position, float depth, Size<Float> size) {
+    public View(Vector3f position, Size<Float> size) {
         this.position = position;
         this.size = size;
         this.state = DEFAULT;
         this.hAlignment = DEFAULT_H_ALIGNMENT;
         this.vAlignment = DEFAULT_V_ALIGNMENT;
-        this.depth = depth;
     }
 
     public void setBackgroundTexture(String textureRes) {
         if (background == null) background = new StateObject<>();
-        background.put(DEFAULT, new SimpleSprite(getAlignedPosition(), depth - 0.001f, size, textureRes));
+        background.put(DEFAULT, new SimpleSprite(getAlignedPosition(), size, textureRes));
     }
 
     public void setBackground(StateObject<Sprite> spriteStateObject) {
@@ -62,6 +62,7 @@ public class View {
     }
 
     public void render() {
+        Log.d("Rendering " + this.getClass().getSimpleName());
         if (background != null) background.get(state).render();
     }
 
@@ -80,7 +81,7 @@ public class View {
         return size;
     }
 
-    public Vector2f getPosition() {
+    public Vector3f getPosition() {
         return position;
     }
 
@@ -108,15 +109,12 @@ public class View {
         else return 0f;
     }
 
-    protected Vector2f getAlignedPosition() {
-        return new Vector2f(position.x + getHorAlignmentOffset(), position.y + getVerAlignmentOffset());
-    }
-
-    public void setDepth(float depth) {
-        this.depth = depth;
-        /*for (Sprite sprite : background) {
-
-        }*/
+    protected Vector3f getAlignedPosition() {
+        return new Vector3f(
+                position.x + getHorAlignmentOffset(),
+                position.y + getVerAlignmentOffset(),
+                position.z
+        );
     }
 
     public static class StateObject<T> implements Iterable<T> {

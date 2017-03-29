@@ -2,22 +2,27 @@ package com.klinker.platformer2d.sprite.abstracts;
 
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector2f;
-import com.klinker.platformer2d.constants.Depth;
+import com.klinker.engine2d.math.Vector3f;
+import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.opengl.Texture;
+import com.klinker.engine2d.utils.CollisionBox;
 
-public abstract class Enemy extends MovingSprite {
+public abstract class Frenemy extends MovingSprite {
 
     /**
-     * @see Sprite#Sprite(Vector2f, Size)
+     * Creates an enemy with the specified qualities.
+     *
+     * @param position
+     * @param size
+     * @param texture
+     * @param shader
      */
-    public Enemy(Vector2f position, Size<Float> size) {
-        super(position, size);
+    public Frenemy(Vector3f position, Size<Float> size, Texture texture, Shader shader) {
+        super(position, size, texture, shader);
+        setCollision(initializeCollision());
     }
 
-    @Override
-    public float getDepth() {
-        return Depth.ENEMY;
-    }
+    public abstract CollisionBox initializeCollision();
 
     @Override
     public void update() {

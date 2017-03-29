@@ -18,34 +18,25 @@ public abstract class Sprite implements Drawable {
     protected CollisionBox collision;
     protected Texture texture;
     protected Shader shader;
-    protected float depth;
 
-    public abstract float getDepth();
-    public abstract CollisionBox getCollision();
-    public abstract Texture getTexture();
-    public abstract Shader getShader();
     protected abstract void setShaderProperties(Shader shader);
     public abstract void update();
+
 
     /**
      * Creates a Sprite at a given position. Initializes
      *
      * @param position The initial position of the sprite.
      */
-    public Sprite(Vector2f position, Size<Float> size) {
-        this.depth = getDepth();
-        initializeMesh(position, size);
-    }
-
-    protected void reinitializeMesh() {
-        initializeMesh(position.get2D(), size);
-    }
-
-    protected void initializeMesh(Vector2f position, Size<Float> size) {
+    protected Sprite(Vector3f position, Size<Float> size, Texture texture, Shader shader) {
+        this.position = position;
         this.size = size;
-        this.position = new Vector3f(position.x, position.y, depth);
-        this.collision = getCollision();
+        this.texture = texture;
+        this.shader = shader;
+        initializeMesh();
+    }
 
+    protected void initializeMesh() {
         this.mesh = new VertexArray(
                 new float[] {
                         0, this.size.height, this.position.z,
@@ -66,11 +57,6 @@ public abstract class Sprite implements Drawable {
         );
     }
 
-    public void initTextureAndShader() {
-        this.texture = getTexture();
-        this.shader = getShader();
-    }
-
     public void render() {
         shader.enable();
         setShaderProperties(shader);
@@ -84,18 +70,27 @@ public abstract class Sprite implements Drawable {
         return size;
     }
 
-    public void setPosition(float x, float y) {
-        position.x = x;
-        position.y = y;
-    }
-
-    public void setDepth(float depth) {
-        this.depth = depth;
-        reinitializeMesh();
-    }
-
     public Vector3f getPosition() {
         return position;
+    }
+
+    public void setCollision(CollisionBox collision) {
+        this.collision = collision;
+    }
+
+    public CollisionBox initializeCollision() {
+        return collision;
+    }
+
+    public void setPosition(float x, float y, float z) {
+        this.position.x = x;
+        this.position.y = y;
+        this.position.z = z;
+    }
+
+    public void setSize(Size<Float> size) {
+        this.size = size;
+        initializeMesh();
     }
 
 }

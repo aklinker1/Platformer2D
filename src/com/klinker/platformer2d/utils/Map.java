@@ -53,7 +53,7 @@ public class Map {
                 if (tiles[y][x] == 0xFF) {
                     playerStart = new Vector2f(x, y);
                 } else if (tiles[y][x] != 0) {
-                    this.tiles.append(x, y, new Tile(new Vector2f(x, y), world, tiles[y][x]));
+                    this.tiles.append(x, y, Tile.newInstance(new Vector2f(x, y), world, tiles[y][x]));
                 }
             }
         }

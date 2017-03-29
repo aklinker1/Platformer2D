@@ -1,5 +1,6 @@
 package com.klinker.engine2d.draw;
 
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.opengl.Texture;
@@ -14,40 +15,20 @@ import com.klinker.platformer2d.constants.Depth;
 public class SimpleSprite extends Sprite {
 
     public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC_ALPHA);
-    private Texture _texture;
-    private float _depth;
 
     /**
-     * @see Sprite#Sprite(Vector2f, Size)
-     * @param textRes The resource file for the image to be loaded.
+     * Constructor for a simple sprite that supports alpha.
+     *
+     * @param position The position of the sprite.
+     * @param size The size of the sprite.
+     * @param textRes The texture resource. A simple image only.
      */
-    public SimpleSprite(Vector2f position, float depth, Size<Float> size, String textRes) {
-        super(position, size);
-        _texture = new Texture(textRes);
-        this.depth = depth;
-        _depth = depth;
-        initTextureAndShader();
-        reinitializeMesh();
+    public SimpleSprite(Vector3f position, Size<Float> size, String textRes) {
+        this(position, size, textRes, SHADER);
     }
 
-    @Override
-    public float getDepth() {
-        return _depth;
-    }
-
-    @Override
-    public CollisionBox getCollision() {
-        return null;
-    }
-
-    @Override
-    public Texture getTexture() {
-        return _texture;
-    }
-
-    @Override
-    public Shader getShader() {
-        return SHADER;
+    public SimpleSprite(Vector3f position, Size<Float> size, String textRes, Shader shader) {
+        super(position, size, new Texture(textRes), shader);
     }
 
     @Override

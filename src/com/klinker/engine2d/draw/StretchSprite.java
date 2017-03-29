@@ -49,7 +49,7 @@ public class StretchSprite extends SpriteCluster {
                     if (y == 1) position.y = cornerSize.height;
                     else if (y == 2) position.y = cornerSize.height + middleHeight;
 
-                    addSprite(new SimpleSprite(position.get2D(), position.z, size, texture));
+                    addSprite(new SimpleSprite(position, size, texture));
                 } catch (Exception e) {
                     Log.e("Error loading parts from " + textRes + " directory.", e);
                 }

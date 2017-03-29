@@ -1,5 +1,6 @@
 package com.klinker.platformer2d.sprite.backgrounds;
 
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.opengl.Texture;
@@ -18,29 +19,13 @@ public class LevelBackgroundBack extends Sprite {
     private int world;
 
     public LevelBackgroundBack(Vector2f position, int world) {
-        super(position, new Size<>(Platformer2D.tileCounts.x, 3f / 4f * Platformer2D.tileCounts.x));
+        super(
+                new Vector3f(position.x, position.y, Depth.BACKGROUND_BACK),
+                new Size<>(Platformer2D.tileCounts.x, 3f / 4f * Platformer2D.tileCounts.x),
+                new Texture("res/textures/bg/" + String.format("%02X", world) + "-00.png"),
+                SHADER
+        );
         this.world = world;
-        initTextureAndShader();
-    }
-
-    @Override
-    public float getDepth() {
-        return Depth.BACKGROUND_BACK;
-    }
-
-    @Override
-    public CollisionBox getCollision() {
-        return new CollisionBox(CollisionBox.Shape.RECTANGLE, size, new Vector2f(0, 0), position);
-    }
-
-    @Override
-    public Texture getTexture() {
-        return new Texture("res/textures/bg/" + String.format("%02X", world) + "-00.png");
-    }
-
-    @Override
-    public Shader getShader() {
-        return SHADER;
     }
 
     @Override

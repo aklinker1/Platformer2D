@@ -1,3 +1,4 @@
 story-mode:"Story Mode"
 multiplayer:"Multiplayer"
 settings:"Settings"
+version:"Version 0.0.1 Alpha"

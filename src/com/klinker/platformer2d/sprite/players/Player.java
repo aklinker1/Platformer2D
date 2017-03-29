@@ -1,26 +1,23 @@
 package com.klinker.platformer2d.sprite.players;
 
 
-import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.inputs.KeyboardInput;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
-import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
-import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
 import com.klinker.platformer2d.scenes.Level;
-import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
+import com.klinker.platformer2d.sprite.abstracts.Frenemy;
 
 
-public class Player extends MovingSprite {
+public class Player extends Frenemy {
 
     public static final int HERO_BLUE_TRIANGLE = 0;
-    public static final Shader SHADER = new Shader(R.shaders.vert.MOVE, R.shaders.frag.MOVE);
 
 
     private int hero;
@@ -30,35 +27,24 @@ public class Player extends MovingSprite {
     private boolean releasedJump = false;
 
     public Player(Vector2f position, int hero, Level level) {
-        super(position, new Size<>(1f, 1f));
+        super(
+                new Vector3f(position.x, position.y, Depth.PLAYER),
+                new Size<>(1f, 1f),
+                new Texture(String.format("res/textures/character/hero%02X/body.png", hero)),
+                Frenemy.SHADER
+        );
         this.hero = hero;
         this.level = level;
-        initTextureAndShader();
     }
 
     @Override
-    public float getDepth() {
-        return Depth.PLAYER;
-    }
-
-    @Override
-    public CollisionBox getCollision() {
+    public CollisionBox initializeCollision() {
         return new CollisionBox(
                 CollisionBox.Shape.RECTANGLE,
                 new Size<>(0.90f, 0.95f),
                 new Vector2f(0.05f, 0f),
                 position
         );
-    }
-
-    @Override
-    public Texture getTexture() {
-        return new Texture(String.format("res/textures/character/hero%02X/body.png", hero));
-    }
-
-    @Override
-    public Shader getShader() {
-        return SHADER;
     }
 
     /**
@@ -142,7 +128,7 @@ public class Player extends MovingSprite {
     @Override
     protected void onCollideLeft(Sprite sprite) {
         vel.x = 0;
-        CollisionBox otherCollision = sprite.getCollision();
+        CollisionBox otherCollision = sprite.initializeCollision();
         position.x = otherCollision.position.x + otherCollision.size.width - this.collision.origin.x;
     }
 
@@ -150,14 +136,14 @@ public class Player extends MovingSprite {
     protected void onCollideTop(Sprite sprite) {
         vel.y = 0;
         jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
-        CollisionBox otherCollision = sprite.getCollision();
+        CollisionBox otherCollision = sprite.initializeCollision();
         position.y = otherCollision.position.y - this.collision.size.height - this.collision.origin.y;
     }
 
     @Override
     protected void onCollideRight(Sprite sprite) {
         vel.x = 0;
-        CollisionBox otherCollision = sprite.getCollision();
+        CollisionBox otherCollision = sprite.initializeCollision();
         position.x = otherCollision.position.x - this.size.width + this.collision.origin.x;
     }
 
@@ -165,7 +151,7 @@ public class Player extends MovingSprite {
     protected void onCollideBottom(Sprite sprite) {
         setGrounded();
         vel.y = 0;
-        CollisionBox otherCollision = sprite.getCollision();
+        CollisionBox otherCollision = sprite.initializeCollision();
         position.y = otherCollision.position.y + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y;
     }
 

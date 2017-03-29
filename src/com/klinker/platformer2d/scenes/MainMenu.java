@@ -4,6 +4,7 @@ import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.draw.WrapWidthSprite;
 import com.klinker.engine2d.gui.Button;
 import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
@@ -32,23 +33,22 @@ public class MainMenu extends Menu {
 
     @Override
     public Shader[] loadAllShaders() {
-        return new Shader[]{ SimpleSprite.SHADER, WrapWidthSprite.SHADER, TextView.FONT_SHADER };
+        return new Shader[]{ SimpleSprite.SHADER, TextView.FONT_SHADER };
     }
 
     @Override
     protected void initializeViews(LinkedList<View> views) {
         View background = new View(
-                new Vector2f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f),
-                Depth.BACKGROUND_BACK,
+                new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_MIDDLE),
                 new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
         );
         background.setBackgroundTexture(R.textures.bg.MAIN_MENU);
         views.add(background);
 
         TextView version = new TextView(
-                "Version 0.0.1 Alpha",
+                R.strings.VERSION,
                 3f,
-                new Vector2f(PROJ_SIZE.width / 2f - 2f,-PROJ_SIZE.height / 2f + 2f),
+                new Vector3f(PROJ_SIZE.width / 2f - 2f,-PROJ_SIZE.height / 2f + 2f, Depth.HUD),
                 R.fonts.ROBOTO
         );
         version.setTextSize(3f);
@@ -56,38 +56,37 @@ public class MainMenu extends Menu {
         version.setHorAlignment(TextView.Alignment.RIGHT);
         views.add(version);
 
-        Button storyMode = new Button(R.strings.STORY_MODE,
+        Button storyMode = new Button(
+                R.strings.STORY_MODE,
                 new Size<Float>(35f, 8f),
-                new Vector2f(25f, 25f),
+                new Vector3f(25f, 25f, Depth.HUD),
                 R.fonts.ROBOTO
         );
         storyMode.setTextSize(4.5f);
-        storyMode.setState(View.State.SELECTED);
         storyMode.setOnClickListener((View view) -> {
             transitionScenes(new Level(getEngine(), R.levels.W01_LXX));
         });
         views.add(storyMode);
 
-        Button muliplayer = new Button(R.strings.MULTIPLAYER,
+        Button muliplayer = new Button(
+                R.strings.MULTIPLAYER,
                 new Size<Float>(35f, 8f),
-                storyMode.getPosition().translate(0f, -12f),
+                storyMode.getPosition().translate(0f, -12f, 0),
                 R.fonts.ROBOTO
         );
         muliplayer.setTextSize(4.5f);
         muliplayer.setOnClickListener((View view) -> {
-            //transitionScenes(???);
             Log.d("Clicked multiplayer!");
         });
         views.add(muliplayer);
 
         Button settings = new Button(R.strings.SETTINGS,
                 new Size<Float>(35f, 8f),
-                muliplayer.getPosition().translate(0f, -12f),
+                muliplayer.getPosition().translate(0f, -12f, 0),
                 R.fonts.ROBOTO
         );
         settings.setTextSize(4.5f);
         settings.setOnClickListener((View view) -> {
-            //transitionScenes(???);
             Log.d("Clicked Settings!");
         });
         views.add(settings);
@@ -99,13 +98,13 @@ public class MainMenu extends Menu {
 
         // TODO: 3/26/2017 Add grid?
 
-        View vertDivider = new View(new Vector2f(0, 0), Depth.BACKGROUND_FRONT, new Size<Float>(0.2f, PROJ_SIZE.height));
+        View vertDivider = new View(new Vector3f(0, 0, Depth.BACKGROUND_FRONT), new Size<Float>(0.2f, PROJ_SIZE.height));
         vertDivider.setHorAlignment(View.Alignment.CENTER);
         vertDivider.setVertAlignment(View.Alignment.CENTER);
         vertDivider.setBackgroundTexture(R.textures.bg.B03_00);
         views.add(vertDivider);
 
-        View horDivider = new View(new Vector2f(0, 0), Depth.BACKGROUND_FRONT, new Size<Float>(PROJ_SIZE.width, 0.2f));
+        View horDivider = new View(new Vector3f(0, 0, Depth.BACKGROUND_FRONT), new Size<Float>(PROJ_SIZE.width, 0.2f));
         horDivider.setHorAlignment(View.Alignment.CENTER);
         horDivider.setVertAlignment(View.Alignment.CENTER);
         horDivider.setBackgroundTexture(R.textures.bg.B03_00);

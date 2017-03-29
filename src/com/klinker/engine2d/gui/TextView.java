@@ -4,6 +4,7 @@ import com.klinker.engine2d.draw.WrapWidthSprite;
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.R;
@@ -33,8 +34,8 @@ public class TextView extends View {
     private boolean wrapWidth = true;
 
 
-    public TextView(String text, Size<Float> size, Vector2f position, String fontDir) {
-        super(position, Depth.HUD, size);
+    public TextView(String text, Size<Float> size, Vector3f position, String fontDir) {
+        super(position, size);
         this.text = text;
         this.fontDir = fontDir;
         this.wrapWidth = size.width == null;
@@ -47,8 +48,8 @@ public class TextView extends View {
         loadCharacters();
     }
 
-    public TextView(String text, float hieght, Vector2f position, String fontDir) {
-        this(text, new Size<Float>(null, hieght), position, fontDir);
+    public TextView(String text, float height, Vector3f position, String fontDir) {
+        this(text, new Size<Float>(null, height), position, fontDir);
     }
 
     public void setText(String text) {
@@ -121,7 +122,7 @@ public class TextView extends View {
     protected class Glyph extends WrapWidthSprite {
 
         public Glyph(Vector2f position, float height, String textRes) {
-            super(position, TextView.this.depth, height, textRes);
+            super(new Vector3f(position.x, position.y, TextView.this.position.z + 0.001f), height, textRes, FONT_SHADER);
         }
 
         @Override
@@ -132,15 +133,6 @@ public class TextView extends View {
             shader.setUniformColorRGBA("font_color", new Color(textColor, true));
         }
 
-        @Override
-        public Shader getShader() {
-            return FONT_SHADER;
-        }
-
-        @Override
-        public float getDepth() {
-            return TextView.this.depth;
-        }
     }
 
 }

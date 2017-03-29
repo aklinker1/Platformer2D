@@ -5,14 +5,16 @@ import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.utils.Log;
+import com.klinker.engine2d.opengl.Texture;
+import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.sprite.tiles.Tile;
 import com.klinker.platformer2d.utils.SparseArray2D;
 
 import java.util.LinkedList;
 
 public abstract class MovingSprite extends Sprite {
+
+    public static Shader SHADER = new Shader(R.shaders.vert.MOVE, R.shaders.frag.MOVE);
 
     /**
      * This draw velocity. Positive is upward/right, negative is downward/left.
@@ -21,10 +23,10 @@ public abstract class MovingSprite extends Sprite {
     public Vector3f vel = new Vector3f();
 
     /**
-     * @see Sprite#Sprite(Vector2f, Size)
+     * @see Sprite#Sprite(Vector3f, Size, Texture, Shader)
      */
-    public MovingSprite(Vector2f position, Size<Float> size) {
-        super(position, size);
+    public MovingSprite(Vector3f position, Size<Float> size, Texture texture, Shader shader) {
+        super(position, size, texture, shader);
     }
 
     /**
@@ -135,7 +137,7 @@ public abstract class MovingSprite extends Sprite {
             if (dir == TOP && vel.y > 0) { // moving upward, check tiles above me.
                 for (int x = curXMin; x <= curXMax; x++) {
                     Tile tile = tiles.get(x, futYMax); // at the future y pos
-                    if (tile != null && tile.getCollision().intersects(this.collision, vel.x, vel.y)) {
+                    if (tile != null && tile.initializeCollision().intersects(this.collision, vel.x, vel.y)) {
                         onCollideTop(tile);
                         collided = true;
                         break;
@@ -144,7 +146,7 @@ public abstract class MovingSprite extends Sprite {
             } else if (dir == LEFT && vel.x < 0) { // Moving left, check to the left of me.
                 for (int y = curYMin; y <= curYMax; y++) {
                     Tile tile = tiles.get(futXMin, y); // at the future x pos
-                    if (tile != null && tile.getCollision().intersects(this.collision, vel.x, vel.y)) {
+                    if (tile != null && tile.initializeCollision().intersects(this.collision, vel.x, vel.y)) {
                         onCollideLeft(tile);
                         collided = true;
                         break;
@@ -153,7 +155,7 @@ public abstract class MovingSprite extends Sprite {
             } else if (dir == RIGHT && vel.x > 0) { // moving right, check the right of me.
                 for (int y = curYMin; y <= curYMax; y++) {
                     Tile tile = tiles.get(futXMax, y); // at the future x pos
-                    if (tile != null && tile.getCollision().intersects(this.collision, vel.x, vel.y)) {
+                    if (tile != null && tile.initializeCollision().intersects(this.collision, vel.x, vel.y)) {
                         onCollideRight(tile);
                         collided = true;
                         break;
@@ -162,7 +164,7 @@ public abstract class MovingSprite extends Sprite {
             } else if (dir == BOTTOM && vel.y < 0) { // moving downward/walking, check for collisions beneath me.
                 for (int x = curXMin; x <= curXMax; x++) {
                     Tile tile = tiles.get(x, futYMin); // at the future y pos
-                    if (tile != null && tile.getCollision().intersects(this.collision, vel.x, vel.y)) {
+                    if (tile != null && tile.initializeCollision().intersects(this.collision, vel.x, vel.y)) {
                         onCollideBottom(tile);
                         collided = true;
                         break;
