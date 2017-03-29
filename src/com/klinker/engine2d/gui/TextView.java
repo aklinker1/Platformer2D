@@ -21,7 +21,7 @@ public class TextView extends View {
     public static final int DEFAULT_TEXT_COLOR = 0xFFFFFFFF;
     public static final int DEFAULT_TEXT_SIZE = 1;
 
-    public static Shader FONT_SHADER = new Shader(R.shaders.vert.FONT, R.shaders.frag.FONT);
+    public static Shader FONT_SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.COLOR_OVERLAY);
 
 
     private String fontDir;
@@ -130,7 +130,7 @@ public class TextView extends View {
             // not calling super to take into account the alignments
             // super.setShaderProperties(shader);
             shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(this.position.translate(getHorAlignmentOffset(), getVerAlignmentOffset(), 0)));
-            shader.setUniformColorRGBA("font_color", new Color(textColor, true));
+            shader.setUniformColorRGBA("color_overlay", new Color(textColor, true));
         }
 
     }
