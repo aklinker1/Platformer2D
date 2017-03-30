@@ -101,10 +101,6 @@ public abstract class Sprite implements Drawable {
         initializeMesh();
     }
 
-    public void setTranslation(Vector3f translation) {
-        this.translation = translation;
-    }
-
     public void setTranslation(float x, float y, float z) {
         this.translation = new Vector3f(x, y, z);
     }
