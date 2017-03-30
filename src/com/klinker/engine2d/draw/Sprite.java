@@ -72,7 +72,7 @@ public abstract class Sprite implements Drawable {
     }
 
     protected void setShaderProperties(Shader shader, Camera camera) {
-        shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, translation, camera.getPosition()));
+        shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, translation, getCameraPosition(camera)));
     }
 
     public Size<Float> getSize() {
@@ -104,6 +104,10 @@ public abstract class Sprite implements Drawable {
 
     public void setTranslation(float x, float y, float z) {
         this.translation = new Vector3f(x, y, z);
+    }
+
+    public Vector3f getCameraPosition(Camera camera) {
+        return camera.getPosition();
     }
 
 }

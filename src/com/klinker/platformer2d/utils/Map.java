@@ -98,6 +98,24 @@ public class Map implements Drawable {
             }
         }
         for (MovingSprite sprite : frenemies) sprite.update(tiles, frenemies);
+
+        // limit player sprite to map width
+        if (player.position.x + player.vel.x < 0.25f) {
+            player.position.x = 0.25f;
+            player.vel.x = 0;
+        }
+        else if (player.position.x + player.vel.x > size.width - 1.25f) {
+            player.position.x = size.width - 1.25f;
+            player.vel.x = 0;
+        }
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Size<Integer> getSize() {
+        return size;
     }
 
 }

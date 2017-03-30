@@ -10,6 +10,7 @@ public class Camera {
 
     private Matrix4f projection;
     private Vector3f position;
+    private Size<Float> size;
 
     /**
      * Creates a camera with the following projection properties.
@@ -26,6 +27,19 @@ public class Camera {
                 projectionSize.height - projectionOrigin.y, -projectionOrigin.y ,
                 -1, 1
         );
+        this.size = projectionSize;
+    }
+
+    /**
+     * Copy constructor for deep copy.
+     */
+    public Camera(Camera camera) {
+        this(camera.position, camera.projection);
+    }
+
+    private Camera(Vector3f position, Matrix4f projection) {
+        this.position = position;
+        this.projection = projection;
     }
 
     public Matrix4f getProjection() {
@@ -34,6 +48,15 @@ public class Camera {
 
     public Vector3f getPosition() {
         return position;
+    }
+
+    public Size<Float> getSize() {
+        return size;
+    }
+
+    public void centerXY(Vector3f position) {
+        this.position.x = this.size.width / 2f - position.x;
+        this.position.y = this.size.height / 2f - position.y;
     }
 
 }

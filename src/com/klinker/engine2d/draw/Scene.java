@@ -41,13 +41,10 @@ public abstract class Scene implements Drawable {
     }
 
     public void render() {
+        scrollCamera(camera);
         render(camera);
     }
 
-    @Override
-    public void update() {
-        scrollCamera();
-    }
 
     public void transitionScenes(Scene scene/*, Transition transition*/) {
         scene.init();
@@ -58,6 +55,6 @@ public abstract class Scene implements Drawable {
         return this.engine;
     }
 
-    protected void scrollCamera() {}
+    protected void scrollCamera(Camera camera) {}
 
 }

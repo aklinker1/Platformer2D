@@ -164,15 +164,5 @@ public class Player extends Frenemy {
         // TODO: Notifies when the player dies off the bottom.
         // Moves the player to the top of the screen when falling off the bottom.
         if (position.y <= -2) position.y = Platformer2D.tileCounts.y;
-
-        // Limit x positions: prevent from going off the sides of the map.
-        if (position.x + vel.x < 0.25f) {
-            position.x = 0.25f;
-            vel.x = 0;
-        }
-        else if (position.x + vel.x > Platformer2D.tileCounts.x - 1.25f) {
-            position.x = Platformer2D.tileCounts.x - 1.25f;
-            vel.x = 0;
-        }
     }
 }
