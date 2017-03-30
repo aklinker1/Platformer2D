@@ -62,27 +62,29 @@ public class Matrix4f {
         near *= 2;
         far *= 2;
 
-        result.elements[0 + 0 * 4] = 2.0f / (right - left);
-        result.elements[1 + 1 * 4] = 2.0f / (top - bottom);
-        result.elements[2 + 2 * 4] = -2.0f / (far - near);
+        result.elements[0] = 2.0f / (right - left);
+        result.elements[5] = 2.0f / (top - bottom);
+        result.elements[10] = -2.0f / (far - near);
 
-        result.elements[0 + 3 * 4] = -((right + left) / (right - left));
-        result.elements[1 + 3 * 4] = -((top + bottom) / (top - bottom));
-        result.elements[2 + 3 * 4] = -((far + near) / (far - near));
+        result.elements[12] = -((right + left) / (right - left));
+        result.elements[13] = -((top + bottom) / (top - bottom));
+        result.elements[14] = -((far + near) / (far - near));
 
         return result;
     }
 
     /**
-     * @param vector The vector to create a translation to multiply by.
+     * @param vectors The vectors to create a translation to multiply by.
      * @return A matrix that, when multiplied with another matrix, will translate the
      * other matrix by {@param vector}
      */
-    public static Matrix4f translate(Vector3f vector) {
+    public static Matrix4f translate(Vector3f ... vectors) {
         Matrix4f result = identity();
-        result.elements[0 + 3 * 4] = vector.x;
-        result.elements[1 + 3 * 4] = vector.y;
-        result.elements[2 + 3 * 4] = vector.z;
+        for (Vector3f v : vectors) {
+            result.elements[12] += v.x;
+            result.elements[13] += v.y;
+            result.elements[14] += v.z;
+        }
         return result;
     }
 
@@ -97,11 +99,11 @@ public class Matrix4f {
         float cos = (float) Math.cos(r);
         float sin = (float) Math.sin(r);
 
-        result.elements[0 + 0 * 4] = cos;
-        result.elements[1 + 0 * 4] = sin;
+        result.elements[0] = cos;
+        result.elements[1] = sin;
 
-        result.elements[0 + 1 * 4] = -sin;
-        result.elements[1 + 1 * 4] = cos;
+        result.elements[4] = -sin;
+        result.elements[5] = cos;
 
         return result;
     }

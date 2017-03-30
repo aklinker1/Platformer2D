@@ -3,6 +3,7 @@ package com.klinker.engine2d.draw;
 import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
 
 import java.util.Arrays;
@@ -35,6 +36,7 @@ public abstract class Scene implements Drawable {
 
     private void initializeShaders() {
         for (Shader shader : shaders) {
+            Log.d("Setting proj_matrix for " + shader.toString());
             shader.setUniformMatrix4f("proj_matrix", getProjMatrix());
             // The 1 is used to match GL_TEXTURE1 in Engine
             shader.setUniform1i("tex", 1);

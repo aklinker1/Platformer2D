@@ -31,11 +31,6 @@ public class SimpleSprite extends Sprite {
         super(position, size, new Texture(textRes), shader);
     }
 
-    @Override
-    protected void setShaderProperties(Shader shader) {
-        shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(position));
-    }
-
 
     @Override
     public void update() {

@@ -29,12 +29,6 @@ public class LevelBackgroundBack extends Sprite {
     }
 
     @Override
-    protected void setShaderProperties(Shader shader) {
-        shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(position));
-        //shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(new Vector3f(i * 10 + -scrollX * 0.03f, 0f, 0f)));
-    }
-
-    @Override
     public void update() {
 
     }

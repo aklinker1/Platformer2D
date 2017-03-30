@@ -49,9 +49,8 @@ public class Vector3f {
     }
 
 
-
-    public Vector2f get2D() {
-        return new Vector2f(x, y);
+    public Vector3f translate(Vector3f translate) {
+        return translate(translate.x, translate.y, translate.z);
     }
 
     public Vector3f translate(float x, float y, float z) {

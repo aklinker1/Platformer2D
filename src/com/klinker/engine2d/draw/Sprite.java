@@ -9,7 +9,7 @@ import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.opengl.VertexArray;
 import com.klinker.engine2d.utils.CollisionBox;
-
+import com.klinker.engine2d.utils.Log;
 
 public abstract class Sprite implements Drawable {
 
@@ -71,9 +71,7 @@ public abstract class Sprite implements Drawable {
     }
 
     protected void setShaderProperties(Shader shader) {
-        shader.setUniformMatrix4f("position_matrix", Matrix4f.translate(position));
-        shader.setUniformMatrix4f("translation_matrix", Matrix4f.translate(translation));
-        shader.setUniformMatrix4f("camera_matrix", Matrix4f.translate(cameraOffset));
+        shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, translation, cameraOffset));
     }
 
     public Size<Float> getSize() {
@@ -105,6 +103,10 @@ public abstract class Sprite implements Drawable {
 
     public void setTranslation(Vector3f translation) {
         this.translation = translation;
+    }
+
+    public void setTranslation(float x, float y, float z) {
+        this.translation = new Vector3f(x, y, z);
     }
 
 }

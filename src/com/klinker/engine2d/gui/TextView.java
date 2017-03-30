@@ -77,7 +77,7 @@ public class TextView extends View {
             for (int i = 0; i < text.length(); i++) {
                 int c = text.charAt(i);
                 Glyph _char = new Glyph(
-                        new Vector2f(position.x + width, position.y  + height),
+                        position.translate(width, height, 0.001f),
                         textSize,
                         String.format("%s/%03d.png", fontDir, c)
                 );
@@ -121,15 +121,14 @@ public class TextView extends View {
 
     protected class Glyph extends WrapWidthSprite {
 
-        public Glyph(Vector2f position, float height, String textRes) {
-            super(new Vector3f(position.x, position.y, TextView.this.position.z + 0.001f), height, textRes, FONT_SHADER);
+        public Glyph(Vector3f position, float height, String textRes) {
+            super(position, height, textRes, FONT_SHADER);
+            setTranslation(getHorAlignmentOffset(), getVerAlignmentOffset(), 0);
         }
 
         @Override
         protected void setShaderProperties(Shader shader) {
-            // not calling super to take into account the alignments
-            // super.setShaderProperties(shader);
-            shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(this.position.translate(getHorAlignmentOffset(), getVerAlignmentOffset(), 0)));
+            super.setShaderProperties(shader);
             shader.setUniformColorRGBA("color_overlay", new Color(textColor, true));
         }
 

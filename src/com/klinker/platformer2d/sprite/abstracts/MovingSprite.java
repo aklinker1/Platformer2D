@@ -30,14 +30,6 @@ public abstract class MovingSprite extends Sprite {
     }
 
     /**
-     * @see Sprite#setShaderProperties(Shader)
-     */
-    @Override
-    protected void setShaderProperties(Shader shader) {
-        shader.setUniformMatrix4f("view_matrix", Matrix4f.translate(position));
-    }
-
-    /**
      * A custom implementation of update that updates this sprite based on it's surroundings.
      *
      * @param tiles     The tiles around it.

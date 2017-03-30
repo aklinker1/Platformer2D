@@ -32,6 +32,9 @@ public class Shader {
      */
     private final int id;
 
+    private final String vertex;
+    private final String fragment;
+
     /**
      * This is a cache of all the locations of the shaders that have been created in OpenGL.
      */
@@ -44,12 +47,14 @@ public class Shader {
 
 
     /**
-     * Constructor for a shader. Should only be called from {@link #loadAll()}.
+     * Constructor for a shader.
      * @param vertex The path to the .vert file, ex: "shaders/background.vert".
      * @param fragment The path to the .frag file, ex: "shaders/background.frag".
      */
     public Shader(String vertex, String fragment) {
-        id = ShaderUtils.load(vertex, fragment);
+        this.id = ShaderUtils.load(vertex, fragment);
+        this.vertex = vertex;
+        this.fragment = fragment;
     }
 
     /**
@@ -107,7 +112,7 @@ public class Shader {
     }
 
     /**
-     * Sets a projection matrix for the shader.
+     * Sets a color for the shader.
      * @param name The name of the location in OpenGL, matches the uniform vec4 object name
      *             in the .vert file.
      * @param color the color to set.
@@ -118,6 +123,11 @@ public class Shader {
                 color.getRed() / 255f, color.getGreen() / 255f,
                 color.getBlue() / 255f, color.getAlpha() / 255f
         );
+    }
+
+    public void setUniformVector4f(String name, float x, float y, float z, float w) {
+        if (!enabled) enable();
+        glUniform4f(getUniform(name), x, y, z, w);
     }
 
     /**
@@ -139,4 +149,12 @@ public class Shader {
         enabled = false;
     }
 
+
+    @Override
+    public String toString() {
+        return "Shader{" +
+                "vertex='" + vertex + '\'' +
+                ", fragment='" + fragment + '\'' +
+                '}';
+    }
 }
