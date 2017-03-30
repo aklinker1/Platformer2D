@@ -1,5 +1,7 @@
 package com.klinker.engine2d.gui;
 
+import com.klinker.engine2d.draw.Camera;
+import com.klinker.engine2d.draw.Drawable;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.inputs.KeyboardInput;
 import com.klinker.engine2d.math.Size;
@@ -12,7 +14,7 @@ import java.util.LinkedList;
 
 import static com.klinker.engine2d.gui.View.State.*;
 
-public class View {
+public class View implements Drawable {
 
     public static final Alignment DEFAULT_H_ALIGNMENT = Alignment.LEFT;
     public static final Alignment DEFAULT_V_ALIGNMENT = Alignment.LEFT;
@@ -59,10 +61,12 @@ public class View {
         this.background = spriteStateObject;
     }
 
-    public void render() {
-        if (background != null) background.get(state).render();
+    @Override
+    public void render(Camera camera) {
+        if (background != null) background.get(state).render(camera);
     }
 
+    @Override
     public void update() {
         if (background != null) background.get(state).update();
         if (state == State.SELECTED && KeyboardInput.isClicked(KeyboardInput.JUMP) && onClickListener != null) {

@@ -27,9 +27,4 @@ public class Button extends TextView {
         background.put(State.SELECTED, new SimpleSprite(getAlignedPosition(), size, R.textures.tiles.T01_02));
     }
 
-    @Override
-    public void render() {
-        super.render();
-    }
-
 }

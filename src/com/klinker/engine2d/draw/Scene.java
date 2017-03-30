@@ -15,15 +15,13 @@ public abstract class Scene implements Drawable {
 
     protected HashSet<Shader> shaders = new HashSet<>();
     private Engine engine;
-
-    public abstract void update();
-    public abstract void render();
+    private Camera camera;
 
     public abstract Shader[] loadAllShaders();
-    public abstract Matrix4f getProjMatrix();
 
-    public Scene(Engine engine) {
+    public Scene(Engine engine, Camera camera) {
         this.engine = engine;
+        this.camera = camera;
     }
 
     public void init() {
@@ -36,11 +34,19 @@ public abstract class Scene implements Drawable {
 
     private void initializeShaders() {
         for (Shader shader : shaders) {
-            Log.d("Setting proj_matrix for " + shader.toString());
-            shader.setUniformMatrix4f("proj_matrix", getProjMatrix());
+            shader.setUniformMatrix4f("proj_matrix", camera.getProjection());
             // The 1 is used to match GL_TEXTURE1 in Engine
             shader.setUniform1i("tex", 1);
         }
+    }
+
+    public void render() {
+        render(camera);
+    }
+
+    @Override
+    public void update() {
+        scrollCamera();
     }
 
     public void transitionScenes(Scene scene/*, Transition transition*/) {
@@ -51,5 +57,7 @@ public abstract class Scene implements Drawable {
     public Engine getEngine() {
         return this.engine;
     }
+
+    protected void scrollCamera() {}
 
 }

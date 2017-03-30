@@ -22,11 +22,10 @@ public class Player extends Frenemy {
 
     private int hero;
     public boolean isGrounded;
-    private Level level;
     private float launchVelX = 0;
     private boolean releasedJump = false;
 
-    public Player(Vector2f position, int hero, Level level) {
+    public Player(Vector2f position, int hero) {
         super(
                 new Vector3f(position.x, position.y, Depth.PLAYER),
                 new Size<>(1f, 1f),
@@ -34,7 +33,6 @@ public class Player extends Frenemy {
                 Frenemy.SHADER
         );
         this.hero = hero;
-        this.level = level;
     }
 
     @Override
@@ -168,7 +166,13 @@ public class Player extends Frenemy {
         if (position.y <= -2) position.y = Platformer2D.tileCounts.y;
 
         // Limit x positions: prevent from going off the sides of the map.
-        if (position.x < 0.25f) position.x = 0.25f;
-        else if (position.x > Platformer2D.tileCounts.x - 1.25f) position.x = Platformer2D.tileCounts.x - 1.25f;
+        if (position.x + vel.x < 0.25f) {
+            position.x = 0.25f;
+            vel.x = 0;
+        }
+        else if (position.x + vel.x > Platformer2D.tileCounts.x - 1.25f) {
+            position.x = Platformer2D.tileCounts.x - 1.25f;
+            vel.x = 0;
+        }
     }
 }

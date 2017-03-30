@@ -1,5 +1,6 @@
 package com.klinker.engine2d.gui;
 
+import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.WrapWidthSprite;
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
@@ -108,9 +109,9 @@ public class TextView extends View {
     }
 
     @Override
-    public void render() {
-        super.render();
-        for (WrapWidthSprite character : characters) character.render();
+    public void render(Camera camera) {
+        super.render(camera);
+        for (WrapWidthSprite character : characters) character.render(camera);
     }
 
     @Override
@@ -127,8 +128,8 @@ public class TextView extends View {
         }
 
         @Override
-        protected void setShaderProperties(Shader shader) {
-            super.setShaderProperties(shader);
+        protected void setShaderProperties(Shader shader, Camera camera) {
+            super.setShaderProperties(shader, camera);
             shader.setUniformColorRGBA("color_overlay", new Color(textColor, true));
         }
 

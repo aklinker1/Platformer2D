@@ -2,7 +2,10 @@ package com.klinker.platformer2d.scenes;
 
 
 import com.klinker.engine2d.Engine;
+import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Scene;
+import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Matrix4f;
@@ -21,16 +24,6 @@ import java.io.File;
 public class Level extends Scene {
 
     /**
-     * A projection matrix that sets up a classical cartisian coordinate system that is in units of tiles.
-     */
-    public static Matrix4f PROJ_MATRIX = Matrix4f.orthographic(
-            0f, Platformer2D.tileCounts.x,
-            Platformer2D.tileCounts.y, 0f,
-            -1f, 1f
-    );
-
-
-    /**
      * The file with the level data.
      */
     private File level;
@@ -41,7 +34,7 @@ public class Level extends Scene {
     private Map map;
 
     /**
-     *
+     * The background of the level.
      */
     private Sprite background;
 
@@ -52,7 +45,7 @@ public class Level extends Scene {
      * @param levelPath The path to the data file.
      */
     public Level(Engine engine, String levelPath) {
-        super(engine);
+        super(engine, new Camera(new Size<Float>(Platformer2D.tileCounts.x, Platformer2D.tileCounts.y), new Vector3f()));
         this.level = new File(levelPath);
     }
 
@@ -70,19 +63,20 @@ public class Level extends Scene {
     }
 
     @Override
-    public Matrix4f getProjMatrix() {
-        return PROJ_MATRIX;
-    }
-
-    @Override
     public void update() {
         background.update();
         map.update();
     }
 
     @Override
-    public void render() {
-        background.render();
-        map.render();
+    public void render(Camera camera) {
+        background.render(camera);
+        map.render(camera);
     }
+
+    @Override
+    protected void scrollCamera() {
+
+    }
+
 }

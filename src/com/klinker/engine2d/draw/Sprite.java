@@ -61,17 +61,18 @@ public abstract class Sprite implements Drawable {
         );
     }
 
-    public void render() {
+    @Override
+    public void render(Camera camera) {
         shader.enable();
-        setShaderProperties(shader);
+        setShaderProperties(shader, camera);
         texture.bind();
         mesh.render();
         texture.unbind();
         shader.disable();
     }
 
-    protected void setShaderProperties(Shader shader) {
-        shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, translation, cameraOffset));
+    protected void setShaderProperties(Shader shader, Camera camera) {
+        shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, translation, camera.getPosition()));
     }
 
     public Size<Float> getSize() {

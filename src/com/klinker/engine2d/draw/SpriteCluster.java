@@ -15,8 +15,8 @@ public abstract class SpriteCluster implements Drawable {
     }
 
     @Override
-    public void render() {
-        for (Sprite sprite : sprites) sprite.render();
+    public void render(Camera camera) {
+        for (Sprite sprite : sprites) sprite.render(camera);
     }
 
     @Override

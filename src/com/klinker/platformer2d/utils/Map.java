@@ -1,5 +1,7 @@
 package com.klinker.platformer2d.utils;
 
+import com.klinker.engine2d.draw.Camera;
+import com.klinker.engine2d.draw.Drawable;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
@@ -10,7 +12,7 @@ import com.klinker.platformer2d.sprite.tiles.Tile;
 
 import java.util.LinkedList;
 
-public class Map {
+public class Map implements Drawable {
 
     /**
      * The world that the tiles are rendered from.
@@ -32,6 +34,8 @@ public class Map {
      */
     private LinkedList<MovingSprite> frenemies;
 
+    private Player player;
+
 
     /**
      * Constructor that is called from MapReader.
@@ -49,16 +53,15 @@ public class Map {
         Vector2f playerStart = new Vector2f();
         for (int y = 0; y < this.size.height; y++) {
             for (int x = 0; x < this.size.width; x++) {
-                float difY = y + Platformer2D.tileCounts.y - size.height;
                 if (tiles[y][x] == 0xFF) {
-                    playerStart = new Vector2f(x, y);
+                    this.player = new Player(new Vector2f(x, y), 0x01);
                 } else if (tiles[y][x] != 0) {
                     this.tiles.append(x, y, Tile.newInstance(new Vector2f(x, y), world, tiles[y][x]));
                 }
             }
         }
 
-        this.frenemies.addFirst(new Player(playerStart, 0x01, level));
+        this.frenemies.addFirst(this.player);
     }
 
 
@@ -72,21 +75,21 @@ public class Map {
     /**
      * Renders all the tiles and other draw.
      */
-    public void render() {
+    @Override
+    public void render(Camera camera) {
         for (int yi = 0; yi < this.tiles.getHeight(); yi++) {
             SparseArray<Tile> row = this.tiles.getRow(yi);
             for (int xi = 0; xi < row.size(); xi++) {
-                row.get(row.keyAt(xi)).render();
+                row.get(row.keyAt(xi)).render(camera);
             }
         }
-        for (MovingSprite sprite : frenemies) {
-            sprite.render();
-        }
+        for (MovingSprite sprite : frenemies) sprite.render(camera);
     }
 
     /**
      * Updates all the tiles and other draw.
      */
+    @Override
     public void update() {
         for (int yi = 0; yi < this.tiles.getHeight(); yi++) {
             SparseArray<Tile> row = this.tiles.getRow(yi);
@@ -94,9 +97,7 @@ public class Map {
                 row.get(row.keyAt(xi)).update();
             }
         }
-        for (MovingSprite sprite : frenemies) {
-            sprite.update(tiles, frenemies);
-        }
+        for (MovingSprite sprite : frenemies) sprite.update(tiles, frenemies);
     }
 
 }

@@ -20,15 +20,8 @@ import java.util.LinkedList;
 
 public class MainMenu extends Menu {
 
-    private MenuNavigation<Button> navigation;
-
     public MainMenu(Engine engine) {
         super(engine);
-        this.navigation = new MenuNavigation<>();
-        navigation.setOnItemSelectedListener((Button oldButton, Button newButton) -> {
-            if (oldButton != null) oldButton.setState(View.State.DEFAULT);
-            if (newButton != null) newButton.setState(View.State.SELECTED);
-        });
     }
 
     @Override
@@ -37,7 +30,7 @@ public class MainMenu extends Menu {
     }
 
     @Override
-    protected void initializeViews(LinkedList<View> views) {
+    protected void initializeViews(LinkedList<View> views, MenuNavigation<Button> navigation) {
         View background = new View(
                 new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_MIDDLE),
                 new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
@@ -64,7 +57,7 @@ public class MainMenu extends Menu {
         );
         storyMode.setTextSize(4.5f);
         storyMode.setOnClickListener((View view) -> {
-            transitionScenes(new Level(getEngine(), R.levels.W01_LXX));
+            transitionScenes(new Level(getEngine(), R.levels.W02_LXX));
         });
         views.add(storyMode);
 
@@ -110,30 +103,6 @@ public class MainMenu extends Menu {
         horDivider.setBackgroundTexture(R.textures.bg.B03_00);
         views.add(horDivider);
 
-    }
-
-    @Override
-    public void onLeftPress() {
-        Button left = navigation.getLeft();
-        if (left != null) navigation.select(left);
-    }
-
-    @Override
-    public void onUpPress() {
-        Button up = navigation.getUp();
-        if (up != null) navigation.select(up);
-    }
-
-    @Override
-    public void onRightPress() {
-        Button right = navigation.getRight();
-        if (right != null) navigation.select(right);
-    }
-
-    @Override
-    public void onDownPress() {
-        Button down = navigation.getDown();
-        if (down != null) navigation.select(down);
     }
 
 }
