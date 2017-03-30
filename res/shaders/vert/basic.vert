@@ -3,8 +3,9 @@
 layout (location = 0) in vec4 position;
 layout (location = 1) in vec2 tc;
 
-uniform mat4 proj_matrix;
-uniform mat4 view_matrix;
+uniform mat4 position_matrix;
+uniform mat4 translation_matrix;
+uniform mat4 camera_matrix;
 
 out DATA {
     vec2 tc;
@@ -12,6 +13,6 @@ out DATA {
 
 void main()
 {
-    gl_Position = proj_matrix * view_matrix * position;
+    gl_Position = position_matrix * translation_matrix * camera_matrix * position;
     vs_out.tc = tc;
 }

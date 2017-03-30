@@ -1,6 +1,7 @@
 package com.klinker.engine2d.draw;
 
 
+import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
@@ -14,12 +15,13 @@ public abstract class Sprite implements Drawable {
 
     protected Size<Float> size;
     public Vector3f position;
+    public Vector3f translation;
+    public Vector3f cameraOffset;
     private VertexArray mesh;
     protected CollisionBox collision;
     protected Texture texture;
     protected Shader shader;
 
-    protected abstract void setShaderProperties(Shader shader);
     public abstract void update();
 
 
@@ -33,6 +35,8 @@ public abstract class Sprite implements Drawable {
         this.size = size;
         this.texture = texture;
         this.shader = shader;
+        this.translation = new Vector3f();
+        this.cameraOffset = new Vector3f();
         initializeMesh();
     }
 
@@ -66,6 +70,12 @@ public abstract class Sprite implements Drawable {
         shader.disable();
     }
 
+    protected void setShaderProperties(Shader shader) {
+        shader.setUniformMatrix4f("position_matrix", Matrix4f.translate(position));
+        shader.setUniformMatrix4f("translation_matrix", Matrix4f.translate(translation));
+        shader.setUniformMatrix4f("camera_matrix", Matrix4f.translate(cameraOffset));
+    }
+
     public Size<Float> getSize() {
         return size;
     }
@@ -91,6 +101,10 @@ public abstract class Sprite implements Drawable {
     public void setSize(Size<Float> size) {
         this.size = size;
         initializeMesh();
+    }
+
+    public void setTranslation(Vector3f translation) {
+        this.translation = translation;
     }
 
 }
