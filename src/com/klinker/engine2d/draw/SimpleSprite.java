@@ -14,7 +14,7 @@ import com.klinker.platformer2d.constants.Depth;
 
 public class SimpleSprite extends Sprite {
 
-    public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC_ALPHA);
+    public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC);
 
     /**
      * Constructor for a simple sprite that supports alpha.

@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public abstract class MovingSprite extends Sprite {
 
-    public static Shader SHADER = new Shader(R.shaders.vert.MOVE, R.shaders.frag.MOVE);
+    public static Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.MOVE);
 
     /**
      * This draw velocity. Positive is upward/right, negative is downward/left.

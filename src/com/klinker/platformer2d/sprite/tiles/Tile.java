@@ -20,7 +20,7 @@ public class Tile extends Sprite {
     private int world;
     private int tile;
 
-    public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC_ALPHA);
+    public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC);
 
     public static Tile newInstance(Vector2f position, int world, int tile) {
         String klassName = String.format("com.klinker.platformer2d.tile.T%02X", tile);
