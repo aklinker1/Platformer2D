@@ -13,12 +13,11 @@ public class InputManager {
 
 
     private Controller controller;
-    private Keyboard keyboard;
+    private static Keyboard keyboard = new Keyboard();
 
 
     public InputManager(Controller controller) {
         this.controller = controller;
-        this.keyboard = new Keyboard();
     }
 
 
@@ -31,8 +30,18 @@ public class InputManager {
         return controller;
     }
 
-    public void isPressed(int button) {
-        if (controller != null) controller.isPressed(button);
+    public boolean isPressed(int button) {
+        if (controller != null) return controller.isPressed(button);
+        else return false;
+    }
+
+    public boolean isClicked(int button) {
+        if (controller != null) return controller.isPressed(button);
+        else return false;
+    }
+
+    public Keyboard getKeyboard() {
+        return keyboard;
     }
 
 }

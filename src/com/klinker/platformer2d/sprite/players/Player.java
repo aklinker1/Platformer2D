@@ -1,11 +1,12 @@
 package com.klinker.platformer2d.sprite.players;
 
 
+import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.draw.Camera;
+import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.opengl.Texture;
-import com.klinker.engine2d.inputs.Keyboard;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.utils.CollisionBox;
@@ -50,9 +51,9 @@ public class Player extends Frenemy {
      */
     @Override
     protected void accelX() {
-        boolean left = Keyboard.isPressed(Keyboard.LEFT);
-        boolean right = Keyboard.isPressed(Keyboard.RIGHT);
-        boolean run = Keyboard.isPressed(Keyboard.RUN);
+        boolean left = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_LEFT);
+        boolean right = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_RIGHT);
+        boolean run = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_RUN);
 
         float accel;
         if (right && !left) { // trying to go right
@@ -100,7 +101,7 @@ public class Player extends Frenemy {
     private int jumpFrames = 0;
     @Override
     protected void accelY() {
-        boolean jump = Keyboard.isPressed(Keyboard.JUMP);
+        boolean jump = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_JUMP);
         boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
 
         if (jump && jumpFrames == 0 && isGrounded) { // pressing jump for the first time

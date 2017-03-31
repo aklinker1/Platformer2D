@@ -53,7 +53,7 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
         }
     }
 
-    public static boolean isPressed(int keyCode) {
+    public boolean isPressed(int keyCode) {
         return bindings[keyCode] != 0;
     }
 

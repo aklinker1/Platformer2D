@@ -33,6 +33,9 @@ public abstract class Engine implements Runnable {
      */
     private Thread thread;
 
+    /**
+     * The input manager for handling input.
+     */
     private static InputManager inputManager = null;
 
     /**
@@ -120,7 +123,7 @@ public abstract class Engine implements Runnable {
             // TODO: 2/26/2017 error createing window
             return;
         }
-        glfwSetKeyCallback(window, new Keyboard());    // set callbacks for keyboard input
+        glfwSetKeyCallback(window, inputManager.getKeyboard());    // set callbacks for keyboard input
 
         // set window position to centered
         GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
