@@ -2,6 +2,8 @@ package com.klinker.platformer2d;
 
 
 import com.klinker.engine2d.Engine;
+import com.klinker.engine2d.inputs.Controller;
+import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.utils.Log;
@@ -11,6 +13,10 @@ import com.klinker.platformer2d.utils.Settings;
 
 
 public class Platformer2D extends Engine {
+
+    static {
+        //System.setProperty("java.library.path", "lib/JInput");
+    }
 
     public static final String SETTINGS_PATH = "settings.pref";
 
@@ -26,6 +32,8 @@ public class Platformer2D extends Engine {
 
     public Platformer2D() {
         settings = initializeSettings();
+        setInputManager(setUpInputManager());
+
         if (true) setScene(new MainMenu(this));
         else setScene(new Level(this, R.levels.W02_LXX));
     }
@@ -56,6 +64,11 @@ public class Platformer2D extends Engine {
         //Platformer2D.setFullScreen(true);
 
         return settings;
+    }
+
+    private InputManager setUpInputManager() {
+        Controller controller = (Controller) settings.getObject(Settings.KEY_CONTROLLER);
+        return new InputManager(controller);
     }
 
 }

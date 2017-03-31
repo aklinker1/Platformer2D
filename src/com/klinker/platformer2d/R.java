@@ -31,7 +31,7 @@ public class R {
         public static final String STORY_MODE = "Story Mode";
         public static final String MULTIPLAYER = "Multiplayer";
         public static final String SETTINGS = "Settings";
-        public static final String VERSION = "Version 0.0.1 Alpha";
+        public static final String VERSION = "Version 0.0.2 Alpha";
     }
     public static class textures {
         public static class bg {

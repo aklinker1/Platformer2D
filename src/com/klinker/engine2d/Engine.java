@@ -2,8 +2,9 @@ package com.klinker.engine2d;
 
 
 import com.klinker.engine2d.draw.Scene;
+import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.opengl.Texture;
-import com.klinker.engine2d.inputs.KeyboardInput;
+import com.klinker.engine2d.inputs.Keyboard;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.utils.PerformanceAnalyzer;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -31,6 +32,8 @@ public abstract class Engine implements Runnable {
      * The parallel thread to run this game in.
      */
     private Thread thread;
+
+    private static InputManager inputManager = null;
 
     /**
      * An object for keeping track of the FPS.
@@ -117,7 +120,7 @@ public abstract class Engine implements Runnable {
             // TODO: 2/26/2017 error createing window
             return;
         }
-        glfwSetKeyCallback(window, new KeyboardInput());    // set callbacks for keyboard input
+        glfwSetKeyCallback(window, new Keyboard());    // set callbacks for keyboard input
 
         // set window position to centered
         GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
@@ -146,7 +149,7 @@ public abstract class Engine implements Runnable {
      */
     private void update() {
         scene.update();
-        glfwPollEvents();       // poll for input events
+        if (inputManager != null) inputManager.updateInputs(); //glfwPollEvents();       // update for input events
     }
 
     /**
@@ -258,5 +261,12 @@ public abstract class Engine implements Runnable {
      */
     protected abstract void onFinish();
 
+    public void setInputManager(InputManager manager) {
+        inputManager = manager;
+    }
+
+    public static InputManager getInputManager() {
+        return inputManager;
+    }
 
 }

@@ -5,8 +5,7 @@ import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.gui.Button;
 import com.klinker.engine2d.gui.View;
-import com.klinker.engine2d.inputs.KeyboardInput;
-import com.klinker.engine2d.math.Matrix4f;
+import com.klinker.engine2d.inputs.Keyboard;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.platformer2d.Platformer2D;
@@ -48,10 +47,10 @@ public abstract class Menu extends Scene {
 
     @Override
     public void update(Camera camera) {
-        boolean left = KeyboardInput.isClicked(KeyboardInput.LEFT);
-        boolean up = KeyboardInput.isClicked(KeyboardInput.UP);
-        boolean right = KeyboardInput.isClicked(KeyboardInput.RIGHT);
-        boolean down = KeyboardInput.isClicked(KeyboardInput.DOWN);
+        boolean left = Keyboard.isClicked(Keyboard.LEFT);
+        boolean up = Keyboard.isClicked(Keyboard.UP);
+        boolean right = Keyboard.isClicked(Keyboard.RIGHT);
+        boolean down = Keyboard.isClicked(Keyboard.DOWN);
         if (left && !right) onLeftPress();
         if (right && !left) onRightPress();
         if (up && !down) onUpPress();

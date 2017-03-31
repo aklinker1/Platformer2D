@@ -3,7 +3,7 @@ package com.klinker.engine2d.gui;
 import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Drawable;
 import com.klinker.engine2d.draw.Sprite;
-import com.klinker.engine2d.inputs.KeyboardInput;
+import com.klinker.engine2d.inputs.Keyboard;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.draw.SimpleSprite;
 import com.klinker.engine2d.math.Vector3f;
@@ -69,7 +69,7 @@ public class View implements Drawable {
     @Override
     public void update(Camera camera) {
         if (background != null) background.get(state).update(camera);
-        if (state == State.SELECTED && KeyboardInput.isClicked(KeyboardInput.JUMP) && onClickListener != null) {
+        if (state == State.SELECTED && Keyboard.isClicked(Keyboard.JUMP) && onClickListener != null) {
             onClickListener.onClick(this);
         }
     }
