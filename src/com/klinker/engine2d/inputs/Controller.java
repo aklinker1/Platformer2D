@@ -9,7 +9,7 @@ public class Controller implements InputSource {
     private net.java.games.input.Controller controller;
     private Component[] components;
     private float[] defaults;
-    private ButtonMapping buttonMapping;
+    private Button[] buttons;
 
     public Controller(net.java.games.input.Controller controller) {
         this.controller = controller;
@@ -50,38 +50,30 @@ public class Controller implements InputSource {
     }
 
     public void setControls(float[] left, float[] right, float[] up, float[] down, float[] jump, float[] run) {
-        this.buttonMapping = new ButtonMapping(left, right, up, down, jump, run, components);
+        buttons = new Button[InputManager.BUTTON_RUN + 1];
+        buttons[InputManager.BUTTON_LEFT] = new Button(components[(int) left[0]], left[1]);
+        buttons[InputManager.BUTTON_RIGHT] = new Button(components[(int) right[0]], right[1]);
+        buttons[InputManager.BUTTON_UP] = new Button(components[(int) up[0]], up[1]);
+        buttons[InputManager.BUTTON_DOWN] = new Button(components[(int) down[0]], down[1]);
+        buttons[InputManager.BUTTON_JUMP] = new Button(components[(int) jump[0]], jump[1]);
+        buttons[InputManager.BUTTON_RUN] = new Button(components[(int) run[0]], run[1]);
     }
 
-    private class ButtonMapping {
-        public float leftDeadzone;
-        public Component left;
-        public float rightDeadzone;
-        public Component right;
-        public float upDeadzone;
-        public Component up;
-        public float downDeadzone;
-        public Component down;
-        public float jumpDeadzone;
-        public Component jump;
-        public float runDeadzone;
-        public Component run;
-        public ButtonMapping(float[] left, float[] right, float[] up,
-                             float[] down, float[] jump, float[] run,
-                             Component[] components) {
-            leftDeadzone = left[1];
-            rightDeadzone = right[1];
-            upDeadzone = up[1];
-            downDeadzone = down[1];
-            jumpDeadzone = jump[1];
-            runDeadzone = run[1];
-            this.left = components[(int) left[0]];
-            this.right = components[(int) right[0]];
-            this.up = components[(int) up[0]];
-            this.down = components[(int) down[0]];
-            this.jump = components[(int) jump[0]];
-            this.run = components[(int) run[0]];
+    private class Button {
+        public Component component;
+        public float deadZone;
+        public Button(Component component, float deadZone) {
+            this.component = component;
+            this.deadZone = deadZone;
         }
+        public boolean isPressed() {
+            return component.getPollData() >= deadZone;
+        }
+    }
+
+    @Override
+    public boolean isPressed(int button) {
+        return buttons[button].isPressed();
     }
 
 }
