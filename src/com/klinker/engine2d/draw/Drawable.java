@@ -6,6 +6,6 @@ public interface Drawable {
 
     void render(Camera camera);
 
-    void update();
+    void update(Camera camera);
 
 }

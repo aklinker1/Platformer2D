@@ -1,5 +1,6 @@
 package com.klinker.platformer2d.sprite.abstracts;
 
+import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
@@ -25,7 +26,7 @@ public abstract class Frenemy extends MovingSprite {
     public abstract CollisionBox initializeCollision();
 
     @Override
-    public void update() {
+    public void update(Camera camera) {
 
     }
 

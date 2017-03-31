@@ -15,6 +15,7 @@ public class StretchSprite extends SpriteCluster {
     private Sprite[][] sprites;
 
     public StretchSprite(String textRes, Vector3f position, Size<Float> size, Size<Float> cornerSize) {
+        super(position, size);
         this.textRes = textRes;
         this.position = position;
         this.size = size;

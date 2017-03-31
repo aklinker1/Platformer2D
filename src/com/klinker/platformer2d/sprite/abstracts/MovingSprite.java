@@ -1,5 +1,6 @@
 package com.klinker.platformer2d.sprite.abstracts;
 
+import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
@@ -36,7 +37,7 @@ public abstract class MovingSprite extends Sprite {
      * @param tiles     The tiles around it.
      * @param frenemies The frenemies spawned on the screen.
      */
-    public void update(SparseArray2D<Tile> tiles, LinkedList<MovingSprite> frenemies) {
+    public void update(Camera camera, SparseArray2D<Tile> tiles, LinkedList<MovingSprite> frenemies) {
         // 1. Modify velocities
         accelX();
         accelY();
@@ -45,7 +46,7 @@ public abstract class MovingSprite extends Sprite {
         checkCollisions(tiles, frenemies);
 
         // 3. Call the regular update
-        update();
+        update(camera);
 
         // 4. Actually move the player.
         position.x += vel.x;

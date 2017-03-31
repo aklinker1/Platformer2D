@@ -22,8 +22,6 @@ public abstract class Sprite implements Drawable {
     protected Texture texture;
     protected Shader shader;
 
-    public abstract void update();
-
 
     /**
      * Creates a Sprite at a given position. Initializes

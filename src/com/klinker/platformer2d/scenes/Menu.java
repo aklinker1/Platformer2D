@@ -47,7 +47,7 @@ public abstract class Menu extends Scene {
     protected abstract void initializeViews(LinkedList<View> views, MenuNavigation<Button> navigation);
 
     @Override
-    public void update() {
+    public void update(Camera camera) {
         boolean left = KeyboardInput.isClicked(KeyboardInput.LEFT);
         boolean up = KeyboardInput.isClicked(KeyboardInput.UP);
         boolean right = KeyboardInput.isClicked(KeyboardInput.RIGHT);
@@ -56,7 +56,7 @@ public abstract class Menu extends Scene {
         if (right && !left) onRightPress();
         if (up && !down) onUpPress();
         if (down && !up) onDownPress();
-        for (View view : views) view.update();
+        for (View view : views) view.update(camera);
     }
 
     @Override

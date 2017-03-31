@@ -7,11 +7,9 @@ import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
-import com.klinker.engine2d.draw.Sprite;
-import com.klinker.engine2d.math.Matrix4f;
-import com.klinker.engine2d.math.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
-import com.klinker.platformer2d.sprite.backgrounds.LevelBackgroundBack;
+import com.klinker.platformer2d.constants.Depth;
+import com.klinker.platformer2d.sprite.backgrounds.LevelBackground;
 import com.klinker.platformer2d.sprite.players.Player;
 import com.klinker.platformer2d.sprite.tiles.Tile;
 import com.klinker.platformer2d.utils.Map;
@@ -36,7 +34,7 @@ public class Level extends Scene {
     /**
      * The background of the level.
      */
-    private Sprite background;
+    private LevelBackground background;
 
 
     /**
@@ -53,19 +51,19 @@ public class Level extends Scene {
     public void init() {
         super.init();
         map = MapReader.read(this, this.level);
-        background = new LevelBackgroundBack(new Vector2f(0f, 0f), map.getWorld());
-        background.setPosition(0f, -(background.getSize().height - Platformer2D.tileCounts.y) / 2f, 0);
+        background = new LevelBackground(new Vector3f(0f, 0f, Depth.BACKGROUND_FRONT), map.getWorld());
+        background.setPlayer(map.getPlayer());
     }
 
     @Override
     public Shader[] loadAllShaders() {
-        return new Shader[]{ LevelBackgroundBack.SHADER, Tile.SHADER, Player.SHADER };
+        return new Shader[]{ LevelBackground.SHADER, Tile.SHADER, Player.SHADER };
     }
 
     @Override
-    public void update() {
-        background.update();
-        map.update();
+    public void update(Camera camera) {
+        background.update(camera);
+        map.update(camera);
     }
 
     @Override

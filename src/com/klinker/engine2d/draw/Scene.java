@@ -41,8 +41,12 @@ public abstract class Scene implements Drawable {
     }
 
     public void render() {
-        scrollCamera(camera);
         render(camera);
+    }
+
+    public void update() {
+        update(camera);
+        scrollCamera(camera);
     }
 
 

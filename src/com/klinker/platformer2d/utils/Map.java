@@ -90,14 +90,14 @@ public class Map implements Drawable {
      * Updates all the tiles and other draw.
      */
     @Override
-    public void update() {
+    public void update(Camera camera) {
         for (int yi = 0; yi < this.tiles.getHeight(); yi++) {
             SparseArray<Tile> row = this.tiles.getRow(yi);
             for (int xi = 0; xi < row.size(); xi++) {
-                row.get(row.keyAt(xi)).update();
+                row.get(row.keyAt(xi)).update(camera);
             }
         }
-        for (MovingSprite sprite : frenemies) sprite.update(tiles, frenemies);
+        for (MovingSprite sprite : frenemies) sprite.update(camera, tiles, frenemies);
 
         // limit player sprite to map width
         if (player.position.x + player.vel.x < 0.25f) {

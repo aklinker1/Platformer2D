@@ -134,6 +134,15 @@ public class Matrix4f {
      */
     public Matrix4f() { }
 
+    /**
+     * Deep copy constructor.
+     */
+    public Matrix4f(Matrix4f m) {
+        for (int i = 0; i < elements.length; i++) {
+            elements[i] = m.elements[i];
+        }
+    }
+
 
 
     /**

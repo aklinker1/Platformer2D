@@ -1,6 +1,7 @@
 package com.klinker.platformer2d.sprite.players;
 
 
+import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.opengl.Texture;
@@ -158,7 +159,7 @@ public class Player extends Frenemy {
     }
 
     @Override
-    public void update() {
+    public void update(Camera camera) {
         // Limit y Velocity: Max fall speed.
         if (vel.y < Physics.Player.MAX_FALL_SPEED) vel.y = Physics.Player.MAX_FALL_SPEED;
         // TODO: Notifies when the player dies off the bottom.

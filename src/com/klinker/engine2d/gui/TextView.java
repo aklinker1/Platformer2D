@@ -115,9 +115,9 @@ public class TextView extends View {
     }
 
     @Override
-    public void update() {
-        super.update();
-        for (WrapWidthSprite character : characters) character.update();
+    public void update(Camera camera) {
+        super.update(camera);
+        for (WrapWidthSprite character : characters) character.update(camera);
     }
 
     protected class Glyph extends WrapWidthSprite {

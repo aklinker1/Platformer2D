@@ -33,7 +33,7 @@ public class SimpleSprite extends Sprite {
 
 
     @Override
-    public void update() {
+    public void update(Camera camera) {
 
     }
 

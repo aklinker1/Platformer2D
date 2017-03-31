@@ -1,5 +1,6 @@
 package com.klinker.platformer2d.sprite.tiles;
 
+import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.draw.Sprite;
@@ -51,7 +52,7 @@ public class Tile extends Sprite {
     }
 
     @Override
-    public void update() {
+    public void update(Camera camera) {
 
     }
 

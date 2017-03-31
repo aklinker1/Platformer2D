@@ -34,7 +34,7 @@ public class Camera {
      * Copy constructor for deep copy.
      */
     public Camera(Camera camera) {
-        this(camera.position, camera.projection);
+        this(new Vector3f(camera.position), new Matrix4f(camera.projection));
     }
 
     private Camera(Vector3f position, Matrix4f projection) {
@@ -59,4 +59,7 @@ public class Camera {
         this.position.y = this.size.height / 2f - position.y;
     }
 
+    public void setPosition(float x, float y, float z) {
+        this.position = new Vector3f(x, y, z);
+    }
 }

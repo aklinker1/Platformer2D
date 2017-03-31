@@ -38,6 +38,15 @@ public class Vector3f {
     }
 
     /**
+     * Deep copy constructor.
+     */
+    public Vector3f(Vector3f v) {
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+    }
+
+    /**
      * @param x The initial x coordinate.
      * @param y The initial y coordinate.
      * @param z The initial z coordinate.

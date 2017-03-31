@@ -67,8 +67,8 @@ public class View implements Drawable {
     }
 
     @Override
-    public void update() {
-        if (background != null) background.get(state).update();
+    public void update(Camera camera) {
+        if (background != null) background.get(state).update(camera);
         if (state == State.SELECTED && KeyboardInput.isClicked(KeyboardInput.JUMP) && onClickListener != null) {
             onClickListener.onClick(this);
         }
