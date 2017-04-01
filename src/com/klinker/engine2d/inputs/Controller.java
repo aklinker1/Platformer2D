@@ -4,20 +4,24 @@ package com.klinker.engine2d.inputs;
 import com.klinker.engine2d.utils.Log;
 import net.java.games.input.Component;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import net.java.games.input.Component;
+import net.java.games.input.ControllerEnvironment;
+
 public class Controller implements InputSource {
 
     private net.java.games.input.Controller controller;
     private Component[] components;
+
     private float[] defaults;
     private Button[] buttons;
 
     public Controller(net.java.games.input.Controller controller) {
         this.controller = controller;
         this.components = controller.getComponents();
-        this.defaults = new float[this.components.length];
-        for (int i = 0; i < this.defaults.length; i++) {
-            this.defaults[i] = components[i].getPollData();
-        }
+        setupDefaults();
     }
 
     @Override
@@ -59,21 +63,70 @@ public class Controller implements InputSource {
         buttons[InputManager.BUTTON_RUN] = new Button(components[(int) run[0]], run[1]);
     }
 
-    private class Button {
-        public Component component;
-        public float deadZone;
-        public Button(Component component, float deadZone) {
-            this.component = component;
-            this.deadZone = deadZone;
-        }
-        public boolean isPressed() {
-            return component.getPollData() >= deadZone;
-        }
-    }
-
     @Override
     public boolean isPressed(int button) {
         return buttons[button].isPressed();
     }
 
+    public boolean outputToFile(String filePath) {
+        try (FileWriter stream = new FileWriter(filePath);
+             BufferedWriter out = new BufferedWriter(stream)) {
+            String content = controller.getName() + '\n';
+            ArrayList<Component> components = new ArrayList<>();
+            for (Component c : this.components) components.add(c);
+            for (Button button : buttons) {
+                content += components.indexOf(button.component) + " " + button.deadZone + '\n';
+            }
+            out.write(content);
+            out.close();
+            stream.close();
+            return true;
+        } catch (Exception e) {
+            Log.e("Error outputting bindings", e);
+            return false;
+        }
+    }
+
+    public static Controller readFromFile(String filePath) {
+        try (FileReader stream = new FileReader(filePath);
+             BufferedReader input = new BufferedReader(stream)) {
+            String name = input.readLine();
+            net.java.games.input.Controller ctrl = null;
+            for (net.java.games.input.Controller c : ControllerEnvironment.getDefaultEnvironment().getControllers()) {
+                if (c.getName().equals(name)) ctrl = c;
+            }
+            if (ctrl == null) throw new Exception("Could not find prev input device '" + name + "'");
+
+            Controller controller = new Controller(ctrl);
+            Component[] components = ctrl.getComponents();
+            Button[] buttons = new Button[InputManager.INPUT_COUNT];
+            for (int i = 0; i < buttons.length; i++) {
+                String line = input.readLine();
+                int compIndex = Integer.parseInt(line.split(" ")[0]);
+                float deadZone = Float.parseFloat(line.split(" ")[1]);
+                buttons[i] = new Button(components[compIndex], deadZone);
+            }
+            controller.setButtons(buttons);
+            controller.setComponents(components);
+            return controller;
+        } catch (Exception e) {
+            Log.e("Error reading bindings", e);
+            return null;
+        }
+    }
+
+    private void setupDefaults() {
+        this.defaults = new float[this.components.length];
+        for (int i = 0; i < this.defaults.length; i++) {
+            this.defaults[i] = components[i].getPollData();
+        }
+    }
+
+    public void setButtons(Button[] buttons) {
+        this.buttons = buttons;
+    }
+
+    public void setComponents(Component[] components) {
+        this.components = components;
+    }
 }

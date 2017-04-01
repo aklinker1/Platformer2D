@@ -1,24 +1,28 @@
 package com.klinker.platformer2d.utils;
 
 import com.klinker.engine2d.inputs.Controller;
+import com.klinker.engine2d.utils.BufferUtils;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.engine2d.utils.Preferences;
 import com.klinker.platformer2d.Platformer2D;
 import net.java.games.input.Component;
 import net.java.games.input.ControllerEnvironment;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Settings extends Preferences {
 
+    public static final String FILE_CONTROLLER = "bindings.pref";
+
     public static final String KEY_TILE_WIDTH = "tile_width";
     public static final String KEY_ASPECT_RATIO = "aspect_ratio";
     public static final String KEY_FRAME_RATE = "frame_rate";
     public static final String KEY_WINDOW_WIDTH = "window_width";
     public static final String KEY_WINDOW_FULL_SCREEN = "window_full_screen";
-    public static final String KEY_CONTROLLER = "controller";
     //public static final String KEY_ = "";
 
     public static final int DEFAULT_TILE_WIDTH = 28; // tiles
@@ -26,6 +30,8 @@ public class Settings extends Preferences {
     public static final int DEFAULT_FRAME_RATE = 60; // fps
     public static final int DEFAULT_WINDOW_WIDTH = 1280; // pixels
     public static final boolean DEFAULT_WINDOW_FULL_SCREEN = true; // is full screen?
+
+    private Controller controller;
 
 
     public Settings() {
@@ -71,14 +77,9 @@ public class Settings extends Preferences {
         int c = Integer.parseInt(input.nextLine());
 
         net.java.games.input.Controller jCtrl = controllers.get(c - 1);
-        Component[] components = jCtrl.getComponents();
-
-        Log.d("\nSetting up Inputs: (Default Values)");
         jCtrl.poll();
-        for (Component comp : components) {
-            Log.d(String.format("%s -> %f", comp.getName(), comp.getPollData()));
-        }
 
+        Log.d("\nSetting up Inputs:");
         Controller controller = new Controller(jCtrl);
 
         float[] left = controller.waitForInput("Left");
@@ -100,8 +101,23 @@ public class Settings extends Preferences {
         try { Thread.sleep(1000); } catch (Exception e) {}
 
         controller.setControls(left, right, up, down, jump, run);
-
-        data.put(KEY_CONTROLLER, controller);
+        this.controller = controller;
     }
 
+    @Override
+    public boolean outputToFile(String filePath) {
+        if (super.outputToFile(filePath)) {
+            return controller.outputToFile(FILE_CONTROLLER);
+        } else return false;
+    }
+
+    @Override
+    protected HashMap<String, Object> readFromFile(String path) {
+        controller = Controller.readFromFile(FILE_CONTROLLER);
+        return super.readFromFile(path);
+    }
+
+    public Controller getController() {
+        return controller;
+    }
 }

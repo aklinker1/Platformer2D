@@ -96,12 +96,13 @@ public abstract class Preferences {
      */
     public boolean outputToFile(String filePath) {
         try (FileOutputStream stream = new FileOutputStream(filePath);
-                ObjectOutputStream outStream = new ObjectOutputStream(stream)) {
-            outStream.writeObject(data);
+                ObjectOutputStream output = new ObjectOutputStream(stream)) {
+            output.writeObject(data);
             stream.close();
-            outStream.close();
+            output.close();
             return true;
         } catch (IOException e) {
+            Log.e("Error writing preferences", e);
             return false;
         }
     }
@@ -111,14 +112,15 @@ public abstract class Preferences {
      * @param path The path to the file to create the map from.
      * @return The map from the given file.
      */
-    private HashMap<String, Object> readFromFile(String path) {
-        File inputFile = new File(path);
-        try (FileInputStream fIn = new FileInputStream(inputFile);
-                ObjectInputStream inputStream = new ObjectInputStream(fIn)) {
-            @SuppressWarnings("unchecked")
-            HashMap<String, Object> data = (HashMap<String, Object>) inputStream.readObject();
+    protected HashMap<String, Object> readFromFile(String path) {
+        try (FileInputStream fIn = new FileInputStream(path);
+                ObjectInputStream input = new ObjectInputStream(fIn)) {
+            HashMap<String, Object> data = (HashMap<String, Object>) input.readObject();
+            input.close();
+            fIn.close();
             return data;
         } catch (Exception e) {
+            Log.e("Error reading preferences", e);
             return getInitialMap();
         }
     }

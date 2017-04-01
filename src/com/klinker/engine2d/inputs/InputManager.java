@@ -10,6 +10,7 @@ public class InputManager {
     public static final int BUTTON_SELECT = BUTTON_JUMP;
     public static final int BUTTON_RUN = 5;
     public static final int BUTTON_BACK = BUTTON_RUN;
+    public static final int INPUT_COUNT = 6;
 
 
     private Controller controller;

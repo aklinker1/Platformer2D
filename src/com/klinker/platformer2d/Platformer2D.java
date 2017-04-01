@@ -67,7 +67,7 @@ public class Platformer2D extends Engine {
     }
 
     private InputManager setUpInputManager() {
-        Controller controller = (Controller) settings.getObject(Settings.KEY_CONTROLLER);
+        Controller controller = (Controller) settings.getController();
         return new InputManager(controller);
     }
 
