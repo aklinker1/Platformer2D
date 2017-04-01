@@ -20,18 +20,30 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
     public static int[] bindings = new int[65536];
     private static boolean[] clicked = new boolean[65536];
 
-    public static final int LEFT = GLFW.GLFW_KEY_LEFT;
-    public static final int UP = GLFW.GLFW_KEY_UP;
-    public static final int RIGHT = GLFW.GLFW_KEY_RIGHT;
-    public static final int DOWN = GLFW.GLFW_KEY_DOWN;
-    public static final int JUMP = GLFW.GLFW_KEY_SPACE;
-    public static final int RUN = GLFW.GLFW_KEY_X;
+    public static int LEFT = GLFW.GLFW_KEY_LEFT;
+    public static int UP = GLFW.GLFW_KEY_UP;
+    public static int RIGHT = GLFW.GLFW_KEY_RIGHT;
+    public static int DOWN = GLFW.GLFW_KEY_DOWN;
+    public static int JUMP = GLFW.GLFW_KEY_SPACE;
+    public static int RUN = GLFW.GLFW_KEY_X;
+    public static int[] buttons = new int[] {
+            LEFT,
+            RIGHT,
+            UP,
+            DOWN,
+            JUMP,
+            RUN
+    };
 
     public static final int ACTION_RELEASE = GLFW.GLFW_RELEASE;
     public static final int ACTION_CLICK = GLFW.GLFW_PRESS;
     public static final int ACTION_HOLD = GLFW.GLFW_REPEAT;
 
     public static final int MAX_CLICK_LENGTH = 20; // value / 2 + 1 = frames max, so 20 = 11 frames, 6 = 4 frames
+
+    public Keyboard() {
+
+    }
 
 
 
@@ -54,7 +66,7 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
     }
 
     public boolean isPressed(int keyCode) {
-        return bindings[keyCode] != 0;
+        return bindings[buttons[keyCode]] != ACTION_RELEASE;
     }
 
     /**
@@ -62,9 +74,9 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
      * @param keyCode The key to check.
      * @return true when the array's value is less than a click value.
      */
-    public static boolean isClicked(int keyCode) {
-        boolean click = clicked[keyCode];
-        if (click) clicked[keyCode] = false;
+    public boolean isClicked(int keyCode) {
+        boolean click = clicked[buttons[keyCode]];
+        if (click) clicked[buttons[keyCode]] = false;
         return click;
     }
 
@@ -78,5 +90,29 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
         // calls invoke (above)
         GLFW.glfwPollEvents();
     }
+
+    public int waitForInput(String forWhat) {
+        System.out.print(forWhat + "... ");
+        int key = -1;
+        while (key == -1) {
+            update();
+            for (int i = 0 ; i < bindings.length; i++) {
+                if (bindings[i] != ACTION_RELEASE) key = i;
+            }
+        }
+        Log.d("" + key);
+        try { Thread.sleep(250); } catch (Exception e) {}
+        return key;
+    }
+
+    public void setup() {
+        buttons[InputManager.BUTTON_LEFT] = waitForInput("Left");
+        buttons[InputManager.BUTTON_RIGHT] = waitForInput("Right");
+        buttons[InputManager.BUTTON_UP] = waitForInput("Up");
+        buttons[InputManager.BUTTON_DOWN] = waitForInput("Down");
+        buttons[InputManager.BUTTON_JUMP] = waitForInput("Jump/Select");
+        buttons[InputManager.BUTTON_RUN] = waitForInput("Run/Back");
+    }
+
 
 }

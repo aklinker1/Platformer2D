@@ -3,9 +3,11 @@ package com.klinker.platformer2d.utils;
 import com.klinker.engine2d.inputs.Controller;
 import com.klinker.engine2d.utils.BufferUtils;
 import com.klinker.engine2d.utils.Log;
+import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.utils.Preferences;
 import com.klinker.platformer2d.Platformer2D;
 import net.java.games.input.Component;
+import com.klinker.engine2d.inputs.Keyboard;
 import net.java.games.input.ControllerEnvironment;
 
 import java.io.BufferedOutputStream;
@@ -50,63 +52,17 @@ public class Settings extends Preferences {
         data.put(Settings.KEY_TILE_WIDTH, Settings.DEFAULT_TILE_WIDTH);
         data.put(Settings.KEY_WINDOW_WIDTH, Settings.DEFAULT_WINDOW_WIDTH);
         data.put(Settings.KEY_WINDOW_FULL_SCREEN, Settings.DEFAULT_WINDOW_FULL_SCREEN);
-        setupController(data);
+        setupController();
         return data;
     }
 
-    private void setupController(HashMap<String, Object> data) {
-        net.java.games.input.Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
-        ArrayList<net.java.games.input.Controller> controllers = new ArrayList<>();
-
-        for (net.java.games.input.Controller c : ca) {
-            if (c.getType() != net.java.games.input.Controller.Type.UNKNOWN &&
-                    c.getType() != net.java.games.input.Controller.Type.KEYBOARD)
-                controllers.add(c);
-        }
-
-        Log.d("Select device:");
-        for(int i = 1; i <= controllers.size(); i++) {
-            net.java.games.input.Controller c = controllers.get(i - 1);
-            Log.d(String.format(
-                    "%d: %s (%s)",
-                    i, c.getName(), c.getType().toString()
-            ));
-        }
-        System.out.print("\n?: ");
-        Scanner input = new Scanner(System.in);
-        int c = Integer.parseInt(input.nextLine());
-
-        net.java.games.input.Controller jCtrl = controllers.get(c - 1);
-        jCtrl.poll();
-
-        Log.d("\nSetting up Inputs:");
-        Controller controller = new Controller(jCtrl);
-
-        float[] left = controller.waitForInput("Left");
-        try { Thread.sleep(250); } catch (Exception e) {}
-
-        float[] right = controller.waitForInput("Right");
-        try { Thread.sleep(250); } catch (Exception e) {}
-
-        float[] up = controller.waitForInput("Up");
-        try { Thread.sleep(250); } catch (Exception e) {}
-
-        float[] down = controller.waitForInput("Down");
-        try { Thread.sleep(250); } catch (Exception e) {}
-
-        float[] jump = controller.waitForInput("Jump/Select");
-        try { Thread.sleep(250); } catch (Exception e) {}
-
-        float[] run = controller.waitForInput("Run/Back");
-        try { Thread.sleep(1000); } catch (Exception e) {}
-
-        controller.setControls(left, right, up, down, jump, run);
-        this.controller = controller;
+    private void setupController() {
+        this.controller = Controller.setup();
     }
 
     @Override
     public boolean outputToFile(String filePath) {
-        if (super.outputToFile(filePath)) {
+        if (super.outputToFile(filePath) && controller != null) {
             return controller.outputToFile(FILE_CONTROLLER);
         } else return false;
     }

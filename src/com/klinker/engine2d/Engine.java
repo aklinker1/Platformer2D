@@ -124,6 +124,7 @@ public abstract class Engine implements Runnable {
             return;
         }
         glfwSetKeyCallback(window, inputManager.getKeyboard());    // set callbacks for keyboard input
+        if (inputManager.getController() == null) inputManager.getKeyboard().setup();
 
         // set window position to centered
         GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties

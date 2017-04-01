@@ -33,12 +33,12 @@ public class InputManager {
 
     public boolean isPressed(int button) {
         if (controller != null) return controller.isPressed(button);
-        else return false;
+        else return keyboard.isPressed(button);
     }
 
     public boolean isClicked(int button) {
         if (controller != null) return controller.isPressed(button);
-        else return false;
+        else return keyboard.isClicked(button);
     }
 
     public Keyboard getKeyboard() {
