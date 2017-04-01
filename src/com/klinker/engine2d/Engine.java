@@ -8,6 +8,7 @@ import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.inputs.Keyboard;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.utils.PerformanceAnalyzer;
+import com.klinker.engine2d.utils.Log;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
@@ -21,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 /**
  * The class that handles the game loop.
  */
-public abstract class Engine implements Runnable {
+public abstract class Engine {
 
 
     /**
@@ -82,16 +83,16 @@ public abstract class Engine implements Runnable {
      * Starts the game thread.
      */
     protected void start() {
-        this.thread = new Thread(this, "game");
-        thread.start();
+        //this.thread = new Thread(this, "game");
+        //thread.start();
         this.analyzer = new PerformanceAnalyzer();
+        run();
     }
 
     /**
      * This is where the game loop takes place. It will stop when the user presses the close
      * button.
      */
-    @Override
     public void run() {
         running = true;
         init();
