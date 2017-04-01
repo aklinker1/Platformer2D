@@ -7,7 +7,7 @@ Based off an artstyle by open source game art designer [Kenney](http://www.kenne
 If you wanna try it out, download the Platformer2D.zip, and extracti it to a single location. Then run it with either `Run.bat` or `debug.bat`, or launch it from the command line with:
 
 ```
-java -jar Platformer2D.jar
+java -Djava.library.path=./bin -jar Platformer2D.jar
 ```
 
 
