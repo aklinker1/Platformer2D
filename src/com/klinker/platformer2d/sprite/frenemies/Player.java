@@ -1,4 +1,4 @@
-package com.klinker.platformer2d.sprite.players;
+package com.klinker.platformer2d.sprite.frenemies;
 
 
 import com.klinker.engine2d.draw.Camera;
