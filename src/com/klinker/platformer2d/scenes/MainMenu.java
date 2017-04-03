@@ -1,19 +1,16 @@
 package com.klinker.platformer2d.scenes;
 
 import com.klinker.engine2d.Engine;
-import com.klinker.engine2d.draw.WrapWidthSprite;
+import com.klinker.engine2d.draw.SimpleSprite;
 import com.klinker.engine2d.gui.Button;
-import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.math.Vector3f;
-import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector3f;
+import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.Log;
-import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
-import com.klinker.engine2d.draw.SimpleSprite;
 import com.klinker.platformer2d.utils.MenuNavigation;
 
 import java.util.LinkedList;

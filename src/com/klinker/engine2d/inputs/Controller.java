@@ -3,13 +3,14 @@ package com.klinker.engine2d.inputs;
 
 import com.klinker.engine2d.utils.Log;
 import net.java.games.input.Component;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import net.java.games.input.Component;
 import net.java.games.input.ControllerEnvironment;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Controller implements InputSource {
 

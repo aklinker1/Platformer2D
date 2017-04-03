@@ -1,7 +1,5 @@
 package com.klinker.platformer2d.utils;
 
-import com.klinker.engine2d.gui.Button;
-
 import java.util.HashMap;
 
 public class MenuNavigation<T> {

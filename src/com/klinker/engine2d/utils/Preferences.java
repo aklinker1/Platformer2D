@@ -1,8 +1,5 @@
 package com.klinker.engine2d.utils;
 
-import com.klinker.platformer2d.Platformer2D;
-import com.klinker.platformer2d.utils.Settings;
-
 import java.io.*;
 import java.util.HashMap;
 

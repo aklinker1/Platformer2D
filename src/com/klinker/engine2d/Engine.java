@@ -1,14 +1,11 @@
 package com.klinker.engine2d;
 
 
-import java.io.File;
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.inputs.InputManager;
-import com.klinker.engine2d.opengl.Texture;
-import com.klinker.engine2d.inputs.Keyboard;
 import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.utils.PerformanceAnalyzer;
-import com.klinker.engine2d.utils.Log;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 

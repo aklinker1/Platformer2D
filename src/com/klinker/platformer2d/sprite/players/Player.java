@@ -1,14 +1,13 @@
 package com.klinker.platformer2d.sprite.players;
 
 
-import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.draw.Camera;
-import com.klinker.engine2d.inputs.InputManager;
-import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.draw.Sprite;
-import com.klinker.engine2d.opengl.Texture;
+import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.math.Vector3f;
+import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.utils.CollisionBox;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.constants.Depth;

@@ -1,10 +1,7 @@
 package com.klinker.engine2d.draw;
 
 import com.klinker.engine2d.Engine;
-import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.opengl.Shader;
-import com.klinker.engine2d.utils.Log;
-import com.klinker.platformer2d.Platformer2D;
 
 import java.util.Arrays;
 import java.util.HashSet;

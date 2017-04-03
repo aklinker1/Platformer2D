@@ -1,8 +1,5 @@
 package com.klinker.platformer2d.utils;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-
 public class SparseArray2D<T> {
 
     private SparseArray<SparseArray<T>> array;

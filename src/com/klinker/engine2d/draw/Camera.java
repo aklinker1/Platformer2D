@@ -2,9 +2,7 @@ package com.klinker.engine2d.draw;
 
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
-import com.klinker.platformer2d.constants.Depth;
 
 public class Camera {
 

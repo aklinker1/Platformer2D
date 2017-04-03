@@ -3,18 +3,12 @@ package com.klinker.platformer2d.sprite.backgrounds;
 import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.SimpleSprite;
 import com.klinker.engine2d.draw.SpriteCluster;
+import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
-import com.klinker.engine2d.draw.Sprite;
-import com.klinker.engine2d.opengl.Texture;
-import com.klinker.engine2d.math.Matrix4f;
-import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.utils.CollisionBox;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
-import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.sprite.players.Player;
 
 public class LevelBackground extends SpriteCluster {

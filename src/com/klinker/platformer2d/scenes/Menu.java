@@ -6,7 +6,6 @@ import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.gui.Button;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.inputs.InputManager;
-import com.klinker.engine2d.inputs.Keyboard;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.platformer2d.Platformer2D;

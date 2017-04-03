@@ -1,20 +1,10 @@
 package com.klinker.platformer2d.utils;
 
 import com.klinker.engine2d.inputs.Controller;
-import com.klinker.engine2d.utils.BufferUtils;
 import com.klinker.engine2d.utils.Log;
-import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.utils.Preferences;
-import com.klinker.platformer2d.Platformer2D;
-import net.java.games.input.Component;
-import com.klinker.engine2d.inputs.Keyboard;
-import net.java.games.input.ControllerEnvironment;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Settings extends Preferences {
 
@@ -78,4 +68,5 @@ public class Settings extends Preferences {
     public Controller getController() {
         return controller;
     }
+
 }
