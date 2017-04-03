@@ -5,6 +5,7 @@ import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.opengl.Texture;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.engine2d.utils.PerformanceAnalyzer;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -115,11 +116,17 @@ public abstract class Engine {
             return;
         }
 
-        // initializing the window
-        glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+        // initializing the window, set OpenGL context to 3.2 and make it forward compatible.
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
         window = glfwCreateWindow(windowSize.width, windowSize.height, getWindowTitle(), NULL, NULL);
         if (window == NULL) {
             // TODO: 2/26/2017 error createing window
+            Log.e("Error creating window");
             return;
         }
         glfwSetKeyCallback(window, inputManager.getKeyboard());    // set callbacks for keyboard input
@@ -129,8 +136,8 @@ public abstract class Engine {
         GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
         glfwSetWindowPos(window, (vidMode.width() - windowSize.width) / 2, (vidMode.height() - windowSize.height) / 2);
         glfwMakeContextCurrent(window);     // set OS focus to this window
-        glfwShowWindow(window);
         GL.createCapabilities();
+        glfwShowWindow(window);
         //glfwSetWindowIcon(window, );      TODO: 2/26/2017 Add Icon
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

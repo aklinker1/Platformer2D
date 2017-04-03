@@ -7,7 +7,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-//import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL30.*;
 
 
 
@@ -54,8 +54,8 @@ public class VertexArray {
     public VertexArray(float[] vertices, byte[] indices, float[] textureCoordinates) {
         count = indices.length;
 
-        //vao = glGenVertexArrays();
-        //glBindVertexArray(vao);
+        vao = glGenVertexArrays();
+        glBindVertexArray(vao);
 
         vbo = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -75,7 +75,7 @@ public class VertexArray {
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        //glBindVertexArray(0);
+        glBindVertexArray(0);
     }
 
 
@@ -83,7 +83,7 @@ public class VertexArray {
      * Binds the graphic in OpenGL.
      */
     public void bind() {
-        //glBindVertexArray(vao);
+        glBindVertexArray(vao);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
     }
 
@@ -91,7 +91,7 @@ public class VertexArray {
      * Unbind the graphic in OpenGL.
      */
     public void unbind() {
-        //glBindVertexArray(0);
+        glBindVertexArray(0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
