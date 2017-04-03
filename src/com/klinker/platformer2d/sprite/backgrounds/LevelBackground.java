@@ -9,7 +9,7 @@ import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
-import com.klinker.platformer2d.sprite.frenemies.Player;
+import com.klinker.platformer2d.sprite.frenemies.players.Player;
 
 public class LevelBackground extends SpriteCluster {
 

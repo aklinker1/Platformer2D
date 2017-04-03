@@ -10,7 +10,7 @@ import com.klinker.engine2d.opengl.Shader;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.sprite.backgrounds.LevelBackground;
-import com.klinker.platformer2d.sprite.frenemies.Player;
+import com.klinker.platformer2d.sprite.frenemies.players.Player;
 import com.klinker.platformer2d.sprite.tiles.Tile;
 import com.klinker.platformer2d.utils.Map;
 import com.klinker.platformer2d.utils.MapReader;
