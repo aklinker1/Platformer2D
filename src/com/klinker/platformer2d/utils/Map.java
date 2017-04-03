@@ -4,8 +4,11 @@ import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Drawable;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.math.Vector3f;
+import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
+import com.klinker.platformer2d.sprite.frenemies.enemies.Krawler;
 import com.klinker.platformer2d.sprite.frenemies.players.Player;
 import com.klinker.platformer2d.sprite.tiles.Tile;
 
@@ -49,7 +52,6 @@ public class Map implements Drawable {
         this.tiles = new SparseArray2D<>();
         this.frenemies = new LinkedList<>();
 
-        Vector2f playerStart = new Vector2f();
         for (int y = 0; y < this.size.height; y++) {
             for (int x = 0; x < this.size.width; x++) {
                 if (tiles[y][x] == 0xFF) {
@@ -61,6 +63,7 @@ public class Map implements Drawable {
         }
 
         this.frenemies.addFirst(this.player);
+        this.frenemies.addLast(new Krawler(new Vector3f(15f, 3f, Depth.ENEMY)));
     }
 
 

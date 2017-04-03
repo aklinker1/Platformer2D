@@ -83,7 +83,7 @@ public abstract class Sprite implements Drawable {
         this.collision = collision;
     }
 
-    public CollisionBox initializeCollision() {
+    public CollisionBox getCollisionBox() {
         return collision;
     }
 

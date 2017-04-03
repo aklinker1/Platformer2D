@@ -9,9 +9,12 @@ import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.utils.CollisionBox;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
+import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
+import com.klinker.platformer2d.sprite.abstracts.Enemy;
 import com.klinker.platformer2d.sprite.abstracts.Frenemy;
 
 
@@ -29,14 +32,14 @@ public class Player extends Frenemy {
         super(
                 new Vector3f(position.x, position.y, Depth.PLAYER),
                 new Size<>(1f, 1f),
-                new Texture(String.format("res/textures/character/hero%02X/body.png", hero)),
+                new Texture(R.textures.players.hero01.BODY),
                 Frenemy.SHADER
         );
         this.hero = hero;
     }
 
     @Override
-    public CollisionBox initializeCollision() {
+    public CollisionBox getCollisionBox() {
         return new CollisionBox(
                 CollisionBox.Shape.RECTANGLE,
                 new Size<>(0.90f, 0.95f),
@@ -113,7 +116,7 @@ public class Player extends Frenemy {
             jumpFrames++;
             vel.y = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
         } else {
-            vel.y -= Physics.Player.GRAVITY;
+            vel.y -= Physics.GRAVITY;
             releasedJump = true;
         }
     }
@@ -125,36 +128,57 @@ public class Player extends Frenemy {
 
     @Override
     protected void onCollideLeft(Sprite sprite) {
-        vel.x = 0;
-        CollisionBox otherCollision = sprite.initializeCollision();
-        position.x = otherCollision.position.x + otherCollision.size.width - this.collision.origin.x;
+        super.onCollideLeft(sprite);
+        if (sprite instanceof Enemy && !((Enemy) sprite).isSafeRight()) {
+            killPlayer();
+        } else {
+            vel.x = 0;
+            CollisionBox otherCollision = sprite.getCollisionBox();
+            position.x = otherCollision.position.x + otherCollision.size.width - this.collision.origin.x;
+        }
     }
 
     @Override
     protected void onCollideTop(Sprite sprite) {
-        vel.y = 0;
-        jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
-        CollisionBox otherCollision = sprite.initializeCollision();
-        position.y = otherCollision.position.y - this.collision.size.height - this.collision.origin.y;
+        super.onCollideTop(sprite);
+        if (sprite instanceof Enemy && !((Enemy) sprite).isSafeBottom()) {
+            killPlayer();
+        } else {
+            vel.y = 0;
+            jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
+            CollisionBox otherCollision = sprite.getCollisionBox();
+            position.y = otherCollision.position.y - this.collision.size.height - this.collision.origin.y;
+        }
     }
 
     @Override
     protected void onCollideRight(Sprite sprite) {
-        vel.x = 0;
-        CollisionBox otherCollision = sprite.initializeCollision();
-        position.x = otherCollision.position.x - this.size.width + this.collision.origin.x;
+        super.onCollideRight(sprite);
+        if (sprite instanceof Enemy && !((Enemy) sprite).isSafeLeft()) {
+            killPlayer();
+        } else {
+            vel.x = 0;
+            CollisionBox otherCollision = sprite.getCollisionBox();
+            position.x = otherCollision.position.x - this.size.width + this.collision.origin.x;
+        }
     }
 
     @Override
     protected void onCollideBottom(Sprite sprite) {
-        setGrounded();
-        vel.y = 0;
-        CollisionBox otherCollision = sprite.initializeCollision();
-        position.y = otherCollision.position.y + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y;
+        super.onCollideBottom(sprite);
+        if (sprite instanceof Enemy && !((Enemy) sprite).isSafeTop()) {
+            killPlayer();
+        } else {
+            setGrounded();
+            vel.y = 0;
+            CollisionBox otherCollision = sprite.getCollisionBox();
+            position.y = otherCollision.position.y + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y;
+        }
     }
 
     @Override
     protected void onCollideNone() {
+
     }
 
     @Override
@@ -165,4 +189,9 @@ public class Player extends Frenemy {
         // Moves the player to the top of the screen when falling off the bottom.
         if (position.y <= -2) position.y = Platformer2D.tileCounts.y;
     }
+
+    private void killPlayer() {
+        Log.d("KILLED PLAYER");
+    }
+
 }
