@@ -134,7 +134,7 @@ public abstract class Engine {
 
         // set window position to centered
         GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
-        glfwSetWindowPos(window, (vidMode.width() - windowSize.width) / 2, (vidMode.height() - windowSize.height) / 2);
+        //glfwSetWindowPos(window, (vidMode.width() - windowSize.width) / 2, (vidMode.height() - windowSize.height) / 2);
         glfwMakeContextCurrent(window);     // set OS focus to this window
         GL.createCapabilities();
         glfwShowWindow(window);
