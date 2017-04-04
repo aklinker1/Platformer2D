@@ -79,17 +79,19 @@ public class Level extends Scene {
 
         // limiting the camera to stay withing the bounds of the map.
         if (camera.getSize().width < map.getSize().width) {
-            if (camera.getPosition().x > 0) camera.getPosition().x = 0f;
-            else if (camera.getPosition().x < camera.getSize().width - map.getSize().width) camera.getPosition().x = camera.getSize().width - map.getSize().width;
+            if (camera.getPosition().x() > 0) camera.getPosition().setX(0f);
+            else if (camera.getPosition().x() < camera.getSize().width - map.getSize().width)
+                camera.getPosition().setX(camera.getSize().width - map.getSize().width);
         } else {
-            camera.getPosition().x = 0f;
+            camera.getPosition().setX(0f);
         }
 
         if (camera.getSize().height < map.getSize().height) {
-            if (camera.getPosition().y > 0) camera.getPosition().y = 0f;
-            else if (camera.getPosition().y < camera.getSize().height - map.getSize().height) camera.getPosition().y = camera.getSize().height - map.getSize().height;
+            if (camera.getPosition().y() > 0) camera.getPosition().setY(0f);
+            else if (camera.getPosition().y() < camera.getSize().height - map.getSize().height)
+                camera.getPosition().setY(camera.getSize().height - map.getSize().height);
         } else {
-            camera.getPosition().y = 0f;
+            camera.getPosition().setY(0f);
         }
     }
 

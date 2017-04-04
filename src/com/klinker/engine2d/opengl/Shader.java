@@ -97,7 +97,7 @@ public class Shader {
 
     public void setUniform3f(String name, Vector3f vector) {
         if (!enabled) enable();
-        glUniform3f(getUniform(name), vector.x, vector.y, vector.z);
+        glUniform3f(getUniform(name), vector.x(), vector.y(), vector.z());
     }
 
     /**

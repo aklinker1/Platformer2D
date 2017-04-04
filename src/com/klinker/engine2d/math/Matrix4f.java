@@ -81,9 +81,9 @@ public class Matrix4f {
     public static Matrix4f translate(Vector3f ... vectors) {
         Matrix4f result = identity();
         for (Vector3f v : vectors) {
-            result.elements[12] += v.x;
-            result.elements[13] += v.y;
-            result.elements[14] += v.z;
+            result.elements[12] += v.x();
+            result.elements[13] += v.y();
+            result.elements[14] += v.z();
         }
         return result;
     }

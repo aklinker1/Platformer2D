@@ -14,17 +14,19 @@ public class Vector3f {
     /**
      * The x coordinate.
      */
-    public float x;
+    private float x;
 
     /**
      * The y coordinate.
      */
-    public float y;
+    private float y;
 
     /**
      * The z coordinate.
      */
-    public float z;
+    private float z;
+
+    private Vector3f translate = null;
 
 
 
@@ -58,12 +60,45 @@ public class Vector3f {
     }
 
 
-    public Vector3f translate(Vector3f translate) {
-        return translate(translate.x, translate.y, translate.z);
+    public float x() {
+        if (translate == null) return x;
+        else return translate.x() + x;
     }
 
-    public Vector3f translate(float x, float y, float z) {
-        return new Vector3f(this.x + x, this.y + y, this.z + z);
+    public float y() {
+        if (translate == null) return y;
+        else return translate.y() + y;
+    }
+
+    public float z() {
+        if (translate == null) return z;
+        else return translate.z() + z;
+    }
+
+    public Vector3f getTranslate() {
+        return translate;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public void setZ(float z) {
+        this.z = z;
+    }
+
+    public void setTranslate(Vector3f translate) {
+        this.translate = translate;
+    }
+
+    public void increment(float x, float y, float z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
     }
 
     @Override

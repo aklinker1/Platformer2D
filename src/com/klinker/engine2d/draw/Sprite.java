@@ -39,10 +39,10 @@ public abstract class Sprite implements Drawable {
     protected void initializeMesh() {
         this.mesh = new VertexArray(
                 new float[] {
-                        0, this.size.height, this.position.z,
-                        this.size.width, this.size.height, this.position.z,
-                        this.size.width, 0, this.position.z,
-                        0, 0, this.position.z,
+                        0, this.size.height, this.position.z(),
+                        this.size.width, this.size.height, this.position.z(),
+                        this.size.width, 0, this.position.z(),
+                        0, 0, this.position.z(),
                 },
                 new byte[] {
                         0, 1, 2,
@@ -88,9 +88,9 @@ public abstract class Sprite implements Drawable {
     }
 
     public void setPosition(float x, float y, float z) {
-        this.position.x = x;
-        this.position.y = y;
-        this.position.z = z;
+        this.position.setX(x);
+        this.position.setY(y);
+        this.position.setZ(z);
     }
 
     public void setSize(Size<Float> size) {

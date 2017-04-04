@@ -33,15 +33,15 @@ public class CollisionBox {
      * @return Whether or not the items will collide.
      */
     public boolean intersects(CollisionBox collision, float xDif, float yDif) {
-        float c1L = this.origin.x + this.position.x;
-        float c1R = this.origin.x + this.size.width + this.position.x;
-        float c2L = collision.origin.x + collision.position.x + xDif;
-        float c2R = collision.origin.x + this.size.width + collision.position.x + xDif;
+        float c1L = this.origin.x + this.position.x();
+        float c1R = this.origin.x + this.size.width + this.position.x();
+        float c2L = collision.origin.x + collision.position.x() + xDif;
+        float c2R = collision.origin.x + this.size.width + collision.position.x() + xDif;
         if (c1R >= c2L && c1R <= c2R || c1L >= c2L && c1L <= c2R) {  // the rect overlap horizontally
-            float c1B = this.origin.y + this.position.y;
-            float c1T = this.origin.y + this.size.height + this.position.y;
-            float c2B = collision.origin.y + collision.position.y + yDif;
-            float c2T = collision.origin.y + this.size.height + collision.position.y + yDif;
+            float c1B = this.origin.y + this.position.y();
+            float c1T = this.origin.y + this.size.height + this.position.y();
+            float c2B = collision.origin.y + collision.position.y() + yDif;
+            float c2T = collision.origin.y + this.size.height + collision.position.y() + yDif;
             return c1T >= c2B && c1T <= c2T || c1B >= c2B && c1B <= c2T; // the rect overlap vertically
         } else {
             return false;

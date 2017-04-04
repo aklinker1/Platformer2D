@@ -59,7 +59,7 @@ public class Player extends Frenemy {
 
         float accel;
         if (right && !left) { // trying to go right
-            if (vel.x >= 0) { // accelerate
+            if (vel.x() >= 0) { // accelerate
                 if (isGrounded) {
                     if (run) accel = Physics.Player.ACCELERATE_GROUND_RUN;
                     else accel = Physics.Player.ACCELERATE_GROUND;
@@ -71,7 +71,7 @@ public class Player extends Frenemy {
                 accel = Physics.Player.ACCELERATE_TURN;
             }
         } else if (left && !right) { // trying to go left
-            if (vel.x <= 0) { // accelerate
+            if (vel.x() <= 0) { // accelerate
                 if (isGrounded) {
                     if (run) accel = -Physics.Player.ACCELERATE_GROUND_RUN;
                     else accel = -Physics.Player.ACCELERATE_GROUND;
@@ -83,20 +83,20 @@ public class Player extends Frenemy {
                 accel = -Physics.Player.ACCELERATE_TURN;
             }
         } else { // not doing anything
-            if (vel.x > Physics.Player.DECELERATE / 2f) accel = -Physics.Player.DECELERATE;
-            else if (vel.x < -Physics.Player.DECELERATE / 2f) accel = Physics.Player.DECELERATE;
-            else accel = -vel.x;
+            if (vel.x() > Physics.Player.DECELERATE / 2f) accel = -Physics.Player.DECELERATE;
+            else if (vel.x() < -Physics.Player.DECELERATE / 2f) accel = Physics.Player.DECELERATE;
+            else accel = -vel.x();
         }
 
         // change velocity
-        vel.x += accel;
+        vel.increment(accel, 0, 0);
 
         if (run) {
-            if (vel.x > Physics.Player.MAX_VEL_X_RUN) vel.x = Physics.Player.MAX_VEL_X_RUN;
-            else if (vel.x < -Physics.Player.MAX_VEL_X_RUN) vel.x = -Physics.Player.MAX_VEL_X_RUN;
+            if (vel.x() > Physics.Player.MAX_VEL_X_RUN) vel.setX(Physics.Player.MAX_VEL_X_RUN);
+            else if (vel.x() < -Physics.Player.MAX_VEL_X_RUN) vel.setX(-Physics.Player.MAX_VEL_X_RUN);
         } else {
-            if (vel.x > Physics.Player.MAX_VEL_X) vel.x = Physics.Player.MAX_VEL_X;
-            else if (vel.x < -Physics.Player.MAX_VEL_X) vel.x = -Physics.Player.MAX_VEL_X;
+            if (vel.x() > Physics.Player.MAX_VEL_X) vel.setX(Physics.Player.MAX_VEL_X);
+            else if (vel.x() < -Physics.Player.MAX_VEL_X) vel.setX(-Physics.Player.MAX_VEL_X);
         }
     }
 
@@ -107,16 +107,16 @@ public class Player extends Frenemy {
         boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
 
         if (jump && jumpFrames == 0 && isGrounded) { // pressing jump for the first time
-            launchVelX = vel.x;
+            launchVelX = vel.x();
             releasedJump = false;
             jumpFrames = 1;
             running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
-            vel.y = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
+            vel.setY(running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED);
         } else if (jump && jumpFrames < Physics.Player.JUMP_HOLD_MAX && !releasedJump) { // We are holding the jump button
             jumpFrames++;
-            vel.y = running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED;
+            vel.setY(running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED);
         } else {
-            vel.y -= Physics.GRAVITY;
+            vel.increment(0, -Physics.GRAVITY, 0);
             releasedJump = true;
         }
     }
@@ -132,9 +132,9 @@ public class Player extends Frenemy {
         if (sprite instanceof Enemy && !((Enemy) sprite).isSafeRight()) {
             killPlayer();
         } else {
-            vel.x = 0;
+            vel.setX(0);
             CollisionBox otherCollision = sprite.getCollisionBox();
-            position.x = otherCollision.position.x + otherCollision.size.width - this.collision.origin.x;
+            position.setX(otherCollision.position.x() + otherCollision.size.width - this.collision.origin.x);
         }
     }
 
@@ -144,10 +144,10 @@ public class Player extends Frenemy {
         if (sprite instanceof Enemy && !((Enemy) sprite).isSafeBottom()) {
             killPlayer();
         } else {
-            vel.y = 0;
+            vel.setY(0);
             jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
             CollisionBox otherCollision = sprite.getCollisionBox();
-            position.y = otherCollision.position.y - this.collision.size.height - this.collision.origin.y;
+            position.setY(otherCollision.position.y() - this.collision.size.height - this.collision.origin.y);
         }
     }
 
@@ -157,9 +157,9 @@ public class Player extends Frenemy {
         if (sprite instanceof Enemy && !((Enemy) sprite).isSafeLeft()) {
             killPlayer();
         } else {
-            vel.x = 0;
+            vel.setX(0);
             CollisionBox otherCollision = sprite.getCollisionBox();
-            position.x = otherCollision.position.x - this.size.width + this.collision.origin.x;
+            position.setX(otherCollision.position.x() - this.size.width + this.collision.origin.x);
         }
     }
 
@@ -170,9 +170,9 @@ public class Player extends Frenemy {
             killPlayer();
         } else {
             setGrounded();
-            vel.y = 0;
+            vel.setY(0);
             CollisionBox otherCollision = sprite.getCollisionBox();
-            position.y = otherCollision.position.y + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y;
+            position.setY(otherCollision.position.y() + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y);
         }
     }
 
@@ -184,10 +184,10 @@ public class Player extends Frenemy {
     @Override
     public void update(Camera camera) {
         // Limit y Velocity: Max fall speed.
-        if (vel.y < Physics.Player.MAX_FALL_SPEED) vel.y = Physics.Player.MAX_FALL_SPEED;
+        if (vel.y() < Physics.Player.MAX_FALL_SPEED) vel.setY(Physics.Player.MAX_FALL_SPEED);
         // TODO: Notifies when the player dies off the bottom.
         // Moves the player to the top of the screen when falling off the bottom.
-        if (position.y <= -2) position.y = Platformer2D.tileCounts.y;
+        if (position.y() <= -2) position.setY(Platformer2D.tileCounts.y + 1);
     }
 
     private void killPlayer() {

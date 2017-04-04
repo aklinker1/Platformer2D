@@ -102,13 +102,12 @@ public class Map implements Drawable {
         for (MovingSprite sprite : frenemies) sprite.update(camera, tiles, frenemies);
 
         // limit player sprite to map width
-        if (player.position.x + player.vel.x < 0.25f) {
-            player.position.x = 0.25f;
-            player.vel.x = 0;
-        }
-        else if (player.position.x + player.vel.x > size.width - 1.25f) {
-            player.position.x = size.width - 1.25f;
-            player.vel.x = 0;
+        if (player.position.x() + player.vel.x() < 0.25f) {
+            player.position.setX(0.25f);
+            player.vel.setX(0);
+        } else if (player.position.x() + player.vel.x() > size.width - 1.25f) {
+            player.position.setX(size.width - 1.25f);
+            player.vel.setX(0);
         }
     }
 

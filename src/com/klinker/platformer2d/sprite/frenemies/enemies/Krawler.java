@@ -25,7 +25,7 @@ public class Krawler extends Enemy {
                 texture,
                 MovingSprite.SHADER
         );
-        vel.x = -Physics.Krawler.VEL_X;
+        vel.setX(-Physics.Krawler.VEL_X);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Krawler extends Enemy {
     @Override
     protected void onCollideLeft(Sprite sprite) {
         super.onCollideLeft(sprite);
-        vel.x *= -1;
+        vel.setX(-1 * vel.x());
     }
 
     @Override
@@ -53,15 +53,15 @@ public class Krawler extends Enemy {
     @Override
     protected void onCollideRight(Sprite sprite) {
         super.onCollideRight(sprite);
-        vel.x *= -1;
+        vel.setX(-1 * vel.x());
     }
 
     @Override
     protected void onCollideBottom(Sprite sprite) {
         super.onCollideBottom(sprite);
-        vel.y = 0;
+        vel.setY(0);
         CollisionBox otherCollision = sprite.getCollisionBox();
-        position.y = otherCollision.position.y + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y;
+        position.setY(otherCollision.position.y() + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y);
 
     }
 
@@ -72,7 +72,7 @@ public class Krawler extends Enemy {
 
     @Override
     protected void accelY() {
-        vel.y -= Physics.GRAVITY;
+        vel.setY(-Physics.GRAVITY);
     }
 
     @Override

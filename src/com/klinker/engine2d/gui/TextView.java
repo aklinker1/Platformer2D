@@ -73,8 +73,10 @@ public class TextView extends View {
             else width = 0f;
             for (int i = 0; i < text.length(); i++) {
                 int c = text.charAt(i);
+                Vector3f relativePos = new Vector3f(width, height, 0.001f);
+                relativePos.setTranslate(TextView.this.position);
                 Glyph _char = new Glyph(
-                        position.translate(width, height, 0.001f),
+                        relativePos,
                         textSize,
                         String.format("%s/%03d.png", fontDir, c)
                 );

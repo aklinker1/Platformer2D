@@ -66,8 +66,8 @@ public class LevelBackground extends SpriteCluster {
     @Override
     public void update(Camera camera) {
         // these are negative values
-        float xDif = player.getPosition().x;
-        float yOffset = camera.getPosition().y;
+        float xDif = player.getPosition().x();
+        float yOffset = camera.getPosition().y();
 
         for (int x = 0; x < 2; x++) {
             color[x].setTranslation(getXOffset(x, xDif, 0.1f), yOffset * 0.1f, 0);

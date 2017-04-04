@@ -58,10 +58,12 @@ public class MainMenu extends Menu {
         });
         views.add(storyMode);
 
+        Vector3f multiplayerPosition = new Vector3f(storyMode.getPosition());
+        multiplayerPosition.increment(0, -12f, 0);
         Button muliplayer = new Button(
                 R.strings.MULTIPLAYER,
                 new Size<Float>(35f, 8f),
-                storyMode.getPosition().translate(0f, -12f, 0),
+                multiplayerPosition,
                 R.fonts.ROBOTO
         );
         muliplayer.setTextSize(4.5f);
@@ -70,9 +72,11 @@ public class MainMenu extends Menu {
         });
         views.add(muliplayer);
 
+        Vector3f settingsPosition = new Vector3f(muliplayer.getPosition());
+        settingsPosition.increment(0, -12f, 0);
         Button settings = new Button(R.strings.SETTINGS,
                 new Size<Float>(35f, 8f),
-                muliplayer.getPosition().translate(0f, -12f, 0),
+                settingsPosition,
                 R.fonts.ROBOTO
         );
         settings.setTextSize(4.5f);

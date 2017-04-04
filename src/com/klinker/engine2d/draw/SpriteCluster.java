@@ -40,9 +40,9 @@ public abstract class SpriteCluster implements Drawable {
     }
 
     public void setPosition(float x, float y, float z) {
-        this.position.x = x;
-        this.position.y = y;
-        this.position.z = z;
+        this.position.setX(x);
+        this.position.setY(y);
+        this.position.setX(z);
     }
 
 }
