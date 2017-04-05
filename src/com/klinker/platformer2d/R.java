@@ -53,11 +53,9 @@ public class R {
             public static final String REGULAR = "res/textures/buttons/regular.9";
         }
         public static final String COLLISION = "res/textures/collision.png";
-
         public static class enemies {
             public static final String KRAWLER = "res/textures/enemies/krawler.png";
         }
-
         public static class players {
             public static class hero01 {
                 public static final String BODY = "res/textures/players/hero01/body.png";

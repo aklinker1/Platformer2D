@@ -5,6 +5,7 @@ package com.klinker.platformer2d.utils;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.utils.FileUtils;
 import com.klinker.platformer2d.scenes.Level;
+import com.klinker.platformer2d.sprite.Map;
 
 import java.io.File;
 
@@ -36,7 +37,7 @@ public class MapReader {
                 tiles[height - y][x] = Integer.parseInt(row[x], 16);
             }
         }
-        return new Map(world, tiles, new Size<>(width, height), level);
+        return new Map(world, tiles, new Size<Float>((float) width, (float) height), frenemies);
     }
 
 }

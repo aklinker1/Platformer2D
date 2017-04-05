@@ -117,7 +117,11 @@ public abstract class Preferences {
             fIn.close();
             return data;
         } catch (Exception e) {
-            Log.e("Error reading preferences", e);
+            if (e instanceof FileNotFoundException) {
+                Log.d("No previous settings found, creating default ones.");
+            } else {
+                Log.e("Error reading preferences", e);
+            }
             return getInitialMap();
         }
     }

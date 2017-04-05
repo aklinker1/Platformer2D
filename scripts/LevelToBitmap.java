@@ -1,7 +1,3 @@
-package com.klinker.platformer2d.utils.map;
-
-
-
 import com.klinker.engine2d.utils.FileUtils;
 
 import javax.imageio.ImageIO;

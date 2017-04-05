@@ -1,5 +1,3 @@
-package com.klinker.platformer2d.utils.map;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -35,7 +35,7 @@ public abstract class MovingSprite extends Sprite {
      * @param tiles     The tiles around it.
      * @param frenemies The frenemies spawned on the screen.
      */
-    public void update(Camera camera, SparseArray2D<Tile> tiles, LinkedList<MovingSprite> frenemies) {
+    public void update(Camera camera, SparseArray2D<Tile> tiles, LinkedList<Frenemy> frenemies) {
         // 1. Modify velocities
         accelX();
         accelY();
@@ -93,7 +93,7 @@ public abstract class MovingSprite extends Sprite {
      * @param tiles     The tiles on the map.
      * @param frenemies The frenemies on the map.
      */
-    private void checkCollisions(SparseArray2D<Tile> tiles, LinkedList<MovingSprite> frenemies) {
+    private void checkCollisions(SparseArray2D<Tile> tiles, LinkedList<Frenemy> frenemies) {
         int TOP = 0, LEFT = 1, RIGHT = 2, BOTTOM = 3;
         boolean collided = false;
 

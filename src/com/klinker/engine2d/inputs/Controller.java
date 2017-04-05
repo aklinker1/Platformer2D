@@ -5,10 +5,7 @@ import com.klinker.engine2d.utils.Log;
 import net.java.games.input.Component;
 import net.java.games.input.ControllerEnvironment;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -100,8 +97,12 @@ public class Controller implements InputSource {
             }
 
             Controller controller;
-            if (ctrl != null) controller = new Controller(ctrl);
-            else controller = Controller.setup();
+            if (ctrl != null) {
+                controller = new Controller(ctrl);
+            } else {
+                Log.d("Previous controller not plugged in, setting up new one.");
+                controller = Controller.setup();
+            }
             Component[] components = ctrl.getComponents();
             Button[] buttons = new Button[InputManager.INPUT_COUNT];
             for (int i = 0; i < buttons.length; i++) {
@@ -114,7 +115,11 @@ public class Controller implements InputSource {
             controller.setComponents(components);
             return controller;
         } catch (Exception e) {
-            Log.e("Error reading bindings", e);
+            if (e instanceof FileNotFoundException) {
+                Log.d("No previous key bindings found.");
+            } else {
+                Log.e("Error reading bindings", e);
+            }
             return null;
         }
     }

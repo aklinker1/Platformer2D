@@ -1,7 +1,6 @@
 package com.klinker.platformer2d.utils;
 
 import com.klinker.engine2d.inputs.Controller;
-import com.klinker.engine2d.utils.Log;
 import com.klinker.engine2d.utils.Preferences;
 
 import java.util.HashMap;
@@ -27,7 +26,7 @@ public class Settings extends Preferences {
 
 
     public Settings() {
-        // TODO: 3/27/2017 Set up custom inputs
+
     }
 
     public Settings(String path) {
@@ -42,8 +41,6 @@ public class Settings extends Preferences {
         data.put(Settings.KEY_TILE_WIDTH, Settings.DEFAULT_TILE_WIDTH);
         data.put(Settings.KEY_WINDOW_WIDTH, Settings.DEFAULT_WINDOW_WIDTH);
         data.put(Settings.KEY_WINDOW_FULL_SCREEN, Settings.DEFAULT_WINDOW_FULL_SCREEN);
-
-        Log.d("\n\n\njava.library.path=" + System.getProperty("java.library.path"));
         setupController();
         return data;
     }
