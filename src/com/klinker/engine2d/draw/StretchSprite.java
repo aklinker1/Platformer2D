@@ -45,7 +45,7 @@ public class StretchSprite extends SpriteCluster {
                     }
 
                     Vector3f position = new Vector3f(0, 0, 0);
-                    position.setTranslate(this.position);
+                    position.setRelative(this.position);
                     if (x == 1) position.setX(cornerSize.width);
                     else if (x == 2) position.setX(cornerSize.width + middleWidth);
                     if (y == 1) position.setY(cornerSize.height);

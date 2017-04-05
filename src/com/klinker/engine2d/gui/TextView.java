@@ -74,7 +74,7 @@ public class TextView extends View {
             for (int i = 0; i < text.length(); i++) {
                 int c = text.charAt(i);
                 Vector3f relativePos = new Vector3f(width, height, 0.001f);
-                relativePos.setTranslate(TextView.this.position);
+                relativePos.setRelative(TextView.this.position);
                 Glyph _char = new Glyph(
                         relativePos,
                         textSize,

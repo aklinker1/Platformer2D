@@ -26,7 +26,7 @@ public class Vector3f {
      */
     private float z;
 
-    private Vector3f translate = null;
+    private Vector3f relative = null;
 
 
 
@@ -61,22 +61,22 @@ public class Vector3f {
 
 
     public float x() {
-        if (translate == null) return x;
-        else return translate.x() + x;
+        if (relative == null) return x;
+        else return relative.x() + x;
     }
 
     public float y() {
-        if (translate == null) return y;
-        else return translate.y() + y;
+        if (relative == null) return y;
+        else return relative.y() + y;
     }
 
     public float z() {
-        if (translate == null) return z;
-        else return translate.z() + z;
+        if (relative == null) return z;
+        else return relative.z() + z;
     }
 
-    public Vector3f getTranslate() {
-        return translate;
+    public Vector3f getRelative() {
+        return relative;
     }
 
     public void setX(float x) {
@@ -91,8 +91,8 @@ public class Vector3f {
         this.z = z;
     }
 
-    public void setTranslate(Vector3f translate) {
-        this.translate = translate;
+    public void setRelative(Vector3f relative) {
+        this.relative = relative;
     }
 
     public void increment(float x, float y, float z) {
