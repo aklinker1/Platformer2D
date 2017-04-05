@@ -130,7 +130,8 @@ public abstract class Engine {
             return;
         }
         glfwSetKeyCallback(window, inputManager.getKeyboard());    // set callbacks for keyboard input
-        if (inputManager.getController() == null) inputManager.getKeyboard().setup();
+        // if (inputManager.getController() == null) inputManager.getKeyboard().setup();
+        Log.d("Arrows = Move\n[space] = Jump/Select\nX = Run/Back");
 
         // set window position to centered
         GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties

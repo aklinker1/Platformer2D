@@ -1,8 +1,0 @@
-res\levels\1-X.lvl
-res\levels\2-X.lvl
-res\levels\3-X.lvl
-res\levels\4-X.lvl
-res\levels\5-X.lvl
-res\levels\6-X.lvl
-res\levels\7-X.lvl
-res\levels\8-X.lvl

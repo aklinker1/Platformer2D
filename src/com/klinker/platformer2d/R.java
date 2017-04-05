@@ -8,13 +8,7 @@ public class R {
     }
     public static class levels {
         public static final String LEVEL_DESIGN = "res/levels/level-design.txt";
-        public static final String LEVELS_TO_BITMAP = "res/levels/levels-to-bitmap.txt";
-        public static final String W01_L01 = "res/levels/w01-l01.lvl";
-        public static final String W01_L01S = "res/levels/w01-l01s.lvl";
-        public static final String W01_LXX = "res/levels/w01-lxx.lvl";
         public static final String W02_LXX = "res/levels/w02-lxx.lvl";
-        public static final String W03_LXX = "res/levels/w03-lxx.lvl";
-        public static final String W04_LXX = "res/levels/w04-lxx.lvl";
     }
     public static class shaders {
         public static class frag {

@@ -101,7 +101,7 @@ public class Controller implements InputSource {
                 controller = new Controller(ctrl);
             } else {
                 Log.d("Previous controller not plugged in, setting up new one.");
-                controller = Controller.setup();
+                return Controller.setup();
             }
             Component[] components = ctrl.getComponents();
             Button[] buttons = new Button[InputManager.INPUT_COUNT];
