@@ -16,9 +16,19 @@ import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
 import com.klinker.platformer2d.sprite.abstracts.Enemy;
 import com.klinker.platformer2d.sprite.abstracts.Frenemy;
+import com.klinker.platformer2d.utils.MapReader;
+
+import java.util.HashMap;
 
 
 public class Player extends Frenemy {
+
+    public static Player newInstance(HashMap<String, String> mapping) {
+        int x = Integer.parseInt(mapping.get(MapReader.parameters.POS_X));
+        int y = Integer.parseInt(mapping.get(MapReader.parameters.POS_Y));
+        int hero = Integer.parseInt(mapping.get(MapReader.parameters.HERO), 16);
+        return new Player(new Vector2f(x, y), hero);
+    }
 
     public static final int HERO_BLUE_TRIANGLE = 0;
 

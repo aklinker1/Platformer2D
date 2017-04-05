@@ -4,12 +4,8 @@ import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Drawable;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.math.Vector3f;
-import com.klinker.engine2d.utils.Log;
-import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.sprite.abstracts.Frenemy;
 import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
-import com.klinker.platformer2d.sprite.frenemies.enemies.Krawler;
 import com.klinker.platformer2d.sprite.frenemies.players.Player;
 import com.klinker.platformer2d.sprite.tiles.Tile;
 import com.klinker.platformer2d.utils.SparseArray2D;
@@ -40,8 +36,6 @@ public class Map implements Drawable {
      */
     private LinkedList<Frenemy> frenemies;
 
-    private Player player;
-
 
     /**
      * Constructor that is called from MapReader.
@@ -58,15 +52,10 @@ public class Map implements Drawable {
         for (int x = 0; x < this.size.width; x++) {
             for (int y = 0; y < this.size.height; y++) {
                 if (tiles[y][x] != 0) {
-                    Log.d(String.format("(%d, %d)", x, y));
                     this.tiles.append(x, y, Tile.newInstance(new Vector2f(x, y), world, tiles[y][x]));
                 }
             }
         }
-
-        this.player = new Player(new Vector2f(2, 2), 0x01);
-        this.frenemies.addFirst(this.player);
-        this.frenemies.addLast(new Krawler(new Vector3f(15f, 3f, Depth.ENEMY)));
     }
 
 
@@ -112,24 +101,27 @@ public class Map implements Drawable {
         for (int y = ys; y < ye; y++) {
             for (int x = xs; x < xe; x++) {
                 Tile tile = this.tiles.get(x, y);
-                if (tile != null) tile.render(camera);
+                if (tile != null) tile.update(camera);
             }
         }
         // TODO: update spawn/visible, despawn invisible
-        for (MovingSprite sprite : frenemies) sprite.update(camera);
+        for (Frenemy sprite : frenemies) sprite.update(camera, tiles, frenemies);
 
         // limit player sprite to map width
-        if (player.position.x() + player.vel.x() < 0.25f) {
-            player.position.setX(0.25f);
-            player.vel.setX(0);
-        } else if (player.position.x() + player.vel.x() > size.width - 1.25f) {
-            player.position.setX(size.width - 1.25f);
-            player.vel.setX(0);
+        Player player = getPlayer();
+        if (player.getClass() == Player.class) {
+            if (player.position.x() + player.vel.x() < 0.25f) {
+                player.position.setX(0.25f);
+                player.vel.setX(0);
+            } else if (player.position.x() + player.vel.x() > size.width - 1.25f) {
+                player.position.setX(size.width - 1.25f);
+                player.vel.setX(0);
+            }
         }
     }
 
     public Player getPlayer() {
-        return player;
+        return (Player) frenemies.peekFirst();
     }
 
     public Size<Integer> getSize() {

@@ -7,6 +7,7 @@ import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.sprite.Map;
 import com.klinker.platformer2d.sprite.abstracts.Frenemy;
+import com.klinker.platformer2d.sprite.frenemies.players.Player;
 
 import java.io.File;
 import java.util.Arrays;
@@ -15,6 +16,14 @@ import java.util.regex.Pattern;
 
 
 public class MapReader {
+
+    public static class parameters {
+        public static final String POS_X = "x";
+        public static final String POS_Y = "y";
+        public static final String DIR = "dir";
+        public static final String HERO = "hero";
+    }
+
 
     private MapReader() {}
 
@@ -33,13 +42,14 @@ public class MapReader {
             int world = 0;
             int[][] tiles = null;
             LinkedList<Frenemy> frenemies = new LinkedList<>();
+            Player player = null;
 
             while (!args.isEmpty()) {
                 String arg = args.removeFirst();
-                String name = arg.substring(0, arg.indexOf('{')).trim().toLowerCase();
+                String name = arg.substring(0, arg.indexOf('{')).trim();
                 String data = arg.substring(arg.indexOf('{') + 1).trim();
-                if ("map".equals(name)) {
-                    String[] dataObjects = data.split("\\s+");
+                String[] dataObjects = data.split("\\s+");
+                if ("Map".equals(name)) {
                     for (int i = 0; i < dataObjects.length; i++) {
                         String[] parts = dataObjects[i].split(":");
                         String key = parts[0].toLowerCase();
@@ -49,14 +59,18 @@ public class MapReader {
                         else if (key.equals("world")) world = value;
                     }
                     tiles = new int[height][width];
-                } else if ("tiles".equals(name)) {
+                } else if ("Tiles".equals(name)) {
                     if (tiles != null) readTiles(data, tiles, world);
                     else args.addLast(arg); // move it to the end.
                 } else {
-                    //frenemies.add(Frenemy.readFromFile(name, data));
+                    Frenemy frenemy = Frenemy.fromString(name, dataObjects);
+                    if (frenemy != null) {
+                        if (frenemy.getClass() != Player.class) frenemies.addLast(frenemy);
+                        else frenemies.addFirst(frenemy);
+                    }
                 }
             }
-            return new Map(world, tiles, new Size<Integer>(width, height), frenemies);
+            return new Map(world, tiles, new Size<>(width, height), frenemies);
         } catch (NegativeArraySizeException e) {
             Log.d("File does not specify a width or height parameter under Map.");
         } catch (Exception e) {
