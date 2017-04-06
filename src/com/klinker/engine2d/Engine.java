@@ -159,12 +159,12 @@ public abstract class Engine {
      * Updates the game by checking for inputs.
      */
     private void update() {
+        if (inputManager != null) inputManager.updateInputs();
         scene.update();
-        if (inputManager != null) inputManager.updateInputs(); //glfwPollEvents();       // update for input events
     }
 
     /**
-     * Render the current scene. Clears the x&y and z buffers to prevent frame buildup.
+     * Render the current scene. Clears the globalX&globalY and globalZ buffers to prevent frame buildup.
      */
     private void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
