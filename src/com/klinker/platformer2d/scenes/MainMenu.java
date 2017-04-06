@@ -37,13 +37,17 @@ public class MainMenu extends Menu {
 
         TextView version = new TextView(
                 R.strings.VERSION,
-                3f,
-                new Vector3f(PROJ_SIZE.width / 2f - 2f,-PROJ_SIZE.height / 2f + 2f, Depth.HUD),
+                new Size<Float>(30f, 6f),
+                new Vector3f(0, 0, Depth.HUD),
                 R.fonts.ROBOTO
         );
         version.setTextSize(3f);
         version.setTextColor(0x6b000000);
         version.setHorAlignment(TextView.Alignment.RIGHT);
+        version.setVertAlignment(TextView.Alignment.BOTTOM);
+        version.setInnerHorAlign(TextView.Alignment.RIGHT);
+        version.setInnerVertAlign(TextView.Alignment.TOP);
+        version.setBackgroundTexture(R.textures.COLLISION);
         views.add(version);
 
         Button storyMode = new Button(

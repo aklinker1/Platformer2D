@@ -70,7 +70,7 @@ public abstract class Sprite implements Drawable {
     }
 
     protected void setShaderProperties(Shader shader, Camera camera) {
-        shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, translation, getCameraPosition(camera)));
+        shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, getCameraPosition(camera)));
     }
 
     public Size<Float> getSize() {
