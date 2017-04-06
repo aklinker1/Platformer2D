@@ -6,8 +6,6 @@ import com.klinker.engine2d.opengl.Shader;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static org.lwjgl.opengl.GL11.*;
-
 public abstract class Scene implements Drawable {
 
     protected HashSet<Shader> shaders = new HashSet<>();
@@ -25,8 +23,6 @@ public abstract class Scene implements Drawable {
         Shader[] shaders = loadAllShaders(); // fills the set of shaders to then initialize
         this.shaders.addAll(Arrays.asList(shaders));
         initializeShaders();
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     private void initializeShaders() {

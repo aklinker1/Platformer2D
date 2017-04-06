@@ -67,6 +67,7 @@ public abstract class Sprite implements Drawable {
         mesh.render();
         texture.unbind();
         shader.disable();
+        if (collision != null) collision.render(camera);
     }
 
     protected void setShaderProperties(Shader shader, Camera camera) {

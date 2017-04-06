@@ -12,8 +12,7 @@ uniform vec4 color_overlay;
 void main()
 {
     color = texture(tex, fs_in.tc);
-    if (color.w <= 0) discard;
-    else {
+    if (color.w > 0) {
         // sets the color to the font color
         color.x = color_overlay.x;
         color.y = color_overlay.y;
