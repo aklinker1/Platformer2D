@@ -17,7 +17,7 @@ public class CollisionBox implements Drawable {
     public Shape shape;
     public Size<Float> size;
     public Vector3f position;
-    private SimpleSprite collision;
+    private SimpleSprite box;
 
     public enum Shape {
         RECTANGLE
@@ -29,7 +29,9 @@ public class CollisionBox implements Drawable {
         this.position = new Vector3f(position.x, position.y, Depth.HUD_HIGH);
         this.position.setRelative(parentPosition);
         if (Sprite.showCollisions) {
-            this.collision = new SimpleSprite(this.position, this.size, R.textures.COLLISION);
+            this.box = new SimpleSprite(this.position, this.size, R.textures.COLLISION);
+        } else {
+            this.box = null;
         }
     }
 
@@ -58,16 +60,12 @@ public class CollisionBox implements Drawable {
 
     @Override
     public void render(Camera camera) {
-        if (Sprite.showCollisions && collision != null) {
-            collision.render(camera);
-        }
+        if (box != null) box.render(camera);
     }
 
     @Override
     public void update(Camera camera) {
-        if (Sprite.showCollisions && collision != null) {
-            collision.update(camera);
-        }
+        if (box != null) box.update(camera);
     }
 
 }

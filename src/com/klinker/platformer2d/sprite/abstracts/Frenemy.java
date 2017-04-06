@@ -61,10 +61,10 @@ public abstract class Frenemy extends MovingSprite {
      */
     public Frenemy(Vector3f position, Size<Float> size, Texture texture, Shader shader) {
         super(position, size, texture, shader);
-        setCollision(getCollisionBox());
+        setCollision(initializeCollision());
     }
 
-    public abstract CollisionBox getCollisionBox();
+    public abstract CollisionBox initializeCollision();
 
     @Override
     public void update(Camera camera) {

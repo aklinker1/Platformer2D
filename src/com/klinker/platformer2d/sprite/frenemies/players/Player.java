@@ -50,7 +50,7 @@ public class Player extends Frenemy {
     }
 
     @Override
-    public CollisionBox getCollisionBox() {
+    public CollisionBox initializeCollision() {
         return new CollisionBox(
                 CollisionBox.Shape.RECTANGLE,
                 new Size<>(0.90f, 0.95f),
@@ -142,7 +142,7 @@ public class Player extends Frenemy {
         super.onCollideLeft(sprite);
         if (!(sprite instanceof Enemy)) {
             vel.setLocalX(0);
-            CollisionBox otherCollision = sprite.getCollisionBox();
+            CollisionBox otherCollision = sprite.initializeCollision();
             position.setLocalX(otherCollision.position.globalX() + otherCollision.size.width - this.collision.position.localX());
         }
     }
@@ -153,7 +153,7 @@ public class Player extends Frenemy {
         if (!(sprite instanceof Enemy)) {
             vel.setLocalY(0);
             jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
-            CollisionBox otherCollision = sprite.getCollisionBox();
+            CollisionBox otherCollision = sprite.initializeCollision();
             position.setLocalY(otherCollision.position.globalY() - this.collision.size.height - this.collision.position.localY());
         }
     }
@@ -163,7 +163,7 @@ public class Player extends Frenemy {
         super.onCollideRight(sprite);
         if (!(sprite instanceof Enemy)) {
             vel.setLocalX(0);
-            CollisionBox otherCollision = sprite.getCollisionBox();
+            CollisionBox otherCollision = sprite.initializeCollision();
             position.setLocalX(otherCollision.position.globalX() - this.size.width + this.collision.position.localX());
         }
     }
@@ -174,7 +174,7 @@ public class Player extends Frenemy {
         if (!(sprite instanceof Enemy)) {
             setGrounded();
             vel.setLocalY(0);
-            CollisionBox otherCollision = sprite.getCollisionBox();
+            CollisionBox otherCollision = sprite.initializeCollision();
             position.setLocalY(otherCollision.position.globalY() + otherCollision.size.height - this.collision.position.localY());
         }
     }

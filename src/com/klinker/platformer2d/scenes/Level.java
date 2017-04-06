@@ -4,6 +4,7 @@ package com.klinker.platformer2d.scenes;
 import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Scene;
+import com.klinker.engine2d.draw.SimpleSprite;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
@@ -56,7 +57,7 @@ public class Level extends Scene {
 
     @Override
     public Shader[] loadAllShaders() {
-        return new Shader[]{ LevelBackground.SHADER, Tile.SHADER, Player.SHADER };
+        return new Shader[]{SimpleSprite.SHADER, LevelBackground.SHADER, Tile.SHADER, Player.SHADER};
     }
 
     @Override

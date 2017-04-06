@@ -124,7 +124,7 @@ public abstract class MovingSprite extends Sprite {
             if (dir == TOP && vel.globalY() > 0) { // moving upward, check tiles above me.
                 for (int x = curXMin; x <= curXMax; x++) {
                     Tile tile = tiles.get(x, futYMax); // at the future globalY pos
-                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.globalX(), vel.globalY())) {
+                    if (tile != null && tile.initializeCollision().intersects(this.collision, vel.globalX(), vel.globalY())) {
                         onCollideTop(tile);
                         collided = true;
                         break;
@@ -133,7 +133,7 @@ public abstract class MovingSprite extends Sprite {
             } else if (dir == LEFT && vel.globalX() < 0) { // Moving left, check to the left of me.
                 for (int y = curYMin; y <= curYMax; y++) {
                     Tile tile = tiles.get(futXMin, y); // at the future globalX pos
-                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.globalX(), vel.globalY())) {
+                    if (tile != null && tile.initializeCollision().intersects(this.collision, vel.globalX(), vel.globalY())) {
                         onCollideLeft(tile);
                         collided = true;
                         break;
@@ -142,7 +142,7 @@ public abstract class MovingSprite extends Sprite {
             } else if (dir == RIGHT && vel.globalX() > 0) { // moving right, check the right of me.
                 for (int y = curYMin; y <= curYMax; y++) {
                     Tile tile = tiles.get(futXMax, y); // at the future globalX pos
-                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.globalX(), vel.globalY())) {
+                    if (tile != null && tile.initializeCollision().intersects(this.collision, vel.globalX(), vel.globalY())) {
                         onCollideRight(tile);
                         collided = true;
                         break;
@@ -151,7 +151,7 @@ public abstract class MovingSprite extends Sprite {
             } else if (dir == BOTTOM && vel.globalY() < 0) { // moving downward/walking, check for collisions beneath me.
                 for (int x = curXMin; x <= curXMax; x++) {
                     Tile tile = tiles.get(x, futYMin); // at the future globalY pos
-                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.globalX(), vel.globalY())) {
+                    if (tile != null && tile.initializeCollision().intersects(this.collision, vel.globalX(), vel.globalY())) {
                         onCollideBottom(tile);
                         collided = true;
                         break;
@@ -164,7 +164,7 @@ public abstract class MovingSprite extends Sprite {
         // region Checking Frenemies
         for (MovingSprite frenemy : frenemies)
             if (this != frenemy) {
-                if (this.collision.intersects(frenemy.getCollisionBox(), vel.globalX(), vel.globalY())) {
+                if (this.collision.intersects(frenemy.initializeCollision(), vel.globalX(), vel.globalY())) {
                     float angle = (float) Math.abs(180 / 3.14159 * Math.atan(
                             (this.position.globalY() - frenemy.position.globalY()) /
                                     (this.position.globalX() - frenemy.position.globalX())

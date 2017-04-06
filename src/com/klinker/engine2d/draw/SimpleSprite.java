@@ -25,6 +25,10 @@ public class SimpleSprite extends Sprite {
         super(position, size, new Texture(textRes), shader);
     }
 
+    @Override
+    protected void setShaderProperties(Shader shader, Camera camera) {
+        super.setShaderProperties(shader, camera);
+    }
 
     @Override
     public void update(Camera camera) {

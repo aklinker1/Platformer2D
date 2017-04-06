@@ -71,7 +71,7 @@ public abstract class Sprite implements Drawable {
     }
 
     protected void setShaderProperties(Shader shader, Camera camera) {
-        shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, getCameraPosition(camera)));
+        shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, camera.getPosition()));
     }
 
     public Size<Float> getSize() {
@@ -86,7 +86,7 @@ public abstract class Sprite implements Drawable {
         this.collision = collision;
     }
 
-    public CollisionBox getCollisionBox() {
+    public CollisionBox initializeCollision() {
         return collision;
     }
 
@@ -103,10 +103,6 @@ public abstract class Sprite implements Drawable {
 
     public void setTranslation(float x, float y, float z) {
         this.translation = new Vector3f(x, y, z);
-    }
-
-    public Vector3f getCameraPosition(Camera camera) {
-        return camera.getPosition();
     }
 
 }

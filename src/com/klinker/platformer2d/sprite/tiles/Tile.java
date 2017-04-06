@@ -47,7 +47,7 @@ public class Tile extends Sprite {
         );
         this.world = world;
         this.tile = tile;
-        setCollision(new CollisionBox(CollisionBox.Shape.RECTANGLE, size, new Vector2f(), position));
+        setCollision(new CollisionBox(CollisionBox.Shape.RECTANGLE, size, new Vector2f(), this.position));
     }
 
     @Override

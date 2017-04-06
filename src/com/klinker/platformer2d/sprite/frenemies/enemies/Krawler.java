@@ -12,7 +12,7 @@ import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
 import com.klinker.platformer2d.sprite.abstracts.Enemy;
-import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
+import com.klinker.platformer2d.sprite.abstracts.Frenemy;
 import com.klinker.platformer2d.sprite.frenemies.players.Player;
 import com.klinker.platformer2d.utils.MapReader;
 
@@ -37,13 +37,14 @@ public class Krawler extends Enemy {
                 new Vector3f(position.x, position.y, Depth.ENEMY),
                 new Size<Float>(1f, 1f),
                 texture,
-                MovingSprite.SHADER
+                Frenemy.SHADER
         );
         vel.setLocalX(Physics.Krawler.VEL_X);
     }
 
+
     @Override
-    public CollisionBox getCollisionBox() {
+    public CollisionBox initializeCollision() {
         return new CollisionBox(
                 CollisionBox.Shape.RECTANGLE,
                 new Size<Float>(50f / 80f, 65f / 80f),
@@ -84,7 +85,7 @@ public class Krawler extends Enemy {
     protected void onCollideBottom(Sprite sprite) {
         super.onCollideBottom(sprite);
         vel.setLocalY(0);
-        CollisionBox otherCollision = sprite.getCollisionBox();
+        CollisionBox otherCollision = sprite.initializeCollision();
         position.setLocalY(otherCollision.position.globalY() + otherCollision.size.height - this.collision.position.localY());
     }
 
