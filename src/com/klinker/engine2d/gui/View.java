@@ -46,16 +46,33 @@ public class View implements Drawable {
 
 
     public View(Vector3f position, Size<Float> size) {
-        this.position = position;
+        this.position = new Vector3f();
+        this.position.setRelative(position);
         this.size = size;
         this.state = DEFAULT;
         this.hAlignment = DEFAULT_H_ALIGNMENT;
         this.vAlignment = DEFAULT_V_ALIGNMENT;
+        updatePosition();
+    }
+
+    private void updatePosition() {
+        float hor;
+        if (hAlignment == Alignment.RIGHT) hor = -size.width;
+        else if (hAlignment == Alignment.CENTER) hor = -size.width / 2f;
+        else hor = 0;
+
+        float vert;
+        if (vAlignment == Alignment.TOP) vert = -size.height;
+        else if (vAlignment == Alignment.CENTER) vert = -size.height / 2f;
+        else vert = 0;
+
+        this.position.setLocalX(hor);
+        this.position.setLocalY(vert);
     }
 
     public void setBackgroundTexture(String textureRes) {
         if (background == null) background = new StateObject<>();
-        background.put(DEFAULT, new SimpleSprite(getAlignedPosition(), size, textureRes));
+        background.put(DEFAULT, new SimpleSprite(this.position, size, textureRes));
     }
 
     public void setBackground(StateObject<Sprite> spriteStateObject) {
@@ -89,34 +106,16 @@ public class View implements Drawable {
 
     public void setHorAlignment(Alignment alignment) {
         this.hAlignment = alignment;
+        updatePosition();
     }
 
     public void setVertAlignment(Alignment alignment) {
         this.vAlignment = alignment;
+        updatePosition();
     }
 
     public void setOnClickListener(OnClickListener listener) {
         this.onClickListener = listener;
-    }
-
-    protected float getHorAlignmentOffset() {
-        if (hAlignment == Alignment.CENTER) return -size.width / 2f;
-        else if (hAlignment == Alignment.RIGHT) return -size.width;
-        else return 0f;
-    }
-
-    protected float getVerAlignmentOffset() {
-        if (vAlignment == Alignment.CENTER) return -size.height / 2f;
-        else if (vAlignment == Alignment.TOP) return -size.height;
-        else return 0f;
-    }
-
-    protected Vector3f getAlignedPosition() {
-        return new Vector3f(
-                position.globalX() + getHorAlignmentOffset(),
-                position.globalY() + getVerAlignmentOffset(),
-                position.globalZ()
-        );
     }
 
     public static class StateObject<T> implements Iterable<T> {

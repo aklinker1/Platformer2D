@@ -28,14 +28,12 @@ public class TextView extends View {
     private LinkedList<Glyph> characters;
     private Alignment innerHAlign;
     private Alignment innerVAlign;
-    private boolean wrapWidth = true;
 
 
     public TextView(String text, Size<Float> size, Vector3f position, String fontDir) {
         super(position, size);
         this.text = text;
         this.fontDir = fontDir;
-        this.wrapWidth = size.width == null;
 
         this.innerHAlign = DEFAULT_INNER_H_ALIGN;
         this.innerVAlign = DEFAULT_INNER_V_ALIGN;
@@ -45,10 +43,6 @@ public class TextView extends View {
         loadCharacters();
     }
 
-    public TextView(String text, float height, Vector3f position, String fontDir) {
-        this(text, new Size<Float>(null, height), position, fontDir);
-    }
-
     public void setText(String text) {
         this.text = text;
         loadCharacters();
@@ -56,34 +50,29 @@ public class TextView extends View {
 
     protected void loadCharacters() {
         // repeat twice if we are not wrapping width so it can properly set the innerHAlign
-        float width = 0f;
-        float height;
-        if (innerVAlign == Alignment.CENTER) height = (size.height - textSize) / 2f;
-        else if (innerVAlign == Alignment.TOP) height = size.height - textSize;
-        else height = 0f;
+        float vertOffset = getInnerAlignmentVertOffset(textSize);
 
-        for (int j = 0; j < (!wrapWidth ? 2 : 1); j++) {
-            characters = new LinkedList<>();
-            // handle the innerHAlign of the text on the second time through
-            if (!wrapWidth && j == 1) {
-                if (innerHAlign == Alignment.CENTER) width = (size.width - width) / 2f;
-                else if (innerHAlign == Alignment.RIGHT) width = size.width - width;
-                else width = 0f;
-            }
-            else width = 0f;
-            for (int i = 0; i < text.length(); i++) {
-                int c = text.charAt(i);
-                Vector3f relativePos = new Vector3f(width, height, 0.001f);
-                relativePos.setRelative(TextView.this.position);
-                Glyph _char = new Glyph(
-                        relativePos,
-                        textSize,
-                        String.format("%s/%03d.png", fontDir, c)
-                );
-                characters.addLast(_char);
-                width += _char.getSize().width;
-            }
-            if (wrapWidth) size.width = width;
+        characters = new LinkedList<>();
+        float textWidth = 0f;
+        float[] widths = new float[text.length()];
+        for (int i = 0; i < text.length(); i++) {
+            widths[i] = textWidth;
+            int c = text.charAt(i);
+            Vector3f pos = new Vector3f(0, vertOffset, 0.001f);
+            pos.setRelative(this.position);
+            Glyph _char = new Glyph(
+                    pos,
+                    textSize,
+                    String.format("%s/%03d.png", fontDir, c)
+            );
+            characters.addLast(_char);
+            textWidth += _char.getSize().width;
+        }
+        float horOffset = getInnerAlignmentHorOffset(textWidth);
+        int i = 0;
+        for (Glyph g : characters) {
+            g.getPosition().setLocalX(horOffset + widths[i]);
+            i++;
         }
     }
 
@@ -118,11 +107,22 @@ public class TextView extends View {
         for (WrapWidthSprite character : characters) character.update(camera);
     }
 
+    public float getInnerAlignmentVertOffset(float textHeight) {
+        if (innerVAlign == Alignment.TOP) return size.height - textHeight;
+        else if (innerVAlign == Alignment.CENTER) return (size.height - textSize) / 2f;
+        else return 0f;
+    }
+
+    public float getInnerAlignmentHorOffset(float textWidth) {
+        if (innerHAlign == Alignment.RIGHT) return size.width - textWidth;
+        else if (innerHAlign == Alignment.CENTER) return (size.width - textWidth) / 2f;
+        else return 0f;
+    }
+
     protected class Glyph extends WrapWidthSprite {
 
         public Glyph(Vector3f position, float height, String textRes) {
             super(position, height, textRes, FONT_SHADER);
-            setTranslation(getHorAlignmentOffset(), getVerAlignmentOffset(), 0);
         }
 
         @Override
