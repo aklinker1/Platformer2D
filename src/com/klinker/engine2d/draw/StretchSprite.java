@@ -46,10 +46,10 @@ public class StretchSprite extends SpriteCluster {
 
                     Vector3f position = new Vector3f(0, 0, 0);
                     position.setRelative(this.position);
-                    if (x == 1) position.setX(cornerSize.width);
-                    else if (x == 2) position.setX(cornerSize.width + middleWidth);
-                    if (y == 1) position.setY(cornerSize.height);
-                    else if (y == 2) position.setY(cornerSize.height + middleHeight);
+                    if (x == 1) position.setLocalX(cornerSize.width);
+                    else if (x == 2) position.setLocalX(cornerSize.width + middleWidth);
+                    if (y == 1) position.setLocalY(cornerSize.height);
+                    else if (y == 2) position.setLocalY(cornerSize.height + middleHeight);
 
                     addSprite(new SimpleSprite(position, size, texture));
                 } catch (Exception e) {

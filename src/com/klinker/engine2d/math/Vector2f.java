@@ -3,19 +3,19 @@ package com.klinker.engine2d.math;
 
 
 /**
- * A vector of 2 floats (x, y).
+ * A vector of 2 floats (globalX, globalY).
  */
 public class Vector2f {
 
 
 
     /**
-     * The x coordinate.
+     * The globalX coordinate.
      */
     public float x;
 
     /**
-     * The y coordinate.
+     * The globalY coordinate.
      */
     public float y;
 
@@ -38,8 +38,8 @@ public class Vector2f {
     }
 
     /**
-     * @param x The initial x coordinate.
-     * @param y The initial y coordinate.
+     * @param x The initial globalX coordinate.
+     * @param y The initial globalY coordinate.
      */
     public Vector2f(float x, float y) {
         this.x = x;

@@ -72,10 +72,10 @@ public class Map implements Drawable {
     @Override
     public void render(Camera camera) {
         // get the start and finish positions to render and update from.
-        int xs = Math.round(-camera.getPosition().x()) - SPAWN_DISTANCE;
-        int ys = Math.round(-camera.getPosition().y()) - SPAWN_DISTANCE;
-        int xe = Math.round(-camera.getPosition().x() + camera.getSize().width) + SPAWN_DISTANCE;
-        int ye = Math.round(-camera.getPosition().y() + camera.getSize().height) + SPAWN_DISTANCE;
+        int xs = Math.round(-camera.getPosition().globalX()) - SPAWN_DISTANCE;
+        int ys = Math.round(-camera.getPosition().globalY()) - SPAWN_DISTANCE;
+        int xe = Math.round(-camera.getPosition().globalX() + camera.getSize().width) + SPAWN_DISTANCE;
+        int ye = Math.round(-camera.getPosition().globalY() + camera.getSize().height) + SPAWN_DISTANCE;
 
         for (int y = ys; y < ye; y++) {
             for (int x = xs; x < xe; x++) {
@@ -92,10 +92,10 @@ public class Map implements Drawable {
     @Override
     public void update(Camera camera) {
         // get the start and finish positions to render and update from.
-        int xs = Math.round(-camera.getPosition().x()) - SPAWN_DISTANCE;
-        int ys = Math.round(-camera.getPosition().y()) - SPAWN_DISTANCE;
-        int xe = Math.round(-camera.getPosition().x() + camera.getSize().width) + SPAWN_DISTANCE;
-        int ye = Math.round(-camera.getPosition().y() + camera.getSize().height) + SPAWN_DISTANCE;
+        int xs = Math.round(-camera.getPosition().globalX()) - SPAWN_DISTANCE;
+        int ys = Math.round(-camera.getPosition().globalY()) - SPAWN_DISTANCE;
+        int xe = Math.round(-camera.getPosition().globalX() + camera.getSize().width) + SPAWN_DISTANCE;
+        int ye = Math.round(-camera.getPosition().globalY() + camera.getSize().height) + SPAWN_DISTANCE;
 
         // only update visible tiles
         for (int y = ys; y < ye; y++) {
@@ -108,14 +108,14 @@ public class Map implements Drawable {
         for (Frenemy sprite : frenemies) sprite.update(camera, tiles, frenemies);
 
         // limit player sprite to map width
-        Player player = getPlayer();
+        Player player = (Player) frenemies.peekFirst();
         if (player.getClass() == Player.class) {
-            if (player.position.x() + player.vel.x() < 0.25f) {
-                player.position.setX(0.25f);
-                player.vel.setX(0);
-            } else if (player.position.x() + player.vel.x() > size.width - 1.25f) {
-                player.position.setX(size.width - 1.25f);
-                player.vel.setX(0);
+            if (player.position.globalX() + player.vel.globalX() < 0.25f) {
+                player.position.setLocalX(0.25f);
+                player.vel.setLocalX(0);
+            } else if (player.position.globalX() + player.vel.globalX() > size.width - 1.25f) {
+                player.position.setLocalX(size.width - 1.25f);
+                player.vel.setLocalX(0);
             }
         }
     }

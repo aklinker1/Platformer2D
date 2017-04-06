@@ -21,8 +21,8 @@ public class Camera {
     public Camera(Size<Float> projectionSize, Vector3f projectionOrigin) {
         this.position = new Vector3f();
         this.projection = Matrix4f.orthographic(
-                -projectionOrigin.x(), projectionSize.width - projectionOrigin.x(),
-                projectionSize.height - projectionOrigin.y(), -projectionOrigin.y(),
+                -projectionOrigin.globalX(), projectionSize.width - projectionOrigin.globalX(),
+                projectionSize.height - projectionOrigin.globalY(), -projectionOrigin.globalY(),
                 -1, 1
         );
         this.size = projectionSize;
@@ -53,8 +53,8 @@ public class Camera {
     }
 
     public void centerXY(Vector3f position) {
-        this.position.setX(this.size.width / 2f - position.x());
-        this.position.setY(this.size.height / 2f - position.y());
+        this.position.setLocalX(this.size.width / 2f - position.globalX());
+        this.position.setLocalY(this.size.height / 2f - position.globalY());
     }
 
     public void setPosition(float x, float y, float z) {

@@ -24,9 +24,10 @@ public class LevelBackground extends SpriteCluster {
     private SimpleSprite[] bars;
 
 
-    public LevelBackground(Vector3f position, int world) {
+    public LevelBackground(Vector3f position, int world, Player player) {
         super(position, new Size<Float>(Platformer2D.tileCounts.x, 3f / 4f * Platformer2D.tileCounts.x));
         this.world = world;
+        this.player = player;
 
         createSprites();
     }
@@ -66,8 +67,8 @@ public class LevelBackground extends SpriteCluster {
     @Override
     public void update(Camera camera) {
         // these are negative values
-        float xDif = player.getPosition().x();
-        float yOffset = camera.getPosition().y();
+        float xDif = player.getPosition().globalX();
+        float yOffset = camera.getPosition().globalY();
 
         for (int x = 0; x < 2; x++) {
             color[x].setTranslation(getXOffset(x, xDif, 0.1f), yOffset * 0.1f, 0);
@@ -78,10 +79,6 @@ public class LevelBackground extends SpriteCluster {
 
     private float getXOffset(int x, float xDif, float multiplier) {
         return x * size.width - (xDif * multiplier) % (size.width);
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
 }

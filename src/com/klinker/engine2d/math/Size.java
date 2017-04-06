@@ -17,6 +17,6 @@ public class Size<T extends Number> {
 
     @Override
     public String toString() {
-        return "Size(" + width + "x" + height + ")";
+        return "Size(" + width + "globalX" + height + ")";
     }
 }

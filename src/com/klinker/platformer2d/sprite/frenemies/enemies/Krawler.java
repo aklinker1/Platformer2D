@@ -13,6 +13,7 @@ import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
 import com.klinker.platformer2d.sprite.abstracts.Enemy;
 import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
+import com.klinker.platformer2d.sprite.frenemies.players.Player;
 import com.klinker.platformer2d.utils.MapReader;
 
 import java.util.HashMap;
@@ -27,7 +28,7 @@ public class Krawler extends Enemy {
         int y = Integer.parseInt(mapping.get(MapReader.parameters.POS_Y));
         int dir = mapping.get(MapReader.parameters.DIR).equals("left") ? -1 : 1;
         Krawler krawler = new Krawler(new Vector2f(x, y));
-        krawler.vel.setX(krawler.vel.x() * dir);
+        krawler.vel.setLocalX(krawler.vel.globalX() * dir);
         return krawler;
     }
 
@@ -38,7 +39,7 @@ public class Krawler extends Enemy {
                 texture,
                 MovingSprite.SHADER
         );
-        vel.setX(Physics.Krawler.VEL_X);
+        vel.setLocalX(Physics.Krawler.VEL_X);
     }
 
     @Override
@@ -54,38 +55,47 @@ public class Krawler extends Enemy {
     @Override
     protected void onCollideLeft(Sprite sprite) {
         super.onCollideLeft(sprite);
-        vel.setX(-1 * vel.x());
+        if (sprite.getClass() == Player.class) {
+            Log.d("Kill player");
+        } else {
+            vel.setLocalX(-1 * vel.globalX());
+        }
     }
 
     @Override
     protected void onCollideTop(Sprite sprite) {
         super.onCollideTop(sprite);
-        Log.d("Bopped");
+        if (sprite.getClass() == Player.class) {
+            Log.d("Bopped");
+        }
     }
 
     @Override
     protected void onCollideRight(Sprite sprite) {
         super.onCollideRight(sprite);
-        vel.setX(-1 * vel.x());
+        if (sprite.getClass() == Player.class) {
+            Log.d("Kill player");
+        } else {
+            vel.setLocalX(-1 * vel.globalX());
+        }
     }
 
     @Override
     protected void onCollideBottom(Sprite sprite) {
         super.onCollideBottom(sprite);
-        vel.setY(0);
+        vel.setLocalY(0);
         CollisionBox otherCollision = sprite.getCollisionBox();
-        position.setY(otherCollision.position.y() + otherCollision.origin.y + otherCollision.size.height - this.collision.origin.y);
-
+        position.setLocalY(otherCollision.position.globalY() + otherCollision.size.height - this.collision.position.localY());
     }
 
     @Override
     protected void onCollideNone() {
-        Log.d("Krawler in freefall");
+
     }
 
     @Override
     protected void accelY() {
-        vel.setY(-Physics.GRAVITY);
+        vel.setLocalY(vel.globalY() - Physics.GRAVITY);
     }
 
     @Override

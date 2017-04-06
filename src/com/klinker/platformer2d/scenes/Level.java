@@ -51,8 +51,7 @@ public class Level extends Scene {
     public void init() {
         super.init();
         map = MapReader.read(this, this.level);
-        background = new LevelBackground(new Vector3f(0f, 0f, Depth.BACKGROUND_FRONT), map.getWorld());
-        background.setPlayer(map.getPlayer());
+        background = new LevelBackground(new Vector3f(0f, 0f, Depth.BACKGROUND_FRONT), map.getWorld(), map.getPlayer());
     }
 
     @Override
@@ -79,19 +78,19 @@ public class Level extends Scene {
 
         // limiting the camera to stay withing the bounds of the map.
         if (camera.getSize().width < map.getSize().width) {
-            if (camera.getPosition().x() > 0) camera.getPosition().setX(0f);
-            else if (camera.getPosition().x() < camera.getSize().width - map.getSize().width)
-                camera.getPosition().setX(camera.getSize().width - map.getSize().width);
+            if (camera.getPosition().globalX() > 0) camera.getPosition().setLocalX(0f);
+            else if (camera.getPosition().globalX() < camera.getSize().width - map.getSize().width)
+                camera.getPosition().setLocalX(camera.getSize().width - map.getSize().width);
         } else {
-            camera.getPosition().setX(0f);
+            camera.getPosition().setLocalX(0f);
         }
 
         if (camera.getSize().height < map.getSize().height) {
-            if (camera.getPosition().y() > 0) camera.getPosition().setY(0f);
-            else if (camera.getPosition().y() < camera.getSize().height - map.getSize().height)
-                camera.getPosition().setY(camera.getSize().height - map.getSize().height);
+            if (camera.getPosition().globalY() > 0) camera.getPosition().setLocalY(0f);
+            else if (camera.getPosition().globalY() < camera.getSize().height - map.getSize().height)
+                camera.getPosition().setLocalY(camera.getSize().height - map.getSize().height);
         } else {
-            camera.getPosition().setY(0f);
+            camera.getPosition().setLocalY(0f);
         }
     }
 

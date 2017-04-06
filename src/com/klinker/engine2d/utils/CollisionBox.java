@@ -1,50 +1,72 @@
 package com.klinker.engine2d.utils;
 
 
-
+import com.klinker.engine2d.draw.Camera;
+import com.klinker.engine2d.draw.Drawable;
+import com.klinker.engine2d.draw.SimpleSprite;
+import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
+import com.klinker.platformer2d.R;
+import com.klinker.platformer2d.constants.Depth;
 
 
-public class CollisionBox {
+public class CollisionBox implements Drawable {
 
     public Shape shape;
     public Size<Float> size;
-    public Vector2f origin;
     public Vector3f position;
+    private SimpleSprite collision;
 
     public enum Shape {
         RECTANGLE
     }
 
-    public CollisionBox(Shape shape, Size<Float> size, Vector2f origin, Vector3f position) {
+    public CollisionBox(Shape shape, Size<Float> size, Vector2f position, Vector3f parentPosition) {
         this.shape = shape;
         this.size = size;
-        this.origin = origin;
-        this.position = position;
+        this.position = new Vector3f(position.x, position.y, Depth.HUD_HIGH);
+        this.position.setRelative(parentPosition);
+        if (Sprite.showCollisions) {
+            this.collision = new SimpleSprite(this.position, this.size, R.textures.COLLISION);
+        }
     }
 
     /**
      * Checks whether or not an object is going to collide with another's projected location.
      * @param collision The collision that is going to be projected into the future to see if it will hit.
-     * @param xDif The amount the collision is going to change by in the next update in the x dir.
-     * @param yDif The amount the collision is going to change by in the next update in the y dir.
+     * @param xDif The amount the collision is going to change by in the next update in the globalX dir.
+     * @param yDif The amount the collision is going to change by in the next update in the globalY dir.
      * @return Whether or not the items will collide.
      */
     public boolean intersects(CollisionBox collision, float xDif, float yDif) {
-        float c1L = this.origin.x + this.position.x();
-        float c1R = this.origin.x + this.size.width + this.position.x();
-        float c2L = collision.origin.x + collision.position.x() + xDif;
-        float c2R = collision.origin.x + this.size.width + collision.position.x() + xDif;
+        float c1L = this.position.globalX();
+        float c1R = this.size.width + this.position.globalX();
+        float c2L = collision.position.globalX() + xDif;
+        float c2R = this.size.width + collision.position.globalX() + xDif;
         if (c1R >= c2L && c1R <= c2R || c1L >= c2L && c1L <= c2R) {  // the rect overlap horizontally
-            float c1B = this.origin.y + this.position.y();
-            float c1T = this.origin.y + this.size.height + this.position.y();
-            float c2B = collision.origin.y + collision.position.y() + yDif;
-            float c2T = collision.origin.y + this.size.height + collision.position.y() + yDif;
+            float c1B = this.position.globalY();
+            float c1T = this.size.height + this.position.globalY();
+            float c2B = collision.position.globalY() + yDif;
+            float c2T = this.size.height + collision.position.globalY() + yDif;
             return c1T >= c2B && c1T <= c2T || c1B >= c2B && c1B <= c2T; // the rect overlap vertically
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public void render(Camera camera) {
+        if (Sprite.showCollisions && collision != null) {
+            collision.render(camera);
+        }
+    }
+
+    @Override
+    public void update(Camera camera) {
+        if (Sprite.showCollisions && collision != null) {
+            collision.update(camera);
         }
     }
 

@@ -22,7 +22,7 @@ public class TileSheetSplitter {
                 if (tileSheet.getWidth() % tileSize != 0 || tileSheet.getHeight() % tileSize != 0) {
                     throw new Exception("Improper tile size... " + tileSize
                             + " does not evenly fit in the tile sheet ("
-                            + tileSheet.getWidth() + "x" + tileSheet.getHeight() + ")");
+                            + tileSheet.getWidth() + "globalX" + tileSheet.getHeight() + ")");
                 }
                 int tilesX = tileSheet.getWidth() / tileSize;
                 int tilesY = tileSheet.getHeight() / tileSize;
@@ -32,7 +32,7 @@ public class TileSheetSplitter {
                         BufferedImage tileSheet2 = ImageIO.read(tiles);
                         BufferedImage tile = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_4BYTE_ABGR);
                         Graphics canvas = tile.getGraphics();
-                        File output = new File(outputParent, String.format("x%02X-%02X", x, y) + ".png");
+                        File output = new File(outputParent, String.format("globalX%02X-%02X", x, y) + ".png");
                         canvas.drawImage(
                                 tileSheet2,
                                 0, 0, tileSize, tileSize,

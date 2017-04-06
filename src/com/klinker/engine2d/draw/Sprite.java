@@ -11,6 +11,8 @@ import com.klinker.engine2d.utils.CollisionBox;
 
 public abstract class Sprite implements Drawable {
 
+    public static boolean showCollisions = true;
+
     protected Size<Float> size;
     public Vector3f position;
     public Vector3f translation;
@@ -39,10 +41,10 @@ public abstract class Sprite implements Drawable {
     protected void initializeMesh() {
         this.mesh = new VertexArray(
                 new float[] {
-                        0, this.size.height, this.position.z(),
-                        this.size.width, this.size.height, this.position.z(),
-                        this.size.width, 0, this.position.z(),
-                        0, 0, this.position.z(),
+                        0, this.size.height, this.position.globalZ(),
+                        this.size.width, this.size.height, this.position.globalZ(),
+                        this.size.width, 0, this.position.globalZ(),
+                        0, 0, this.position.globalZ(),
                 },
                 new byte[] {
                         0, 1, 2,
@@ -88,9 +90,9 @@ public abstract class Sprite implements Drawable {
     }
 
     public void setPosition(float x, float y, float z) {
-        this.position.setX(x);
-        this.position.setY(y);
-        this.position.setZ(z);
+        this.position.setLocalX(x);
+        this.position.setLocalY(y);
+        this.position.setLocalZ(z);
     }
 
     public void setSize(Size<Float> size) {

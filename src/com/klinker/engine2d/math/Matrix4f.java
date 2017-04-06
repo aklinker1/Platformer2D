@@ -48,12 +48,12 @@ public class Matrix4f {
     }
 
     /**
-     * @param left The left (x) of the projection.
-     * @param right The right (x) of the projection.
-     * @param top The top (y) of the projection.
-     * @param bottom The bottom (y) of the projection.
-     * @param near The near (z) of the projection.
-     * @param far The far (z) of the projection.
+     * @param left The left (globalX) of the projection.
+     * @param right The right (globalX) of the projection.
+     * @param top The top (globalY) of the projection.
+     * @param bottom The bottom (globalY) of the projection.
+     * @param near The near (globalZ) of the projection.
+     * @param far The far (globalZ) of the projection.
      * @return An orthogonal matrix.
      */
     public static Matrix4f orthographic(float left, float right, float top, float bottom, float near, float far) {
@@ -81,9 +81,9 @@ public class Matrix4f {
     public static Matrix4f translate(Vector3f ... vectors) {
         Matrix4f result = identity();
         for (Vector3f v : vectors) {
-            result.elements[12] += v.x();
-            result.elements[13] += v.y();
-            result.elements[14] += v.z();
+            result.elements[12] += v.globalX();
+            result.elements[13] += v.globalY();
+            result.elements[14] += v.globalZ();
         }
         return result;
     }

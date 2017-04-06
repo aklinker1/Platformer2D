@@ -113,9 +113,9 @@ public class View implements Drawable {
 
     protected Vector3f getAlignedPosition() {
         return new Vector3f(
-                position.x() + getHorAlignmentOffset(),
-                position.y() + getVerAlignmentOffset(),
-                position.z()
+                position.globalX() + getHorAlignmentOffset(),
+                position.globalY() + getVerAlignmentOffset(),
+                position.globalZ()
         );
     }
 

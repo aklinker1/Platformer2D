@@ -47,17 +47,17 @@ public abstract class MovingSprite extends Sprite {
         update(camera);
 
         // 4. Actually move the player.
-        position.increment(vel.x(), vel.y(), vel.z());
+        position.increment(vel.globalX(), vel.globalY(), vel.globalZ());
     }
 
     /**
-     * Gets expected changes to x velocity
+     * Gets expected changes to globalX velocity
      */
     protected void accelX() {
     }
 
     /**
-     * Gets expected changes to y velocity
+     * Gets expected changes to globalY velocity
      */
     protected void accelY() {
     }
@@ -101,8 +101,8 @@ public abstract class MovingSprite extends Sprite {
         for (int dir = 0; dir <= BOTTOM; dir++) {
             // get the range in tiles to check
             // to prevent inaccurate floating point arithmetic, convert everything to int for * 1000 and rounding
-            int xStart = (int) (1000 * this.collision.position.x()) + (int) (1000 * this.collision.origin.x);
-            int yStart = (int) (1000 * this.collision.position.y()) + (int) (1000 * this.collision.origin.y);
+            int xStart = (int) (1000 * this.collision.position.globalX());
+            int yStart = (int) (1000 * this.collision.position.globalY());
             int xEnd = xStart + (int) (1000 * this.collision.size.width);
             int yEnd = yStart + (int) (1000 * this.collision.size.height);
             int xEndI = xEnd / 1000;
@@ -112,46 +112,46 @@ public abstract class MovingSprite extends Sprite {
             int curYMin = yStart / 1000;
             int curXMax = xEnd / 1000;
             int curYMax = yEnd / 1000;
-            int futXMin = (xStart + (int) (vel.x() * 1000)) / 1000;
-            int futYMin = (yStart + (int) (vel.y() * 1000)) / 1000;
-            int futXMax = (xEnd + (int) (vel.x() * 1000)) / 1000;
-            int futYMax = (yEnd + (int) (vel.y() * 1000)) / 1000;
+            int futXMin = (xStart + (int) (vel.globalX() * 1000)) / 1000;
+            int futYMin = (yStart + (int) (vel.globalY() * 1000)) / 1000;
+            int futXMax = (xEnd + (int) (vel.globalX() * 1000)) / 1000;
+            int futYMax = (yEnd + (int) (vel.globalY() * 1000)) / 1000;
 
             // handles how if the collision ends at a whole number, we want to exclude that from the loop
             if (xEnd - xEndI * 1000 == 0) curXMax--;
             if (yEnd - yEndI * 1000 == 0) curYMax--;
 
-            if (dir == TOP && vel.y() > 0) { // moving upward, check tiles above me.
+            if (dir == TOP && vel.globalY() > 0) { // moving upward, check tiles above me.
                 for (int x = curXMin; x <= curXMax; x++) {
-                    Tile tile = tiles.get(x, futYMax); // at the future y pos
-                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.x(), vel.y())) {
+                    Tile tile = tiles.get(x, futYMax); // at the future globalY pos
+                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.globalX(), vel.globalY())) {
                         onCollideTop(tile);
                         collided = true;
                         break;
                     }
                 }
-            } else if (dir == LEFT && vel.x() < 0) { // Moving left, check to the left of me.
+            } else if (dir == LEFT && vel.globalX() < 0) { // Moving left, check to the left of me.
                 for (int y = curYMin; y <= curYMax; y++) {
-                    Tile tile = tiles.get(futXMin, y); // at the future x pos
-                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.x(), vel.y())) {
+                    Tile tile = tiles.get(futXMin, y); // at the future globalX pos
+                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.globalX(), vel.globalY())) {
                         onCollideLeft(tile);
                         collided = true;
                         break;
                     }
                 }
-            } else if (dir == RIGHT && vel.x() > 0) { // moving right, check the right of me.
+            } else if (dir == RIGHT && vel.globalX() > 0) { // moving right, check the right of me.
                 for (int y = curYMin; y <= curYMax; y++) {
-                    Tile tile = tiles.get(futXMax, y); // at the future x pos
-                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.x(), vel.y())) {
+                    Tile tile = tiles.get(futXMax, y); // at the future globalX pos
+                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.globalX(), vel.globalY())) {
                         onCollideRight(tile);
                         collided = true;
                         break;
                     }
                 }
-            } else if (dir == BOTTOM && vel.y() < 0) { // moving downward/walking, check for collisions beneath me.
+            } else if (dir == BOTTOM && vel.globalY() < 0) { // moving downward/walking, check for collisions beneath me.
                 for (int x = curXMin; x <= curXMax; x++) {
-                    Tile tile = tiles.get(x, futYMin); // at the future y pos
-                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.x(), vel.y())) {
+                    Tile tile = tiles.get(x, futYMin); // at the future globalY pos
+                    if (tile != null && tile.getCollisionBox().intersects(this.collision, vel.globalX(), vel.globalY())) {
                         onCollideBottom(tile);
                         collided = true;
                         break;
@@ -164,24 +164,24 @@ public abstract class MovingSprite extends Sprite {
         // region Checking Frenemies
         for (MovingSprite frenemy : frenemies)
             if (this != frenemy) {
-                if (this.collision.intersects(frenemy.getCollisionBox(), vel.x(), vel.y())) {
+                if (this.collision.intersects(frenemy.getCollisionBox(), vel.globalX(), vel.globalY())) {
                     float angle = (float) Math.abs(180 / 3.14159 * Math.atan(
-                            (this.position.y() - frenemy.position.y()) /
-                                    (this.position.x() - frenemy.position.x())
+                            (this.position.globalY() - frenemy.position.globalY()) /
+                                    (this.position.globalX() - frenemy.position.globalX())
                     ));
                     if (Math.abs(angle) >= 45) { // there was a collision on top or bottom
-                        if (position.y() > frenemy.position.y()) {
+                        if (position.globalY() > frenemy.position.globalY()) {
                             this.onCollideBottom(frenemy);
                             frenemy.onCollideTop(this);
-                        } else if (position.y() < frenemy.position.y()) {
+                        } else if (position.globalY() < frenemy.position.globalY()) {
                             this.onCollideTop(frenemy);
                             frenemy.onCollideBottom(this);
                         }
                     } else {
-                        if (position.x() < frenemy.position.x()) {
+                        if (position.globalX() < frenemy.position.globalX()) {
                             this.onCollideLeft(frenemy);
                             frenemy.onCollideRight(this);
-                        } else if (position.x() > frenemy.position.x()) {
+                        } else if (position.globalX() > frenemy.position.globalX()) {
                             this.onCollideRight(frenemy);
                             frenemy.onCollideLeft(this);
                         }

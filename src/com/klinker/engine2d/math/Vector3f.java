@@ -3,7 +3,7 @@ package com.klinker.engine2d.math;
 
 
 /**
- * A vector of 3 floats (x, y, z). We use z as the render order in case
+ * A vector of 3 floats (globalX, globalY, globalZ). We use globalZ as the render order in case
  * anything should appear behind something else, even though we are working
  * with no depth.
  */
@@ -12,17 +12,17 @@ public class Vector3f {
 
 
     /**
-     * The x coordinate.
+     * The globalX coordinate.
      */
     private float x;
 
     /**
-     * The y coordinate.
+     * The globalY coordinate.
      */
     private float y;
 
     /**
-     * The z coordinate.
+     * The globalZ coordinate.
      */
     private float z;
 
@@ -49,9 +49,9 @@ public class Vector3f {
     }
 
     /**
-     * @param x The initial x coordinate.
-     * @param y The initial y coordinate.
-     * @param z The initial z coordinate.
+     * @param x The initial globalX coordinate.
+     * @param y The initial globalY coordinate.
+     * @param z The initial globalZ coordinate.
      */
     public Vector3f(float x, float y, float z) {
         this.x = x;
@@ -60,34 +60,47 @@ public class Vector3f {
     }
 
 
-    public float x() {
+    public float globalX() {
         if (relative == null) return x;
-        else return relative.x() + x;
+        else return relative.globalX() + x;
     }
 
-    public float y() {
+    public float globalY() {
         if (relative == null) return y;
-        else return relative.y() + y;
+        else return relative.globalY() + y;
     }
 
-    public float z() {
+    public float globalZ() {
         if (relative == null) return z;
-        else return relative.z() + z;
+        else return relative.globalZ() + z;
+    }
+
+
+    public float localX() {
+        return x;
+    }
+
+    public float localY() {
+        return y;
+    }
+
+    public float localZ() {
+        return z;
     }
 
     public Vector3f getRelative() {
         return relative;
     }
 
-    public void setX(float x) {
+    public void setLocalX(float x) {
         this.x = x;
     }
 
-    public void setY(float y) {
+    public void setLocalY(float y) {
         this.y = y;
     }
 
-    public void setZ(float z) {
+    public void setLocalZ(float z) {
         this.z = z;
     }
 
@@ -103,6 +116,6 @@ public class Vector3f {
 
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ", " + z + ")";
+        return "(" + x + ", " + y + ", " + z + ")" + (relative == null ? "" : " relative to " + relative.toString());
     }
 }
