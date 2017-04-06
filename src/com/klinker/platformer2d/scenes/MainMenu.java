@@ -38,7 +38,7 @@ public class MainMenu extends Menu {
         TextView version = new TextView(
                 R.strings.VERSION,
                 new Size<Float>(30f, 6f),
-                new Vector3f(0, 0, Depth.HUD),
+                new Vector3f(PROJ_SIZE.width / 2f - 3f, -PROJ_SIZE.height / 2f + 2f, Depth.HUD),
                 R.fonts.ROBOTO
         );
         version.setTextSize(3f);
@@ -46,8 +46,7 @@ public class MainMenu extends Menu {
         version.setHorAlignment(TextView.Alignment.RIGHT);
         version.setVertAlignment(TextView.Alignment.BOTTOM);
         version.setInnerHorAlign(TextView.Alignment.RIGHT);
-        version.setInnerVertAlign(TextView.Alignment.TOP);
-        version.setBackgroundTexture(R.textures.COLLISION);
+        version.setInnerVertAlign(TextView.Alignment.BOTTOM);
         views.add(version);
 
         Button storyMode = new Button(
@@ -62,8 +61,8 @@ public class MainMenu extends Menu {
         });
         views.add(storyMode);
 
-        Vector3f multiplayerPosition = new Vector3f(storyMode.getPosition());
-        multiplayerPosition.increment(0, -12f, 0);
+        Vector3f multiplayerPosition = new Vector3f(0, -12f, 0);
+        multiplayerPosition.setRelative(storyMode.getPosition());
         Button muliplayer = new Button(
                 R.strings.MULTIPLAYER,
                 new Size<Float>(35f, 8f),
@@ -76,8 +75,8 @@ public class MainMenu extends Menu {
         });
         views.add(muliplayer);
 
-        Vector3f settingsPosition = new Vector3f(muliplayer.getPosition());
-        settingsPosition.increment(0, -12f, 0);
+        Vector3f settingsPosition = new Vector3f(0, -12f, 0);
+        settingsPosition.setRelative(muliplayer.getPosition());
         Button settings = new Button(R.strings.SETTINGS,
                 new Size<Float>(35f, 8f),
                 settingsPosition,
