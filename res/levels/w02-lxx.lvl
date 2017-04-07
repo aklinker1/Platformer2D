@@ -28,11 +28,11 @@ Tiles {
 
 Player {
     x:3
-    y:3
+    y:2
     hero:1
 }
 Krawler {
     x:15
-    y:3
-    dir:left
+    y:2
+    dir:right
 }
