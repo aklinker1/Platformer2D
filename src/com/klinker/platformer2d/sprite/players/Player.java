@@ -1,4 +1,4 @@
-package com.klinker.platformer2d.sprite.frenemies.players;
+package com.klinker.platformer2d.sprite.players;
 
 
 import com.klinker.engine2d.draw.Camera;
@@ -14,8 +14,8 @@ import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
-import com.klinker.platformer2d.sprite.abstracts.Enemy;
-import com.klinker.platformer2d.sprite.abstracts.Frenemy;
+import com.klinker.platformer2d.sprite.Enemy;
+import com.klinker.platformer2d.sprite.Frenemy;
 import com.klinker.platformer2d.utils.MapReader;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.klinker.platformer2d.sprite.abstracts;
+package com.klinker.platformer2d.sprite;
 
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;

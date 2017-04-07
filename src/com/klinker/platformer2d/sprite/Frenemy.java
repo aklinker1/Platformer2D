@@ -1,4 +1,4 @@
-package com.klinker.platformer2d.sprite.abstracts;
+package com.klinker.platformer2d.sprite;
 
 import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Sprite;
@@ -19,13 +19,13 @@ public abstract class Frenemy extends MovingSprite {
         boolean found = false;
         Class klass;
         try {
-            klass = Class.forName("com.klinker.platformer2d.sprite.frenemies.enemies." + simpleName);
+            klass = Class.forName("com.klinker.platformer2d.sprite.enemies." + simpleName);
         } catch (ClassNotFoundException e1) {
             try {
-                klass = Class.forName("com.klinker.platformer2d.sprite.frenemies.friends." + simpleName);
+                klass = Class.forName("com.klinker.platformer2d.sprite.friends." + simpleName);
             } catch (ClassNotFoundException e2) {
                 try {
-                    klass = Class.forName("com.klinker.platformer2d.sprite.frenemies.players." + simpleName);
+                    klass = Class.forName("com.klinker.platformer2d.sprite.players." + simpleName);
                 } catch (ClassNotFoundException e3) {
                     Log.e("Error loading " + simpleName, e3);
                     return null;

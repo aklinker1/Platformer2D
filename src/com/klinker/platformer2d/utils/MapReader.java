@@ -5,9 +5,9 @@ import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.utils.FileUtils;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.scenes.Level;
+import com.klinker.platformer2d.sprite.Frenemy;
 import com.klinker.platformer2d.sprite.Map;
-import com.klinker.platformer2d.sprite.abstracts.Frenemy;
-import com.klinker.platformer2d.sprite.frenemies.players.Player;
+import com.klinker.platformer2d.sprite.players.Player;
 
 import java.io.File;
 import java.util.Arrays;

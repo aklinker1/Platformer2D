@@ -1,4 +1,4 @@
-package com.klinker.platformer2d.sprite.frenemies.enemies;
+package com.klinker.platformer2d.sprite.enemies;
 
 
 import com.klinker.engine2d.draw.Sprite;
@@ -11,14 +11,15 @@ import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.constants.Physics;
-import com.klinker.platformer2d.sprite.abstracts.Enemy;
-import com.klinker.platformer2d.sprite.abstracts.Frenemy;
-import com.klinker.platformer2d.sprite.frenemies.players.Player;
+import com.klinker.platformer2d.sprite.Enemy;
+import com.klinker.platformer2d.sprite.Frenemy;
+import com.klinker.platformer2d.sprite.players.Player;
 import com.klinker.platformer2d.utils.MapReader;
 
 import java.util.HashMap;
 
 
+// TODO: 4/6/2017 Krawler Collision is not showing.
 public class Krawler extends Enemy {
 
     public static Texture texture = new Texture(R.textures.enemies.KRAWLER);

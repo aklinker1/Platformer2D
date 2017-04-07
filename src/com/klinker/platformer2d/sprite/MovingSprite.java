@@ -1,4 +1,4 @@
-package com.klinker.platformer2d.sprite.abstracts;
+package com.klinker.platformer2d.sprite;
 
 import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Sprite;

@@ -4,9 +4,7 @@ import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Drawable;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
-import com.klinker.platformer2d.sprite.abstracts.Frenemy;
-import com.klinker.platformer2d.sprite.abstracts.MovingSprite;
-import com.klinker.platformer2d.sprite.frenemies.players.Player;
+import com.klinker.platformer2d.sprite.players.Player;
 import com.klinker.platformer2d.sprite.tiles.Tile;
 import com.klinker.platformer2d.utils.SparseArray2D;
 
