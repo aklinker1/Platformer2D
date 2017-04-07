@@ -117,7 +117,7 @@ public class Player extends Frenemy {
         boolean jump = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_JUMP);
         boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
 
-        if (jump && jumpFrames == 0 && isGrounded) { // pressing jump for the first time
+        if (jump && jumpFrames == 0 && isGrounded && releasedJump) { // pressing jump for the first time
             launchVelX = vel.globalX();
             releasedJump = false;
             jumpFrames = 1;
@@ -139,7 +139,6 @@ public class Player extends Frenemy {
 
     @Override
     protected void onCollideLeft(Sprite sprite) {
-        super.onCollideLeft(sprite);
         if (!(sprite instanceof Enemy)) {
             vel.setLocalX(0);
             CollisionBox otherCollision = sprite.initializeCollision();
@@ -149,7 +148,6 @@ public class Player extends Frenemy {
 
     @Override
     protected void onCollideTop(Sprite sprite) {
-        super.onCollideTop(sprite);
         if (!(sprite instanceof Enemy)) {
             vel.setLocalY(0);
             jumpFrames = Physics.Player.JUMP_HOLD_MAX; // sets this so that you cannot hover against the ceiling
@@ -160,7 +158,6 @@ public class Player extends Frenemy {
 
     @Override
     protected void onCollideRight(Sprite sprite) {
-        super.onCollideRight(sprite);
         if (!(sprite instanceof Enemy)) {
             vel.setLocalX(0);
             CollisionBox otherCollision = sprite.initializeCollision();
@@ -170,7 +167,6 @@ public class Player extends Frenemy {
 
     @Override
     protected void onCollideBottom(Sprite sprite) {
-        super.onCollideBottom(sprite);
         if (!(sprite instanceof Enemy)) {
             setGrounded();
             vel.setLocalY(0);

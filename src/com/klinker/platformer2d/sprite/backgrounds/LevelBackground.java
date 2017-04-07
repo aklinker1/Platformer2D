@@ -42,15 +42,14 @@ public class LevelBackground extends SpriteCluster {
             color[x] = new SimpleSprite(
                     position, size, String.format("res/textures/bg/%02X-00.png", world), SHADER
             );
-            color[x].setTranslation(0, 0, 0);
             diamonds[x] = new SimpleSprite(
                     position, size, String.format("res/textures/bg/%02X-01.png", world), SHADER
             );
-            diamonds[x].setTranslation(0, 0, 0.001f);
+            diamonds[x].getPosition().increment(0, 0, 0.001f);
             bars[x] = new SimpleSprite(
                     position, size, String.format("res/textures/bg/%02X-02.png", world), SHADER
             );
-            bars[x].setTranslation(0, 0, 0.002f);
+            bars[x].getPosition().increment(0, 0, 0.002f);
             addSprite(color[x]);
             addSprite(diamonds[x]);
             addSprite(bars[x]);
@@ -71,9 +70,9 @@ public class LevelBackground extends SpriteCluster {
         float yOffset = camera.getPosition().globalY();
 
         for (int x = 0; x < 2; x++) {
-            color[x].setTranslation(getXOffset(x, xDif, 0.1f), yOffset * 0.1f, 0);
-            diamonds[x].setTranslation(getXOffset(x, xDif, 0.1f), yOffset * 0.1f, 0.001f);
-            bars[x].setTranslation(getXOffset(x, xDif, 0.15f), yOffset * 0.2f, 0.002f);
+            color[x].setPosition(getXOffset(x, xDif, 0.1f), yOffset * 0.1f, 0);
+            diamonds[x].setPosition(getXOffset(x, xDif, 0.1f), yOffset * 0.1f, 0.001f);
+            bars[x].setPosition(getXOffset(x, xDif, 0.15f), yOffset * 0.2f, 0.002f);
         }
     }
 

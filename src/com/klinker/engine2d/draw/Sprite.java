@@ -15,7 +15,6 @@ public abstract class Sprite implements Drawable {
 
     protected Size<Float> size;
     public Vector3f position;
-    public Vector3f translation;
     public Vector3f cameraOffset;
     private VertexArray mesh;
     protected CollisionBox collision;
@@ -33,7 +32,6 @@ public abstract class Sprite implements Drawable {
         this.size = size;
         this.texture = texture;
         this.shader = shader;
-        this.translation = new Vector3f();
         this.cameraOffset = new Vector3f();
         initializeMesh();
     }
@@ -99,10 +97,6 @@ public abstract class Sprite implements Drawable {
     public void setSize(Size<Float> size) {
         this.size = size;
         initializeMesh();
-    }
-
-    public void setTranslation(float x, float y, float z) {
-        this.translation = new Vector3f(x, y, z);
     }
 
 }

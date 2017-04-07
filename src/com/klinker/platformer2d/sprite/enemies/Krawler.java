@@ -56,7 +56,6 @@ public class Krawler extends Enemy {
 
     @Override
     protected void onCollideLeft(Sprite sprite) {
-        super.onCollideLeft(sprite);
         if (sprite.getClass() == Player.class) {
             Log.d("Kill player");
         } else {
@@ -66,7 +65,6 @@ public class Krawler extends Enemy {
 
     @Override
     protected void onCollideTop(Sprite sprite) {
-        super.onCollideTop(sprite);
         if (sprite.getClass() == Player.class) {
             Log.d("Bopped");
         }
@@ -74,7 +72,6 @@ public class Krawler extends Enemy {
 
     @Override
     protected void onCollideRight(Sprite sprite) {
-        super.onCollideRight(sprite);
         if (sprite.getClass() == Player.class) {
             Log.d("Kill player");
         } else {
@@ -84,7 +81,6 @@ public class Krawler extends Enemy {
 
     @Override
     protected void onCollideBottom(Sprite sprite) {
-        super.onCollideBottom(sprite);
         vel.setLocalY(0);
         CollisionBox otherCollision = sprite.initializeCollision();
         position.setLocalY(otherCollision.position.globalY() + otherCollision.size.height - this.collision.position.localY());
