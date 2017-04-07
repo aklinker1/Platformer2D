@@ -301,7 +301,6 @@ public class R {
                 public static final String X15_08 = "res/textures/tiles/unlockable/x15-08.png";
                 public static final String X15_09 = "res/textures/tiles/unlockable/x15-09.png";
             }
-
             public static class unused {
                 public static final String X03_01 = "res/textures/tiles/unused/x03-01.png";
                 public static final String X03_02 = "res/textures/tiles/unused/x03-02.png";
