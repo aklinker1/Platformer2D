@@ -11,7 +11,7 @@ import com.klinker.engine2d.utils.CollisionBox;
 
 public abstract class Sprite implements Drawable {
 
-    public static boolean showCollisions = true;
+    public static boolean showCollisions = false;
 
     protected Size<Float> size;
     public Vector3f position;
@@ -67,7 +67,7 @@ public abstract class Sprite implements Drawable {
         mesh.render();
         texture.unbind();
         shader.disable();
-        if (collision != null) collision.render(camera);
+        if (showCollisions && collision != null) collision.render(camera);
     }
 
     protected void setShaderProperties(Shader shader, Camera camera) {

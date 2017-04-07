@@ -60,12 +60,12 @@ public class CollisionBox implements Drawable {
 
     @Override
     public void render(Camera camera) {
-        if (box != null) box.render(camera);
+        if (Sprite.showCollisions && box != null) box.render(camera);
     }
 
     @Override
     public void update(Camera camera) {
-        if (box != null) box.update(camera);
+        if (Sprite.showCollisions && box != null) box.update(camera);
     }
 
 }
