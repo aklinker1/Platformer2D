@@ -99,7 +99,6 @@ public class R {
                 public static final String X10_03 = "res/textures/tiles/collectables/x10-03.png";
                 public static final String X10_04 = "res/textures/tiles/collectables/x10-04.png";
             }
-
             public static class environment {
                 public static final String LAVA_SURFACE = "res/textures/tiles/environment/lava-surface.png";
                 public static final String LAVA = "res/textures/tiles/environment/lava.png";
@@ -301,6 +300,43 @@ public class R {
                 public static final String X15_07 = "res/textures/tiles/unlockable/x15-07.png";
                 public static final String X15_08 = "res/textures/tiles/unlockable/x15-08.png";
                 public static final String X15_09 = "res/textures/tiles/unlockable/x15-09.png";
+            }
+
+            public static class unused {
+                public static final String X03_01 = "res/textures/tiles/unused/x03-01.png";
+                public static final String X03_02 = "res/textures/tiles/unused/x03-02.png";
+                public static final String X03_04 = "res/textures/tiles/unused/x03-04.png";
+                public static final String X03_05 = "res/textures/tiles/unused/x03-05.png";
+                public static final String X03_07 = "res/textures/tiles/unused/x03-07.png";
+                public static final String X03_08 = "res/textures/tiles/unused/x03-08.png";
+                public static final String X03_0A = "res/textures/tiles/unused/x03-0A.png";
+                public static final String X03_0B = "res/textures/tiles/unused/x03-0B.png";
+                public static final String X04_01 = "res/textures/tiles/unused/x04-01.png";
+                public static final String X04_02 = "res/textures/tiles/unused/x04-02.png";
+                public static final String X04_04 = "res/textures/tiles/unused/x04-04.png";
+                public static final String X04_05 = "res/textures/tiles/unused/x04-05.png";
+                public static final String X04_07 = "res/textures/tiles/unused/x04-07.png";
+                public static final String X04_08 = "res/textures/tiles/unused/x04-08.png";
+                public static final String X04_0A = "res/textures/tiles/unused/x04-0A.png";
+                public static final String X04_0B = "res/textures/tiles/unused/x04-0B.png";
+                public static final String X05_02 = "res/textures/tiles/unused/x05-02.png";
+                public static final String X05_05 = "res/textures/tiles/unused/x05-05.png";
+                public static final String X05_08 = "res/textures/tiles/unused/x05-08.png";
+                public static final String X05_0B = "res/textures/tiles/unused/x05-0B.png";
+                public static final String X06_02 = "res/textures/tiles/unused/x06-02.png";
+                public static final String X06_05 = "res/textures/tiles/unused/x06-05.png";
+                public static final String X06_08 = "res/textures/tiles/unused/x06-08.png";
+                public static final String X06_0B = "res/textures/tiles/unused/x06-0B.png";
+                public static final String X07_02 = "res/textures/tiles/unused/x07-02.png";
+                public static final String X07_05 = "res/textures/tiles/unused/x07-05.png";
+                public static final String X07_08 = "res/textures/tiles/unused/x07-08.png";
+                public static final String X07_0B = "res/textures/tiles/unused/x07-0B.png";
+                public static final String X08_02 = "res/textures/tiles/unused/x08-02.png";
+                public static final String X08_05 = "res/textures/tiles/unused/x08-05.png";
+                public static final String X08_08 = "res/textures/tiles/unused/x08-08.png";
+                public static final String X08_0B = "res/textures/tiles/unused/x08-0B.png";
+                public static final String X0D_0A = "res/textures/tiles/unused/x0D-0A.png";
+                public static final String X0D_0B = "res/textures/tiles/unused/x0D-0B.png";
             }
         }
         public static class worlds {
