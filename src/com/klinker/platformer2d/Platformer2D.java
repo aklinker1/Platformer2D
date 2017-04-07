@@ -2,7 +2,6 @@ package com.klinker.platformer2d;
 
 
 import com.klinker.engine2d.Engine;
-import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.inputs.Controller;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
@@ -15,10 +14,6 @@ import com.klinker.platformer2d.utils.Settings;
 
 public class Platformer2D extends Engine {
 
-    static {
-        //System.setProperty("java.library.path", "lib/JInput");
-    }
-
     public static final String SETTINGS_PATH = "settings.pref";
 
     public static Vector2f tileCounts;
@@ -26,7 +21,6 @@ public class Platformer2D extends Engine {
     private Settings settings;
 
     public static void main(String[] args) {
-        Sprite.showCollisions = true;
         Platformer2D platformer = new Platformer2D();
         platformer.setStyle(Style.SMOOTH);
         platformer.start();
