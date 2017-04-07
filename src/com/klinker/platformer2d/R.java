@@ -72,7 +72,6 @@ public class R {
                 public static final String X11_08 = "res/textures/tiles/blocks/x11-08.png";
                 public static final String X11_09 = "res/textures/tiles/blocks/x11-09.png";
             }
-
             public static class collectables {
                 public static final String X0C_00 = "res/textures/tiles/collectables/x0C-00.png";
                 public static final String X0C_01 = "res/textures/tiles/collectables/x0C-01.png";
@@ -101,15 +100,14 @@ public class R {
                 public static final String X10_04 = "res/textures/tiles/collectables/x10-04.png";
             }
 
-            public static class enviorment {
-                public static final String LAVA_SURFACE = "res/textures/tiles/enviorment/lava-surface.png";
-                public static final String LAVA = "res/textures/tiles/enviorment/lava.png";
-                public static final String MUD_SURFACE = "res/textures/tiles/enviorment/mud-surface.png";
-                public static final String MUD = "res/textures/tiles/enviorment/mud.png";
-                public static final String WATER_SURFACE = "res/textures/tiles/enviorment/water-surface.png";
-                public static final String WATER = "res/textures/tiles/enviorment/water.png";
+            public static class environment {
+                public static final String LAVA_SURFACE = "res/textures/tiles/environment/lava-surface.png";
+                public static final String LAVA = "res/textures/tiles/environment/lava.png";
+                public static final String MUD_SURFACE = "res/textures/tiles/environment/mud-surface.png";
+                public static final String MUD = "res/textures/tiles/environment/mud.png";
+                public static final String WATER_SURFACE = "res/textures/tiles/environment/water-surface.png";
+                public static final String WATER = "res/textures/tiles/environment/water.png";
             }
-
             public static class ground {
                 public static final String CLIFF_LEFT_W01 = "res/textures/tiles/ground/cliff-left-w01.png";
                 public static final String CLIFF_LEFT_W02 = "res/textures/tiles/ground/cliff-left-w02.png";
@@ -188,7 +186,6 @@ public class R {
                 public static final String W03 = "res/textures/tiles/ground/w03.png";
                 public static final String W04 = "res/textures/tiles/ground/w04.png";
             }
-
             public static class interatables {
                 public static final String X09_0A = "res/textures/tiles/interatables/x09-0A.png";
                 public static final String X09_0B = "res/textures/tiles/interatables/x09-0B.png";
@@ -211,7 +208,6 @@ public class R {
                 public static final String X12_07 = "res/textures/tiles/interatables/x12-07.png";
                 public static final String X13_07 = "res/textures/tiles/interatables/x13-07.png";
             }
-
             public static class landscaping {
                 public static final String X09_08 = "res/textures/tiles/landscaping/x09-08.png";
                 public static final String X09_09 = "res/textures/tiles/landscaping/x09-09.png";
@@ -238,7 +234,6 @@ public class R {
                 public static final String X15_0A = "res/textures/tiles/landscaping/x15-0A.png";
                 public static final String X15_0B = "res/textures/tiles/landscaping/x15-0B.png";
             }
-
             public static class plants {
                 public static final String X09_00 = "res/textures/tiles/plants/x09-00.png";
                 public static final String X09_01 = "res/textures/tiles/plants/x09-01.png";
@@ -285,7 +280,6 @@ public class R {
                 public static final String X15_03 = "res/textures/tiles/plants/x15-03.png";
                 public static final String X15_04 = "res/textures/tiles/plants/x15-04.png";
             }
-
             public static class unlockable {
                 public static final String X11_05 = "res/textures/tiles/unlockable/x11-05.png";
                 public static final String X11_06 = "res/textures/tiles/unlockable/x11-06.png";
