@@ -33,6 +33,8 @@ public abstract class Engine {
      */
     private Thread thread;
 
+    private boolean isFullscreen = true;
+
     /**
      * The input manager for handling input.
      */
@@ -121,11 +123,15 @@ public abstract class Engine {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-        window = glfwCreateWindow(windowSize.width, windowSize.height, getWindowTitle(), NULL, NULL);
+        if (isFullscreen) {
+            GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
+            window = glfwCreateWindow(vidMode.width(), vidMode.height(), getWindowTitle(), glfwGetPrimaryMonitor(), NULL);
+        } else {
+            window = glfwCreateWindow(windowSize.width, windowSize.height, getWindowTitle(), NULL, NULL);
+        }
         if (window == NULL) {
-            // TODO: 2/26/2017 error createing window
             Log.e("Error creating window");
             return;
         }
@@ -133,13 +139,10 @@ public abstract class Engine {
         // if (inputManager.getController() == null) inputManager.getKeyboard().setup();
         Log.d("Arrows = Move\n[space] = Jump/Select\nX = Run/Back");
 
-        // set window position to centered
-        GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
-        //glfwSetWindowPos(window, (vidMode.width() - windowSize.width) / 2, (vidMode.height() - windowSize.height) / 2);
         glfwMakeContextCurrent(window);     // set OS focus to this window
         GL.createCapabilities();
         glfwShowWindow(window);
-        //glfwSetWindowIcon(window, );      TODO: 2/26/2017 Add Icon
+        //glfwSetWindowIcon(window, );
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glActiveTexture(GL_TEXTURE1);

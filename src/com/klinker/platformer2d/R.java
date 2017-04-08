@@ -57,6 +57,16 @@ public class R {
         }
         public static class tiles {
             public static class blocks {
+                public static final String END_BOTTOM_LEFT_W02 = "res/textures/tiles/blocks/end-bottom-left-w02.png";
+                public static final String END_BOTTOM_RIGHT_W02 = "res/textures/tiles/blocks/end-bottom-right-w02.png";
+                public static final String END_BOTTOM_W02 = "res/textures/tiles/blocks/end-bottom-w02.png";
+                public static final String END_LEFT_W02 = "res/textures/tiles/blocks/end-left-w02.png";
+                public static final String END_RIGHT_W02 = "res/textures/tiles/blocks/end-right-w02.png";
+                public static final String END_TOP_LEFT_W02 = "res/textures/tiles/blocks/end-top-left-w02.png";
+                public static final String END_TOP_RIGHT_W02 = "res/textures/tiles/blocks/end-top-right-w02.png";
+                public static final String END_TOP_W02 = "res/textures/tiles/blocks/end-top-w02.png";
+                public static final String SINGLE_W02 = "res/textures/tiles/blocks/single-w02.png";
+                public static final String W02 = "res/textures/tiles/blocks/w02.png";
                 public static final String X0C_05 = "res/textures/tiles/blocks/x0C-05.png";
                 public static final String X0C_06 = "res/textures/tiles/blocks/x0C-06.png";
                 public static final String X0D_05 = "res/textures/tiles/blocks/x0D-05.png";

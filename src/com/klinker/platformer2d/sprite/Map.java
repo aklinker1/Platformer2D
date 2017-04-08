@@ -103,7 +103,10 @@ public class Map implements Drawable {
             }
         }
         // TODO: update spawn/visible, despawn invisible
-        for (Frenemy sprite : frenemies) sprite.update(camera, tiles, frenemies);
+        for (Frenemy sprite : frenemies)
+            if (sprite.isSpawned()) {
+                sprite.update(camera, tiles, frenemies);
+            }
 
         // limit player sprite to map width
         Player player = (Player) frenemies.peekFirst();

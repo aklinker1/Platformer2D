@@ -50,6 +50,8 @@ public abstract class Frenemy extends MovingSprite {
         return null;
     }
 
+    private boolean isSpawned = true;
+
     /**
      * Creates an enemy with the specified qualities.
      *
@@ -68,6 +70,10 @@ public abstract class Frenemy extends MovingSprite {
     @Override
     public void update(Camera camera) {
 
+    }
+
+    public boolean isSpawned() {
+        return isSpawned;
     }
 
 }
