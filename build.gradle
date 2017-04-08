@@ -1,16 +1,39 @@
-apply plugin: 'java'
-apply plugin: 'application'
+plugins {
+    id 'com.stehno.natives' version '0.3.1'
+    id 'java'
+    id 'application'
+}
 
+sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = ['src']
 mainClassName = 'com.klinker.platformer2d.Platformer2D'
-run.standardInput = System.in
-run.args = ['-Djava.library.path=lib/lwjgl;lib/JInput', '-XstartOnFirstThread']
 
 repositories {
     mavenCentral()
 }
 
+natives {
+    libraries {
+        include = [
+            'jinput-dx8.dll', 
+            'jinput-dx8_64.dll', 
+            'jinput-raw.dll', 
+            'jinput-raw_64.dll', 
+            'jinput-wintab.dll', 
+            'libjinput-linux.so', 
+            'libjinput-linux64.so', 
+            'libjinput-osx.jnilib']
+    }
+}
+
+run {
+    standardInput System.in
+    dependsOn includeNatives
+    systemProperty 'java.library.path', "$buildDir/natives"
+    jvmArgs '-XstartOnFirstThread'
+}
+
 dependencies {
+    compile 'net.java.jinput:jinput:2.0.6'
     compile fileTree(dir: 'lib/lwjgl', include: ['*.jar'])
-    compile fileTree(dir: 'lib/JInput', include: ['*.jar', '*.dll', '*.so', '*.jnilib'])
 }
