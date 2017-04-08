@@ -1,0 +1,16 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceSets.main.java.srcDirs = ['src']
+mainClassName = 'com.klinker.platformer2d.Platformer2D'
+run.standardInput = System.in
+run.args = ['-Djava.library.path=lib/lwjgl;lib/JInput', '-XstartOnFirstThread']
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'lib/lwjgl', include: ['*.jar'])
+    compile fileTree(dir: 'lib/JInput', include: ['*.jar', '*.dll', '*.so', '*.jnilib'])
+}
