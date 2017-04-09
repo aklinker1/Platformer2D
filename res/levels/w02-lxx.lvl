@@ -36,8 +36,3 @@ Krawler {
     y:2
     dir:left
 }
-Krawler {
-    x:18
-    y:2
-    dir:left
-}
