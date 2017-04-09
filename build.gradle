@@ -29,7 +29,9 @@ run {
     standardInput System.in
     dependsOn includeNatives
     systemProperty 'java.library.path', "$buildDir/natives"
-    jvmArgs '-XstartOnFirstThread'
+    if (System.properties['os.name'].toLowerCase().contains('mac')) {
+        jvmArgs '-XstartOnFirstThread'
+    }
 }
 
 dependencies {
