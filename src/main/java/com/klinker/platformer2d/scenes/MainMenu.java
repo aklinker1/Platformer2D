@@ -95,13 +95,13 @@ public class MainMenu extends Menu {
         View vertDivider = new View(new Vector3f(0, 0, Depth.BACKGROUND_FRONT), new Size<Float>(0.2f, PROJ_SIZE.height));
         vertDivider.setHorAlignment(View.Alignment.CENTER);
         vertDivider.setVertAlignment(View.Alignment.CENTER);
-        vertDivider.setBackgroundTexture(R.textures.bg.B03_00);
+        vertDivider.setBackgroundTexture(R.textures.bg.W03_00);
         views.add(vertDivider);
 
         View horDivider = new View(new Vector3f(0, 0, Depth.BACKGROUND_FRONT), new Size<Float>(PROJ_SIZE.width, 0.2f));
         horDivider.setHorAlignment(View.Alignment.CENTER);
         horDivider.setVertAlignment(View.Alignment.CENTER);
-        horDivider.setBackgroundTexture(R.textures.bg.B03_00);
+        horDivider.setBackgroundTexture(R.textures.bg.W03_00);
         views.add(horDivider);
 
     }

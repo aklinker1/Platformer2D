@@ -6,7 +6,7 @@ import java.io.*;
 public class BuildResources {
 
     public static void main(String[] args) throws IOException {
-        new BuildResources("res", "com.klinker.platformer2d").build();
+        new BuildResources("src/main/resources", "com.klinker.platformer2d").build();
     }
 
     private File resRoot;
@@ -21,7 +21,7 @@ public class BuildResources {
 
     private void build() throws IOException {
         // setup the java file
-        javaFile = new File("../src/" + packageName.replace('.', '/'), "R.java");
+        javaFile = new File("../src/main/java/" + packageName.replace('.', '/'), "R.java");
         javaFile.getParentFile().mkdirs();
         javaFile.createNewFile();
         String fileBody = "package " + packageName + ";\n" +

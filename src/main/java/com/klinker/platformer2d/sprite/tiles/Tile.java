@@ -42,7 +42,7 @@ public class Tile extends Sprite {
         super(
                 position,
                 new Size<>(1f, 1f),
-                new Texture(String.format("res/textures/tiles/%02X-%02X.png", world, tile)),
+                new Texture(String.format("src/main/resources/textures/tiles/%02X-%02X.png", world, tile)),
                 SHADER
         );
         this.world = world;
