@@ -1,0 +1,5 @@
+.DS_STORE
+.gradle/
+build/
+*.iml
+*.pref

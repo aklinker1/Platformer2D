@@ -1,0 +1,40 @@
+plugins {
+    id 'com.stehno.natives' version '0.3.1'
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = 1.8
+mainClassName = 'com.klinker.platformer2d.Platformer2D'
+
+repositories {
+    mavenCentral()
+}
+
+natives {
+    libraries {
+        include = [
+            'jinput-dx8.dll', 
+            'jinput-dx8_64.dll', 
+            'jinput-raw.dll', 
+            'jinput-raw_64.dll', 
+            'jinput-wintab.dll', 
+            'libjinput-linux.so', 
+            'libjinput-linux64.so', 
+            'libjinput-osx.jnilib']
+    }
+}
+
+run {
+    standardInput System.in
+    dependsOn includeNatives
+    systemProperty 'java.library.path', "$buildDir/natives"
+    if (System.properties['os.name'].toLowerCase().contains('mac')) {
+        jvmArgs '-XstartOnFirstThread'
+    }
+}
+
+dependencies {
+    compile 'net.java.jinput:jinput:2.0.6'
+    compile fileTree(dir: 'lib/lwjgl', include: ['*.jar'])
+}
