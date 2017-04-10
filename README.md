@@ -20,7 +20,6 @@ java -Djava.library.path=./bin -XstartOnFirstThread -jar Platformer2D.jar
 
 
 ### To-Do
-===
 - [ ] Engine2D
   - [x] Sprites
   - [x] Collisions
