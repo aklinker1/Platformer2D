@@ -4,28 +4,12 @@ Based off an artstyle by open source game art designer [Kenney](http://www.kenne
 
 ![Concept by Kenney](http://opengameart.org/sites/default/files/Sample_28.png)
 
-If you wanna try it out, download the Platformer2D.zip, and extracti it to a single location. Open a terminal and run the following command:
-
-``` Windows
-java -Djava.library.path=%cd%/bin -jar Platformer2D.jar
-```
-
-``` Linux
-java -Djava.library.path=./bin -jar Platformer2D.jar
-```
-
-``` Mac
-java -Djava.library.path=./bin -XstartOnFirstThread -jar Platformer2D.jar
-```
-
-
 ### To-Do
-===
 - [ ] Engine2D
   - [x] Sprites
   - [x] Collisions
-    - [ ] Debug regions (show)
-  - [ ] Enemies
+    - [x] Show hit-boxes (Still buggy)
+  - [x] Enemies
   - [ ] Animations
   - [x] Text (Kinda)
 - [x] Create Menus
@@ -33,8 +17,8 @@ java -Djava.library.path=./bin -XstartOnFirstThread -jar Platformer2D.jar
   - [x] Main Menu
   - [ ] Settings
     - [ ] General Settings
-    - [ ] Inputs
-    - [ ] Debug Mode
+    - [x] Inputs
+    - [x] Debug Mode
     - [ ] Story Mode Menu
       - [ ] Saves
       - [ ] Save Options
