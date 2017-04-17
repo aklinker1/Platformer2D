@@ -100,8 +100,11 @@ public class Controller implements InputSource {
             if (ctrl != null) {
                 controller = new Controller(ctrl);
             } else {
-                Log.d("Previous controller not plugged in, setting up new one.");
-                return Controller.setup();
+                Log.d("\nPrevious controller not plugged in, using defaults");
+                Log.d("[ arrow-keys ] = Move");
+                Log.d("[ space ] = Select/Jump");
+                Log.d("[ X ] = Back/Run\n");
+                return null;
             }
             Component[] components = ctrl.getComponents();
             Button[] buttons = new Button[InputManager.INPUT_COUNT];
@@ -137,48 +140,6 @@ public class Controller implements InputSource {
 
     public void setComponents(Component[] components) {
         this.components = components;
-    }
-
-    public static Controller setup() {
-        net.java.games.input.Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
-        ArrayList<net.java.games.input.Controller> controllers = new ArrayList<>();
-
-        for (net.java.games.input.Controller c : ca) {
-            if (c.getType() != net.java.games.input.Controller.Type.UNKNOWN &&
-                    c.getType() != net.java.games.input.Controller.Type.KEYBOARD)
-                controllers.add(c);
-        }
-
-        Log.d("Select device:");
-        Log.d("0: Default (Keyboard)");
-        for(int i = 1; i <= controllers.size(); i++) {
-            net.java.games.input.Controller c = controllers.get(i - 1);
-            Log.d(String.format(
-                    "%d: %s (%s)",
-                    i, c.getName(), c.getType().toString()
-            ));
-        }
-        System.out.print("\n?: ");
-        Scanner input = new Scanner(System.in);
-        int c = Integer.parseInt(input.nextLine());
-
-        if (c == 0) return null;
-
-        net.java.games.input.Controller jCtrl = controllers.get(c - 1);
-        jCtrl.poll();
-
-        Log.d("\nSetting up Inputs:");
-        Controller controller = new Controller(jCtrl);
-
-        float[] left = controller.waitForInput("Left");
-        float[] right = controller.waitForInput("Right");
-        float[] up = controller.waitForInput("Up");
-        float[] down = controller.waitForInput("Down");
-        float[] jump = controller.waitForInput("Jump/Select");
-        float[] run = controller.waitForInput("Run/Back");
-
-        controller.setControls(left, right, up, down, jump, run);
-        return controller;
     }
 
 }

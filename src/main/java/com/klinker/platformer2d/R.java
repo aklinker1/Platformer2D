@@ -55,6 +55,16 @@ public class R {
         }
         public static class tiles {
             public static class blocks {
+                public static final String BLOCK_W02 = "src/main/resources/textures/tiles/blocks/block-w02.png";
+                public static final String END_BOTTOM_LEFT_W02 = "src/main/resources/textures/tiles/blocks/end-bottom-left-w02.png";
+                public static final String END_BOTTOM_RIGHT_W02 = "src/main/resources/textures/tiles/blocks/end-bottom-right-w02.png";
+                public static final String END_BOTTOM_W02 = "src/main/resources/textures/tiles/blocks/end-bottom-w02.png";
+                public static final String END_LEFT_W02 = "src/main/resources/textures/tiles/blocks/end-left-w02.png";
+                public static final String END_RIGHT_W02 = "src/main/resources/textures/tiles/blocks/end-right-w02.png";
+                public static final String END_TOP_LEFT_W02 = "src/main/resources/textures/tiles/blocks/end-top-left-w02.png";
+                public static final String END_TOP_RIGHT_W02 = "src/main/resources/textures/tiles/blocks/end-top-right-w02.png";
+                public static final String END_TOP_W02 = "src/main/resources/textures/tiles/blocks/end-top-w02.png";
+                public static final String SINGLE_W02 = "src/main/resources/textures/tiles/blocks/single-w02.png";
                 public static final String X0C_05 = "src/main/resources/textures/tiles/blocks/x0C-05.png";
                 public static final String X0C_06 = "src/main/resources/textures/tiles/blocks/x0C-06.png";
                 public static final String X0D_05 = "src/main/resources/textures/tiles/blocks/x0D-05.png";
@@ -69,6 +79,33 @@ public class R {
                 public static final String X10_09 = "src/main/resources/textures/tiles/blocks/x10-09.png";
                 public static final String X11_08 = "src/main/resources/textures/tiles/blocks/x11-08.png";
                 public static final String X11_09 = "src/main/resources/textures/tiles/blocks/x11-09.png";
+            }
+            public static class collectables {
+                public static final String X0C_00 = "src/main/resources/textures/tiles/collectables/x0C-00.png";
+                public static final String X0C_01 = "src/main/resources/textures/tiles/collectables/x0C-01.png";
+                public static final String X0C_02 = "src/main/resources/textures/tiles/collectables/x0C-02.png";
+                public static final String X0C_03 = "src/main/resources/textures/tiles/collectables/x0C-03.png";
+                public static final String X0C_04 = "src/main/resources/textures/tiles/collectables/x0C-04.png";
+                public static final String X0D_00 = "src/main/resources/textures/tiles/collectables/x0D-00.png";
+                public static final String X0D_01 = "src/main/resources/textures/tiles/collectables/x0D-01.png";
+                public static final String X0D_02 = "src/main/resources/textures/tiles/collectables/x0D-02.png";
+                public static final String X0D_03 = "src/main/resources/textures/tiles/collectables/x0D-03.png";
+                public static final String X0D_04 = "src/main/resources/textures/tiles/collectables/x0D-04.png";
+                public static final String X0E_00 = "src/main/resources/textures/tiles/collectables/x0E-00.png";
+                public static final String X0E_01 = "src/main/resources/textures/tiles/collectables/x0E-01.png";
+                public static final String X0E_02 = "src/main/resources/textures/tiles/collectables/x0E-02.png";
+                public static final String X0E_03 = "src/main/resources/textures/tiles/collectables/x0E-03.png";
+                public static final String X0E_04 = "src/main/resources/textures/tiles/collectables/x0E-04.png";
+                public static final String X0F_00 = "src/main/resources/textures/tiles/collectables/x0F-00.png";
+                public static final String X0F_01 = "src/main/resources/textures/tiles/collectables/x0F-01.png";
+                public static final String X0F_02 = "src/main/resources/textures/tiles/collectables/x0F-02.png";
+                public static final String X0F_03 = "src/main/resources/textures/tiles/collectables/x0F-03.png";
+                public static final String X0F_04 = "src/main/resources/textures/tiles/collectables/x0F-04.png";
+                public static final String X10_00 = "src/main/resources/textures/tiles/collectables/x10-00.png";
+                public static final String X10_01 = "src/main/resources/textures/tiles/collectables/x10-01.png";
+                public static final String X10_02 = "src/main/resources/textures/tiles/collectables/x10-02.png";
+                public static final String X10_03 = "src/main/resources/textures/tiles/collectables/x10-03.png";
+                public static final String X10_04 = "src/main/resources/textures/tiles/collectables/x10-04.png";
             }
             public static class enviorment {
                 public static final String LAVA_SURFACE = "src/main/resources/textures/tiles/enviorment/lava-surface.png";
@@ -269,8 +306,6 @@ public class R {
                 public static final String X15_02 = "src/main/resources/textures/tiles/plants/x15-02.png";
                 public static final String X15_03 = "src/main/resources/textures/tiles/plants/x15-03.png";
                 public static final String X15_04 = "src/main/resources/textures/tiles/plants/x15-04.png";
-            }
-            public static class unlockable {
             }
         }
         public static class worlds {

@@ -16,7 +16,7 @@ public class Block extends Tile {
                 position,
                 Depth.TILE,
                 new Size<Float>(1f, 1f),
-                R.textures.tiles.blocks.W02,
+                R.textures.tiles.blocks.BLOCK_W02,
                 world
         );
     }

@@ -42,7 +42,7 @@ public class Platformer2D extends Engine {
 
     @Override
     public String getWindowTitle() {
-        return "Platformer 2D";
+        return R.strings.GAME_TITLE;
     }
 
     private Settings initializeSettings() {

@@ -1,4 +1,4 @@
-Level View ports will be around 24 by ~14.
+Level View port will be around 28 by ~19.
 Therefore, Tile size = WIDTH / TILES = 1920 / 24 = 80 pixels;
 
 GUI Style: http://designmodo.github.io/Flat-UI/ or http://netdna.webdesignerdepot.com/uploads/2015/02/003.jpg

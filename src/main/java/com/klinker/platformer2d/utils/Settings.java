@@ -41,12 +41,7 @@ public class Settings extends Preferences {
         data.put(Settings.KEY_TILE_WIDTH, Settings.DEFAULT_TILE_WIDTH);
         data.put(Settings.KEY_WINDOW_WIDTH, Settings.DEFAULT_WINDOW_WIDTH);
         data.put(Settings.KEY_WINDOW_FULL_SCREEN, Settings.DEFAULT_WINDOW_FULL_SCREEN);
-        setupController();
         return data;
-    }
-
-    private void setupController() {
-        this.controller = Controller.setup();
     }
 
     @Override
