@@ -7,3 +7,6 @@ META-INF/
 *.iml
 *.pref
 *.sublime*
+gradle/
+log/
+out/

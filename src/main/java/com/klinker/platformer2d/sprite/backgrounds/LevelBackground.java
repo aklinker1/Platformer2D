@@ -51,7 +51,7 @@ public class LevelBackground extends SpriteCluster {
             Vector3f bPos = new Vector3f(0, 0, 0.002f);
             bPos.setRelative(position);
             bars[x] = new SimpleSprite(
-                    bPos, size, String.format("res/textures/bg/%02X-02.png", world), SHADER
+                    bPos, size, R.textures.bg.W01_02.replace("w01", String.format("w%02X", world)), SHADER
             );
             addSprite(color[x]);
             addSprite(diamonds[x]);

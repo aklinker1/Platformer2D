@@ -1,3 +1,4 @@
+game-title:"Platformer2D"
 story-mode:"Story Mode"
 multiplayer:"Multiplayer"
 settings:"Settings"

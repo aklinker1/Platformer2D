@@ -1,15 +1,13 @@
 @ECHO off
 ECHO / / / / / Building Resources / / / / /
 ECHO Compiling...
-CD C:\Users\aaron\Programming\Java\Platformer2D\scripts
-java BuildResources.java
+javac BuildResources.java
 ECHO Running...
-java BuildingResources.class
+java BuildResources
 ECHO Cleaning...
-DEL BuildingResources.class
+DEL BuildResources.class
 CD ../
 ECHO Done!
-ECHO.
 
-ECHO  / / / / / Building Gradle / / / / /
-gradlew build run
+ECHO / / / / / Running / / / / /
+gradle build run

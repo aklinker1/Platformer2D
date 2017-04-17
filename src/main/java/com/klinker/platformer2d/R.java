@@ -20,6 +20,7 @@ public class R {
         }
     }
     public static class strings {
+        public static final String GAME_TITLE = "Platformer2D";
         public static final String STORY_MODE = "Story Mode";
         public static final String MULTIPLAYER = "Multiplayer";
         public static final String SETTINGS = "Settings";
