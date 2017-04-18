@@ -94,15 +94,16 @@ public class Player extends Frenemy {
                 accel = -Physics.Player.ACCELERATE_TURN;
             }
         } else { // not doing anything
-            if (vel.globalX() > Physics.Player.DECELERATE / 2f) accel = -Physics.Player.DECELERATE;
-            else if (vel.globalX() < -Physics.Player.DECELERATE / 2f) accel = Physics.Player.DECELERATE;
+            final float decel = isGrounded ? Physics.Player.DECELERATE_GROUND : Physics.Player.DECELERATE_AIR;
+            if (vel.globalX() > -decel / 2f) accel = decel;
+            else if (vel.globalX() < decel / 2f) accel = -decel;
             else accel = -vel.globalX();
         }
 
         // change velocity
         vel.increment(accel, 0, 0);
 
-        if (run) {
+        if (run || !isGrounded) {
             if (vel.globalX() > Physics.Player.MAX_VEL_X_RUN) vel.setLocalX(Physics.Player.MAX_VEL_X_RUN);
             else if (vel.globalX() < -Physics.Player.MAX_VEL_X_RUN) vel.setLocalX(-Physics.Player.MAX_VEL_X_RUN);
         } else {
@@ -118,6 +119,7 @@ public class Player extends Frenemy {
         boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
 
         if (jump && jumpFrames == 0 && isGrounded && releasedJump) { // pressing jump for the first time
+            isGrounded = false;
             launchVelX = vel.globalX();
             releasedJump = false;
             jumpFrames = 1;

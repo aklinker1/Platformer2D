@@ -8,6 +8,7 @@ ECHO Cleaning...
 DEL BuildResources.class
 CD ../
 ECHO Done!
+ECHO.
 
 ECHO / / / / / Running / / / / /
 gradle build run

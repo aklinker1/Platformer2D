@@ -1,11 +1,12 @@
 package com.klinker.platformer2d.constants;
 
-public class Physics {
+public class   Physics {
 
     public static final float GRAVITY = 0.015f;
 
     public static class Player {
-        public static final float DECELERATE = 0.006f;
+        public static final float DECELERATE_GROUND = -0.0045f;
+        public static final float DECELERATE_AIR = -0.001f;
         public static final float ACCELERATE_TURN = 0.008f;
         public static final float ACCELERATE_GROUND = 0.002f;
         public static final float ACCELERATE_GROUND_RUN = 0.004f;
@@ -22,4 +23,5 @@ public class Physics {
     public class Krawler {
         public static final float VEL_X = 0.035f;
     }
+
 }
