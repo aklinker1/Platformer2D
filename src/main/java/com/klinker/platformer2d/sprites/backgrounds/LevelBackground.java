@@ -6,6 +6,7 @@ import com.klinker.engine2d.draw.SpriteCluster;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.sprites.players.Player;
@@ -52,10 +53,10 @@ public class LevelBackground extends SpriteCluster {
             bars[x] = new SimpleSprite(
                     bPos, size, R.textures.bg.W01_02.replace("w01", String.format("w%02X", world)), SHADER
             );
-            addSprite(color[x]);
-            addSprite(diamonds[x]);
-            addSprite(bars[x]);
         }
+        for (int x = 0; x < 2; x++) addSprite(color[x]);
+        for (int x = 0; x < 2; x++) addSprite(diamonds[x]);
+        for (int x = 0; x < 2; x++) addSprite(bars[x]);
     }
 
     @Override
@@ -72,16 +73,22 @@ public class LevelBackground extends SpriteCluster {
         float yOffset = camera.getPosition().globalY();
 
         for (int x = 0; x < 2; x++) {
-            color[x].getPosition().setLocalX(getXOffset(x, xDif, 0.0f));
+            color[x].getPosition().setLocalX(0);
             color[x].getPosition().setLocalY(0);
-            diamonds[x].getPosition().setLocalX(getXOffset(x, xDif, 0.1f));
-            diamonds[x].getPosition().setLocalY(yOffset * 0.1f);
-            bars[x].setPosition(getXOffset(x, xDif, 0.15f), yOffset * 0.2f, 0.002f);
+            diamonds[x].getPosition().setLocalX(getXOffset(x, xDif, 0.15f)); // was 0.2f
+            diamonds[x].getPosition().setLocalY(yOffset * 0.15f); // was 0.2f
+            bars[x].getPosition().setLocalX(getXOffset(x, xDif, 0.3f)); // was 0.3f
+            bars[x].getPosition().setLocalY(yOffset * 0.3f); // was 0.3f
+            Log.d("color[" + x + "] = " + color[x].getPosition().localX());
+            Log.d("diamonds[" + x + "] = " + diamonds[x].getPosition().localX());
+            Log.d("bars[" + x + "] = " + bars[x].getPosition().localX());
         }
+        Log.d("");
     }
 
     private float getXOffset(int x, float xDif, float multiplier) {
-        return ((xDif * multiplier) % size.width) * x + xDif * multiplier;
+        // todo: When this whole value is < 0, add the size to it.
+        return size.width * x - Math.abs(multiplier * xDif) % size.width;
     }
 
 }
