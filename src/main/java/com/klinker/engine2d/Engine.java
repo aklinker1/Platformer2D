@@ -277,6 +277,14 @@ public abstract class Engine {
      */
     protected abstract void onFinish();
 
+    /**
+     * TODO: make it toggle-able, currently can only be called before {@link Engine#start()}
+     * @param isFullscreen Whether or not the game is full screen.
+     */
+    public void setFullscreen(boolean isFullscreen) {
+        this.isFullscreen = isFullscreen;
+    }
+
     public void setInputManager(InputManager manager) {
         inputManager = manager;
     }

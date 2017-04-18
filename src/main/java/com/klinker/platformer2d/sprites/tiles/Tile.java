@@ -79,7 +79,7 @@ public abstract class Tile extends SimpleSprite {
     public static Tile newInstance(Vector2f position, int world, int tile) {
         String klassName = null;
         try {
-            klassName = "com.klinker.platformer2d.sprite.tiles." + tileMapping[tile];
+            klassName = "com.klinker.platformer2d.sprites.tiles." + tileMapping[tile];
             Class<?> klass = Class.forName(klassName);
             Constructor<?> constructor = klass.getConstructor(Vector2f.class, int.class);
             return (Tile) constructor.newInstance(position, world);
