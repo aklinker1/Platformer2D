@@ -9,9 +9,17 @@ Based off an artstyle by open source game art designer [Kenney](http://www.kenne
   - [x] Sprites
   - [x] Collisions
     - [x] Show hit-boxes (Still buggy)
-  - [x] Enemies
+  - [ ] Loading Scenes
   - [ ] Animations
-  - [x] Text (Kinda)
+  - [ ] Text (Kinda)
+    - [ ] Render typefaces
+    - [x] Render font images
+  - [ ] User Interface
+    - [x] TextView
+    - [x] ImageView
+    - [ ] Button
+    - [ ] EditText
+    - [ ] ComboBox
 - [x] Create Menus
   - [ ] Style/Design
   - [x] Main Menu
@@ -25,6 +33,13 @@ Based off an artstyle by open source game art designer [Kenney](http://www.kenne
   - [ ] Multiplayer Menu
 - [ ] Story Mode
   - [ ] Overworld
+    - [ ] ???
   - [ ] Levels
+    - [x] Enemies
+    - [x] Level Background
+    - [ ] HUD
+    - [ ] Make all the Levels (0/XX)
+  - [ ] Cut-scenes
+    - [ ] ???
 - [ ] __Multiplayer/Racing!__
   - [ ] ???
