@@ -17,7 +17,6 @@ public class LevelBackground extends SpriteCluster {
 
 
     private int world;
-    private Player player;
 
     private SimpleSprite[] color;
     private SimpleSprite[] diamonds;
@@ -27,7 +26,6 @@ public class LevelBackground extends SpriteCluster {
     public LevelBackground(Vector3f position, int world, Player player) {
         super(position, new Size<Float>(Platformer2D.tileCounts.x, 3f / 4f * Platformer2D.tileCounts.x));
         this.world = world;
-        this.player = player;
 
         createSprites();
     }
