@@ -6,7 +6,6 @@ import com.klinker.engine2d.draw.SpriteCluster;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
-import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.sprites.players.Player;
@@ -77,11 +76,7 @@ public class LevelBackground extends SpriteCluster {
             diamonds[x].getPosition().setLocalY(yOffset * 0.15f); // was 0.2f
             bars[x].getPosition().setLocalX(getXOffset(x, xDif, 0.3f)); // was 0.3f
             bars[x].getPosition().setLocalY(yOffset * 0.3f); // was 0.3f
-            Log.d("color[" + x + "] = " + color[x].getPosition().localX());
-            Log.d("diamonds[" + x + "] = " + diamonds[x].getPosition().localX());
-            Log.d("bars[" + x + "] = " + bars[x].getPosition().localX());
         }
-        Log.d("");
     }
 
     private float getXOffset(int x, float xDif, float multiplier) {
