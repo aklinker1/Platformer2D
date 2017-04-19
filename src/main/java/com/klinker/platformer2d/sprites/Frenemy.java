@@ -40,7 +40,6 @@ public abstract class Frenemy extends MovingSprite {
                 String value = parts[1];
                 mapping.put(key, value);
             }
-            Log.d("Mapping: " + mapping.toString());
             return (Frenemy) newInstance.invoke(null, new Object[]{mapping});
         } catch (NoSuchMethodException e) {
             Log.e("No newInstance method in " + simpleName);

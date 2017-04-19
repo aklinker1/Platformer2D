@@ -16,7 +16,7 @@ public class FillShapeOutline extends Tile {
                 position,
                 Depth.TILE,
                 new Size<Float>(1f, 1f),
-                R.textures.tiles.ground.FILL_1_W01,
+                R.textures.tiles.ground.FILL_OUTLINE_W01,
                 world
         );
     }

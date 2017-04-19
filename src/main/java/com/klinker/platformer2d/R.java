@@ -1,6 +1,11 @@
 package com.klinker.platformer2d;
 
 public class R {
+    public static class anim {
+        public static class enemies {
+            public static final String KRAWLER = "src/main/resources/anim/enemies/krawler.anim";
+        }
+    }
     public static class fonts {
         public static final String ROBOTO = "src/main/resources/fonts/roboto";
     }
@@ -47,7 +52,34 @@ public class R {
         }
         public static final String COLLISION = "src/main/resources/textures/collision.png";
         public static class enemies {
-            public static final String KRAWLER = "src/main/resources/textures/enemies/krawler.png";
+            public static final String KRAWLER00 = "src/main/resources/textures/enemies/krawler00.png";
+            public static final String KRAWLER01 = "src/main/resources/textures/enemies/krawler01.png";
+            public static final String KRAWLER02 = "src/main/resources/textures/enemies/krawler02.png";
+            public static final String KRAWLER03 = "src/main/resources/textures/enemies/krawler03.png";
+            public static final String KRAWLER04 = "src/main/resources/textures/enemies/krawler04.png";
+            public static final String KRAWLER05 = "src/main/resources/textures/enemies/krawler05.png";
+            public static final String KRAWLER06 = "src/main/resources/textures/enemies/krawler06.png";
+            public static final String KRAWLER07 = "src/main/resources/textures/enemies/krawler07.png";
+            public static final String KRAWLER08 = "src/main/resources/textures/enemies/krawler08.png";
+            public static final String KRAWLER09 = "src/main/resources/textures/enemies/krawler09.png";
+            public static final String KRAWLER10 = "src/main/resources/textures/enemies/krawler10.png";
+            public static final String KRAWLER11 = "src/main/resources/textures/enemies/krawler11.png";
+            public static final String KRAWLER12 = "src/main/resources/textures/enemies/krawler12.png";
+            public static final String KRAWLER13 = "src/main/resources/textures/enemies/krawler13.png";
+            public static final String KRAWLER14 = "src/main/resources/textures/enemies/krawler14.png";
+            public static final String KRAWLER15 = "src/main/resources/textures/enemies/krawler15.png";
+            public static final String KRAWLER16 = "src/main/resources/textures/enemies/krawler16.png";
+            public static final String KRAWLER17 = "src/main/resources/textures/enemies/krawler17.png";
+            public static final String KRAWLER18 = "src/main/resources/textures/enemies/krawler18.png";
+            public static final String KRAWLER19 = "src/main/resources/textures/enemies/krawler19.png";
+            public static final String KRAWLER20 = "src/main/resources/textures/enemies/krawler20.png";
+            public static final String KRAWLER21 = "src/main/resources/textures/enemies/krawler21.png";
+            public static final String KRAWLER22 = "src/main/resources/textures/enemies/krawler22.png";
+            public static final String KRAWLER23 = "src/main/resources/textures/enemies/krawler23.png";
+            public static final String KRAWLER24 = "src/main/resources/textures/enemies/krawler24.png";
+            public static final String KRAWLER25 = "src/main/resources/textures/enemies/krawler25.png";
+            public static final String KRAWLER26 = "src/main/resources/textures/enemies/krawler26.png";
+            public static final String KRAWLER27 = "src/main/resources/textures/enemies/krawler27.png";
         }
         public static class players {
             public static class hero01 {
@@ -141,18 +173,18 @@ public class R {
                 public static final String END_RIGHT_W02 = "src/main/resources/textures/tiles/ground/end-right-w02.png";
                 public static final String END_RIGHT_W03 = "src/main/resources/textures/tiles/ground/end-right-w03.png";
                 public static final String END_RIGHT_W04 = "src/main/resources/textures/tiles/ground/end-right-w04.png";
-                public static final String FILL_0_W01 = "src/main/resources/textures/tiles/ground/fill-0-w01.png";
-                public static final String FILL_0_W02 = "src/main/resources/textures/tiles/ground/fill-0-w02.png";
-                public static final String FILL_0_W03 = "src/main/resources/textures/tiles/ground/fill-0-w03.png";
-                public static final String FILL_0_W04 = "src/main/resources/textures/tiles/ground/fill-0-w04.png";
-                public static final String FILL_1_W01 = "src/main/resources/textures/tiles/ground/fill-1-w01.png";
-                public static final String FILL_1_W02 = "src/main/resources/textures/tiles/ground/fill-1-w02.png";
-                public static final String FILL_1_W03 = "src/main/resources/textures/tiles/ground/fill-1-w03.png";
-                public static final String FILL_1_W04 = "src/main/resources/textures/tiles/ground/fill-1-w04.png";
-                public static final String FILL_2_W01 = "src/main/resources/textures/tiles/ground/fill-2-w01.png";
-                public static final String FILL_2_W02 = "src/main/resources/textures/tiles/ground/fill-2-w02.png";
-                public static final String FILL_2_W03 = "src/main/resources/textures/tiles/ground/fill-2-w03.png";
-                public static final String FILL_2_W04 = "src/main/resources/textures/tiles/ground/fill-2-w04.png";
+                public static final String FILL_OUTLINE_W01 = "src/main/resources/textures/tiles/ground/fill-outline-w01.png";
+                public static final String FILL_OUTLINE_W02 = "src/main/resources/textures/tiles/ground/fill-outline-w02.png";
+                public static final String FILL_OUTLINE_W03 = "src/main/resources/textures/tiles/ground/fill-outline-w03.png";
+                public static final String FILL_OUTLINE_W04 = "src/main/resources/textures/tiles/ground/fill-outline-w04.png";
+                public static final String FILL_SHAPE_W01 = "src/main/resources/textures/tiles/ground/fill-shape-w01.png";
+                public static final String FILL_SHAPE_W02 = "src/main/resources/textures/tiles/ground/fill-shape-w02.png";
+                public static final String FILL_SHAPE_W03 = "src/main/resources/textures/tiles/ground/fill-shape-w03.png";
+                public static final String FILL_SHAPE_W04 = "src/main/resources/textures/tiles/ground/fill-shape-w04.png";
+                public static final String FILL_W01 = "src/main/resources/textures/tiles/ground/fill-w01.png";
+                public static final String FILL_W02 = "src/main/resources/textures/tiles/ground/fill-w02.png";
+                public static final String FILL_W03 = "src/main/resources/textures/tiles/ground/fill-w03.png";
+                public static final String FILL_W04 = "src/main/resources/textures/tiles/ground/fill-w04.png";
                 public static final String FLOATING_END_LEFT_W01 = "src/main/resources/textures/tiles/ground/floating-end-left-w01.png";
                 public static final String FLOATING_END_LEFT_W02 = "src/main/resources/textures/tiles/ground/floating-end-left-w02.png";
                 public static final String FLOATING_END_LEFT_W03 = "src/main/resources/textures/tiles/ground/floating-end-left-w03.png";
@@ -169,6 +201,10 @@ public class R {
                 public static final String GROUND_RF_W02 = "src/main/resources/textures/tiles/ground/ground-rf-w02.png";
                 public static final String GROUND_RF_W03 = "src/main/resources/textures/tiles/ground/ground-rf-w03.png";
                 public static final String GROUND_RF_W04 = "src/main/resources/textures/tiles/ground/ground-rf-w04.png";
+                public static final String GROUND_W01 = "src/main/resources/textures/tiles/ground/ground-w01.png";
+                public static final String GROUND_W02 = "src/main/resources/textures/tiles/ground/ground-w02.png";
+                public static final String GROUND_W03 = "src/main/resources/textures/tiles/ground/ground-w03.png";
+                public static final String GROUND_W04 = "src/main/resources/textures/tiles/ground/ground-w04.png";
                 public static final String SINGLE_W01 = "src/main/resources/textures/tiles/ground/single-w01.png";
                 public static final String SINGLE_W02 = "src/main/resources/textures/tiles/ground/single-w02.png";
                 public static final String SINGLE_W03 = "src/main/resources/textures/tiles/ground/single-w03.png";
@@ -189,10 +225,6 @@ public class R {
                 public static final String SLOPE_45_1_W02 = "src/main/resources/textures/tiles/ground/slope-45-1-w02.png";
                 public static final String SLOPE_45_1_W03 = "src/main/resources/textures/tiles/ground/slope-45-1-w03.png";
                 public static final String SLOPE_45_1_W04 = "src/main/resources/textures/tiles/ground/slope-45-1-w04.png";
-                public static final String W01 = "src/main/resources/textures/tiles/ground/w01.png";
-                public static final String W02 = "src/main/resources/textures/tiles/ground/w02.png";
-                public static final String W03 = "src/main/resources/textures/tiles/ground/w03.png";
-                public static final String W04 = "src/main/resources/textures/tiles/ground/w04.png";
             }
             public static class interatables {
                 public static final String X09_0A = "src/main/resources/textures/tiles/interatables/x09-0A.png";

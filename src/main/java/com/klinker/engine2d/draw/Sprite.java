@@ -18,7 +18,7 @@ public abstract class Sprite implements Drawable {
     public Vector3f cameraOffset;
     private VertexArray mesh;
     protected CollisionBox collision;
-    protected Texture texture;
+    private Texture texture;
     protected Shader shader;
 
 
@@ -99,4 +99,11 @@ public abstract class Sprite implements Drawable {
         initializeMesh();
     }
 
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
 }

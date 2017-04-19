@@ -16,7 +16,7 @@ public class Ground extends Tile {
                 position,
                 Depth.TILE,
                 new Size<Float>(1f, 1f),
-                R.textures.tiles.ground.W01,
+                R.textures.tiles.ground.GROUND_W01,
                 world
         );
     }

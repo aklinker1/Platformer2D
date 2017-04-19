@@ -16,7 +16,7 @@ public class FillShape extends Tile {
                 position,
                 Depth.TILE,
                 new Size<Float>(1f, 1f),
-                R.textures.tiles.ground.FILL_2_W01,
+                R.textures.tiles.ground.FILL_SHAPE_W01,
                 world
         );
     }

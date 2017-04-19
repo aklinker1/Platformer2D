@@ -16,7 +16,7 @@ public class Fill extends Tile {
                 position,
                 Depth.TILE,
                 new Size<Float>(1f, 1f),
-                R.textures.tiles.ground.FILL_0_W01,
+                R.textures.tiles.ground.FILL_W01,
                 world
         );
     }

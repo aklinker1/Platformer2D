@@ -1,6 +1,8 @@
 package com.klinker.platformer2d.sprites.enemies;
 
 
+import com.klinker.engine2d.animations.FrameAnimation;
+import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
@@ -22,7 +24,8 @@ import java.util.HashMap;
 // TODO: 4/6/2017 Krawler Collision is not showing.
 public class Krawler extends Enemy {
 
-    public static Texture texture = new Texture(R.textures.enemies.KRAWLER);
+    public static Texture texture = new Texture(R.anim.enemies.KRAWLER + "/krawler-00.png");
+    public static FrameAnimation animation;
 
     public static Krawler newInstance(HashMap<String, String> mapping) {
         int x = Integer.parseInt(mapping.get(MapReader.parameters.POS_X));
@@ -41,6 +44,7 @@ public class Krawler extends Enemy {
                 Frenemy.SHADER
         );
         vel.setLocalX(Physics.Krawler.VEL_X);
+        animation = new FrameAnimation(R.anim.enemies.KRAWLER, true);
     }
 
 
@@ -52,6 +56,12 @@ public class Krawler extends Enemy {
                 new Vector2f(30f / 2f / 80, 0f),
                 position
         );
+    }
+
+    @Override
+    public void update(Camera camera) {
+        super.update(camera);
+        if (animation != null) animation.update(this);
     }
 
     @Override

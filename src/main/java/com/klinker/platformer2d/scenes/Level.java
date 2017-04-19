@@ -8,6 +8,7 @@ import com.klinker.engine2d.draw.SimpleSprite;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.sprites.Map;
@@ -50,9 +51,21 @@ public class Level extends Scene {
 
     @Override
     public void init() {
+        Log.d("Loading times: ");
+        long start = System.currentTimeMillis();
+        long prevTime = start;
         super.init();
+        Log.d("- Super(): " + (System.currentTimeMillis() - prevTime) / 1000f + " s");
+        prevTime = System.currentTimeMillis();
+
         map = MapReader.read(this, this.level);
+        Log.d("- Map creation: " + (System.currentTimeMillis() - prevTime) / 1000f + " s");
+        prevTime = System.currentTimeMillis();
+
         background = new LevelBackground(new Vector3f(0f, 0f, Depth.BACKGROUND_FRONT), map.getWorld(), map.getPlayer());
+        Log.d("- Background: " + (System.currentTimeMillis() - prevTime) / 1000f + " s");
+        Log.d("Total: " + (System.currentTimeMillis() - start) / 1000f + " s");
+
     }
 
     @Override

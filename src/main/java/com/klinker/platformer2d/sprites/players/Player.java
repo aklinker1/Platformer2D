@@ -27,7 +27,6 @@ public class Player extends Frenemy {
         int x = Integer.parseInt(mapping.get(MapReader.parameters.POS_X));
         int y = Integer.parseInt(mapping.get(MapReader.parameters.POS_Y));
         int hero = Integer.parseInt(mapping.get(MapReader.parameters.HERO), 16);
-        Log.d("Created player");
         return new Player(new Vector2f(x, y), hero);
     }
 

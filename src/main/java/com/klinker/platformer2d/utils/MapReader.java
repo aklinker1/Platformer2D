@@ -31,7 +31,6 @@ public class MapReader {
         try {
             String content = FileUtils.loadAsString(file.getPath());
             Pattern brackets = Pattern.compile("(\\})[\\s]*");
-            Log.d("Pattern = " + brackets.toString());
             LinkedList<String> args = new LinkedList<>();
             args.addAll(Arrays.asList(
                     content.split(brackets.pattern())
