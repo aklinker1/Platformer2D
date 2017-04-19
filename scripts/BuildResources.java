@@ -60,7 +60,7 @@ public class BuildResources {
         } else {
             if (dir.getName().endsWith(".psd")) return "";
             else {
-                String varName = dir.getName().substring(0, dir.getName().lastIndexOf('.')).toUpperCase().replace('-', '_');
+                String varName = dir.getName().substring(0, dir.getName().indexOf('.')).toUpperCase().replace('-', '_');
                 if (Character.isDigit(varName.charAt(0))) varName = Character.toUpperCase(dir.getParentFile().getName().charAt(0)) + varName;
                 body += "public static final String " + varName +
                         " = \"" + dir.getPath().replace('\\', '/').replace("../", "") + "\";\n";
