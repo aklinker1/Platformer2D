@@ -39,22 +39,23 @@ public class LevelBackground extends SpriteCluster {
             color[x] = new SimpleSprite(
                     cPos, size, R.textures.bg.W01_00.replace("w01", String.format("w%02X", world)), SHADER
             );
-            addSprite(color[x]);
 
             Vector3f dPos = new Vector3f();
             dPos.setRelative(position);
             diamonds[x] = new SimpleSprite(
                     dPos, size, R.textures.bg.W01_01.replace("w01", String.format("w%02X", world)), SHADER
             );
-            addSprite(diamonds[x]);
 
             Vector3f bPos = new Vector3f(0, 0, 0.01f);
             bPos.setRelative(position);
             bars[x] = new SimpleSprite(
                     bPos, size, R.textures.bg.W01_02.replace("w01", String.format("w%02X", world)), SHADER
             );
-            addSprite(bars[x]);
         }
+
+        for (int x = 0; x < 2; x++) addSprite(color[x]);
+        for (int x = 0; x < 2; x++) addSprite(diamonds[x]);
+        for (int x = 0; x < 2; x++) addSprite(bars[x]);
     }
 
     @Override
