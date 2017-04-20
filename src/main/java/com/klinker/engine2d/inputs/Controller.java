@@ -7,7 +7,6 @@ import net.java.games.input.ControllerEnvironment;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Controller implements InputSource {
 
@@ -31,6 +30,7 @@ public class Controller implements InputSource {
     @Override
     public void update() {
         controller.poll();
+        for (Button button : buttons) button.poll();
     }
 
     public float[] waitForInput(String forWhat) {
@@ -66,6 +66,11 @@ public class Controller implements InputSource {
     @Override
     public boolean isPressed(int button) {
         return buttons[button].isPressed();
+    }
+
+    @Override
+    public boolean isClicked(int button) {
+        return buttons[button].isClicked();
     }
 
     public boolean outputToFile(String filePath) {

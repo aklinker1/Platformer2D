@@ -74,6 +74,7 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
      * @param keyCode The key to check.
      * @return true when the array's value is less than a click value.
      */
+    @Override
     public boolean isClicked(int keyCode) {
         boolean click = clicked[buttons[keyCode]];
         if (click) clicked[buttons[keyCode]] = false;

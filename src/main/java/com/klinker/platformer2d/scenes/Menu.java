@@ -8,6 +8,7 @@ import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.utils.MenuNavigation;
 
@@ -47,10 +48,11 @@ public abstract class Menu extends Scene {
 
     @Override
     public void update(Camera camera) {
-        boolean left = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_LEFT);
-        boolean up = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_UP);
-        boolean right = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_RIGHT);
-        boolean down = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_DOWN);
+        boolean left = Platformer2D.getInputManager().isClicked(InputManager.BUTTON_LEFT);
+        boolean up = Platformer2D.getInputManager().isClicked(InputManager.BUTTON_UP);
+        boolean right = Platformer2D.getInputManager().isClicked(InputManager.BUTTON_RIGHT);
+        boolean down = Platformer2D.getInputManager().isClicked(InputManager.BUTTON_DOWN);
+        Log.d("Up: " + up + ", Down: " + down);
         if (left && !right) onLeftPress();
         if (right && !left) onRightPress();
         if (up && !down) onUpPress();
