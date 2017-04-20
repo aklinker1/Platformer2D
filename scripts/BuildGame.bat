@@ -10,5 +10,5 @@ CD ../
 ECHO Done!
 ECHO.
 
-ECHO / / / / / Running / / / / /
+ECHO / / / / / Building Game / / / / /
 gradle build run

@@ -6,6 +6,7 @@ import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.draw.SimpleSprite;
 import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.Log;
@@ -45,7 +46,7 @@ public class Level extends Scene {
      * @param levelPath The path to the data file.
      */
     public Level(Engine engine, String levelPath) {
-        super(engine, new Camera(new Size<Float>(Platformer2D.tileCounts.x, Platformer2D.tileCounts.y), new Vector3f()));
+        super(engine, new Camera(new Size<Float>(Platformer2D.tileCounts.x, Platformer2D.tileCounts.y), new Vector2f()));
         this.level = new File(levelPath);
     }
 
@@ -62,7 +63,7 @@ public class Level extends Scene {
         Log.d("- Map creation: " + (System.currentTimeMillis() - prevTime) / 1000f + " s");
         prevTime = System.currentTimeMillis();
 
-        background = new LevelBackground(new Vector3f(0f, 0f, Depth.BACKGROUND_FRONT), map.getWorld(), map.getPlayer());
+        background = new LevelBackground(new Vector3f(0f, 0f, Depth.BACKGROUND_MIDDLE), map.getWorld());
         Log.d("- Background: " + (System.currentTimeMillis() - prevTime) / 1000f + " s");
         Log.d("Total: " + (System.currentTimeMillis() - start) / 1000f + " s");
 
@@ -77,6 +78,11 @@ public class Level extends Scene {
     public void update(Camera camera) {
         background.update(camera);
         map.update(camera);
+    }
+
+    @Override
+    public String description() {
+        return this.level.getName();
     }
 
     @Override

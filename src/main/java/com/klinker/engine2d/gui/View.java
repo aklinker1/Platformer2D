@@ -86,6 +86,7 @@ public class View implements Drawable {
 
     @Override
     public void update(Camera camera) {
+        camera.addToLayers(this, position.globalZ());
         if (background != null) background.get(state).update(camera);
         if (state == State.SELECTED && Platformer2D.getInputManager().isClicked(InputManager.BUTTON_SELECT) && onClickListener != null) {
             onClickListener.onClick(this);
@@ -158,4 +159,8 @@ public class View implements Drawable {
         }
     }
 
+    @Override
+    public String description() {
+        return "View";
+    }
 }

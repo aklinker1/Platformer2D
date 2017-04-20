@@ -7,7 +7,7 @@ import com.klinker.engine2d.gui.Button;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector3f;
+import com.klinker.engine2d.math.Vector2f;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.utils.MenuNavigation;
 
@@ -27,7 +27,7 @@ public abstract class Menu extends Scene {
 
 
     public Menu(Engine engine) {
-        super(engine, new Camera(PROJ_SIZE, new Vector3f(PROJ_SIZE.width / 2f, PROJ_SIZE.height / 2f, 0f)));
+        super(engine, new Camera(PROJ_SIZE, new Vector2f(PROJ_SIZE.width / 2f, PROJ_SIZE.height / 2f)));
     }
 
     @Override

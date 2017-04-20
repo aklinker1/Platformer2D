@@ -1,8 +1,9 @@
 package com.klinker.engine2d.utils;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
-public class Queue<T> {
+public class Queue<T> implements Iterable<T> {
 
     private LinkedList<T> list;
     private boolean loop;
@@ -42,4 +43,8 @@ public class Queue<T> {
         return list.getFirst();
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        return list.iterator();
+    }
 }

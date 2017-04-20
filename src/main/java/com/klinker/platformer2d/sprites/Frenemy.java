@@ -68,7 +68,8 @@ public abstract class Frenemy extends MovingSprite {
 
     @Override
     public void update(Camera camera) {
-
+        super.update(camera);
+        collision.update(camera);
     }
 
     public boolean isSpawned() {

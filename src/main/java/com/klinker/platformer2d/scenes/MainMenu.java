@@ -109,4 +109,8 @@ public class MainMenu extends Menu {
 
     }
 
+    @Override
+    public String description() {
+        return "MainMenu";
+    }
 }

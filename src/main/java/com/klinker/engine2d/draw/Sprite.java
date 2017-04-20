@@ -17,7 +17,7 @@ public abstract class Sprite implements Drawable {
     public Vector3f position;
     public Vector3f cameraOffset;
     private VertexArray mesh;
-    protected CollisionBox collision;
+    protected CollisionBox collision = null ;
     private Texture texture;
     protected Shader shader;
 
@@ -68,6 +68,11 @@ public abstract class Sprite implements Drawable {
         if (showCollisions && collision != null) collision.render(camera);
     }
 
+    @Override
+    public void update(Camera camera) {
+        camera.addToLayers(this, position.globalZ());
+    }
+
     protected void setShaderProperties(Shader shader, Camera camera) {
         shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, camera.getPosition()));
     }
@@ -86,12 +91,6 @@ public abstract class Sprite implements Drawable {
 
     public CollisionBox initializeCollision() {
         return collision;
-    }
-
-    public void setPosition(float x, float y, float z) {
-        this.position.setLocalX(x);
-        this.position.setLocalY(y);
-        this.position.setLocalZ(z);
     }
 
     public void setSize(Size<Float> size) {

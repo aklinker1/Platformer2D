@@ -162,32 +162,31 @@ public abstract class MovingSprite extends Sprite {
         // endregion
 
         // region Checking Frenemies
-        for (MovingSprite frenemy : frenemies)
-            if (this != frenemy) {
-                if (this.collision.intersects(frenemy.initializeCollision(), vel.globalX(), vel.globalY())) {
-                    float angle = (float) Math.abs(180 / 3.14159 * Math.atan(
-                            (this.position.globalY() - frenemy.position.globalY()) /
-                                    (this.position.globalX() - frenemy.position.globalX())
-                    ));
-                    if (Math.abs(angle) >= 45) { // there was a collision on top or bottom
-                        if (position.globalY() > frenemy.position.globalY()) {
-                            this.onCollideBottom(frenemy);
-                            frenemy.onCollideTop(this);
-                        } else if (position.globalY() < frenemy.position.globalY()) {
-                            this.onCollideTop(frenemy);
-                            frenemy.onCollideBottom(this);
-                        }
-                    } else {
-                        if (position.globalX() < frenemy.position.globalX()) {
-                            this.onCollideLeft(frenemy);
-                            frenemy.onCollideRight(this);
-                        } else if (position.globalX() > frenemy.position.globalX()) {
-                            this.onCollideRight(frenemy);
-                            frenemy.onCollideLeft(this);
-                        }
+        for (MovingSprite frenemy : frenemies) if (this != frenemy) {
+            if (this.collision.intersects(frenemy.initializeCollision(), vel.globalX(), vel.globalY())) {
+                float angle = (float) Math.abs(180 / 3.14159 * Math.atan(
+                        (this.position.globalY() - frenemy.position.globalY()) /
+                                (this.position.globalX() - frenemy.position.globalX())
+                ));
+                if (Math.abs(angle) >= 45) { // there was a collision on top or bottom
+                    if (position.globalY() > frenemy.position.globalY()) {
+                        this.onCollideBottom(frenemy);
+                        frenemy.onCollideTop(this);
+                    } else if (position.globalY() < frenemy.position.globalY()) {
+                        this.onCollideTop(frenemy);
+                        frenemy.onCollideBottom(this);
+                    }
+                } else {
+                    if (position.globalX() < frenemy.position.globalX()) {
+                        this.onCollideLeft(frenemy);
+                        frenemy.onCollideRight(this);
+                    } else if (position.globalX() > frenemy.position.globalX()) {
+                        this.onCollideRight(frenemy);
+                        frenemy.onCollideLeft(this);
                     }
                 }
             }
+        }
         // endregion
 
         // No collision detected

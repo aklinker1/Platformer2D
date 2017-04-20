@@ -51,36 +51,6 @@ public class R {
             public static final String REGULAR = "src/main/resources/textures/buttons/regular.9";
         }
         public static final String COLLISION = "src/main/resources/textures/collision.png";
-        public static class enemies {
-            public static final String KRAWLER00 = "src/main/resources/textures/enemies/krawler00.png";
-            public static final String KRAWLER01 = "src/main/resources/textures/enemies/krawler01.png";
-            public static final String KRAWLER02 = "src/main/resources/textures/enemies/krawler02.png";
-            public static final String KRAWLER03 = "src/main/resources/textures/enemies/krawler03.png";
-            public static final String KRAWLER04 = "src/main/resources/textures/enemies/krawler04.png";
-            public static final String KRAWLER05 = "src/main/resources/textures/enemies/krawler05.png";
-            public static final String KRAWLER06 = "src/main/resources/textures/enemies/krawler06.png";
-            public static final String KRAWLER07 = "src/main/resources/textures/enemies/krawler07.png";
-            public static final String KRAWLER08 = "src/main/resources/textures/enemies/krawler08.png";
-            public static final String KRAWLER09 = "src/main/resources/textures/enemies/krawler09.png";
-            public static final String KRAWLER10 = "src/main/resources/textures/enemies/krawler10.png";
-            public static final String KRAWLER11 = "src/main/resources/textures/enemies/krawler11.png";
-            public static final String KRAWLER12 = "src/main/resources/textures/enemies/krawler12.png";
-            public static final String KRAWLER13 = "src/main/resources/textures/enemies/krawler13.png";
-            public static final String KRAWLER14 = "src/main/resources/textures/enemies/krawler14.png";
-            public static final String KRAWLER15 = "src/main/resources/textures/enemies/krawler15.png";
-            public static final String KRAWLER16 = "src/main/resources/textures/enemies/krawler16.png";
-            public static final String KRAWLER17 = "src/main/resources/textures/enemies/krawler17.png";
-            public static final String KRAWLER18 = "src/main/resources/textures/enemies/krawler18.png";
-            public static final String KRAWLER19 = "src/main/resources/textures/enemies/krawler19.png";
-            public static final String KRAWLER20 = "src/main/resources/textures/enemies/krawler20.png";
-            public static final String KRAWLER21 = "src/main/resources/textures/enemies/krawler21.png";
-            public static final String KRAWLER22 = "src/main/resources/textures/enemies/krawler22.png";
-            public static final String KRAWLER23 = "src/main/resources/textures/enemies/krawler23.png";
-            public static final String KRAWLER24 = "src/main/resources/textures/enemies/krawler24.png";
-            public static final String KRAWLER25 = "src/main/resources/textures/enemies/krawler25.png";
-            public static final String KRAWLER26 = "src/main/resources/textures/enemies/krawler26.png";
-            public static final String KRAWLER27 = "src/main/resources/textures/enemies/krawler27.png";
-        }
         public static class players {
             public static class hero01 {
                 public static final String BODY = "src/main/resources/textures/players/hero01/body.png";

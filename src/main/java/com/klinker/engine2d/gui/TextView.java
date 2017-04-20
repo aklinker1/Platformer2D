@@ -10,6 +10,8 @@ import com.klinker.platformer2d.R;
 import java.awt.*;
 import java.util.LinkedList;
 
+
+// TODO: 4/19/2017 Text disappears due to texture caching.
 public class TextView extends View {
 
 
@@ -58,7 +60,7 @@ public class TextView extends View {
         for (int i = 0; i < text.length(); i++) {
             widths[i] = textWidth;
             int c = text.charAt(i);
-            Vector3f pos = new Vector3f(0, vertOffset, 0.001f);
+            Vector3f pos = new Vector3f(0, vertOffset, 0.01f);
             pos.setRelative(this.position);
             Glyph _char = new Glyph(
                     pos,

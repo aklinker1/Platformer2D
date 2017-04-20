@@ -6,4 +6,6 @@ public interface Drawable {
 
     void update(Camera camera);
 
+    String description();
+
 }

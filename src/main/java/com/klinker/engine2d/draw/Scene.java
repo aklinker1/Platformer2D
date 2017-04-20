@@ -34,7 +34,7 @@ public abstract class Scene implements Drawable {
     }
 
     public void render() {
-        render(camera);
+        camera.renderLayers();
     }
 
     public void update() {

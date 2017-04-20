@@ -19,4 +19,7 @@ public class Log {
         }
     }
 
+    public static void d(String format, Object ... args) {
+        System.out.println(String.format(format, args));
+    }
 }

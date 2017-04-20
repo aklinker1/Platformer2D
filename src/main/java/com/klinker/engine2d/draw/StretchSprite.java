@@ -59,4 +59,8 @@ public class StretchSprite extends SpriteCluster {
         }
     }
 
+    @Override
+    public String description() {
+        return "Texture: " + textRes;
+    }
 }

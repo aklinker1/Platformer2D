@@ -2,6 +2,7 @@ package com.klinker.platformer2d;
 
 
 import com.klinker.engine2d.Engine;
+import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.inputs.Controller;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
@@ -24,6 +25,7 @@ public class Platformer2D extends Engine {
         Platformer2D platformer = new Platformer2D();
         platformer.setStyle(Style.SMOOTH);
         platformer.setFullscreen(false);
+        Sprite.showCollisions = true;
         platformer.start();
     }
 

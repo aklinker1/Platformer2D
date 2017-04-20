@@ -9,6 +9,7 @@ import com.klinker.platformer2d.R;
 public class SimpleSprite extends Sprite {
 
     public static final Shader SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.BASIC);
+    private String textRes;
 
     /**
      * Constructor for a simple sprite that supports alpha.
@@ -23,6 +24,7 @@ public class SimpleSprite extends Sprite {
 
     public SimpleSprite(Vector3f position, Size<Float> size, String textRes, Shader shader) {
         super(position, size, new Texture(textRes), shader);
+        this.textRes = textRes;
     }
 
     @Override
@@ -32,7 +34,12 @@ public class SimpleSprite extends Sprite {
 
     @Override
     public void update(Camera camera) {
-
+        super.update(camera);
+        camera.addToLayers(this, position.globalZ());
     }
 
+    @Override
+    public String description() {
+        return "Texture: " + textRes;
+    }
 }

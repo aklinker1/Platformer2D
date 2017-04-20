@@ -28,6 +28,7 @@ public abstract class SpriteCluster implements Drawable {
 
     @Override
     public void update(Camera camera) {
+        camera.addToLayers(this, position.globalZ());
         for (Sprite sprite : sprites) sprite.update(camera);
     }
 

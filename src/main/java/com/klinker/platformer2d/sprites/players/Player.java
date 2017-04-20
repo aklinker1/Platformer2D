@@ -183,6 +183,7 @@ public class Player extends Frenemy {
 
     @Override
     public void update(Camera camera) {
+        super.update(camera);
         // Limit globalY Velocity: Max fall speed.
         if (vel.globalY() < Physics.Player.MAX_FALL_SPEED) vel.setLocalY(Physics.Player.MAX_FALL_SPEED);
         // TODO: Notifies when the player dies off the bottom.
@@ -194,4 +195,8 @@ public class Player extends Frenemy {
         Log.d("KILLED PLAYER");
     }
 
+    @Override
+    public String description() {
+        return "Player";
+    }
 }

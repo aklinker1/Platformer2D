@@ -125,4 +125,9 @@ public class Krawler extends Enemy {
     public boolean isSafeBottom() {
         return false;
     }
+
+    @Override
+    public String description() {
+        return "Krawler";
+    }
 }

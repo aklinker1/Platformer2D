@@ -26,10 +26,13 @@ public class CollisionBox implements Drawable {
     public CollisionBox(Shape shape, Size<Float> size, Vector2f position, Vector3f parentPosition) {
         this.shape = shape;
         this.size = size;
-        this.position = new Vector3f(position.x, position.y, Depth.HUD_HIGH);
+        this.position = new Vector3f(position.x, position.y, 0);
         this.position.setRelative(parentPosition);
         if (Sprite.showCollisions) {
-            this.box = new SimpleSprite(this.position, this.size, R.textures.COLLISION);
+            this.box = new SimpleSprite(new Vector3f(), this.size, R.textures.COLLISION);
+            this.box.getPosition().setRelative(this.position);
+            // force the local depth to be at HUD_LOW
+            this.box.getPosition().setLocalZ(Depth.HUD_LOW - this.position.globalZ());
         } else {
             this.box = null;
         }
@@ -60,12 +63,16 @@ public class CollisionBox implements Drawable {
 
     @Override
     public void render(Camera camera) {
-        if (Sprite.showCollisions && box != null) box.render(camera);
+        if (box != null) box.render(camera);
     }
 
     @Override
     public void update(Camera camera) {
-        if (Sprite.showCollisions && box != null) box.update(camera);
+        if (box != null) box.update(camera);
     }
 
+    @Override
+    public String description() {
+        return "CollisionBox@(" + this.position.localX() + ", " + this.position.localY() + ")";
+    }
 }

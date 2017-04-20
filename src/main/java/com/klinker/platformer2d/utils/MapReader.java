@@ -41,7 +41,6 @@ public class MapReader {
             int world = 0;
             int[][] tiles = null;
             LinkedList<Frenemy> frenemies = new LinkedList<>();
-            Player player = null;
 
             while (!args.isEmpty()) {
                 String arg = args.removeFirst();
