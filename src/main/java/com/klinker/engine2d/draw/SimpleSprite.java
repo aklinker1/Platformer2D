@@ -35,11 +35,10 @@ public class SimpleSprite extends Sprite {
     @Override
     public void update(Camera camera) {
         super.update(camera);
-        camera.addToLayers(this, position.globalZ());
     }
 
     @Override
     public String description() {
-        return "Texture: " + textRes;
+        return "SimpleSprite: ..." + textRes.substring(textRes.lastIndexOf('/') - 10);
     }
 }
