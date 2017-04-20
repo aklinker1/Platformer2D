@@ -1,6 +1,8 @@
-package com.klinker.engine2d.draw;
+package com.klinker.engine2d.gui;
 
 import com.klinker.engine2d.Engine;
+import com.klinker.engine2d.draw.Camera;
+import com.klinker.engine2d.draw.Drawable;
 import com.klinker.engine2d.opengl.Shader;
 
 import java.util.Arrays;

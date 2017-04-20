@@ -2,8 +2,8 @@ package com.klinker.platformer2d.scenes;
 
 import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.draw.Camera;
-import com.klinker.engine2d.draw.Scene;
 import com.klinker.engine2d.gui.Button;
+import com.klinker.engine2d.gui.Scene;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;

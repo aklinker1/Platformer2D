@@ -1,7 +1,7 @@
 package com.klinker.engine2d;
 
 
-import com.klinker.engine2d.draw.Scene;
+import com.klinker.engine2d.gui.Scene;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.opengl.Texture;
