@@ -10,6 +10,8 @@ import com.klinker.platformer2d.utils.SparseArray;
 
 public class Camera {
 
+    public static boolean SHOW_LAYER_CONTENTS = false;
+
     private Matrix4f projection;
     private Vector3f position;
     private Size<Float> size;
@@ -71,11 +73,9 @@ public class Camera {
 
     public void renderLayers() {
         SparseArray<Layers.DrawableQueue> layerQueues = layers.getLayerQueues();
-        Log.d("Items to render [");
-        for (int i = 0; i < layerQueues.size(); i++) {
-            Log.d("\t" + layerQueues.keyAt(i) + ":\t" + layerQueues.valueAt(i).size());
+        if (SHOW_LAYER_CONTENTS) {
+            Log.d(layers.toString());
         }
-        Log.d("]");
         for (int i = 0; i < layerQueues.size(); i++) {
             Layers.DrawableQueue queue = layerQueues.valueAt(i);
             while (!queue.isEmpty()) {

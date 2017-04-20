@@ -11,7 +11,6 @@ import java.awt.*;
 import java.util.LinkedList;
 
 
-// TODO: 4/19/2017 Text disappears due to texture caching.
 public class TextView extends View {
 
 

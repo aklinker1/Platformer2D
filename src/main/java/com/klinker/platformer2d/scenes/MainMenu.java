@@ -29,7 +29,7 @@ public class MainMenu extends Menu {
     @Override
     protected void initializeViews(LinkedList<View> views, MenuNavigation<Button> navigation) {
         View background = new View(
-                new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_MIDDLE),
+                new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK),
                 new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
         );
         background.setBackgroundTexture(R.textures.bg.MAIN_MENU);

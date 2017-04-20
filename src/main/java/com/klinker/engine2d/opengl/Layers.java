@@ -40,4 +40,17 @@ public class Layers {
         return(int) (depth * 100);
     }
 
+    @Override
+    public String toString() {
+        String result = "Items to render [\n";
+        for (int i = 0; i < layers.size(); i++) {
+            result += "\t" + layers.keyAt(i) + " (" + layers.valueAt(i).size() + "):\t";
+            for (Drawable drawable : layers.valueAt(i)) {
+                result += drawable.description() + ", ";
+            }
+            result += '\n';
+        }
+        result += '\n';
+        return result;
+    }
 }

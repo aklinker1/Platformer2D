@@ -1,6 +1,7 @@
 package com.klinker.engine2d.opengl;
 
 
+import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.utils.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -28,9 +29,9 @@ public class Texture {
 
     /**
      * A cache of OpenGL ID's to so I don't have to keep reloading the textures.
-     * todo: Implement a way to clear the cache at the begining of each scene
      */
     private static HashMap<String, Integer> cache = new HashMap<>();
+    private static HashMap<String, Size<Integer>> sizeCache = new HashMap<>();
 
     /**
      * The dimensions of the image.
@@ -59,13 +60,18 @@ public class Texture {
      * @return The OpenGL texture id.
      */
     protected int load(String path) {
-        if (cache.containsKey(path)) return cache.get(path);
+        if (cache.containsKey(path)) {
+            this.width = sizeCache.get(path).width;
+            this.height = sizeCache.get(path).height;
+            return cache.get(path);
+        }
         int[] pixels = null;
         BufferedImage image;
         try {
             image = ImageIO.read(new FileInputStream(path));
             width = image.getWidth();
             height = image.getHeight();
+            sizeCache.put(path, new Size<Integer>(width, height));
             pixels = new int[width * height];
             image.getRGB(0, 0, width, height, pixels, 0, width);
         } catch (IOException e) {
