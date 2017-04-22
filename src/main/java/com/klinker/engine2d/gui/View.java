@@ -89,8 +89,8 @@ public class View implements Drawable {
 
     @Override
     public void update(Camera camera) {
-        if (background != null) background.get(state).update(camera);
-        if (state == State.SELECTED && onClickListener != null) {
+        camera.addToLayers(this, position.globalZ());
+        if (state == State.SELECTED && onClickListener != null && isVisible) {
             if (Platformer2D.getInputManager().isClicked(InputManager.BUTTON_SELECT)) {
                 onClickListener.onClick(this);
             } /*else {
