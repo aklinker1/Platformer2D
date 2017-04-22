@@ -39,7 +39,13 @@ public class Button implements Serializable {
     }
 
     public boolean isClicked() {
-        return value != prevValue;
+        boolean different = value != prevValue;
+
+        // if they aren't different, it was not a click
+        if (!different) return false;
+
+        // Otherwise it is a click if it is pressed.
+        else return isPressed();
     }
 
 }
