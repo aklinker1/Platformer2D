@@ -89,16 +89,17 @@ public class View implements Drawable {
 
     @Override
     public void update(Camera camera) {
-        camera.addToLayers(this, position.globalZ());
-        if (state == State.SELECTED && onClickListener != null && isVisible) {
-            if (Platformer2D.getInputManager().isClicked(InputManager.BUTTON_SELECT)) {
-                onClickListener.onClick(this);
-            } /*else {
+        if (isVisible) {
+            camera.addToLayers(this, position.globalZ());
+            if (state == State.SELECTED && onClickListener != null) {
+                if (Platformer2D.getInputManager().isClicked(InputManager.BUTTON_SELECT)) {
+                    onClickListener.onClick(this);
+                } /*else {
                 Mouse mouse = Platformer2D.getInputManager().getMouse();
                 if (mouse.isClicked() && mouse.inRegion()) {
                     onClickListener.onClick(this);
-                }
-            }*/
+                }*/
+            }
         }
     }
 

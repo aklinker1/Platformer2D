@@ -5,6 +5,7 @@ import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.gui.Button;
 import com.klinker.engine2d.gui.Scene;
 import com.klinker.engine2d.gui.View;
+import com.klinker.engine2d.gui.ViewGroup;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
@@ -21,7 +22,7 @@ public abstract class Menu extends Scene {
     );
 
 
-    private LinkedList<View> views;
+    private LinkedList<ViewGroup> viewGroups;
 
     private MenuNavigation<Button> navigation;
 
@@ -32,18 +33,18 @@ public abstract class Menu extends Scene {
 
     @Override
     public void init() {
-        views = new LinkedList<>();
+        viewGroups = new LinkedList<>();
         this.navigation = new MenuNavigation<>();
         navigation.setOnItemSelectedListener((Button oldButton, Button newButton) -> {
             if (oldButton != null) oldButton.setState(View.State.DEFAULT);
             if (newButton != null) newButton.setState(View.State.SELECTED);
         });
-        initializeViews(views, navigation);
+        initializeViews(viewGroups, navigation);
         super.init();
 
     }
 
-    protected abstract void initializeViews(LinkedList<View> views, MenuNavigation<Button> navigation);
+    protected abstract void initializeViews(LinkedList<ViewGroup> views, MenuNavigation<Button> navigation);
 
     @Override
     public void update(Camera camera) {
@@ -55,12 +56,12 @@ public abstract class Menu extends Scene {
         if (right && !left) onRightPress();
         if (up && !down) onUpPress();
         if (down && !up) onDownPress();
-        for (View view : views) view.update(camera);
+        for (ViewGroup view : viewGroups) view.update(camera);
     }
 
     @Override
     public void render(Camera camera) {
-        for (View view : views) view.render(camera);
+        for (ViewGroup view : viewGroups) view.render(camera);
     }
 
     private void onLeftPress() {
