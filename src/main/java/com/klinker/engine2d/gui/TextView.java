@@ -84,6 +84,7 @@ public class TextView extends View {
     public void setTextSize(float textSize) {
         this.textSize = textSize;
         loadCharacters();
+        //Log.d("Background location: " + background.);
     }
 
     public void setInnerHorAlign(Alignment algin) {

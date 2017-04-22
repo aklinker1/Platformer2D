@@ -22,6 +22,7 @@ public class View implements Drawable {
     public static final State DEFAULT_STATE = State.DEFAULT;
 
     protected Vector3f position;
+    private Vector3f alignment;
     protected Size<Float> size;
     private Alignment hAlignment;
     private Alignment vAlignment;
@@ -48,8 +49,9 @@ public class View implements Drawable {
 
 
     public View(Vector3f position, Size<Float> size) {
+        this.alignment = position;
         this.position = new Vector3f();
-        this.position.setRelative(position);
+        this.position.setRelative(alignment);
         this.size = size;
         this.state = DEFAULT;
         this.hAlignment = DEFAULT_H_ALIGNMENT;
@@ -180,5 +182,9 @@ public class View implements Drawable {
 
     public void setVisible(boolean visible) {
         this.isVisible = visible;
+    }
+
+    public void setRelativeTo(Vector3f location) {
+        this.alignment.setRelative(location);
     }
 }

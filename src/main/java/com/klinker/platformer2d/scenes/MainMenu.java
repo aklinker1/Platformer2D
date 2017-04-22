@@ -7,6 +7,7 @@ import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.gui.ViewGroup;
 import com.klinker.engine2d.math.Size;
+import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.Log;
@@ -29,7 +30,7 @@ public class MainMenu extends Menu {
 
     @Override
     protected void initializeViews(LinkedList<ViewGroup> views, MenuNavigation<Button> navigation) {
-        ViewGroup root = new ViewGroup("Root", new Vector3f()); {
+        ViewGroup root = new ViewGroup("Root", new Vector2f()); {
             // region Root: View Creation
             View background = new View(
                     new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK),
@@ -50,6 +51,7 @@ public class MainMenu extends Menu {
             version.setVertAlignment(TextView.Alignment.BOTTOM);
             version.setInnerHorAlign(TextView.Alignment.RIGHT);
             version.setInnerVertAlign(TextView.Alignment.BOTTOM);
+            version.setBackgroundTexture(R.textures.tiles.ground.GROUND_W01);
             root.addView(version);
 
             Button storyMode = new Button(
@@ -64,12 +66,10 @@ public class MainMenu extends Menu {
             });
             root.addView(storyMode);
 
-            Vector3f multiplayerPosition = new Vector3f(0, -12f, 0);
-            multiplayerPosition.setRelative(storyMode.getPosition());
             Button muliplayer = new Button(
                     R.strings.MULTIPLAYER,
                     new Size<Float>(35f, 8f),
-                    multiplayerPosition,
+                    new Vector3f(25, 9, Depth.HUD),
                     R.fonts.ROBOTO
             );
             muliplayer.setTextSize(4.5f);
@@ -78,11 +78,9 @@ public class MainMenu extends Menu {
             });
             root.addView(muliplayer);
 
-            Vector3f settingsPosition = new Vector3f(0, -12f, 0);
-            settingsPosition.setRelative(muliplayer.getPosition());
             Button settings = new Button(R.strings.SETTINGS,
                     new Size<Float>(35f, 8f),
-                    settingsPosition,
+                    new Vector3f(25, -7, Depth.HUD),
                     R.fonts.ROBOTO
             );
             settings.setTextSize(4.5f);
