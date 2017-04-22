@@ -28,6 +28,8 @@ public class View implements Drawable {
     protected State state;
     private OnClickListener onClickListener;
 
+    private boolean isVisible;
+
     protected StateObject<Sprite> background;
 
 
@@ -52,6 +54,7 @@ public class View implements Drawable {
         this.state = DEFAULT;
         this.hAlignment = DEFAULT_H_ALIGNMENT;
         this.vAlignment = DEFAULT_V_ALIGNMENT;
+        this.isVisible = true;
         updatePosition();
     }
 
@@ -87,8 +90,15 @@ public class View implements Drawable {
     @Override
     public void update(Camera camera) {
         if (background != null) background.get(state).update(camera);
-        if (state == State.SELECTED && Platformer2D.getInputManager().isClicked(InputManager.BUTTON_SELECT) && onClickListener != null) {
-            onClickListener.onClick(this);
+        if (state == State.SELECTED && onClickListener != null) {
+            if (Platformer2D.getInputManager().isClicked(InputManager.BUTTON_SELECT)) {
+                onClickListener.onClick(this);
+            } /*else {
+                Mouse mouse = Platformer2D.getInputManager().getMouse();
+                if (mouse.isClicked() && mouse.inRegion()) {
+                    onClickListener.onClick(this);
+                }
+            }*/
         }
     }
 
@@ -161,5 +171,13 @@ public class View implements Drawable {
     @Override
     public String description() {
         return "View";
+    }
+
+    public boolean isVisible() {
+        return this.isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.isVisible = visible;
     }
 }
