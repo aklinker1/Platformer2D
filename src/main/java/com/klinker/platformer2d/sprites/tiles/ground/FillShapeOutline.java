@@ -1,9 +1,9 @@
 package com.klinker.platformer2d.sprites.tiles.ground;
 
 
+import com.klinker.engine2d.collisions.CollisionBox;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.utils.CollisionBox;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.sprites.tiles.Tile;

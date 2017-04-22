@@ -1,4 +1,4 @@
-package com.klinker.engine2d.utils;
+package com.klinker.engine2d.collisions;
 
 
 import com.klinker.engine2d.draw.Camera;
