@@ -1,6 +1,7 @@
 package com.klinker.platformer2d.sprites;
 
 import com.klinker.engine2d.draw.Camera;
+import com.klinker.engine2d.draw.Sprite;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
@@ -13,6 +14,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 public abstract class Frenemy extends MovingSprite {
+
+    protected boolean isGrounded = false;
 
     public static Frenemy fromString(String simpleName, String[] data) {
         boolean found = false;
@@ -76,4 +79,13 @@ public abstract class Frenemy extends MovingSprite {
         return isSpawned;
     }
 
+    @Override
+    protected void onCollideBottom(Sprite sprite) {
+        this.isGrounded = true;
+    }
+
+    @Override
+    protected void onCollideNone() {
+        this.isGrounded = false;
+    }
 }

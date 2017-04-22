@@ -17,8 +17,8 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
     /**
      * An array of booleans that contains the key bindings that are pressed.
      */
-    public static int[] bindings = new int[65536];
-    private static boolean[] clicked = new boolean[65536];
+    public static int[] bindings = new int[GLFW.GLFW_KEY_LAST];
+    private static boolean[] clicked = new boolean[GLFW.GLFW_KEY_LAST];
 
     public static int LEFT = GLFW.GLFW_KEY_LEFT;
     public static int UP = GLFW.GLFW_KEY_UP;

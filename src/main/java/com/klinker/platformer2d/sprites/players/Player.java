@@ -34,9 +34,8 @@ public class Player extends Frenemy {
 
 
     private int hero;
-    public boolean isGrounded;
     private float launchVelX = 0;
-    private boolean releasedJump = false;
+    private boolean isJumping = false;
 
     public Player(Vector2f position, int hero) {
         super(
@@ -114,28 +113,30 @@ public class Player extends Frenemy {
     private int jumpFrames = 0;
     @Override
     protected void accelY() {
-        boolean jump = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_JUMP);
+        boolean isPressingJump = Platformer2D.getInputManager().isPressed(InputManager.BUTTON_JUMP);
         boolean running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
 
-        if (jump && jumpFrames == 0 && isGrounded && releasedJump) { // pressing jump for the first time
-            isGrounded = false;
-            launchVelX = vel.globalX();
-            releasedJump = false;
-            jumpFrames = 1;
-            running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
-            vel.setLocalY(running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED);
-        } else if (jump && jumpFrames < Physics.Player.JUMP_HOLD_MAX && !releasedJump) { // We are holding the jump button
-            jumpFrames++;
-            vel.setLocalY(running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED);
+        if (isPressingJump) {
+            if (jumpFrames == 0 && isGrounded) {
+                isJumping = true;
+                launchVelX = vel.globalX();
+                jumpFrames = 1;
+                running = Math.abs(launchVelX) > Physics.Player.MAX_VEL_X;
+                vel.setLocalY(running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED);
+            } else if (jumpFrames > 0 && jumpFrames < Physics.Player.JUMP_HOLD_MAX && isJumping) {
+                jumpFrames++;
+                vel.setLocalY(running ? Physics.Player.JUMP_SPEED_RUN : Physics.Player.JUMP_SPEED);
+            } else {
+                vel.increment(0, -Physics.GRAVITY, 0);
+            }
         } else {
+            isJumping = false;
+            jumpFrames = 16;
             vel.increment(0, -Physics.GRAVITY, 0);
-            releasedJump = true;
+            if (isGrounded) {
+                jumpFrames = 0;
+            }
         }
-    }
-
-    public void setGrounded() {
-        isGrounded = true;
-        jumpFrames = 0;
     }
 
     @Override
@@ -168,17 +169,12 @@ public class Player extends Frenemy {
 
     @Override
     protected void onCollideBottom(Sprite sprite) {
+        super.onCollideBottom(sprite);
         if (!(sprite instanceof Enemy)) {
-            setGrounded();
             vel.setLocalY(0);
             CollisionBox otherCollision = sprite.initializeCollision();
             position.setLocalY(otherCollision.position.globalY() + otherCollision.size.height - this.collision.position.localY());
         }
-    }
-
-    @Override
-    protected void onCollideNone() {
-
     }
 
     @Override
