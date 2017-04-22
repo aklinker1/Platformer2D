@@ -9,3 +9,6 @@ DEL BuildResources.class
 CD ../
 ECHO Done!
 ECHO.
+
+ECHO / / / / / Building Game / / / / /
+gradle build run
