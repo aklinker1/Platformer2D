@@ -30,10 +30,15 @@ public class R {
         public static final String MULTIPLAYER = "Multiplayer";
         public static final String SETTINGS = "Settings";
         public static final String VERSION = "Version 0.0.2 Alpha";
+        public static final String SETTINGS_TAB_VIDEO = "Video";
+        public static final String SETTINGS_TAB_CONTROLS = "Controls";
+        public static final String SETTINGS_TAB_AUDIO = "Audio";
+        public static final String SETTINGS_TAB_ONLINE = "Online";
     }
     public static class textures {
         public static class bg {
             public static final String MAIN_MENU = "src/main/resources/textures/bg/main-menu.png";
+            public static final String SETTINGS = "src/main/resources/textures/bg/settings.png";
             public static final String W01_00 = "src/main/resources/textures/bg/w01-00.png";
             public static final String W01_01 = "src/main/resources/textures/bg/w01-01.png";
             public static final String W01_02 = "src/main/resources/textures/bg/w01-02.png";
@@ -48,9 +53,14 @@ public class R {
             public static final String W04_02 = "src/main/resources/textures/bg/w04-02.png";
         }
         public static class buttons {
-            public static final String REGULAR = "src/main/resources/textures/buttons/regular.9";
         }
         public static final String COLLISION = "src/main/resources/textures/collision.png";
+        public static class designs {
+            public static final String WORLD_01_BROWN = "src/main/resources/textures/designs/world-01-brown.png";
+            public static final String WORLD_02_BLUE = "src/main/resources/textures/designs/world-02-blue.png";
+            public static final String WORLD_03_RED = "src/main/resources/textures/designs/world-03-red.png";
+            public static final String WORLD_04_PURPLE = "src/main/resources/textures/designs/world-04-purple.png";
+        }
         public static class players {
             public static class hero01 {
                 public static final String BODY = "src/main/resources/textures/players/hero01/body.png";
@@ -311,11 +321,16 @@ public class R {
                 public static final String X15_04 = "src/main/resources/textures/tiles/plants/x15-04.png";
             }
         }
+        public static class ui {
+            public static class checkmark {
+                public static final String CHECKED = "src/main/resources/textures/ui/checkmark/checked.png";
+                public static final String UNCHECKED = "src/main/resources/textures/ui/checkmark/unchecked.png";
+            }
+            public static final String DIVIDER_DARK = "src/main/resources/textures/ui/divider_dark.png";
+            public static final String DIVIDER_WHITE = "src/main/resources/textures/ui/divider_white.png";
+            public static final String REGULAR = "src/main/resources/textures/ui/regular.9";
+        }
         public static class worlds {
-            public static final String W01_BROWN = "src/main/resources/textures/worlds/01-Brown.png";
-            public static final String W02_BLUE = "src/main/resources/textures/worlds/02-Blue.png";
-            public static final String W03_RED = "src/main/resources/textures/worlds/03-Red.png";
-            public static final String W04_PURPLE = "src/main/resources/textures/worlds/04-Purple.png";
         }
     }
 }

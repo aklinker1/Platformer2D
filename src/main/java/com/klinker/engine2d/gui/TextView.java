@@ -16,15 +16,16 @@ public class TextView extends View {
 
     public static final Alignment DEFAULT_INNER_H_ALIGN = Alignment.LEFT;
     public static final Alignment DEFAULT_INNER_V_ALIGN = Alignment.CENTER;
-    public static final int DEFAULT_TEXT_COLOR = 0xFFFFFFFF;
     public static final int DEFAULT_TEXT_SIZE = 1;
 
     public static Shader FONT_SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.COLOR_OVERLAY);
 
+    public Integer DEFAULT_TEXT_COLOR = 0xFFFFFFFF;
+
 
     private String fontDir;
     private String text;
-    private int textColor;
+    private StateObject<Integer> textColor;
     private float textSize;
     private LinkedList<Glyph> characters;
     private Alignment innerHAlign;
@@ -38,7 +39,7 @@ public class TextView extends View {
 
         this.innerHAlign = DEFAULT_INNER_H_ALIGN;
         this.innerVAlign = DEFAULT_INNER_V_ALIGN;
-        this.textColor = DEFAULT_TEXT_COLOR;
+        this.textColor = new StateObject<>(DEFAULT_TEXT_COLOR);
         this.textSize = DEFAULT_TEXT_SIZE;
 
         loadCharacters();
@@ -78,13 +79,17 @@ public class TextView extends View {
     }
 
     public void setTextColor(int textColor) {
-        this.textColor = textColor;
+        DEFAULT_TEXT_COLOR = textColor;
+        this.textColor.setDefault(textColor);
+    }
+
+    public void setTextColor(State state, int textColor) {
+        this.textColor.put(state, textColor);
     }
 
     public void setTextSize(float textSize) {
         this.textSize = textSize;
         loadCharacters();
-        //Log.d("Background location: " + background.);
     }
 
     public void setInnerHorAlign(Alignment algin) {
@@ -130,7 +135,7 @@ public class TextView extends View {
         @Override
         protected void setShaderProperties(Shader shader, Camera camera) {
             super.setShaderProperties(shader, camera);
-            shader.setUniformColorRGBA("color_overlay", new Color(textColor, true));
+            shader.setUniformColorRGBA("color_overlay", new Color(textColor.get(getState()), true));
         }
 
     }

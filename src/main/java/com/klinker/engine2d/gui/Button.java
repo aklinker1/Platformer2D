@@ -21,7 +21,7 @@ public class Button extends TextView {
 
         loadCharacters();
 
-        background = new StateObject<Sprite>();
+        background = new StateObject<Sprite>(null);
         background.put(State.DEFAULT, new SimpleSprite(this.position, size, R.textures.tiles.blocks.X0F_05));
         background.put(State.SELECTED, new SimpleSprite(this.position, size, R.textures.tiles.blocks.X0F_06));
     }

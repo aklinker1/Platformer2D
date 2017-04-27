@@ -29,14 +29,14 @@ public class MainMenu extends Menu {
     }
 
     @Override
-    protected void initializeViews(LinkedList<ViewGroup> views, MenuNavigation<Button> navigation) {
+    protected void initializeViews(LinkedList<ViewGroup> views, MenuNavigation<View> navigation) {
         ViewGroup root = new ViewGroup("Root", new Vector2f()); {
             // region Root: View Creation
             View background = new View(
                     new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK),
                     new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
             );
-            background.setBackgroundTexture(R.textures.bg.MAIN_MENU);
+            background.setBackground(R.textures.bg.MAIN_MENU);
             root.addView(background);
 
             TextView version = new TextView(
@@ -51,7 +51,6 @@ public class MainMenu extends Menu {
             version.setVertAlignment(TextView.Alignment.BOTTOM);
             version.setInnerHorAlign(TextView.Alignment.RIGHT);
             version.setInnerVertAlign(TextView.Alignment.BOTTOM);
-            version.setBackgroundTexture(R.textures.tiles.ground.GROUND_W01);
             root.addView(version);
 
             Button storyMode = new Button(
@@ -85,7 +84,7 @@ public class MainMenu extends Menu {
             );
             settings.setTextSize(4.5f);
             settings.setOnClickListener((View view) -> {
-                Log.d("Clicked Settings!");
+                transitionScenes(new SettingsMenu(getEngine()));
             });
             root.addView(settings);
 
@@ -99,13 +98,13 @@ public class MainMenu extends Menu {
             View vertDivider = new View(new Vector3f(0, 0, Depth.BACKGROUND_FRONT), new Size<Float>(0.2f, PROJ_SIZE.height));
             vertDivider.setHorAlignment(View.Alignment.CENTER);
             vertDivider.setVertAlignment(View.Alignment.CENTER);
-            vertDivider.setBackgroundTexture(R.textures.bg.W03_00);
+            vertDivider.setBackground(R.textures.bg.W03_00);
             root.addView(vertDivider);
 
             View horDivider = new View(new Vector3f(0, 0, Depth.BACKGROUND_FRONT), new Size<Float>(PROJ_SIZE.width, 0.2f));
             horDivider.setHorAlignment(View.Alignment.CENTER);
             horDivider.setVertAlignment(View.Alignment.CENTER);
-            horDivider.setBackgroundTexture(R.textures.bg.W03_00);
+            horDivider.setBackground(R.textures.bg.W03_00);
             root.addView(horDivider);
             // endregion
         }

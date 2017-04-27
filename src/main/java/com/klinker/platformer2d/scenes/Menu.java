@@ -2,7 +2,6 @@ package com.klinker.platformer2d.scenes;
 
 import com.klinker.engine2d.Engine;
 import com.klinker.engine2d.draw.Camera;
-import com.klinker.engine2d.gui.Button;
 import com.klinker.engine2d.gui.Scene;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.gui.ViewGroup;
@@ -24,18 +23,23 @@ public abstract class Menu extends Scene {
 
     private LinkedList<ViewGroup> viewGroups;
 
-    private MenuNavigation<Button> navigation;
+    private MenuNavigation<View> navigation;
 
 
     public Menu(Engine engine) {
-        super(engine, new Camera(PROJ_SIZE, new Vector2f(PROJ_SIZE.width / 2f, PROJ_SIZE.height / 2f)));
+        super(engine);
+    }
+
+    @Override
+    public Camera initializeCamera() {
+        return new Camera(PROJ_SIZE, new Vector2f(PROJ_SIZE.width / 2f, PROJ_SIZE.height / 2f));
     }
 
     @Override
     public void init() {
         viewGroups = new LinkedList<>();
         this.navigation = new MenuNavigation<>();
-        navigation.setOnItemSelectedListener((Button oldButton, Button newButton) -> {
+        navigation.setOnItemSelectedListener((View oldButton, View newButton) -> {
             if (oldButton != null) oldButton.setState(View.State.DEFAULT);
             if (newButton != null) newButton.setState(View.State.SELECTED);
         });
@@ -44,7 +48,7 @@ public abstract class Menu extends Scene {
 
     }
 
-    protected abstract void initializeViews(LinkedList<ViewGroup> views, MenuNavigation<Button> navigation);
+    protected abstract void initializeViews(LinkedList<ViewGroup> views, MenuNavigation<View> navigation);
 
     @Override
     public void update(Camera camera) {
@@ -65,22 +69,22 @@ public abstract class Menu extends Scene {
     }
 
     private void onLeftPress() {
-        Button left = navigation.getLeft();
+        View left = navigation.getLeft();
         if (left != null) navigation.select(left);
     }
 
     private void onUpPress() {
-        Button up = navigation.getUp();
+        View up = navigation.getUp();
         if (up != null) navigation.select(up);
     }
 
     private void onRightPress() {
-        Button right = navigation.getRight();
+        View right = navigation.getRight();
         if (right != null) navigation.select(right);
     }
 
     private void onDownPress() {
-        Button down = navigation.getDown();
+        View down = navigation.getDown();
         if(down !=null)navigation.select(down);
     }
 

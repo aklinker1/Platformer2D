@@ -16,10 +16,12 @@ public abstract class Scene implements Drawable {
 
     public abstract Shader[] loadAllShaders();
 
-    public Scene(Engine engine, Camera camera) {
+    public Scene(Engine engine) {
         this.engine = engine;
-        this.camera = camera;
+        this.camera = initializeCamera();
     }
+
+    public abstract Camera initializeCamera();
 
     public void init() {
         Shader[] shaders = loadAllShaders(); // fills the set of shaders to then initialize

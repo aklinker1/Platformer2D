@@ -19,18 +19,15 @@ public class View implements Drawable {
 
     public static final Alignment DEFAULT_H_ALIGNMENT = Alignment.LEFT;
     public static final Alignment DEFAULT_V_ALIGNMENT = Alignment.LEFT;
-    public static final State DEFAULT_STATE = State.DEFAULT;
 
     protected Vector3f position;
     private Vector3f alignment;
     protected Size<Float> size;
     private Alignment hAlignment;
     private Alignment vAlignment;
-    protected State state;
+    private State state;
     private OnClickListener onClickListener;
-
     private boolean isVisible;
-
     protected StateObject<Sprite> background;
 
 
@@ -57,6 +54,7 @@ public class View implements Drawable {
         this.hAlignment = DEFAULT_H_ALIGNMENT;
         this.vAlignment = DEFAULT_V_ALIGNMENT;
         this.isVisible = true;
+        this.background = new StateObject<>(null);
         updatePosition();
     }
 
@@ -75,18 +73,19 @@ public class View implements Drawable {
         this.position.setLocalY(vert);
     }
 
-    public void setBackgroundTexture(String textureRes) {
-        if (background == null) background = new StateObject<>();
-        background.put(DEFAULT, new SimpleSprite(this.position, size, textureRes));
+    public void setBackground(String textureRes) {
+        if (background == null) background = new StateObject<>(null);
+        background.put(DEFAULT, new SimpleSprite(position, size, textureRes));
     }
 
-    public void setBackground(StateObject<Sprite> spriteStateObject) {
-        this.background = spriteStateObject;
+    public void setBackground(State state, String textureRes) {
+        this.background.put(state, new SimpleSprite(position, size, textureRes));
     }
 
     @Override
     public void render(Camera camera) {
-        if (background != null) background.get(state).render(camera);
+        Sprite bg = background.get(state);
+        if (bg != null) bg.render(camera);
     }
 
     @Override
@@ -132,24 +131,38 @@ public class View implements Drawable {
     }
 
     public static class StateObject<T> implements Iterable<T> {
+
         private HashMap<State, T> data;
-        public StateObject() {
-            data = new HashMap<State, T>(10);
+        private T _default;
+
+        public StateObject(T _default) {
+            this.data = new HashMap<State, T>(10);
+            this._default = _default;
         }
+
         public void put(State state, T t) {
-            data.put(state, t);
+            if (state == State.DEFAULT) _default = t;
+            else data.put(state, t);
         }
+
         public T get(State state) {
-            return data.get(state);
+            return data.getOrDefault(state, _default);
         }
+
         @Override
         public String toString() {
             return data.toString();
         }
+
         @Override
         public Iterator<T> iterator() {
             return new StateIterator();
         }
+
+        public void setDefault(T _default) {
+            this._default = _default;
+        }
+
         private class StateIterator implements Iterator<T> {
 
             private LinkedList<T> queue;
@@ -187,4 +200,9 @@ public class View implements Drawable {
     public void setRelativeTo(Vector3f location) {
         this.alignment.setRelative(location);
     }
+
+    public State getState() {
+        return state;
+    }
+
 }

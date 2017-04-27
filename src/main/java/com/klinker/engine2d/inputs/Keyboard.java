@@ -17,8 +17,8 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
     /**
      * An array of booleans that contains the key bindings that are pressed.
      */
-    public static int[] bindings = new int[GLFW.GLFW_KEY_LAST];
-    private static boolean[] clicked = new boolean[GLFW.GLFW_KEY_LAST];
+    public static boolean[] bindings = new boolean[GLFW.GLFW_KEY_LAST];
+    private static boolean[] prev = new boolean[bindings.length];
 
     public static int LEFT = GLFW.GLFW_KEY_LEFT;
     public static int UP = GLFW.GLFW_KEY_UP;
@@ -39,8 +39,6 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
     public static final int ACTION_CLICK = GLFW.GLFW_PRESS;
     public static final int ACTION_HOLD = GLFW.GLFW_REPEAT;
 
-    public static final int MAX_CLICK_LENGTH = 20; // value / 2 + 1 = frames max, so 20 = 11 frames, 6 = 4 frames
-
     public Keyboard() {
 
     }
@@ -57,16 +55,13 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
      */
     @Override
     public void invoke(long window, int key, int scanCode, int action, int mods) {
-        if (action == ACTION_RELEASE) {
-            clicked[key] = bindings[key] <= MAX_CLICK_LENGTH;
-            bindings[key] = ACTION_RELEASE; // clear the binding, as in it is not being pressed.
-        } else {
-            bindings[key] += action; // we either clicked it or are holding it, so increment the value.
-        }
+        prev[key] = bindings[key];
+        bindings[key] = action != ACTION_RELEASE;
+        Log.d("Updated: prev = " + prev[key] + ",\tcurrent = " + bindings[key]);
     }
 
     public boolean isPressed(int keyCode) {
-        return bindings[buttons[keyCode]] != ACTION_RELEASE;
+        return bindings[buttons[keyCode]];
     }
 
     /**
@@ -76,9 +71,9 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
      */
     @Override
     public boolean isClicked(int keyCode) {
-        boolean click = clicked[buttons[keyCode]];
-        if (click) clicked[buttons[keyCode]] = false;
-        return click;
+        boolean result = !prev[buttons[keyCode]] && bindings[buttons[keyCode]];
+        prev[buttons[keyCode]] = true;
+        return result;
     }
 
     @Override
@@ -98,7 +93,7 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
         while (key == -1) {
             update();
             for (int i = 0 ; i < bindings.length; i++) {
-                if (bindings[i] != ACTION_RELEASE) key = i;
+                if (bindings[i]) key = i;
             }
         }
         Log.d("" + key);
