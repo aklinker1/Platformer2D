@@ -7,9 +7,8 @@ import com.klinker.engine2d.inputs.Controller;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.scenes.Level;
-import com.klinker.platformer2d.scenes.MainMenu;
+import com.klinker.platformer2d.scenes.SettingsMenu;
 import com.klinker.platformer2d.utils.Settings;
 
 
@@ -33,7 +32,7 @@ public class Platformer2D extends Engine {
         settings = initializeSettings();
         setInputManager(setUpInputManager());
 
-        if (true) setScene(new MainMenu(this));
+        if (true) setScene(new SettingsMenu(this));
         else setScene(new Level(this, R.levels.W02_LXX));
     }
 
@@ -50,7 +49,6 @@ public class Platformer2D extends Engine {
 
     private Settings initializeSettings() {
         Settings settings = new Settings(SETTINGS_PATH);
-        Log.d(settings.toString());
 
         // set the settings.
         frameRate = settings.getInt(Settings.KEY_FRAME_RATE);
@@ -60,13 +58,12 @@ public class Platformer2D extends Engine {
         windowSize = new Size<>(windowWidth, (int) (windowWidth * aspectRatio));
         int tileWidth = settings.getInt(Settings.KEY_TILE_WIDTH);
         tileCounts = new Vector2f(tileWidth, aspectRatio * tileWidth);
-        //Platformer2D.setFullScreen(true);
 
         return settings;
     }
 
     private InputManager setUpInputManager() {
-        Controller controller = (Controller) settings.getController();
+        Controller controller = settings.getController();
         return new InputManager(controller);
     }
 
