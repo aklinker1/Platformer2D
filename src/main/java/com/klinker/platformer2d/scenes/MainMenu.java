@@ -13,7 +13,7 @@ import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
-import com.klinker.platformer2d.utils.MenuNavigation;
+import com.klinker.platformer2d.utils.ViewNavigation;
 
 import java.util.LinkedList;
 
@@ -29,17 +29,17 @@ public class MainMenu extends Menu {
     }
 
     @Override
-    protected void initializeViews(LinkedList<View> views, MenuNavigation<View> navigation) {
-        ViewGroup root = new ViewGroup("Root", new Vector2f()); {
+    protected void initializeViews(LinkedList<View> views, ViewNavigation<View> navigation) {
+        ViewGroup root = new ViewGroup(0, new Vector2f()); {
             // region Root: View Creation
-            View background = new View(
+            View background = new View(1,
                     new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK),
                     new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
             );
             background.setBackground(R.textures.bg.MAIN_MENU);
             root.addView(background);
 
-            TextView version = new TextView(
+            TextView version = new TextView(2,
                     R.strings.VERSION,
                     new Size<Float>(30f, 6f),
                     new Vector3f(PROJ_SIZE.width / 2f - 3f, -PROJ_SIZE.height / 2f + 2f, Depth.HUD),
@@ -53,7 +53,7 @@ public class MainMenu extends Menu {
             version.setInnerVertAlign(TextView.Alignment.BOTTOM);
             root.addView(version);
 
-            Button storyMode = new Button(
+            Button storyMode = new Button(3,
                     R.strings.STORY_MODE,
                     new Size<Float>(35f, 8f),
                     new Vector3f(25f, 25f, Depth.HUD),
@@ -65,7 +65,7 @@ public class MainMenu extends Menu {
             });
             root.addView(storyMode);
 
-            Button muliplayer = new Button(
+            Button muliplayer = new Button(4,
                     R.strings.MULTIPLAYER,
                     new Size<Float>(35f, 8f),
                     new Vector3f(25, 9, Depth.HUD),
@@ -77,7 +77,8 @@ public class MainMenu extends Menu {
             });
             root.addView(muliplayer);
 
-            Button settings = new Button(R.strings.SETTINGS,
+            Button settings = new Button(5,
+                    R.strings.SETTINGS,
                     new Size<Float>(35f, 8f),
                     new Vector3f(25, -7, Depth.HUD),
                     R.fonts.ROBOTO
@@ -95,13 +96,19 @@ public class MainMenu extends Menu {
 
             // TODO: 3/26/2017 Add grid?
 
-            View vertDivider = new View(new Vector3f(0, 0, Depth.BACKGROUND_FRONT), new Size<Float>(0.2f, PROJ_SIZE.height));
+            View vertDivider = new View(6,
+                    new Vector3f(0, 0, Depth.BACKGROUND_FRONT),
+                    new Size<Float>(0.2f, PROJ_SIZE.height)
+            );
             vertDivider.setHorAlignment(View.Alignment.CENTER);
             vertDivider.setVertAlignment(View.Alignment.CENTER);
             vertDivider.setBackground(R.textures.bg.W03_00);
             root.addView(vertDivider);
 
-            View horDivider = new View(new Vector3f(0, 0, Depth.BACKGROUND_FRONT), new Size<Float>(PROJ_SIZE.width, 0.2f));
+            View horDivider = new View(7,
+                    new Vector3f(0, 0, Depth.BACKGROUND_FRONT),
+                    new Size<Float>(PROJ_SIZE.width, 0.2f)
+            );
             horDivider.setHorAlignment(View.Alignment.CENTER);
             horDivider.setVertAlignment(View.Alignment.CENTER);
             horDivider.setBackground(R.textures.bg.W03_00);

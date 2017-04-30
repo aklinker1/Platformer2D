@@ -4,6 +4,7 @@ import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
+import com.klinker.platformer2d.utils.ViewNavigation;
 
 import java.util.LinkedList;
 
@@ -12,16 +13,18 @@ public class ViewGroup extends View {
     private String description;
     public LinkedList<View> views;
     private boolean isVisible;
+    private ViewNavigation<View> subNavigation;
 
-    public ViewGroup(String description, Vector2f position) {
-        this(description, new Vector3f(position.x, position.y, 0));
+    public ViewGroup(int id, Vector2f position) {
+        this(id, new Vector3f(position.x, position.y, 0));
     }
 
-    public ViewGroup(String description, Vector3f position) {
-        super(position, new Size<Float>(1f, 1f));
+    public ViewGroup(int id, Vector3f position) {
+        super(id, position, new Size<Float>(1f, 1f));
         this.description = description;
         this.views = new LinkedList<>();
         this.isVisible = true;
+        this.subNavigation = new ViewNavigation<>();
     }
 
     /**

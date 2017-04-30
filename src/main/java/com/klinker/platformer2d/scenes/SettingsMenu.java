@@ -14,7 +14,7 @@ import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.ui.ControlsTab;
-import com.klinker.platformer2d.utils.MenuNavigation;
+import com.klinker.platformer2d.utils.ViewNavigation;
 
 import java.util.LinkedList;
 
@@ -40,17 +40,17 @@ public class SettingsMenu extends Menu {
     }
 
     @Override
-    protected void initializeViews(LinkedList<View> views, MenuNavigation<View> navigation) {
-        ViewGroup tabGroup = new ViewGroup("TabGroup", new Vector2f());
+    protected void initializeViews(LinkedList<View> views, ViewNavigation<View> navigation) {
+        ViewGroup tabGroup = new ViewGroup(0, new Vector2f());
         // region TabGroup: View Creation
-        View background = new View(
+        View background = new View(1,
                 new Vector3f(0, -PROJ_SIZE.height, Depth.BACKGROUND_BACK),
                 new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
         );
         background.setBackground(R.textures.bg.SETTINGS);
         tabGroup.addView(background);
 
-        View tabDivider = new View(
+        View tabDivider = new View(2,
                 new Vector3f(554f, -120f, Depth.BACKGROUND_MIDDLE),
                 new Size<Float>(1194f, 4f)
         );
@@ -67,7 +67,7 @@ public class SettingsMenu extends Menu {
         Size<Float> tabSize = new Size<Float>(221f, 77f);
         float startDistance = (tabDivider.getSize().width - tabs.length * tabSize.width) / 2f + tabDivider.getPosition().globalX();
         for (int i = 0; i < tabs.length; i++) {
-            TextView tab = new TextView(
+            TextView tab = new TextView(3 + i,
                     tabStrings[i], tabSize,
                     new Vector3f(startDistance + tabSize.width * i, -49, Depth.BACKGROUND_FRONT),
                     R.fonts.ROBOTO

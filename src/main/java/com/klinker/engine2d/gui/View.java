@@ -20,6 +20,7 @@ public class View implements Drawable {
     public static final Alignment DEFAULT_H_ALIGNMENT = Alignment.LEFT;
     public static final Alignment DEFAULT_V_ALIGNMENT = Alignment.LEFT;
 
+    private int id = -1;
     protected Vector3f position;
     private Vector3f alignment;
     protected Size<Float> size;
@@ -46,7 +47,8 @@ public class View implements Drawable {
     }
 
 
-    public View(Vector3f position, Size<Float> size) {
+    public View(int id, Vector3f position, Size<Float> size) {
+        this.id = id;
         this.alignment = position;
         this.position = new Vector3f();
         this.position.setRelative(alignment);
@@ -187,7 +189,7 @@ public class View implements Drawable {
 
     @Override
     public String description() {
-        return "View";
+        return "View" + id;
     }
 
     public boolean isVisible() {
@@ -216,4 +218,9 @@ public class View implements Drawable {
             bg.setAlpha(alpha);
         }
     }
+
+    public int getId() {
+        return id;
+    }
+
 }

@@ -13,7 +13,6 @@ import java.util.LinkedList;
 
 public class TextView extends View {
 
-
     public static final Alignment DEFAULT_INNER_H_ALIGN = Alignment.LEFT;
     public static final Alignment DEFAULT_INNER_V_ALIGN = Alignment.CENTER;
     public static final int DEFAULT_TEXT_SIZE = 1;
@@ -32,8 +31,8 @@ public class TextView extends View {
     private Alignment innerVAlign;
 
 
-    public TextView(String text, Size<Float> size, Vector3f position, String fontDir) {
-        super(position, size);
+    public TextView(int id, String text, Size<Float> size, Vector3f position, String fontDir) {
+        super(id, position, size);
         this.text = text;
         this.fontDir = fontDir;
 
@@ -112,6 +111,11 @@ public class TextView extends View {
     public void update(Camera camera) {
         super.update(camera);
         for (WrapWidthSprite character : characters) character.update(camera);
+    }
+
+    @Override
+    public String description() {
+        return "TextView " + getId();
     }
 
     public float getInnerAlignmentVertOffset(float textHeight) {

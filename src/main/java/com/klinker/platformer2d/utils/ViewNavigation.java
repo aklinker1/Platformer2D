@@ -2,7 +2,7 @@ package com.klinker.platformer2d.utils;
 
 import java.util.HashMap;
 
-public class MenuNavigation<T> {
+public class ViewNavigation<T> {
 
     private HashMap<T, Node> nodes;
     private T selected;
@@ -12,7 +12,7 @@ public class MenuNavigation<T> {
         void onItemSelected(T oldItem, T newItem);
     }
 
-    public MenuNavigation() {
+    public ViewNavigation() {
         this.nodes = new HashMap<T, Node>();
     }
 
