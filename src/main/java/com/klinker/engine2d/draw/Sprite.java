@@ -20,6 +20,7 @@ public abstract class Sprite implements Drawable {
     protected CollisionBox collision = null ;
     private Texture texture;
     protected Shader shader;
+    private float alpha = 1f;
 
 
     /**
@@ -75,6 +76,7 @@ public abstract class Sprite implements Drawable {
 
     protected void setShaderProperties(Shader shader, Camera camera) {
         shader.setUniformMatrix4f("pos_matrix", Matrix4f.translate(position, camera.getPosition()));
+        shader.setUniform1f("alpha", alpha);
     }
 
     public Size<Float> getSize() {
@@ -104,5 +106,9 @@ public abstract class Sprite implements Drawable {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 }

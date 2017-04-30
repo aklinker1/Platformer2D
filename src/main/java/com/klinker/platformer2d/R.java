@@ -32,6 +32,16 @@ public class R {
         public static final String VERSION = "Version 0.0.2 Alpha";
         public static final String SETTINGS_TAB_VIDEO = "Video";
         public static final String SETTINGS_TAB_CONTROLS = "Controls";
+        public static final String SETTINGS_TAB_CONTROLS_TITLE = "Game Controls";
+        public static final String SETTINGS_TAB_CONTROLS_SUBTITLE = "Choose how to control your character";
+        public static final String SETTINGS_TAB_CONTROLS_INPUT_DEVICE = "Input Device:";
+        public static final String SETTINGS_TAB_CONTROLS_INPUT_DEVICE_KEYBOARD = "Keyboard";
+        public static final String SETTINGS_TAB_CONTROLS_MOVEMENT = "MOVEMENT";
+        public static final String SETTINGS_TAB_CONTROLS_ACTION = "Action";
+        public static final String SETTINGS_TAB_CONTROLS_ANALOG = "Analog";
+        public static final String SETTINGS_TAB_CONTROLS_DEADZONE = "Deadzone";
+        public static final String SETTINGS_TAB_CONTROLS_KEY_BINDING = "Key Binding";
+        public static final String SETTINGS_TAB_CONTROLS_ACTIONS = "ACTIONS";
         public static final String SETTINGS_TAB_AUDIO = "Audio";
         public static final String SETTINGS_TAB_ONLINE = "Online";
     }
@@ -329,6 +339,7 @@ public class R {
             public static final String DIVIDER_DARK = "src/main/resources/textures/ui/divider_dark.png";
             public static final String DIVIDER_WHITE = "src/main/resources/textures/ui/divider_white.png";
             public static final String REGULAR = "src/main/resources/textures/ui/regular.9";
+            public static final String SETTINGS_TAB_UNDERSCORE = "src/main/resources/textures/ui/settings-tab-underscore.png";
         }
         public static class worlds {
         }

@@ -8,6 +8,7 @@ in DATA {
 
 uniform sampler2D tex;
 uniform vec4 color_overlay;
+uniform float alpha;
 
 void main()
 {
@@ -19,4 +20,5 @@ void main()
         color.z = color_overlay.z;
         color.w = color_overlay.w * color.w;
     }
+    color.w = color.w * alpha;
 }

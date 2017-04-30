@@ -13,6 +13,7 @@ import com.klinker.engine2d.opengl.Shader;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
+import com.klinker.platformer2d.ui.ControlsTab;
 import com.klinker.platformer2d.utils.MenuNavigation;
 
 import java.util.LinkedList;
@@ -63,7 +64,7 @@ public class SettingsMenu extends Menu {
                 R.strings.SETTINGS_TAB_AUDIO, R.strings.SETTINGS_TAB_ONLINE
         };
         TextView[] tabs = new TextView[tabStrings.length];
-        Size<Float> tabSize = new Size<Float>(221f, 76f);
+        Size<Float> tabSize = new Size<Float>(221f, 77f);
         float startDistance = (tabDivider.getSize().width - tabs.length * tabSize.width) / 2f + tabDivider.getPosition().globalX();
         for (int i = 0; i < tabs.length; i++) {
             TextView tab = new TextView(
@@ -78,13 +79,16 @@ public class SettingsMenu extends Menu {
             tab.setVertAlignment(View.Alignment.TOP);
             tab.setInnerHorAlign(TextView.Alignment.CENTER);
             tab.setInnerVertAlign(TextView.Alignment.CENTER);
-            tab.setBackground(View.State.SELECTED, R.textures.ui.DIVIDER_WHITE);
+            tab.setBackground(View.State.SELECTED, R.textures.ui.SETTINGS_TAB_UNDERSCORE);
             tabs[i] = tab;
             tabGroup.addView(tab);
         }
         navigation.select(tabs[0]);
         // endregion
         views.add(tabGroup);
+
+        Vector2f tabContentPos = new Vector2f(554, -190);
+        views.add(new ControlsTab(tabContentPos));
 
         // region Setting Navigation
         for (int i = 0; i < tabs.length; i++) {

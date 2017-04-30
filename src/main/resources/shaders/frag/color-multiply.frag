@@ -8,6 +8,7 @@ in DATA {
 
 uniform sampler2D tex;
 uniform vec4 color_multiply;
+uniform float alpha;
 
 void main()
 {
@@ -16,5 +17,5 @@ void main()
     color.x = color_multiply.x * color.z;
     color.y = color_multiply.y * color.z;
     color.z = color_multiply.z * color.z;
-    color.w = color_multiply.w * color.w;
+    color.w = color_multiply.w * color.w * alpha;
 }

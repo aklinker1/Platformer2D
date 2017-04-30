@@ -1,9 +1,30 @@
+# Variable names must follow java style. All '-' will be replaced with '_'.
+# After the variable name, add a ':' with no spaces, then the string in
+# quotes. Use Java escapes for characters such as '\' or '"'.
+#
+# The '#' symbol is used for commenting.
+
+
+##### Main Menu ############################################################
 game-title:"Platformer2D"
 story-mode:"Story Mode"
 multiplayer:"Multiplayer"
 settings:"Settings"
 version:"Version 0.0.2 Alpha"
+
+
+##### Settings Menu ########################################################
 settings-tab-video:"Video"
 settings-tab-controls:"Controls"
+    settings-tab-controls-title:"Game Controls"
+    settings-tab-controls-subtitle:"Choose how to control your character"
+    settings-tab-controls-input-device:"Input Device:"
+    settings-tab-controls-input-device-keyboard:"Keyboard"
+    settings-tab-controls-movement:"MOVEMENT"
+    settings-tab-controls-action:"Action"
+    settings-tab-controls-analog:"Analog"
+    settings-tab-controls-deadzone:"Deadzone"
+    settings-tab-controls-key-binding:"Key Binding"
+    settings-tab-controls-actions:"ACTIONS"
 settings-tab-audio:"Audio"
 settings-tab-online:"Online"

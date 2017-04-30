@@ -7,8 +7,10 @@ in DATA {
 } fs_in;
 
 uniform sampler2D tex;
+uniform float alpha;
 
 void main()
 {
     color = texture(tex, fs_in.tc);
+    color.w = color.w * alpha;
 }

@@ -76,9 +76,11 @@ public class BuildResources {
             try (FileReader fReader = new FileReader(file);
                     BufferedReader reader = new BufferedReader(fReader)) {
                 String line = "";
-                while ((line = reader.readLine()) != null) {
-                    String varName = line.split(":")[0].toUpperCase().replace('-', '_');
-                    String varValue = line.split(":")[1];
+                while ((line = reader.readLine()) != null) if (!line.equals("") && !line.startsWith("#")) {
+                    line = line.trim();
+                    String originalName = line.substring(0, line.indexOf(":"));
+                    String varName = originalName.toUpperCase().replace('-', '_');//line.split(":")[0].toUpperCase().replace('-', '_');
+                    String varValue = line.replace(originalName, "").substring(1);//line.split(":")[1];
                     body += "        public static final String " + varName + " = " + varValue + ";\n";
                 }
             } catch (IOException e) {

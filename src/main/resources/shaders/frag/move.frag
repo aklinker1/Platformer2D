@@ -7,6 +7,7 @@ in DATA {
 } fs_in;
 
 uniform sampler2D tex;
+uniform float alpha;
 
 void main()
 {

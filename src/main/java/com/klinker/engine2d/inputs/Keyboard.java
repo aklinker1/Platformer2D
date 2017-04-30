@@ -55,9 +55,10 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
      */
     @Override
     public void invoke(long window, int key, int scanCode, int action, int mods) {
-        prev[key] = bindings[key];
-        bindings[key] = action != ACTION_RELEASE;
-        Log.d("Updated: prev = " + prev[key] + ",\tcurrent = " + bindings[key]);
+        if (key >= 0 && key < bindings.length) {
+            prev[key] = bindings[key];
+            bindings[key] = action != ACTION_RELEASE;
+        }
     }
 
     public boolean isPressed(int keyCode) {
@@ -109,6 +110,5 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
         buttons[InputManager.BUTTON_JUMP] = waitForInput("Jump/Select");
         buttons[InputManager.BUTTON_RUN] = waitForInput("Run/Back");
     }
-
 
 }
