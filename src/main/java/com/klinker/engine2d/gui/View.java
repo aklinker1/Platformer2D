@@ -28,6 +28,7 @@ public class View implements Drawable {
     private Alignment vAlignment;
     private State state;
     private OnClickListener onClickListener;
+    private OnSelectedListener onSelectedListener;
     private boolean isVisible;
     protected StateObject<Sprite> background;
     private float alpha = 1f;
@@ -35,6 +36,10 @@ public class View implements Drawable {
 
     public interface OnClickListener {
         void onClick(View view);
+    }
+
+    public interface OnSelectedListener {
+        void onSelect(View view);
     }
 
 
@@ -223,8 +228,12 @@ public class View implements Drawable {
         return id;
     }
 
-    public void selected() {
+    public void setOnSelectedListener(OnSelectedListener listener) {
+        this.onSelectedListener = listener;
+    }
 
+    public void selected() {
+        if (onSelectedListener != null) onSelectedListener.onSelect(this);
     }
 
 }

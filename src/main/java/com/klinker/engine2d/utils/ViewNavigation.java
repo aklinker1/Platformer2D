@@ -30,33 +30,62 @@ public class ViewNavigation {
         if (!nodes.containsKey(down)) nodes.put(down, null);
     }
 
-    public View getLeft() {
+    private View getLeft() {
         Node node = nodes.get(selected);
         if (node != null) return node.left;
         else return null;
     }
 
-    public View getUp() {
+    private View getUp() {
         Node node = nodes.get(selected);
         if (node != null) return node.up;
         else return null;
     }
 
-    public View getRight() {
+    private View getRight() {
         Node node = nodes.get(selected);
         if (node != null) return node.right;
         else return null;
     }
 
-    public View getDown() {
+    private View getDown() {
         Node node = nodes.get(selected);
         if (node != null) return node.down;
         else return null;
     }
 
+    public void left() {
+        View left = getLeft();
+        if (left != null) {
+            select(left);
+        }
+    }
+
+    public void up() {
+        View up = getUp();
+        if (up != null) {
+            select(up);
+        }
+    }
+
+    public void right() {
+        View right = getRight();
+        if (right != null) {
+            select(right);
+        }
+    }
+
+    public void down() {
+        View down = getDown();
+        if (down != null) {
+            select(down);
+        }
+    }
+
     public void select(View newSelected) {
         if (selectedListener != null) selectedListener.onItemSelected(selected, newSelected);
         this.selected = newSelected;
+        this.selected.selected();
     }
 
     public void setOnItemSelectedListener(OnItemSelectedListener listener) {

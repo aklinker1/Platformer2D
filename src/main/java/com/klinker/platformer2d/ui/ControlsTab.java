@@ -18,7 +18,7 @@ public class ControlsTab extends ViewGroup {
         TextView title = new TextView(30,
                 R.strings.SETTINGS_TAB_CONTROLS_TITLE,
                 new Size<>(590f, 35f),
-                new Vector3f(), R.fonts.ROBOTO
+                new Vector3f()
         );
         title.setTextColor(0xFFFFFFFF);
         title.setInnerHorAlign(View.Alignment.LEFT);
@@ -29,7 +29,7 @@ public class ControlsTab extends ViewGroup {
         TextView subtitle = new TextView(44,
                 R.strings.SETTINGS_TAB_CONTROLS_SUBTITLE,
                 new Size<>(590f, 30f),
-                new Vector3f(0, -32, 0), R.fonts.ROBOTO
+                new Vector3f(0, -32, 0)
         );
         subtitle.setTextColor(0x80FFFFFF);
         subtitle.setInnerHorAlign(View.Alignment.LEFT);

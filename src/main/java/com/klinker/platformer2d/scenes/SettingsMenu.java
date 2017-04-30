@@ -41,8 +41,22 @@ public class SettingsMenu extends Menu {
 
     @Override
     protected void initializeViews(LinkedList<View> views, ViewNavigation navigation) {
-        ViewGroup tabGroup = new ViewGroup(0, new Vector2f(), new Size<Float>(1194f, 77f));
+        String[] tabStrings = new String[]{
+                R.strings.SETTINGS_TAB_VIDEO, R.strings.SETTINGS_TAB_CONTROLS,
+                R.strings.SETTINGS_TAB_AUDIO, R.strings.SETTINGS_TAB_ONLINE
+        };
+
+        // region Creating Tab Contents
+        Vector2f tabContentPos = new Vector2f(554, -190);
+        ViewGroup[] tabContents = new ViewGroup[tabStrings.length];
+        tabContents[1] =  new ControlsTab(12, tabContentPos);
+        for (ViewGroup tabContent : tabContents) {
+            if (tabContent != null) views.add(tabContent);
+        }
+        // endregion
+
         // region TabGroup: View Creation
+        ViewGroup tabGroup = new ViewGroup(0, new Vector2f(), new Size<Float>(1194f, 77f));
         View background = new View(1,
                 new Vector3f(0, -PROJ_SIZE.height, Depth.BACKGROUND_BACK),
                 new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
@@ -59,15 +73,11 @@ public class SettingsMenu extends Menu {
         tabDivider.setVertAlignment(View.Alignment.TOP);
         tabGroup.addView(tabDivider);
 
-        String[] tabStrings = new String[]{
-                R.strings.SETTINGS_TAB_VIDEO, R.strings.SETTINGS_TAB_CONTROLS,
-                R.strings.SETTINGS_TAB_AUDIO, R.strings.SETTINGS_TAB_ONLINE
-        };
         TextView[] tabs = new TextView[tabStrings.length];
         Size<Float> tabSize = new Size<Float>(221f, 77f);
         float startDistance = (tabDivider.getSize().width - tabs.length * tabSize.width) / 2f + tabDivider.getPosition().globalX();
         for (int i = 0; i < tabs.length; i++) {
-            TextView tab = new TextView(3,
+            TextView tab = new TextView(i,
                     tabStrings[i], tabSize,
                     new Vector3f(startDistance + tabSize.width * i, -49, Depth.BACKGROUND_FRONT)
             );
@@ -79,20 +89,16 @@ public class SettingsMenu extends Menu {
             tab.setInnerHorAlign(TextView.Alignment.CENTER);
             tab.setInnerVertAlign(TextView.Alignment.CENTER);
             tab.setBackground(View.State.SELECTED, R.textures.ui.SETTINGS_TAB_UNDERSCORE);
+            tab.setOnSelectedListener((View view) -> {
+                for (int j = 0; j < tabs.length; j++) {
+                    if (tabContents[j] != null) tabContents[j].setVisible(j == view.getId());
+                }
+            });
             tabs[i] = tab;
             tabGroup.addView(tab);
         }
         navigation.select(tabs[0]);
-        // endregion
         views.add(tabGroup);
-
-        // region Creating Tab Contents
-        Vector2f tabContentPos = new Vector2f(554, 0);
-        ViewGroup[] tabContents = new ViewGroup[tabs.length];
-        tabContents[1] =  new ControlsTab(12, tabContentPos);
-        for (ViewGroup tabContent : tabContents) {
-            if (tabContent != null) views.add(tabContent);
-        }
         // endregion
 
         // region Setting Navigation

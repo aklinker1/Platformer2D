@@ -135,6 +135,10 @@ public class TextView extends View {
         loadCharacters();
     }
 
+    public String getText() {
+        return text;
+    }
+
     protected class Glyph extends WrapWidthSprite {
 
         public Glyph(Vector3f position, float height, String textRes) {

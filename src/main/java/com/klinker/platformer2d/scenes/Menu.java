@@ -68,23 +68,19 @@ public abstract class Menu extends Scene {
     }
 
     private void onLeftPress() {
-        View left = navigation.getLeft();
-        if (left != null) navigation.select(left);
+        navigation.left();
     }
 
     private void onUpPress() {
-        View up = navigation.getUp();
-        if (up != null) navigation.select(up);
+        navigation.up();
     }
 
     private void onRightPress() {
-        View right = navigation.getRight();
-        if (right != null) navigation.select(right);
+        navigation.right();
     }
 
     private void onDownPress() {
-        View down = navigation.getDown();
-        if(down !=null)navigation.select(down);
+        navigation.down();
     }
 
 }

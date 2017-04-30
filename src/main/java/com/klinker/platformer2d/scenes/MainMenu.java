@@ -55,8 +55,7 @@ public class MainMenu extends Menu {
             Button storyMode = new Button(3,
                     R.strings.STORY_MODE,
                     new Size<Float>(35f, 8f),
-                    new Vector3f(25f, 25f, Depth.HUD),
-                    R.fonts.ROBOTO
+                    new Vector3f(25f, 25f, Depth.HUD)
             );
             storyMode.setTextSize(4.5f);
             storyMode.setOnClickListener((View view) -> {
@@ -67,8 +66,7 @@ public class MainMenu extends Menu {
             Button muliplayer = new Button(4,
                     R.strings.MULTIPLAYER,
                     new Size<Float>(35f, 8f),
-                    new Vector3f(25, 9, Depth.HUD),
-                    R.fonts.ROBOTO
+                    new Vector3f(25, 9, Depth.HUD)
             );
             muliplayer.setTextSize(4.5f);
             muliplayer.setOnClickListener((View view) -> {
@@ -79,8 +77,7 @@ public class MainMenu extends Menu {
             Button settings = new Button(5,
                     R.strings.SETTINGS,
                     new Size<Float>(35f, 8f),
-                    new Vector3f(25, -7, Depth.HUD),
-                    R.fonts.ROBOTO
+                    new Vector3f(25, -7, Depth.HUD)
             );
             settings.setTextSize(4.5f);
             settings.setOnClickListener((View view) -> {
