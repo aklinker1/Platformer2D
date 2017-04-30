@@ -97,7 +97,8 @@ public class SettingsMenu extends Menu {
             tabs[i] = tab;
             tabGroup.addView(tab);
         }
-        navigation.select(tabs[0]);
+        // TODO: 4/30/2017 Change this back to 0 when testing is done
+        navigation.select(tabs[1]);
         views.add(tabGroup);
         // endregion
 
