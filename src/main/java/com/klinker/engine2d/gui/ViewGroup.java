@@ -14,7 +14,11 @@ public class ViewGroup extends View {
     private boolean isVisible;
 
     public ViewGroup(String description, Vector2f position) {
-        super(new Vector3f(position.x, position.y, 0), new Size<Float>(1f, 1f));
+        this(description, new Vector3f(position.x, position.y, 0));
+    }
+
+    public ViewGroup(String description, Vector3f position) {
+        super(position, new Size<Float>(1f, 1f));
         this.description = description;
         this.views = new LinkedList<>();
         this.isVisible = true;
