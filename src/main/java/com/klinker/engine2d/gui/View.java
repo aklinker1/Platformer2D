@@ -29,6 +29,7 @@ public class View implements Drawable {
     private OnClickListener onClickListener;
     private boolean isVisible;
     protected StateObject<Sprite> background;
+    private float alpha = 1f;
 
 
     public interface OnClickListener {
@@ -205,4 +206,14 @@ public class View implements Drawable {
         return state;
     }
 
+    public float getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
+        for (Sprite bg : background) {
+            bg.setAlpha(alpha);
+        }
+    }
 }

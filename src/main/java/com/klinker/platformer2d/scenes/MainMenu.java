@@ -29,7 +29,7 @@ public class MainMenu extends Menu {
     }
 
     @Override
-    protected void initializeViews(LinkedList<ViewGroup> views, MenuNavigation<View> navigation) {
+    protected void initializeViews(LinkedList<View> views, MenuNavigation<View> navigation) {
         ViewGroup root = new ViewGroup("Root", new Vector2f()); {
             // region Root: View Creation
             View background = new View(

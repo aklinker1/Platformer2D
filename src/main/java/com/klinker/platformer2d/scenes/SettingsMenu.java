@@ -40,7 +40,7 @@ public class SettingsMenu extends Menu {
     }
 
     @Override
-    protected void initializeViews(LinkedList<ViewGroup> views, MenuNavigation<View> navigation) {
+    protected void initializeViews(LinkedList<View> views, MenuNavigation<View> navigation) {
         ViewGroup tabGroup = new ViewGroup("TabGroup", new Vector2f());
         // region TabGroup: View Creation
         View background = new View(

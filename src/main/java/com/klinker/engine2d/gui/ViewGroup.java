@@ -1,21 +1,20 @@
 package com.klinker.engine2d.gui;
 
 import com.klinker.engine2d.draw.Camera;
-import com.klinker.engine2d.draw.Drawable;
+import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
 
 import java.util.LinkedList;
 
-public class ViewGroup implements Drawable {
+public class ViewGroup extends View {
 
-    private Vector3f position;
     private String description;
     public LinkedList<View> views;
     private boolean isVisible;
 
     public ViewGroup(String description, Vector2f position) {
-        this.position = new Vector3f(position.x, position.y, 0);
+        super(new Vector3f(position.x, position.y, 0), new Size<Float>(1f, 1f));
         this.description = description;
         this.views = new LinkedList<>();
         this.isVisible = true;
@@ -54,5 +53,13 @@ public class ViewGroup implements Drawable {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    @Override
+    public void setAlpha(float alpha) {
+        super.setAlpha(alpha);
+        for (View view : views) {
+            view.setAlpha(alpha);
+        }
     }
 }
