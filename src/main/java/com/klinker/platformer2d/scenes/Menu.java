@@ -7,8 +7,8 @@ import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.utils.ViewNavigation;
 import com.klinker.platformer2d.Platformer2D;
-import com.klinker.platformer2d.utils.ViewNavigation;
 
 import java.util.LinkedList;
 
@@ -22,7 +22,7 @@ public abstract class Menu extends Scene {
 
     private LinkedList<View> viewGroups;
 
-    private ViewNavigation<View> navigation;
+    private ViewNavigation navigation;
 
 
     public Menu(Engine engine) {
@@ -37,7 +37,7 @@ public abstract class Menu extends Scene {
     @Override
     public void init() {
         viewGroups = new LinkedList<>();
-        this.navigation = new ViewNavigation<>();
+        this.navigation = new ViewNavigation();
         navigation.setOnItemSelectedListener((View oldButton, View newButton) -> {
             if (oldButton != null) oldButton.setState(View.State.DEFAULT);
             if (newButton != null) newButton.setState(View.State.SELECTED);
@@ -47,7 +47,7 @@ public abstract class Menu extends Scene {
 
     }
 
-    protected abstract void initializeViews(LinkedList<View> views, ViewNavigation<View> navigation);
+    protected abstract void initializeViews(LinkedList<View> views, ViewNavigation navigation);
 
     @Override
     public void update(Camera camera) {

@@ -4,27 +4,26 @@ import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
-import com.klinker.platformer2d.utils.ViewNavigation;
+import com.klinker.engine2d.utils.ViewNavigation;
 
 import java.util.LinkedList;
 
 public class ViewGroup extends View {
 
-    private String description;
     public LinkedList<View> views;
     private boolean isVisible;
-    private ViewNavigation<View> subNavigation;
+    private ViewNavigation subNavigation;
+    private boolean hasSubNavigation = false;
 
-    public ViewGroup(int id, Vector2f position) {
-        this(id, new Vector3f(position.x, position.y, 0));
+    public ViewGroup(int id, Vector2f position, Size<Float> size) {
+        this(id, new Vector3f(position.x, position.y, 0), size);
     }
 
-    public ViewGroup(int id, Vector3f position) {
-        super(id, position, new Size<Float>(1f, 1f));
-        this.description = description;
+    public ViewGroup(int id, Vector3f position, Size<Float> size) {
+        super(id, position, size);
         this.views = new LinkedList<>();
         this.isVisible = true;
-        this.subNavigation = new ViewNavigation<>();
+        this.subNavigation = new ViewNavigation();
     }
 
     /**
@@ -48,12 +47,6 @@ public class ViewGroup extends View {
             for (View view : views) view.update(camera);
         }
     }
-
-    @Override
-    public String description() {
-        return "ViewGroup: " + description;
-    }
-
     public boolean isVisible() {
         return isVisible;
     }
@@ -68,5 +61,22 @@ public class ViewGroup extends View {
         for (View view : views) {
             view.setAlpha(alpha);
         }
+    }
+
+    public ViewNavigation getSubNavigation() {
+        return subNavigation;
+    }
+
+    public boolean hasSubNavigation() {
+        return hasSubNavigation;
+    }
+
+    public void setSubNavigation(ViewNavigation navigation) {
+        this.subNavigation = navigation;
+    }
+
+    public void clearSubNavigation() {
+        this.subNavigation = new ViewNavigation();
+        this.hasSubNavigation = false;
     }
 }

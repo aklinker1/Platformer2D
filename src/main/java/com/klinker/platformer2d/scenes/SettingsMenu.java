@@ -10,11 +10,11 @@ import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
+import com.klinker.engine2d.utils.ViewNavigation;
 import com.klinker.platformer2d.Platformer2D;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
 import com.klinker.platformer2d.ui.ControlsTab;
-import com.klinker.platformer2d.utils.ViewNavigation;
 
 import java.util.LinkedList;
 
@@ -40,8 +40,8 @@ public class SettingsMenu extends Menu {
     }
 
     @Override
-    protected void initializeViews(LinkedList<View> views, ViewNavigation<View> navigation) {
-        ViewGroup tabGroup = new ViewGroup(0, new Vector2f());
+    protected void initializeViews(LinkedList<View> views, ViewNavigation navigation) {
+        ViewGroup tabGroup = new ViewGroup(0, new Vector2f(), new Size<Float>(1194f, 77f));
         // region TabGroup: View Creation
         View background = new View(1,
                 new Vector3f(0, -PROJ_SIZE.height, Depth.BACKGROUND_BACK),
@@ -67,10 +67,9 @@ public class SettingsMenu extends Menu {
         Size<Float> tabSize = new Size<Float>(221f, 77f);
         float startDistance = (tabDivider.getSize().width - tabs.length * tabSize.width) / 2f + tabDivider.getPosition().globalX();
         for (int i = 0; i < tabs.length; i++) {
-            TextView tab = new TextView(3 + i,
+            TextView tab = new TextView(3,
                     tabStrings[i], tabSize,
-                    new Vector3f(startDistance + tabSize.width * i, -49, Depth.BACKGROUND_FRONT),
-                    R.fonts.ROBOTO
+                    new Vector3f(startDistance + tabSize.width * i, -49, Depth.BACKGROUND_FRONT)
             );
             tab.setTextColor(View.State.SELECTED, 0xFFFFFFFF);
             tab.setTextColor(View.State.DEFAULT, 0xFF2E224C);
@@ -87,8 +86,14 @@ public class SettingsMenu extends Menu {
         // endregion
         views.add(tabGroup);
 
-        Vector2f tabContentPos = new Vector2f(554, -190);
-        views.add(new ControlsTab(tabContentPos));
+        // region Creating Tab Contents
+        Vector2f tabContentPos = new Vector2f(554, 0);
+        ViewGroup[] tabContents = new ViewGroup[tabs.length];
+        tabContents[1] =  new ControlsTab(12, tabContentPos);
+        for (ViewGroup tabContent : tabContents) {
+            if (tabContent != null) views.add(tabContent);
+        }
+        // endregion
 
         // region Setting Navigation
         for (int i = 0; i < tabs.length; i++) {

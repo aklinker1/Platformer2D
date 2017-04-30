@@ -1,22 +1,24 @@
-package com.klinker.platformer2d.utils;
+package com.klinker.engine2d.utils;
+
+import com.klinker.engine2d.gui.View;
 
 import java.util.HashMap;
 
-public class ViewNavigation<T> {
+public class ViewNavigation {
 
-    private HashMap<T, Node> nodes;
-    private T selected;
-    private OnItemSelectedListener<T> selectedListener;
+    private HashMap<View, Node> nodes;
+    private View selected;
+    private OnItemSelectedListener selectedListener;
 
-    public interface OnItemSelectedListener<T> {
-        void onItemSelected(T oldItem, T newItem);
+    public interface OnItemSelectedListener {
+        void onItemSelected(View oldItem, View newItem);
     }
 
     public ViewNavigation() {
-        this.nodes = new HashMap<T, Node>();
+        this.nodes = new HashMap<View, Node>();
     }
 
-    public void insertNode(T item, T left, T up, T right, T down) {
+    public void insertNode(View item, View left, View up, View right, View down) {
         // Add this node.
         Node node = new Node(left, up, right, down);
         nodes.put(item, node);
@@ -28,42 +30,42 @@ public class ViewNavigation<T> {
         if (!nodes.containsKey(down)) nodes.put(down, null);
     }
 
-    public T getLeft() {
+    public View getLeft() {
         Node node = nodes.get(selected);
         if (node != null) return node.left;
         else return null;
     }
 
-    public T getUp() {
+    public View getUp() {
         Node node = nodes.get(selected);
         if (node != null) return node.up;
         else return null;
     }
 
-    public T getRight() {
+    public View getRight() {
         Node node = nodes.get(selected);
         if (node != null) return node.right;
         else return null;
     }
 
-    public T getDown() {
+    public View getDown() {
         Node node = nodes.get(selected);
         if (node != null) return node.down;
         else return null;
     }
 
-    public void select(T newSelected) {
+    public void select(View newSelected) {
         if (selectedListener != null) selectedListener.onItemSelected(selected, newSelected);
         this.selected = newSelected;
     }
 
-    public void setOnItemSelectedListener(OnItemSelectedListener<T> listener) {
+    public void setOnItemSelectedListener(OnItemSelectedListener listener) {
         this.selectedListener = listener;
     }
 
     private class Node {
-        public T left, up, right, down;
-        public Node(T left, T up, T right, T down) {
+        public View left, up, right, down;
+        public Node(View left, View up, View right, View down) {
             this.left = left;
             this.up = up;
             this.right = right;

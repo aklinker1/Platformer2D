@@ -31,10 +31,10 @@ public class TextView extends View {
     private Alignment innerVAlign;
 
 
-    public TextView(int id, String text, Size<Float> size, Vector3f position, String fontDir) {
+    public TextView(int id, String text, Size<Float> size, Vector3f position) {
         super(id, position, size);
         this.text = text;
-        this.fontDir = fontDir;
+        this.fontDir = R.fonts.ROBOTO;
 
         this.innerHAlign = DEFAULT_INNER_H_ALIGN;
         this.innerVAlign = DEFAULT_INNER_V_ALIGN;
@@ -128,6 +128,11 @@ public class TextView extends View {
         if (innerHAlign == Alignment.RIGHT) return size.width - textWidth;
         else if (innerHAlign == Alignment.CENTER) return (size.width - textWidth) / 2f;
         else return 0f;
+    }
+
+    public void setFont(String fontDir) {
+        this.fontDir = fontDir;
+        loadCharacters();
     }
 
     protected class Glyph extends WrapWidthSprite {

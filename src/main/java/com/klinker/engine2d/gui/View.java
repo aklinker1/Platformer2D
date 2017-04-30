@@ -189,7 +189,7 @@ public class View implements Drawable {
 
     @Override
     public String description() {
-        return "View" + id;
+        return this.getClass().getSimpleName() + " " + id;
     }
 
     public boolean isVisible() {
@@ -221,6 +221,10 @@ public class View implements Drawable {
 
     public int getId() {
         return id;
+    }
+
+    public void selected() {
+
     }
 
 }

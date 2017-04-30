@@ -11,9 +11,9 @@ import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.Log;
+import com.klinker.engine2d.utils.ViewNavigation;
 import com.klinker.platformer2d.R;
 import com.klinker.platformer2d.constants.Depth;
-import com.klinker.platformer2d.utils.ViewNavigation;
 
 import java.util.LinkedList;
 
@@ -29,8 +29,8 @@ public class MainMenu extends Menu {
     }
 
     @Override
-    protected void initializeViews(LinkedList<View> views, ViewNavigation<View> navigation) {
-        ViewGroup root = new ViewGroup(0, new Vector2f()); {
+    protected void initializeViews(LinkedList<View> views, ViewNavigation navigation) {
+        ViewGroup root = new ViewGroup(0, new Vector2f(), new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)); {
             // region Root: View Creation
             View background = new View(1,
                     new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK),
@@ -42,8 +42,7 @@ public class MainMenu extends Menu {
             TextView version = new TextView(2,
                     R.strings.VERSION,
                     new Size<Float>(30f, 6f),
-                    new Vector3f(PROJ_SIZE.width / 2f - 3f, -PROJ_SIZE.height / 2f + 2f, Depth.HUD),
-                    R.fonts.ROBOTO
+                    new Vector3f(PROJ_SIZE.width / 2f - 3f, -PROJ_SIZE.height / 2f + 2f, Depth.HUD)
             );
             version.setTextSize(3f);
             version.setTextColor(0x6b000000);

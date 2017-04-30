@@ -40,18 +40,18 @@ public class Platformer2D extends Engine {
     protected void onFinish() {
         // Save settings
         if (settings != null) settings.outputToFile(SETTINGS_PATH);
-    }
+     }
 
-    @Override
-    public String getWindowTitle() {
+      @Override
+      public String getWindowTitle() {
         return R.strings.GAME_TITLE;
     }
 
-    private Settings initializeSettings() {
-        Settings settings = new Settings(SETTINGS_PATH);
+      private Settings initializeSettings() {
+          Settings settings = new Settings(SETTINGS_PATH);
 
-        // set the settings.
-        frameRate = settings.getInt(Settings.KEY_FRAME_RATE);
+          // set the settings.
+         frameRate = settings.getInt(Settings.KEY_FRAME_RATE);
         float aspectRatio = settings.getFloat(Settings.KEY_ASPECT_RATIO);
         int windowWidth = settings.getInt(Settings.KEY_WINDOW_WIDTH);
         //windowWidth = 1920;
