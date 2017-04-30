@@ -36,6 +36,18 @@ public class ControlsTab extends ViewGroup {
         subtitle.setInnerVertAlign(View.Alignment.CENTER);
         subtitle.setTextSize(30);
         addView(subtitle);
+
+        ComboBox inputDevice = new ComboBox(47,
+                new Vector3f(size.width / 2f, 0, 0),
+                new Size<Float>(size.width / 2f, 30f),
+                R.strings.SETTINGS_TAB_CONTROLS_INPUT_DEVICE
+        );
+        inputDevice.setTextSize(30);
+        addView(inputDevice);
     }
 
+    @Override
+    public boolean hasSubNavigation() {
+        return true;
+    }
 }

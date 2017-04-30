@@ -8,6 +8,7 @@ import com.klinker.engine2d.utils.ViewNavigation;
 
 import java.util.LinkedList;
 
+// TODO: 4/30/2017 Backgrounds don't show up
 public class ViewGroup extends View {
 
     public LinkedList<View> views;

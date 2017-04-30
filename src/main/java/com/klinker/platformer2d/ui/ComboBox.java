@@ -12,15 +12,15 @@ public class ComboBox extends ViewGroup {
     private TextView label;
     private View underline;
     private View arrow;
+    private float textSize = 30;
 
     public ComboBox(int id, Vector3f position, Size<Float> size, String label) {
         super(id, position, size);
 
         this.label = new TextView(43, label, size, new Vector3f());
-        this.label.setTextSize(20);
+        this.label.setTextSize(textSize);
         this.label.setTextColor(0xFFFFFFFF);
-        this.label.setInnerVertAlign(Alignment.CENTER);
-        this.label.setInnerHorAlign(Alignment.LEFT);
+        this.label.setVertAlignment(Alignment.CENTER);
 
         Size<Float> underlineSize = new Size<Float>(size.width, 2f);
         this.underline = new View(45,
@@ -28,6 +28,14 @@ public class ComboBox extends ViewGroup {
                 underlineSize
         );
         this.underline.setBackground(R.textures.ui.DIVIDER_DARK);
+
+
+        addView(this.label);
+        addView(this.underline);
     }
 
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
+        this.label.setTextSize(textSize);
+    }
 }
