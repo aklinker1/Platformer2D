@@ -23,8 +23,8 @@ public class Platformer2D extends Engine {
     public static void main(String[] args) {
         Platformer2D platformer = new Platformer2D();
         platformer.setStyle(Style.SMOOTH);
-        platformer.setFullscreen(true);
-        Sprite.showCollisions = true;
+        platformer.setFullscreen(false);
+        Sprite.showCollisions = false;
         platformer.start();
     }
 

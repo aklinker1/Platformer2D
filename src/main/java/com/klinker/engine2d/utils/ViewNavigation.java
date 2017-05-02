@@ -84,8 +84,9 @@ public class ViewNavigation {
 
     public void select(View newSelected) {
         if (selectedListener != null) selectedListener.onItemSelected(selected, newSelected);
+        if (this.selected != null) this.selected.deselect();
         this.selected = newSelected;
-        this.selected.selected();
+        this.selected.select();
     }
 
     public void setOnItemSelectedListener(OnItemSelectedListener listener) {

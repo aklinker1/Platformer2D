@@ -38,10 +38,6 @@ public abstract class Menu extends Scene {
     public void init() {
         viewGroups = new LinkedList<>();
         this.navigation = new ViewNavigation();
-        navigation.setOnItemSelectedListener((View oldButton, View newButton) -> {
-            if (oldButton != null) oldButton.setState(View.State.DEFAULT);
-            if (newButton != null) newButton.setState(View.State.SELECTED);
-        });
         initializeViews(viewGroups, navigation);
         super.init();
 

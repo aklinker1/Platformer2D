@@ -1,49 +1,69 @@
 package com.klinker.platformer2d.ui;
 
+import com.klinker.engine2d.gui.Scene;
 import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.gui.ViewGroup;
 import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.math.Vector3f;
 import com.klinker.platformer2d.R;
-import com.klinker.platformer2d.constants.Depth;
 
 public class ControlsTab extends ViewGroup {
 
-    public ControlsTab(int id, Vector2f position) {
-        super(id, new Vector3f(position.x, position.y, Depth.HUD_LOW), new Size<>(1194f, 884f));
-        setBackground(State.DEFAULT, R.textures.COLLISION);
+    public ControlsTab(Scene scene, int id) {
+        super(scene, id);
+        setSize(1194f, 884f);
+        setVertAlignment(Alignment.TOP);
+        setHorAlignment(Alignment.LEFT);
 
-        TextView title = new TextView(30,
-                R.strings.SETTINGS_TAB_CONTROLS_TITLE,
-                new Size<>(590f, 35f),
-                new Vector3f()
-        );
-        title.setTextColor(0xFFFFFFFF);
-        title.setInnerHorAlign(View.Alignment.LEFT);
-        title.setInnerVertAlign(View.Alignment.CENTER);
-        title.setTextSize(35);
+        Size<Float> size = getSize();
+
+        TextView title = new TextView(getScene(), 30);
+        title.setPosition(0, size.height, 0)
+                .setSize(590f, 35f)
+                .setVertAlignment(Alignment.TOP);
+        title.setText(R.strings.SETTINGS_TAB_CONTROLS_TITLE)
+                .setTextColor(0xFFFFFFFF)
+                .setInnerHorAlign(View.Alignment.LEFT)
+                .setInnerVertAlign(View.Alignment.CENTER)
+                .setTextSize(35);
         addView(title);
 
-        TextView subtitle = new TextView(44,
-                R.strings.SETTINGS_TAB_CONTROLS_SUBTITLE,
-                new Size<>(590f, 30f),
-                new Vector3f(0, -32, 0)
-        );
-        subtitle.setTextColor(0x80FFFFFF);
-        subtitle.setInnerHorAlign(View.Alignment.LEFT);
-        subtitle.setInnerVertAlign(View.Alignment.CENTER);
-        subtitle.setTextSize(30);
+        TextView subtitle = new TextView(getScene(), 44);
+        subtitle.setPosition(0, size.height - 32, 0)
+                .setSize(590f, 30f)
+                .setVertAlignment(Alignment.TOP);
+        subtitle.setText(R.strings.SETTINGS_TAB_CONTROLS_SUBTITLE)
+                .setTextColor(0x80FFFFFF)
+                .setInnerHorAlign(View.Alignment.LEFT)
+                .setInnerVertAlign(View.Alignment.CENTER)
+                .setTextSize(25);
         addView(subtitle);
 
-        ComboBox inputDevice = new ComboBox(47,
-                new Vector3f(size.width / 2f, 0, 0),
-                new Size<Float>(size.width / 2f, 30f),
-                R.strings.SETTINGS_TAB_CONTROLS_INPUT_DEVICE
-        );
-        inputDevice.setTextSize(30);
+        ComboBox inputDevice = new ComboBox(getScene(), 47);
+        inputDevice.setPosition(size.width / 2f, size.height - 7, 0)
+                .setSize(size.width / 2f, 40f)
+                .setVertAlignment(Alignment.TOP);
+        inputDevice.setLabelText(R.strings.SETTINGS_TAB_CONTROLS_INPUT_DEVICE)
+                .setTextSize(30);
         addView(inputDevice);
+
+        TextView movement = new TextView(getScene(), 51);
+        movement.setPosition(0, size.height - 90, 0)
+                .setSize(75f, 26f)
+                .setVertAlignment(Alignment.TOP);
+        movement.setText(R.strings.SETTINGS_TAB_CONTROLS_MOVEMENT)
+                .setTextColor(0xFFFFFFFF)
+                .setTextSize(25);
+        addView(movement);
+
+        Size<Float> moveDivSize = new Size<Float>(size.width - 133f, 4f);
+        View movementDivider = new View(getScene(), 76)
+                .setPosition(size.width - moveDivSize.width, size.height - 103, 0)
+                .setSize(moveDivSize)
+                .setVertAlignment(Alignment.TOP)
+                .setAlpha(0.13f);
+        movementDivider.setBackground(R.textures.ui.DIVIDER_WHITE);
+        addView(movementDivider);
     }
 
     @Override

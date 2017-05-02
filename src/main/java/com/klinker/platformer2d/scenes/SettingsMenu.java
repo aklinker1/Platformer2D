@@ -47,48 +47,50 @@ public class SettingsMenu extends Menu {
         };
 
         // region Creating Tab Contents
-        Vector2f tabContentPos = new Vector2f(554, -190);
+        Vector3f tabContentPos = new Vector3f(554, -165, Depth.PLAYER);
         ViewGroup[] tabContents = new ViewGroup[tabStrings.length];
-        tabContents[1] =  new ControlsTab(12, tabContentPos);
+        tabContents[1] =  new ControlsTab(this, 12);
+        tabContents[1].setPosition(tabContentPos);
         for (ViewGroup tabContent : tabContents) {
             if (tabContent != null) views.add(tabContent);
         }
         // endregion
 
         // region TabGroup: View Creation
-        ViewGroup tabGroup = new ViewGroup(0, new Vector2f(), new Size<Float>(1194f, 77f));
-        View background = new View(1,
-                new Vector3f(0, -PROJ_SIZE.height, Depth.BACKGROUND_BACK),
-                new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
-        );
-        background.setBackground(R.textures.bg.SETTINGS);
+        ViewGroup tabGroup = new ViewGroup(this, 0);
+        tabGroup.setPosition(0, 0, 0)
+                .setSize(1194f, 77f);
+
+        View background = new View(this, 1)
+                .setPosition(0, -PROJ_SIZE.height, Depth.BACKGROUND_BACK)
+                .setSize(PROJ_SIZE.width, PROJ_SIZE.height)
+                .setBackground(R.textures.bg.SETTINGS);
         tabGroup.addView(background);
 
-        View tabDivider = new View(2,
-                new Vector3f(554f, -120f, Depth.BACKGROUND_MIDDLE),
-                new Size<Float>(1194f, 4f)
-        );
-        tabDivider.setBackground(R.textures.ui.DIVIDER_DARK);
-        tabDivider.setHorAlignment(View.Alignment.LEFT);
-        tabDivider.setVertAlignment(View.Alignment.TOP);
+        View tabDivider = new View(this, 2)
+                .setPosition(554f, -120f, Depth.BACKGROUND_MIDDLE)
+                .setSize(1194f, 4f)
+                .setBackground(R.textures.ui.DIVIDER_DARK)
+                .setHorAlignment(View.Alignment.LEFT)
+                .setVertAlignment(View.Alignment.TOP);
         tabGroup.addView(tabDivider);
 
         TextView[] tabs = new TextView[tabStrings.length];
         Size<Float> tabSize = new Size<Float>(221f, 77f);
-        float startDistance = (tabDivider.getSize().width - tabs.length * tabSize.width) / 2f + tabDivider.getPosition().globalX();
+        float startDistance = (tabDivider.getSize().width - tabs.length * tabSize.width) / 2f + tabDivider.getAlignmentOffset().globalX();
         for (int i = 0; i < tabs.length; i++) {
-            TextView tab = new TextView(i,
-                    tabStrings[i], tabSize,
-                    new Vector3f(startDistance + tabSize.width * i, -49, Depth.BACKGROUND_FRONT)
-            );
-            tab.setTextColor(View.State.SELECTED, 0xFFFFFFFF);
-            tab.setTextColor(View.State.DEFAULT, 0xFF2E224C);
-            tab.setTextSize(35);
-            tab.setHorAlignment(View.Alignment.LEFT);
-            tab.setVertAlignment(View.Alignment.TOP);
-            tab.setInnerHorAlign(TextView.Alignment.CENTER);
-            tab.setInnerVertAlign(TextView.Alignment.CENTER);
-            tab.setBackground(View.State.SELECTED, R.textures.ui.SETTINGS_TAB_UNDERSCORE);
+            TextView tab = new TextView(this, i);
+            tab.setPosition(startDistance + tabSize.width * i, -49, Depth.BACKGROUND_FRONT)
+                    .setSize(tabSize)
+                    .setHorAlignment(View.Alignment.LEFT)
+                    .setVertAlignment(View.Alignment.TOP)
+                    .setBackground(View.State.SELECTED, R.textures.ui.SETTINGS_TAB_UNDERSCORE);
+            tab.setText(tabStrings[i])
+                    .setTextColor(View.State.SELECTED, 0xFFFFFFFF)
+                    .setTextColor(View.State.DEFAULT, 0xFF2E224C)
+                    .setTextSize(35)
+                    .setInnerHorAlign(TextView.Alignment.CENTER)
+                    .setInnerVertAlign(TextView.Alignment.CENTER);
             tab.setOnSelectedListener((View view) -> {
                 for (int j = 0; j < tabs.length; j++) {
                     if (tabContents[j] != null) tabContents[j].setVisible(j == view.getId());

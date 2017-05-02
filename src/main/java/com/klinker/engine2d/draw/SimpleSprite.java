@@ -41,4 +41,9 @@ public class SimpleSprite extends Sprite {
     public String description() {
         return "SimpleSprite: ..." + textRes.substring(textRes.lastIndexOf('/') - 10);
     }
+
+    public String getTextureRes() {
+        return textRes;
+    }
+
 }

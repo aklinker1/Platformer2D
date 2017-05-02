@@ -7,8 +7,6 @@ import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.gui.ViewGroup;
 import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.engine2d.utils.ViewNavigation;
@@ -30,56 +28,53 @@ public class MainMenu extends Menu {
 
     @Override
     protected void initializeViews(LinkedList<View> views, ViewNavigation navigation) {
-        ViewGroup root = new ViewGroup(0, new Vector2f(), new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)); {
-            // region Root: View Creation
-            View background = new View(1,
-                    new Vector3f(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK),
-                    new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)
-            );
-            background.setBackground(R.textures.bg.MAIN_MENU);
+        // region Root: View Creation
+        ViewGroup root = new ViewGroup(this, 0);
+        root.setPosition(0, 0, 0);
+        root.setSize(new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)); {
+            View background = new View(this, 1)
+                    .setPosition(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK)
+                    .setSize(new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height))
+                    .setBackground(R.textures.bg.MAIN_MENU);
             root.addView(background);
 
-            TextView version = new TextView(2,
-                    R.strings.VERSION,
-                    new Size<Float>(30f, 6f),
-                    new Vector3f(PROJ_SIZE.width / 2f - 3f, -PROJ_SIZE.height / 2f + 2f, Depth.HUD)
-            );
-            version.setTextSize(3f);
-            version.setTextColor(0x6b000000);
-            version.setHorAlignment(TextView.Alignment.RIGHT);
-            version.setVertAlignment(TextView.Alignment.BOTTOM);
-            version.setInnerHorAlign(TextView.Alignment.RIGHT);
-            version.setInnerVertAlign(TextView.Alignment.BOTTOM);
+            TextView version = new TextView(this, 2);
+            version.setPosition(PROJ_SIZE.width / 2f - 3f, -PROJ_SIZE.height / 2f + 2f, Depth.HUD)
+                    .setSize(30, 6)
+                    .setHorAlignment(TextView.Alignment.RIGHT)
+                    .setVertAlignment(TextView.Alignment.BOTTOM);
+            version.setText(R.strings.VERSION)
+                    .setTextSize(3f)
+                    .setTextColor(0x6b000000)
+                    .setInnerHorAlign(TextView.Alignment.RIGHT)
+                    .setInnerVertAlign(TextView.Alignment.BOTTOM);
             root.addView(version);
 
-            Button storyMode = new Button(3,
-                    R.strings.STORY_MODE,
-                    new Size<Float>(35f, 8f),
-                    new Vector3f(25f, 25f, Depth.HUD)
-            );
-            storyMode.setTextSize(4.5f);
+            Button storyMode = new Button(this, 3);
+            storyMode.setPosition(25f, 25f, Depth.HUD)
+                    .setSize(35f, 8f);
+            storyMode.setText(R.strings.STORY_MODE)
+                    .setTextSize(4.5f);
             storyMode.setOnClickListener((View view) -> {
                 transitionScenes(new Level(getEngine(), R.levels.W02_LXX));
             });
             root.addView(storyMode);
 
-            Button muliplayer = new Button(4,
-                    R.strings.MULTIPLAYER,
-                    new Size<Float>(35f, 8f),
-                    new Vector3f(25, 9, Depth.HUD)
-            );
-            muliplayer.setTextSize(4.5f);
+            Button muliplayer = new Button(this, 4);
+            muliplayer.setPosition(25, 9, Depth.HUD)
+                    .setSize(35f, 8f);
+            muliplayer.setText(R.strings.MULTIPLAYER)
+                    .setTextSize(4.5f);
             muliplayer.setOnClickListener((View view) -> {
                 Log.d("Clicked multiplayer!");
             });
             root.addView(muliplayer);
 
-            Button settings = new Button(5,
-                    R.strings.SETTINGS,
-                    new Size<Float>(35f, 8f),
-                    new Vector3f(25, -7, Depth.HUD)
-            );
-            settings.setTextSize(4.5f);
+            Button settings = new Button(this, 5);
+            settings.setPosition(25, -7, Depth.HUD)
+                    .setSize(35f, 8f);
+            settings.setText(R.strings.SETTINGS)
+                    .setTextSize(4.5f);
             settings.setOnClickListener((View view) -> {
                 transitionScenes(new SettingsMenu(getEngine()));
             });
@@ -91,27 +86,26 @@ public class MainMenu extends Menu {
             navigation.select(storyMode);
 
             // TODO: 3/26/2017 Add grid?
+            if (true) {
+                View vertDivider = new View(this, 6)
+                        .setPosition(0, 0, Depth.BACKGROUND_FRONT)
+                        .setSize(0.2f, PROJ_SIZE.height)
+                        .setHorAlignment(View.Alignment.CENTER)
+                        .setVertAlignment(View.Alignment.CENTER)
+                        .setBackground(R.textures.bg.W03_00);
+                root.addView(vertDivider);
 
-            View vertDivider = new View(6,
-                    new Vector3f(0, 0, Depth.BACKGROUND_FRONT),
-                    new Size<Float>(0.2f, PROJ_SIZE.height)
-            );
-            vertDivider.setHorAlignment(View.Alignment.CENTER);
-            vertDivider.setVertAlignment(View.Alignment.CENTER);
-            vertDivider.setBackground(R.textures.bg.W03_00);
-            root.addView(vertDivider);
-
-            View horDivider = new View(7,
-                    new Vector3f(0, 0, Depth.BACKGROUND_FRONT),
-                    new Size<Float>(PROJ_SIZE.width, 0.2f)
-            );
-            horDivider.setHorAlignment(View.Alignment.CENTER);
-            horDivider.setVertAlignment(View.Alignment.CENTER);
-            horDivider.setBackground(R.textures.bg.W03_00);
-            root.addView(horDivider);
-            // endregion
+                View horDivider = new View(this, 7)
+                        .setPosition(0, 0, Depth.BACKGROUND_FRONT)
+                        .setSize(PROJ_SIZE.width, 0.2f)
+                        .setHorAlignment(View.Alignment.CENTER)
+                        .setVertAlignment(View.Alignment.CENTER)
+                        .setBackground(R.textures.bg.W03_00);
+                root.addView(horDivider);
+            }
         }
         views.add(root);
+        // endregion
     }
 
     @Override

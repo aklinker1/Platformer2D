@@ -1,29 +1,24 @@
 package com.klinker.engine2d.gui;
 
 import com.klinker.engine2d.draw.Camera;
-import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.utils.ViewNavigation;
 
 import java.util.LinkedList;
 
-// TODO: 4/30/2017 Backgrounds don't show up
+// TODO: 4/30/2017 Backgrounds don't show up properly
 public class ViewGroup extends View {
 
     public LinkedList<View> views;
-    private boolean isVisible;
     private ViewNavigation subNavigation;
     private boolean hasSubNavigation = false;
 
-    public ViewGroup(int id, Vector2f position, Size<Float> size) {
-        this(id, new Vector3f(position.x, position.y, 0), size);
+    public ViewGroup(Scene scene) {
+        this(scene, View.DEFAULT_ID);
     }
 
-    public ViewGroup(int id, Vector3f position, Size<Float> size) {
-        super(id, position, size);
+    public ViewGroup(Scene scene, int id) {
+        super(scene, id);
         this.views = new LinkedList<>();
-        this.isVisible = true;
         this.subNavigation = new ViewNavigation();
     }
 
@@ -33,35 +28,26 @@ public class ViewGroup extends View {
      */
     public void addView(View view) {
         this.views.addLast(view);
-        view.setRelativeTo(this.position);
-    }
-
-    @Override
-    public void render(Camera camera) {
-        // shouldn't be called. Views should be added to the layers below in update(Camera)
-        //for (View view : views) view.render(camera);
+        view.setRelativeTo(getAlignmentOffset());
     }
 
     @Override
     public void update(Camera camera) {
-        if (isVisible) {
-            for (View view : views) view.update(camera);
+        super.update(camera);
+        if (isVisible()) {
+            for (View view : views) {
+                view.update(camera);
+            }
         }
-    }
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    public void setVisible(boolean visible) {
-        isVisible = visible;
     }
 
     @Override
-    public void setAlpha(float alpha) {
+    public View setAlpha(float alpha) {
         super.setAlpha(alpha);
         for (View view : views) {
             view.setAlpha(alpha);
         }
+        return this;
     }
 
     public ViewNavigation getSubNavigation() {
@@ -80,4 +66,5 @@ public class ViewGroup extends View {
         this.subNavigation = new ViewNavigation();
         this.hasSubNavigation = false;
     }
+
 }

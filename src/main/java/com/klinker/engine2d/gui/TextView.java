@@ -1,8 +1,8 @@
 package com.klinker.engine2d.gui;
 
+
 import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.WrapWidthSprite;
-import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.platformer2d.R;
@@ -13,42 +13,94 @@ import java.util.LinkedList;
 
 public class TextView extends View {
 
+    // region Defaults
+    public static final String DEFAULT_FONT_DIR = R.fonts.ROBOTO;
+    public static final String DEFAULT_TEXT = "";
     public static final Alignment DEFAULT_INNER_H_ALIGN = Alignment.LEFT;
     public static final Alignment DEFAULT_INNER_V_ALIGN = Alignment.CENTER;
-    public static final int DEFAULT_TEXT_SIZE = 1;
+    public static final int DEFAULT_TEXT_SIZE = 20;
+    public static final int DEFAULT_TEXT_COLOR = 0xFFFFFFFF;
+    // endregion
 
+
+    // region Static Constants
     public static Shader FONT_SHADER = new Shader(R.shaders.vert.BASIC, R.shaders.frag.COLOR_OVERLAY);
-
-    public Integer DEFAULT_TEXT_COLOR = 0xFFFFFFFF;
-
-
-    private String fontDir;
-    private String text;
-    private StateObject<Integer> textColor;
-    private float textSize;
-    private LinkedList<Glyph> characters;
-    private Alignment innerHAlign;
-    private Alignment innerVAlign;
+    // endregion
 
 
-    public TextView(int id, String text, Size<Float> size, Vector3f position) {
-        super(id, position, size);
-        this.text = text;
-        this.fontDir = R.fonts.ROBOTO;
+    // region Member Variables
+    private String fontDir = DEFAULT_FONT_DIR;
+    private String text = DEFAULT_TEXT;
+    private StateObject<Integer> textColor = new StateObject<>(DEFAULT_TEXT_COLOR);
+    private float textSize = DEFAULT_TEXT_SIZE;
+    private LinkedList<Glyph> characters = new LinkedList<>();
+    private Alignment innerHAlign = DEFAULT_INNER_H_ALIGN;
+    private Alignment innerVAlign = DEFAULT_INNER_V_ALIGN;
+    // endregion
 
-        this.innerHAlign = DEFAULT_INNER_H_ALIGN;
-        this.innerVAlign = DEFAULT_INNER_V_ALIGN;
-        this.textColor = new StateObject<>(DEFAULT_TEXT_COLOR);
-        this.textSize = DEFAULT_TEXT_SIZE;
 
-        loadCharacters();
+    // region Construction
+    public TextView(Scene scene) {
+        this(scene, View.DEFAULT_ID);
     }
 
-    public void setText(String text) {
+    public TextView(Scene scene, int id) {
+        super(scene, id);
+    }
+    // endregion
+
+
+    // region Setters
+    public TextView setText(String text) {
         this.text = text;
         loadCharacters();
+        return this;
     }
 
+    public TextView setTextColor(int textColor) {
+        this.textColor.setDefault(textColor);
+        return this;
+    }
+
+    public TextView setTextColor(State state, int textColor) {
+        this.textColor.put(state, textColor);
+        return this;
+    }
+
+    public TextView setTextSize(float textSize) {
+        this.textSize = textSize;
+        loadCharacters();
+        return this;
+    }
+
+    public TextView setInnerHorAlign(Alignment algin) {
+        this.innerHAlign = algin;
+        loadCharacters();
+        return this;
+    }
+
+    public TextView setInnerVertAlign(Alignment algin) {
+        this.innerVAlign = algin;
+        loadCharacters();
+        return this;
+    }
+
+    public TextView setFont(String fontDir) {
+        this.fontDir = fontDir;
+        loadCharacters();
+        return this;
+    }
+    // endregion
+
+
+    // region Getters
+    public String getText() {
+        return text;
+    }
+    // endregion
+
+
+    // region Helper Methods
     protected void loadCharacters() {
         // repeat twice if we are not wrapping width so it can properly set the innerHAlign
         float vertOffset = getInnerAlignmentVertOffset(textSize);
@@ -60,7 +112,7 @@ public class TextView extends View {
             widths[i] = textWidth;
             int c = text.charAt(i);
             Vector3f pos = new Vector3f(0, vertOffset, 0.01f);
-            pos.setRelative(this.position);
+            pos.setRelative(getAlignmentOffset());
             Glyph _char = new Glyph(
                     pos,
                     textSize,
@@ -77,36 +129,21 @@ public class TextView extends View {
         }
     }
 
-    public void setTextColor(int textColor) {
-        DEFAULT_TEXT_COLOR = textColor;
-        this.textColor.setDefault(textColor);
+    public float getInnerAlignmentVertOffset(float textHeight) {
+        if (innerVAlign == Alignment.TOP) return getSize().height - textHeight;
+        else if (innerVAlign == Alignment.CENTER) return (getSize().height - textSize) / 2f;
+        else return 0f;
     }
 
-    public void setTextColor(State state, int textColor) {
-        this.textColor.put(state, textColor);
+    public float getInnerAlignmentHorOffset(float textWidth) {
+        if (innerHAlign == Alignment.RIGHT) return getSize().width - textWidth;
+        else if (innerHAlign == Alignment.CENTER) return (getSize().width - textWidth) / 2f;
+        else return 0f;
     }
+    // endregion
 
-    public void setTextSize(float textSize) {
-        this.textSize = textSize;
-        loadCharacters();
-    }
 
-    public void setInnerHorAlign(Alignment algin) {
-        this.innerHAlign = algin;
-        loadCharacters();
-    }
-
-    public void setInnerVertAlign(Alignment algin) {
-        this.innerVAlign = algin;
-        loadCharacters();
-    }
-
-    @Override
-    public void render(Camera camera) {
-        super.render(camera);
-        for (WrapWidthSprite character : characters) character.render(camera);
-    }
-
+    // region Drawable Overrides
     @Override
     public void update(Camera camera) {
         super.update(camera);
@@ -117,31 +154,13 @@ public class TextView extends View {
     public String description() {
         return "TextView " + getId();
     }
+    // endregion
 
-    public float getInnerAlignmentVertOffset(float textHeight) {
-        if (innerVAlign == Alignment.TOP) return size.height - textHeight;
-        else if (innerVAlign == Alignment.CENTER) return (size.height - textSize) / 2f;
-        else return 0f;
-    }
 
-    public float getInnerAlignmentHorOffset(float textWidth) {
-        if (innerHAlign == Alignment.RIGHT) return size.width - textWidth;
-        else if (innerHAlign == Alignment.CENTER) return (size.width - textWidth) / 2f;
-        else return 0f;
-    }
+    // region Glyph
+    private class Glyph extends WrapWidthSprite {
 
-    public void setFont(String fontDir) {
-        this.fontDir = fontDir;
-        loadCharacters();
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    protected class Glyph extends WrapWidthSprite {
-
-        public Glyph(Vector3f position, float height, String textRes) {
+        private Glyph(Vector3f position, float height, String textRes) {
             super(position, height, textRes, FONT_SHADER);
         }
 
@@ -151,6 +170,13 @@ public class TextView extends View {
             shader.setUniformColorRGBA("color_overlay", new Color(textColor.get(getState()), true));
         }
 
+        @Override
+        public String description() {
+            String textureRes = getTextureRes();
+            String letter = textureRes.substring(textureRes.lastIndexOf('/') + 1, textureRes.indexOf('.'));
+            return "Glyph'" + ((char) Integer.parseInt(letter) + "'");
+        }
     }
+    // endregion
 
 }

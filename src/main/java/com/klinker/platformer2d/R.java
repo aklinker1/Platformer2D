@@ -336,6 +336,8 @@ public class R {
                 public static final String CHECKED = "src/main/resources/textures/ui/checkmark/checked.png";
                 public static final String UNCHECKED = "src/main/resources/textures/ui/checkmark/unchecked.png";
             }
+            public static final String COMBO_BOX_ARROW = "src/main/resources/textures/ui/combo_box_arrow.png";
+            public static final String COMBO_BOX_UNDERLINE = "src/main/resources/textures/ui/combo_box_underline.png";
             public static final String DIVIDER_DARK = "src/main/resources/textures/ui/divider_dark.png";
             public static final String DIVIDER_WHITE = "src/main/resources/textures/ui/divider_white.png";
             public static final String REGULAR = "src/main/resources/textures/ui/regular.9";
