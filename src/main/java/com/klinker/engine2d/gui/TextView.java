@@ -51,9 +51,17 @@ public class TextView extends View {
 
 
     // region Setters
+    @Override
+    public View setAlpha(float alpha) {
+        for (Glyph glyph : characters) {
+            glyph.setAlpha(alpha);
+        }
+        return super.setAlpha(alpha);
+    }
+
     public TextView setText(String text) {
         this.text = text;
-        loadCharacters();
+        updateComponents();
         return this;
     }
 
@@ -69,25 +77,25 @@ public class TextView extends View {
 
     public TextView setTextSize(float textSize) {
         this.textSize = textSize;
-        loadCharacters();
+        updateComponents();
         return this;
     }
 
     public TextView setInnerHorAlign(Alignment algin) {
         this.innerHAlign = algin;
-        loadCharacters();
+        updateComponents();
         return this;
     }
 
     public TextView setInnerVertAlign(Alignment algin) {
         this.innerVAlign = algin;
-        loadCharacters();
+        updateComponents();
         return this;
     }
 
     public TextView setFont(String fontDir) {
         this.fontDir = fontDir;
-        loadCharacters();
+        updateComponents();
         return this;
     }
     // endregion
@@ -101,7 +109,14 @@ public class TextView extends View {
 
 
     // region Helper Methods
-    protected void loadCharacters() {
+
+    @Override
+    public void updateComponents() {
+        super.updateComponents();
+        loadCharacters();
+    }
+
+    private void loadCharacters() {
         // repeat twice if we are not wrapping width so it can properly set the innerHAlign
         float vertOffset = getInnerAlignmentVertOffset(textSize);
 

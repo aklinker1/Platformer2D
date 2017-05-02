@@ -23,8 +23,8 @@ public class ControlsTab extends ViewGroup {
                 .setVertAlignment(Alignment.TOP);
         title.setText(R.strings.SETTINGS_TAB_CONTROLS_TITLE)
                 .setTextColor(0xFFFFFFFF)
-                .setInnerHorAlign(View.Alignment.LEFT)
-                .setInnerVertAlign(View.Alignment.CENTER)
+                .setInnerHorAlign(Alignment.LEFT)
+                .setInnerVertAlign(Alignment.CENTER)
                 .setTextSize(35);
         addView(title);
 
@@ -33,15 +33,15 @@ public class ControlsTab extends ViewGroup {
                 .setSize(590f, 30f)
                 .setVertAlignment(Alignment.TOP);
         subtitle.setText(R.strings.SETTINGS_TAB_CONTROLS_SUBTITLE)
-                .setTextColor(0x80FFFFFF)
+                .setTextColor(0xFFFFFFFF)
                 .setInnerHorAlign(View.Alignment.LEFT)
                 .setInnerVertAlign(View.Alignment.CENTER)
-                .setTextSize(25);
+                .setTextSize(25)
+                .setAlpha(0.5f);
         addView(subtitle);
 
-        ComboBox inputDevice = new ComboBox(getScene(), 47);
-        inputDevice.setPosition(size.width / 2f, size.height - 7, 0)
-                .setSize(size.width / 2f, 40f)
+        ComboBox inputDevice = new ComboBox(getScene(), 47, new Size<Float>(size.width / 2f, 40f));
+        inputDevice.setPosition(size.width / 2f, size.height - 22, 0)
                 .setVertAlignment(Alignment.TOP);
         inputDevice.setLabelText(R.strings.SETTINGS_TAB_CONTROLS_INPUT_DEVICE)
                 .setTextSize(30);
@@ -61,7 +61,7 @@ public class ControlsTab extends ViewGroup {
                 .setPosition(size.width - moveDivSize.width, size.height - 103, 0)
                 .setSize(moveDivSize)
                 .setVertAlignment(Alignment.TOP)
-                .setAlpha(0.13f);
+                .setAlpha(0.2f);
         movementDivider.setBackground(R.textures.ui.DIVIDER_WHITE);
         addView(movementDivider);
     }

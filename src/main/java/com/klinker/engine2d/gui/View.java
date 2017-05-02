@@ -111,6 +111,7 @@ public class View implements Drawable {
         this.position.setLocalX(x);
         this.position.setLocalY(y);
         this.position.setLocalZ(z);
+        updateComponents();
         return this;
     }
 
@@ -129,6 +130,7 @@ public class View implements Drawable {
     public View setSize(float width, float height) {
         this.size.width = width;
         this.size.height = height;
+        updateComponents();
         return this;
     }
 
@@ -148,12 +150,14 @@ public class View implements Drawable {
     public View setHorAlignment(Alignment alignment) {
         this.hAlignment = alignment;
         updateAlignmentHorOffset();
+        updateComponents();
         return this;
     }
 
     public View setVertAlignment(Alignment alignment) {
         this.vAlignment = alignment;
         updateAlignmentVertOffset();
+        updateComponents();
         return this;
     }
 
@@ -230,6 +234,10 @@ public class View implements Drawable {
 
     public void deselect() {
         state = State.DEFAULT;
+    }
+
+    public void updateComponents() {
+
     }
     // endregion
 

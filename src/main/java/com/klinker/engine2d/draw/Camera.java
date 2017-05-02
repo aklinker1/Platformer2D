@@ -10,7 +10,7 @@ import com.klinker.platformer2d.utils.SparseArray;
 
 public class Camera {
 
-    public static boolean SHOW_LAYER_CONTENTS = true;
+    public static boolean SHOW_LAYER_CONTENTS = false;
 
     private Matrix4f projection;
     private Vector3f position;
