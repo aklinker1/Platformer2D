@@ -76,6 +76,7 @@ public class R {
             public static final String WORLD_03_RED = "src/main/resources/textures/designs/world-03-red.png";
             public static final String WORLD_04_PURPLE = "src/main/resources/textures/designs/world-04-purple.png";
         }
+        public static final String OUTLINE = "src/main/resources/textures/outline.png";
         public static class players {
             public static class hero01 {
                 public static final String BODY = "src/main/resources/textures/players/hero01/body.png";

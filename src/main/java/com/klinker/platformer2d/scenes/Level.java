@@ -46,11 +46,11 @@ public class Level extends Scene {
      * @param levelPath The path to the data file.
      */
     public Level(Engine engine, String levelPath) {
-        super(engine);
+        super(engine, null);
         this.level = new File(levelPath);
     }
 
-    @Override
+    //@Override
     public Camera initializeCamera() {
         return new Camera(new Size<Float>(Platformer2D.tileCounts.x, Platformer2D.tileCounts.y), new Vector2f());
     }

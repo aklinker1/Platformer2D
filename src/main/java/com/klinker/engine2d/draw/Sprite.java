@@ -2,6 +2,7 @@ package com.klinker.engine2d.draw;
 
 
 import com.klinker.engine2d.collisions.CollisionBox;
+import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
@@ -22,6 +23,13 @@ public abstract class Sprite implements Drawable {
     private Texture texture;
     protected Shader shader;
     private float alpha = 1f;
+
+    public static Sprite from(String xmlRes, View.State state, Vector3f position, Size<Float> size) {
+        String extension = xmlRes.substring(xmlRes.lastIndexOf('.'));
+        String xmlFileName = xmlRes.substring(0, xmlRes.lastIndexOf('.'));
+        String resPath = xmlFileName.replace("R.textures.", "src/main/resources/textures/").replace(".", "/")  + extension;
+        return new SimpleSprite(position, size, resPath);
+    }
 
 
     /**

@@ -13,14 +13,12 @@ public class Settings extends Preferences {
     public static final String KEY_ASPECT_RATIO = "aspect_ratio";
     public static final String KEY_FRAME_RATE = "frame_rate";
     public static final String KEY_WINDOW_WIDTH = "window_width";
-    public static final String KEY_WINDOW_FULL_SCREEN = "window_full_screen";
     //public static final String KEY_ = "";
 
     public static final int DEFAULT_TILE_WIDTH = 28; // tiles
     public static final float DEFAULT_ASPECT_RATIO = 9 / 16f; // height / width
     public static final int DEFAULT_FRAME_RATE = 60; // fps
     public static final int DEFAULT_WINDOW_WIDTH = 1280; // pixels
-    public static final boolean DEFAULT_WINDOW_FULL_SCREEN = true; // is full screen?
 
     private Controller controller;
 
@@ -40,7 +38,6 @@ public class Settings extends Preferences {
         data.put(Settings.KEY_ASPECT_RATIO, Settings.DEFAULT_ASPECT_RATIO);
         data.put(Settings.KEY_TILE_WIDTH, Settings.DEFAULT_TILE_WIDTH);
         data.put(Settings.KEY_WINDOW_WIDTH, Settings.DEFAULT_WINDOW_WIDTH);
-        data.put(Settings.KEY_WINDOW_FULL_SCREEN, Settings.DEFAULT_WINDOW_FULL_SCREEN);
         return data;
     }
 

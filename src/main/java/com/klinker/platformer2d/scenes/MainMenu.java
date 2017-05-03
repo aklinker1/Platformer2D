@@ -18,7 +18,7 @@ import java.util.LinkedList;
 public class MainMenu extends Menu {
 
     public MainMenu(Engine engine) {
-        super(engine);
+        super(engine, null);
     }
 
     @Override
@@ -29,17 +29,17 @@ public class MainMenu extends Menu {
     @Override
     protected void initializeViews(LinkedList<View> views, ViewNavigation navigation) {
         // region Root: View Creation
-        ViewGroup root = new ViewGroup(this, 0);
+        ViewGroup root = new ViewGroup(this);
         root.setPosition(0, 0, 0);
-        root.setSize(new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height)); {
-            View background = new View(this, 1)
-                    .setPosition(-PROJ_SIZE.width / 2f, -PROJ_SIZE.height / 2f, Depth.BACKGROUND_BACK)
-                    .setSize(new Size<Float>(PROJ_SIZE.width, PROJ_SIZE.height))
+        root.setSize(new Size<Float>(getCamera().getSize().width, getCamera().getSize().height)); {
+            View background = new View(this)
+                    .setPosition(-getCamera().getSize().width / 2f, -getCamera().getSize().height / 2f, Depth.BACKGROUND_BACK)
+                    .setSize(new Size<Float>(getCamera().getSize().width, getCamera().getSize().height))
                     .setBackground(R.textures.bg.MAIN_MENU);
             root.addView(background);
 
-            TextView version = new TextView(this, 2);
-            version.setPosition(PROJ_SIZE.width / 2f - 3f, -PROJ_SIZE.height / 2f + 2f, Depth.HUD)
+            TextView version = new TextView(this);
+            version.setPosition(getCamera().getSize().width / 2f - 3f, -getCamera().getSize().height / 2f + 2f, Depth.HUD)
                     .setSize(30, 6)
                     .setHorAlignment(TextView.Alignment.RIGHT)
                     .setVertAlignment(TextView.Alignment.BOTTOM);
@@ -50,7 +50,7 @@ public class MainMenu extends Menu {
                     .setInnerVertAlign(TextView.Alignment.BOTTOM);
             root.addView(version);
 
-            Button storyMode = new Button(this, 3);
+            Button storyMode = new Button(this);
             storyMode.setPosition(25f, 25f, Depth.HUD)
                     .setSize(35f, 8f);
             storyMode.setText(R.strings.STORY_MODE)
@@ -60,7 +60,7 @@ public class MainMenu extends Menu {
             });
             root.addView(storyMode);
 
-            Button muliplayer = new Button(this, 4);
+            Button muliplayer = new Button(this);
             muliplayer.setPosition(25, 9, Depth.HUD)
                     .setSize(35f, 8f);
             muliplayer.setText(R.strings.MULTIPLAYER)
@@ -70,7 +70,7 @@ public class MainMenu extends Menu {
             });
             root.addView(muliplayer);
 
-            Button settings = new Button(this, 5);
+            Button settings = new Button(this);
             settings.setPosition(25, -7, Depth.HUD)
                     .setSize(35f, 8f);
             settings.setText(R.strings.SETTINGS)
@@ -87,17 +87,17 @@ public class MainMenu extends Menu {
 
             // TODO: 3/26/2017 Add grid?
             if (true) {
-                View vertDivider = new View(this, 6)
+                View vertDivider = new View(this)
                         .setPosition(0, 0, Depth.BACKGROUND_FRONT)
-                        .setSize(0.2f, PROJ_SIZE.height)
+                        .setSize(0.2f, getCamera().getSize().height)
                         .setHorAlignment(View.Alignment.CENTER)
                         .setVertAlignment(View.Alignment.CENTER)
                         .setBackground(R.textures.bg.W03_00);
                 root.addView(vertDivider);
 
-                View horDivider = new View(this, 7)
+                View horDivider = new View(this)
                         .setPosition(0, 0, Depth.BACKGROUND_FRONT)
-                        .setSize(PROJ_SIZE.width, 0.2f)
+                        .setSize(getCamera().getSize().width, 0.2f)
                         .setHorAlignment(View.Alignment.CENTER)
                         .setVertAlignment(View.Alignment.CENTER)
                         .setBackground(R.textures.bg.W03_00);

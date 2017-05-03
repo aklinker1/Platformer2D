@@ -5,8 +5,6 @@ import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.gui.Scene;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.inputs.InputManager;
-import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.utils.ViewNavigation;
 import com.klinker.platformer2d.Platformer2D;
 
@@ -14,31 +12,21 @@ import java.util.LinkedList;
 
 public abstract class Menu extends Scene {
 
-    public static Size<Float> PROJ_SIZE = new Size<Float>(
-            100f * Platformer2D.tileCounts.ratioXoY(),
-            100f
-    );
-
-
     private LinkedList<View> viewGroups;
 
     private ViewNavigation navigation;
 
 
-    public Menu(Engine engine) {
-        super(engine);
-    }
-
-    @Override
-    public Camera initializeCamera() {
-        return new Camera(PROJ_SIZE, new Vector2f(PROJ_SIZE.width / 2f, PROJ_SIZE.height / 2f));
+    public Menu(Engine engine, String layoutRes) {
+        super(engine, layoutRes);
     }
 
     @Override
     public void init() {
+        super.init();
         viewGroups = new LinkedList<>();
         this.navigation = new ViewNavigation();
-        initializeViews(viewGroups, navigation);
+        //initializeViews(viewGroups, navigation);
         super.init();
 
     }

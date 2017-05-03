@@ -13,6 +13,7 @@ public class Camera {
     public static boolean SHOW_LAYER_CONTENTS = false;
 
     private Matrix4f projection;
+    private Vector2f origin;
     private Vector3f position;
     private Size<Float> size;
     private Layers layers;
@@ -35,6 +36,7 @@ public class Camera {
                 minDepth - 1, maxDepth
         );
         this.size = projectionSize;
+        this.origin = projectionOrigin;
         this.layers = new Layers(this);
     }
 
@@ -96,4 +98,8 @@ public class Camera {
         return minDepth;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Camera{ %s, %s}", size.toString(), origin.toString());
+    }
 }

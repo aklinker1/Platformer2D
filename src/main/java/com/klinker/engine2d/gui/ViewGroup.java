@@ -1,9 +1,13 @@
 package com.klinker.engine2d.gui;
 
+
 import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.utils.ViewNavigation;
+import org.xml.sax.Attributes;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+
 
 // TODO: 4/30/2017 Backgrounds don't show up properly
 public class ViewGroup extends View {
@@ -13,13 +17,22 @@ public class ViewGroup extends View {
     private boolean hasSubNavigation = false;
 
     public ViewGroup(Scene scene) {
-        this(scene, View.DEFAULT_ID);
+        this(scene, null);
     }
 
-    public ViewGroup(Scene scene, int id) {
-        super(scene, id);
+    public ViewGroup(Scene scene, Attributes attrs) {
+        super(scene, attrs);
         this.views = new LinkedList<>();
         this.subNavigation = new ViewNavigation();
+    }
+
+    @Override
+    protected void initAttrs(HashMap<String, String> attrs) {
+        super.initAttrs(attrs);
+
+        String sElevation = attrs.get("bg_elevation");
+        if (sElevation == null) getPosition().setLocalZ(0);
+        else getPosition().setLocalZ(Float.parseFloat(sElevation));
     }
 
     /**

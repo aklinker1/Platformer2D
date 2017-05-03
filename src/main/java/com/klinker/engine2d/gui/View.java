@@ -1,5 +1,6 @@
 package com.klinker.engine2d.gui;
 
+
 import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.Drawable;
 import com.klinker.engine2d.draw.SimpleSprite;
@@ -8,12 +9,12 @@ import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.platformer2d.Platformer2D;
+import org.xml.sax.Attributes;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import static com.klinker.engine2d.gui.View.State.DEFAULT;
 
 public class View implements Drawable {
 
@@ -73,16 +74,82 @@ public class View implements Drawable {
 
 
     // region Construction
-    public View(Scene scene, int id) {
+    public View(Scene scene, Attributes attrs) {
         this.scene = scene;
         this.id = id;
         this.position = new Vector3f();
         this.alignmentOffset = new Vector3f();
         this.alignmentOffset.setRelative(this.position);
+
+        if (attrs != null) {
+            HashMap<String, String> properties = new HashMap<>();
+            for (int i = 0; i < attrs.getLength(); i++)
+                properties.put(attrs.getQName(i), attrs.getValue(i));
+            initAttrs(properties);
+        }
     }
 
     public View(Scene scene) {
-        this(scene, DEFAULT_ID);
+        this(scene, null);
+    }
+
+    protected void initAttrs(HashMap<String, String> attrs) {
+        String sId = attrs.get("id");
+        if (sId == null) id = DEFAULT_ID;
+        else id = Integer.parseInt(sId);
+
+        position.setLocalX(Float.parseFloat(attrs.get("x_pos")));
+        position.setLocalY(Float.parseFloat(attrs.get("y_pos")));
+
+        String sElevation = attrs.get("elevation");
+        if (sElevation == null) position.setLocalZ(0);
+        else position.setLocalZ(Float.parseFloat(sElevation));
+
+        String sVisible = attrs.get("visible");
+        if (sVisible == null) isVisible = DEFAULT_VISIBILITY;
+        else isVisible = Boolean.parseBoolean(sVisible);
+
+        String sAlpha = attrs.get("alpha");
+        if (sAlpha == null) alpha = DEFAULT_ALPHA;
+        else alpha = Float.parseFloat(sAlpha);
+
+
+        String sWidth = attrs.get("width");
+        if (sWidth.equals("match")) {
+            size.width = 100f;
+        } else if (sWidth.equals("wrap")) {
+            size.width = 100f;
+        } else {
+            size.width = Float.parseFloat(sWidth);
+        }
+        String sHeight = attrs.get("height");
+        if (sHeight.equals("match")) {
+            size.height = 100f;
+        } else if (sHeight.equals("wrap")) {
+            size.height = 100f;
+        } else {
+            size.height = Float.parseFloat(sHeight);
+        }
+
+        String hAlign = attrs.get("x_align");
+        if (hAlign == null) {
+            hAlignment = DEFAULT_H_ALIGNMENT;
+        } else {
+            if (hAlign.equals("left")) hAlignment = Alignment.LEFT;
+            else if (hAlign.equals("center")) hAlignment = Alignment.CENTER;
+            else hAlignment = Alignment.RIGHT;
+            updateAlignmentHorOffset();
+        }
+
+        String vAlign = attrs.get("y_align");
+        if (vAlign == null) {
+            vAlignment = DEFAULT_V_ALIGNMENT;
+        } else {
+            if (vAlign.equals("top")) vAlignment = Alignment.TOP;
+            else if (vAlign.equals("center")) vAlignment = Alignment.CENTER;
+            else vAlignment = Alignment.BOTTOM;
+            updateAlignmentVertOffset();
+        }
     }
     // endregion
 
@@ -135,15 +202,25 @@ public class View implements Drawable {
     }
 
     public View setBackground(String textureRes) {
-        if (background == null) background = new StateObject<>(null);
-        background.put(DEFAULT, new SimpleSprite(alignmentOffset, size, textureRes));
-        background.get(DEFAULT).setAlpha(alpha);
-        return this;
+        return setBackground(State.DEFAULT, textureRes);
     }
 
     public View setBackground(State state, String textureRes) {
-        this.background.put(state, new SimpleSprite(alignmentOffset, size, textureRes));
+        return setBackground(state, new SimpleSprite(alignmentOffset, size, textureRes));
+    }
+
+    public View setBackground(State state, Sprite sprite) {
+        this.background.put(state, sprite);
         this.background.get(state).setAlpha(alpha);
+        return this;
+    }
+
+    public View setBackground(StateObject<Sprite> background) {
+        this.background.put(State.DEFAULT, background.get(State.DEFAULT));
+        this.background.put(State.SELECTED, background.get(State.SELECTED));
+        this.background.put(State.CLICKED, background.get(State.CLICKED));
+        this.background.put(State.CHECKED, background.get(State.CHECKED));
+        this.background.put(State.DISABLED, background.get(State.DISABLED));
         return this;
     }
 
@@ -223,6 +300,10 @@ public class View implements Drawable {
     public Vector3f getPosition() {
         return position;
     }
+
+    public Sprite getBackground() {
+        return background.get(state);
+    }
     // endregion
 
 
@@ -281,6 +362,10 @@ public class View implements Drawable {
         private HashMap<State, T> data;
         private T _default;
 
+        public StateObject() {
+            this(null);
+        }
+
         public StateObject(T _default) {
             this.data = new HashMap<State, T>(10);
             this._default = _default;
@@ -307,6 +392,37 @@ public class View implements Drawable {
 
         public void setDefault(T _default) {
             this._default = _default;
+        }
+
+        public static void setBackground(Attributes attributes, View view) {
+            Vector3f alignOffset = view.getAlignmentOffset();
+            Size<Float> size = view.getSize();
+            StateObject<Sprite> sprites = new StateObject<>();
+            for (int i = 0; i < attributes.getLength(); i++) {
+                String name = attributes.getQName(i);
+                String value = attributes.getValue(i);
+                State state = State.DEFAULT;
+                switch (name) {
+                    default:
+                    case "default":
+                        state = State.DEFAULT;
+                        break;
+                    case "selected":
+                        state = State.SELECTED;
+                        break;
+                    case "clicked":
+                        state = State.CLICKED;
+                        break;
+                    case "checked":
+                        state = State.CHECKED;
+                        break;
+                    case "disabled":
+                        state = State.DISABLED;
+                        break;
+                }
+                Sprite sprite = Sprite.from(value, state, alignOffset, size);
+                view.setBackground(state, sprite);
+            }
         }
 
         private class StateIterator implements Iterator<T> {

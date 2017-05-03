@@ -7,9 +7,9 @@ import com.klinker.engine2d.inputs.Controller;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
-import com.klinker.engine2d.utils.LayoutInflater;
+import com.klinker.engine2d.utils.Preferences;
 import com.klinker.platformer2d.scenes.Level;
-import com.klinker.platformer2d.scenes.SettingsMenu;
+import com.klinker.platformer2d.scenes.TestMenu;
 import com.klinker.platformer2d.utils.Settings;
 
 
@@ -19,42 +19,39 @@ public class Platformer2D extends Engine {
 
     public static Vector2f tileCounts;
 
-    private Settings settings;
-
     public static void main(String[] args) {
-        LayoutInflater.inflate(null, R.layouts.MAIN_MENU);
-
         Platformer2D platformer = new Platformer2D();
         platformer.setStyle(Style.SMOOTH);
-        platformer.setFullscreen(false);
         Sprite.showCollisions = false;
+        //platformer.setFullscreen(false);
         platformer.start();
     }
 
     public Platformer2D() {
-        settings = initializeSettings();
+        super();
         setInputManager(setUpInputManager());
 
-        if (true) setScene(new SettingsMenu(this));
+        if (true) setScene(new TestMenu(this));
         else setScene(new Level(this, R.levels.W02_LXX));
     }
 
     @Override
     protected void onFinish() {
         // Save settings
-        if (settings != null) settings.outputToFile(SETTINGS_PATH);
-     }
+        getSettings().outputToFile(SETTINGS_PATH);
+    }
 
-      @Override
-      public String getWindowTitle() {
+    @Override
+    public String getWindowTitle() {
         return R.strings.GAME_TITLE;
     }
 
-      private Settings initializeSettings() {
-          Settings settings = new Settings(SETTINGS_PATH);
+    @Override
+    protected Preferences initializePreferences() {
+        Settings settings = new Settings(SETTINGS_PATH);
 
-          // set the settings.
-         frameRate = settings.getInt(Settings.KEY_FRAME_RATE);
+        // set the settings.
+        frameRate = settings.getInt(Settings.KEY_FRAME_RATE);
         float aspectRatio = settings.getFloat(Settings.KEY_ASPECT_RATIO);
         int windowWidth = settings.getInt(Settings.KEY_WINDOW_WIDTH);
         //windowWidth = 1920;
@@ -65,8 +62,12 @@ public class Platformer2D extends Engine {
         return settings;
     }
 
+    public static Settings getSettings() {
+        return (Settings) getPreferences();
+    }
+
     private InputManager setUpInputManager() {
-        Controller controller = settings.getController();
+        Controller controller = getSettings().getController();
         return new InputManager(controller);
     }
 

@@ -1,13 +1,11 @@
 package com.klinker.platformer2d.scenes;
 
 import com.klinker.engine2d.Engine;
-import com.klinker.engine2d.draw.Camera;
 import com.klinker.engine2d.draw.SimpleSprite;
 import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.gui.ViewGroup;
 import com.klinker.engine2d.math.Size;
-import com.klinker.engine2d.math.Vector2f;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.engine2d.utils.ViewNavigation;
@@ -26,12 +24,7 @@ public class SettingsMenu extends Menu {
     );
 
     public SettingsMenu(Engine engine) {
-        super(engine);
-    }
-
-    @Override
-    public Camera initializeCamera() {
-        return new Camera(PROJ_SIZE, new Vector2f(0, PROJ_SIZE.height));
+        super(engine, null);
     }
 
     @Override
@@ -49,7 +42,7 @@ public class SettingsMenu extends Menu {
         // region Creating Tab Contents
         Vector3f tabContentPos = new Vector3f(554, -165, Depth.PLAYER);
         ViewGroup[] tabContents = new ViewGroup[tabStrings.length];
-        tabContents[1] =  new ControlsTab(this, 12);
+        tabContents[1] =  new ControlsTab(this);
         tabContents[1].setPosition(tabContentPos);
         for (ViewGroup tabContent : tabContents) {
             if (tabContent != null) views.add(tabContent);
@@ -57,17 +50,17 @@ public class SettingsMenu extends Menu {
         // endregion
 
         // region TabGroup: View Creation
-        ViewGroup tabGroup = new ViewGroup(this, 0);
+        ViewGroup tabGroup = new ViewGroup(this);
         tabGroup.setPosition(0, 0, 0)
                 .setSize(1194f, 77f);
 
-        View background = new View(this, 1)
+        View background = new View(this)
                 .setPosition(0, -PROJ_SIZE.height, Depth.BACKGROUND_BACK)
                 .setSize(PROJ_SIZE.width, PROJ_SIZE.height)
                 .setBackground(R.textures.bg.SETTINGS);
         tabGroup.addView(background);
 
-        View tabDivider = new View(this, 2)
+        View tabDivider = new View(this)
                 .setPosition(554f, -120f, Depth.BACKGROUND_MIDDLE)
                 .setSize(1194f, 4f)
                 .setBackground(R.textures.ui.DIVIDER_DARK)
@@ -79,7 +72,7 @@ public class SettingsMenu extends Menu {
         Size<Float> tabSize = new Size<Float>(221f, 77f);
         float startDistance = (tabDivider.getSize().width - tabs.length * tabSize.width) / 2f + tabDivider.getAlignmentOffset().globalX();
         for (int i = 0; i < tabs.length; i++) {
-            TextView tab = new TextView(this, i);
+            TextView tab = new TextView(this);
             tab.setPosition(startDistance + tabSize.width * i, -49, Depth.BACKGROUND_FRONT)
                     .setSize(tabSize)
                     .setHorAlignment(View.Alignment.LEFT)

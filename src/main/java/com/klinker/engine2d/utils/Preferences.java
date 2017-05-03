@@ -5,6 +5,9 @@ import java.util.HashMap;
 
 public abstract class Preferences {
 
+    public static final String KEY_WINDOW_FULL_SCREEN = "window_full_screen";
+    public static final boolean DEFAULT_WINDOW_FULL_SCREEN = true; // is full screen?
+
     private HashMap<String, Object> data = null;
 
 
@@ -83,6 +86,15 @@ public abstract class Preferences {
     public Object getObject(String key) {
         if (data == null) return null;
         else return data.get(key);
+    }
+
+    public boolean isFullscreen() {
+        if (data == null) return DEFAULT_WINDOW_FULL_SCREEN;
+        else return (boolean) data.get(KEY_WINDOW_FULL_SCREEN);
+    }
+
+    public void putIsFullscreen(boolean isFullscreen) {
+        this.data.put(KEY_WINDOW_FULL_SCREEN, isFullscreen);
     }
 
 

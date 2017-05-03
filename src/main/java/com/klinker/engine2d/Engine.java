@@ -7,6 +7,7 @@ import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.opengl.Texture;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.engine2d.utils.PerformanceAnalyzer;
+import com.klinker.engine2d.utils.Preferences;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
@@ -39,6 +40,8 @@ public abstract class Engine {
      * The input manager for handling input.
      */
     private static InputManager inputManager = null;
+
+    private static Preferences preferences;
 
     /**
      * An object for keeping track of the FPS.
@@ -78,13 +81,17 @@ public abstract class Engine {
         RETRO, SMOOTH
     }
 
+    public Engine() {
+        init();
+    }
+
 
     /**
-     * Starts the game thread.
+     * Starts the game.
      */
     protected void start() {
-        //this.thread = new Thread(this, "game");
-        //thread.start();
+        glfwSetKeyCallback(window, inputManager.getKeyboard());    // set callbacks for keyboard input
+        // if (inputManager.getController() == null) inputManager.getKeyboard().setup();
         this.analyzer = new PerformanceAnalyzer();
         run();
     }
@@ -95,7 +102,7 @@ public abstract class Engine {
      */
     public void run() {
         running = true;
-        init();
+        //init();
         analyzer.start(window);
         while (running) {
             sync(frameRate);
@@ -113,18 +120,22 @@ public abstract class Engine {
      * Initializes OpenGL and the window.
      */
     private void init() {
+        this.preferences = initializePreferences();
+
         if (!glfwInit()) {
             System.err.println("GLFW did not initialize.");
             return;
         }
 
-        // initializing the window, set OpenGL context to 3.2 and make it forward compatible.
+        // initializing the window, set OpenGL context to 3.3 and make it forward compatible.
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
+        isFullscreen = preferences.isFullscreen();
+        Log.d("Is fullscreen? " + isFullscreen);
         if (isFullscreen) {
             GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
             window = glfwCreateWindow(vidMode.width(), vidMode.height(), getWindowTitle(), glfwGetPrimaryMonitor(), NULL);
@@ -135,8 +146,6 @@ public abstract class Engine {
             Log.e("Error creating window");
             return;
         }
-        glfwSetKeyCallback(window, inputManager.getKeyboard());    // set callbacks for keyboard input
-        // if (inputManager.getController() == null) inputManager.getKeyboard().setup();
         Log.d("Arrows = Move\n[space] = Jump/Select\nX = Run/Back");
 
         glfwMakeContextCurrent(window);     // set OS focus to this window
@@ -153,11 +162,11 @@ public abstract class Engine {
         System.out.println("OpenGL: " + glGetString(GL_VERSION));
 
         // sets up the orthographic projection for the scene
-        if (scene != null) {
+        /*if (scene != null) {
             scene.init();
         } else {
             System.err.println("Scene is null, so shader's proj_matrix and tex cannot be set.");
-        }
+        }*/
     }
 
     /**
@@ -277,12 +286,28 @@ public abstract class Engine {
      */
     protected abstract void onFinish();
 
+    protected abstract Preferences initializePreferences();
+
+    protected static Preferences getPreferences() {
+        return preferences;
+    }
+
     /**
      * TODO: make it toggle-able, currently can only be called before {@link Engine#start()}
      * @param isFullscreen Whether or not the game is full screen.
      */
     public void setFullscreen(boolean isFullscreen) {
         this.isFullscreen = isFullscreen;
+        this.preferences.putIsFullscreen(isFullscreen);
+        long newWindow;
+        if (isFullscreen) {
+            GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());    // getting the primary monitors properties
+            newWindow = glfwCreateWindow(vidMode.width(), vidMode.height(), getWindowTitle(), glfwGetPrimaryMonitor(), NULL);
+        } else {
+            newWindow = glfwCreateWindow(windowSize.width, windowSize.height, getWindowTitle(), NULL, NULL);
+        }
+        glfwDestroyWindow(window);
+        window = newWindow;
     }
 
     public void setInputManager(InputManager manager) {

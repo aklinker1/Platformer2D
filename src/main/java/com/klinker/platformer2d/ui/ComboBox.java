@@ -21,15 +21,11 @@ public class ComboBox<T> extends ViewGroup {
 
     // region Construction
     public ComboBox(Scene scene, Size<Float> size) {
-        this(scene, View.DEFAULT_ID, size);
-    }
-
-    public ComboBox(Scene scene, int id, Size<Float> size) {
-        super(scene, id);
+        super(scene);
         setSize(size);
         options = null;
 
-        this.label = new TextView(getScene(), 43);
+        this.label = new TextView(getScene());
         this.label.setPosition(8, 0, 0)
                 .setSize(size);
         this.label.setTextSize(textSize)
@@ -37,7 +33,7 @@ public class ComboBox<T> extends ViewGroup {
                 .setInnerVertAlign(Alignment.CENTER);
         addView(this.label);
 
-        this.selection = new TextView(getScene(),44);
+        this.selection = new TextView(getScene());
         this.selection.setPosition(-30, 0, 0)
                 .setSize(size);
         this.selection.setText("Select an Option")
@@ -47,13 +43,13 @@ public class ComboBox<T> extends ViewGroup {
                 .setInnerHorAlign(Alignment.RIGHT);
         addView(this.selection);
 
-        this.underline = new View(getScene(), 45)
+        this.underline = new View(getScene())
                 .setPosition(0, 0, 0)
                 .setSize(size.width, 2f)
                 .setBackground(R.textures.ui.COMBO_BOX_UNDERLINE);
         addView(this.underline);
 
-        this.arrow = new View(getScene(), 41)
+        this.arrow = new View(getScene())
                 .setPosition(size.width - 8, size.height / 2, 0)
                 .setSize(14f, 14f)
                 .setBackground(R.textures.ui.COMBO_BOX_ARROW)

@@ -124,7 +124,7 @@ public class BuildResources {
         while (!queue.isEmpty()) {
             for (File file : queue.remove().listFiles()) {
                 if (file.isDirectory()) queue.add(file);
-                else files.add(file.getPath().replace("..\\src\\main\\resources\\textures", "@R.textures").replace("\\", "."));
+                else files.add(file.getPath().replace("..\\src\\main\\resources\\textures", "R.textures").replace("\\", "."));
             }
         }
         String replacment = "";

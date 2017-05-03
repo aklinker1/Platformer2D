@@ -1,5 +1,6 @@
 package com.klinker.engine2d.opengl;
 
+
 import com.klinker.engine2d.math.Matrix4f;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.utils.ShaderUtils;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.lwjgl.opengl.GL20.*;
+
 
 /**
  * Shaders are the tapestry of the windows, they're what gets painted on. Vertices define the shape of

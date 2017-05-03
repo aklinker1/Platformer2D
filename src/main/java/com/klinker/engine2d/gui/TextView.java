@@ -6,6 +6,7 @@ import com.klinker.engine2d.draw.WrapWidthSprite;
 import com.klinker.engine2d.math.Vector3f;
 import com.klinker.engine2d.opengl.Shader;
 import com.klinker.platformer2d.R;
+import org.xml.sax.Attributes;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -41,11 +42,11 @@ public class TextView extends View {
 
     // region Construction
     public TextView(Scene scene) {
-        this(scene, View.DEFAULT_ID);
+        this(scene, null);
     }
 
-    public TextView(Scene scene, int id) {
-        super(scene, id);
+    public TextView(Scene scene, Attributes attrs) {
+        super(scene, attrs);
     }
     // endregion
 

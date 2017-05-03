@@ -1,14 +1,16 @@
 package com.klinker.engine2d.gui;
 
 
+import org.xml.sax.Attributes;
+
 public class Button extends TextView {
 
     public Button(Scene scene) {
-        this(scene, View.DEFAULT_ID);
+        this(scene, null);
     }
 
-    public Button(Scene scene, int id) {
-        super(scene, id);
+    public Button(Scene scene, Attributes attrs) {
+        super(scene, attrs);
         setInnerHorAlign(Alignment.CENTER);
         setInnerVertAlign(Alignment.CENTER);
         setHorAlignment(Alignment.LEFT);
