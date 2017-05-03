@@ -1,11 +1,13 @@
 import java.io.*;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 /**
  * Builds a R.java file full of stuff in your resource dir. Modify
  */
 public class BuildResources {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         new BuildResources("src/main/resources", "com.klinker.platformer2d").build();
     }
 
@@ -14,11 +16,14 @@ public class BuildResources {
     private String resDir;
     private File javaFile;
 
-    private BuildResources(String resDir, String packageName) {
+    private BuildResources(String resDir, String packageName) throws Exception {
         this.packageName = packageName;
         this.resDir = resDir;
+
+        buildXml();
     }
 
+    // region Build R.java
     private void build() throws IOException {
         // setup the java file
         javaFile = new File("../src/main/java/" + packageName.replace('.', '/'), "R.java");
@@ -101,5 +106,42 @@ public class BuildResources {
         }
         return body + "    }\n";
     }
+    // endregion
+
+
+    // region Building XML
+    private void buildXml() throws Exception {
+        File template = new File("../src/main/resources/layouts", "template.xsd");
+        File output = new File("../src/main/resources/layouts", "layout-definition.xsd");
+
+        Scanner scanner = new Scanner(template);
+        String templateData = "";
+        while (scanner.hasNextLine()) templateData += scanner.nextLine() + '\n';
+
+        LinkedList<String> files = new LinkedList<>();
+        LinkedList<File> queue = new LinkedList<>();
+        queue.add(new File("../src/main/resources/textures"));
+        while (!queue.isEmpty()) {
+            for (File file : queue.remove().listFiles()) {
+                if (file.isDirectory()) queue.add(file);
+                else files.add(file.getPath().replace("..\\src\\main\\resources\\textures", "@R.textures").replace("\\", "."));
+            }
+        }
+        String replacment = "";
+        int i = 0;
+        for (String s : files) {
+            replacment += "            <xs:enumeration value=\"" + s + "\"/>";
+            if (i != files.size() - 1) replacment += '\n';
+            i++;
+        }
+        String fileOutput = templateData.replace("<!--##########-->", replacment);
+
+        FileWriter fWriter = new FileWriter(output);
+        BufferedWriter writer = new BufferedWriter(fWriter);
+        writer.write(fileOutput);
+        writer.close();
+        fWriter.close();
+    }
+    // endregion
 
 }

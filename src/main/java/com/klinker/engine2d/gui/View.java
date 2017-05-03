@@ -67,7 +67,7 @@ public class View implements Drawable {
     }
 
     public enum State {
-        DEFAULT, SELECTED, CLICKED, DISABLED
+        DEFAULT, SELECTED, CLICKED, DISABLED, CHECKED
     }
     // endregion
 

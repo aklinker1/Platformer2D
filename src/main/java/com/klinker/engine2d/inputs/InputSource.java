@@ -6,5 +6,6 @@ public interface InputSource {
     void update();
     boolean isPressed(int button);
     boolean isClicked(int button);
+    String getName();
 
 }

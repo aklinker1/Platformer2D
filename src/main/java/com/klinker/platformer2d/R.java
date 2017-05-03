@@ -9,6 +9,11 @@ public class R {
     public static class fonts {
         public static final String ROBOTO = "src/main/resources/fonts/roboto";
     }
+    public static class layouts {
+        public static final String LAYOUT_DEFINITION = "src/main/resources/layouts/layout-definition.xsd";
+        public static final String MAIN_MENU = "src/main/resources/layouts/main_menu.xml";
+        public static final String TEMPLATE = "src/main/resources/layouts/template.xsd";
+    }
     public static class levels {
         public static final String LEVEL_DESIGN = "src/main/resources/levels/level-design.txt";
         public static final String W02_LXX = "src/main/resources/levels/w02-lxx.lvl";

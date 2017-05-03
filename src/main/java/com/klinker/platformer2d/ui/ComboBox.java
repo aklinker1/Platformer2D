@@ -8,22 +8,16 @@ import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.utils.Log;
 import com.klinker.platformer2d.R;
 
-import java.util.ArrayList;
-
-public class ComboBox<T extends ComboBox.Option> extends ViewGroup {
+public class ComboBox<T> extends ViewGroup {
 
     private TextView label;
     private TextView selection;
     private View underline;
     private View arrow;
-    private ArrayList<T> options;
+    private ComboOptions<T> options;
     private float textSize = 25;
     private int selectedOption = 0;
 
-
-    public interface Option {
-        String getOptionName();
-    }
 
     // region Construction
     public ComboBox(Scene scene, Size<Float> size) {
@@ -33,7 +27,7 @@ public class ComboBox<T extends ComboBox.Option> extends ViewGroup {
     public ComboBox(Scene scene, int id, Size<Float> size) {
         super(scene, id);
         setSize(size);
-        options = new ArrayList<>();
+        options = null;
 
         this.label = new TextView(getScene(), 43);
         this.label.setPosition(8, 0, 0)
@@ -114,11 +108,31 @@ public class ComboBox<T extends ComboBox.Option> extends ViewGroup {
         return this;
     }
 
-    public ComboBox setOptions(ArrayList<T> options, int _default) {
+    public ComboBox setOptions(ComboOptions<T> options, int _default) {
         this.options = options;
         this.selectedOption = _default;
-        selection.setText(options.get(_default).getOptionName());
+        selection.setText(options.getLabel(_default));
         return this;
+    }
+
+    public static class ComboOptions<T> {
+
+        private String[] labels;
+        private T[] options;
+
+        public ComboOptions(String[] labels, T[] options) {
+            this.labels = labels;
+            this.options = options;
+        }
+
+        public T getOption(int index) {
+            return options[index];
+        }
+
+        public String getLabel(int index) {
+            return labels[index];
+        }
+
     }
 
 }

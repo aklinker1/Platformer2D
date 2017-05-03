@@ -7,6 +7,7 @@ import com.klinker.engine2d.inputs.Controller;
 import com.klinker.engine2d.inputs.InputManager;
 import com.klinker.engine2d.math.Size;
 import com.klinker.engine2d.math.Vector2f;
+import com.klinker.engine2d.utils.LayoutInflater;
 import com.klinker.platformer2d.scenes.Level;
 import com.klinker.platformer2d.scenes.SettingsMenu;
 import com.klinker.platformer2d.utils.Settings;
@@ -21,6 +22,8 @@ public class Platformer2D extends Engine {
     private Settings settings;
 
     public static void main(String[] args) {
+        LayoutInflater.inflate(null, R.layouts.MAIN_MENU);
+
         Platformer2D platformer = new Platformer2D();
         platformer.setStyle(Style.SMOOTH);
         platformer.setFullscreen(false);

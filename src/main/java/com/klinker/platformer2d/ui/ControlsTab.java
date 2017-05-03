@@ -4,6 +4,8 @@ import com.klinker.engine2d.gui.Scene;
 import com.klinker.engine2d.gui.TextView;
 import com.klinker.engine2d.gui.View;
 import com.klinker.engine2d.gui.ViewGroup;
+import com.klinker.engine2d.inputs.InputManager;
+import com.klinker.engine2d.inputs.InputSource;
 import com.klinker.engine2d.math.Size;
 import com.klinker.platformer2d.R;
 
@@ -40,10 +42,15 @@ public class ControlsTab extends ViewGroup {
                 .setAlpha(0.5f);
         addView(subtitle);
 
-        ComboBox inputDevice = new ComboBox(getScene(), 47, new Size<Float>(size.width / 2f, 40f));
+        InputSource[] options = InputManager.getControllers(true);
+        String[] labels = new String[options.length];
+        for (int i = 0; i < labels.length; i++) labels[i] = options[i].getName();
+        ComboBox.ComboOptions<InputSource> inputOptions = new ComboBox.ComboOptions<>(labels, options);
+        ComboBox<InputSource> inputDevice = new ComboBox<>(getScene(), 47, new Size<Float>(size.width / 2f, 40f));
         inputDevice.setPosition(size.width / 2f, size.height - 22, 0)
                 .setVertAlignment(Alignment.TOP);
         inputDevice.setLabelText(R.strings.SETTINGS_TAB_CONTROLS_INPUT_DEVICE)
+                .setOptions(inputOptions, 0)
                 .setTextSize(30);
         addView(inputDevice);
 

@@ -147,4 +147,13 @@ public class Controller implements InputSource {
         this.components = components;
     }
 
+    @Override
+    public String getName() {
+        return controller.getName();
+    }
+
+    @Override
+    public String toString() {
+        return controller.getName() + "(" + controller.getType() + ")";
+    }
 }

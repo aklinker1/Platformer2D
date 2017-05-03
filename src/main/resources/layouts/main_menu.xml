@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<Scene
+    xmlns:view="http://www.w3.org/2001/XMLSchema-instance"
+    view:noNamespaceSchemaLocation="layout-definition.xsd"
+    projection_width="1920"
+    projection_height="1080"
+    projection_origin_x="left"
+    projection_origin_y="bottom">
+
+    <View id="1"
+        width="match"
+        height="match"
+        elevation="0"
+        x_pos="0"
+        y_pos="0">
+        <background/>
+    </View>
+
+</Scene>

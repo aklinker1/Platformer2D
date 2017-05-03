@@ -88,6 +88,11 @@ public class Keyboard extends GLFWKeyCallback implements InputSource {
         GLFW.glfwPollEvents();
     }
 
+    @Override
+    public String getName() {
+        return "Keyboard";
+    }
+
     public int waitForInput(String forWhat) {
         System.out.print(forWhat + "... ");
         int key = -1;
